@@ -23,13 +23,25 @@ http.interceptors.response.use(
     },
     async (error) => {
         const originalRequest = error.config;
-        if (error.response.status === 401) {
-            const data = await authService.refresh();
-            localStorageService.setTokens({
-                refreshToken: data.refresh_token,
-                idToken: data.id_token
-            });
+        if (
+            error.response.status === 401 &&
+            error.config &&
+            !error.config._isRetry
+        ) {
+            originalRequest._isRetry = true;
+            try {
+                const data = await authService.refresh();
+                localStorageService.setTokens({
+                    refreshToken: data.refresh_token,
+                    accessToken: data.access_token,
+                    userId: data.userId
+                });
+                return http.request(originalRequest);
+            } catch (error) {
+                console.log("Not authorized");
+            }
         }
+        throw error;
     }
 );
 
