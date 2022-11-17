@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAccessToken } from "../services/localStorage.service";
+import localStorageService from "../services/localStorage.service";
 
 export const API_URL = "http://localhost:5050/api/"; // потом поменяем на настоящий
 
@@ -7,8 +7,14 @@ const http = axios.create({
     baseURL: API_URL
 });
 
-http.interceptors.request.use((config) => {
-    const accessToken = getAccessToken();
+http.interceptors.request.use(async (config) => {
+    const expiresDate = localStorageService.getTokenExpiresDate();
+    const refreshToken = localStorageService.getRefreshToken();
+    const isExpired = refreshToken && expiresDate < Date.now();
+
+    // пока непонятно, будет ли дата истечения жизни токена
+
+    const accessToken = localStorageService.getAccessToken();
     if (accessToken) {
         config.headers = {
             ...config.headers,
