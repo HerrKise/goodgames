@@ -3,8 +3,8 @@ import http from "../http";
 
 const passwordRecoveryService = {
     reset: async (password) => {
-        const { userId } = useParams();
-        const { data } = await http.post("reset", { userId, password });
+        const { code } = useParams();
+        const { data } = await http.post("reset", { password, code });
         return data;
     }
 };

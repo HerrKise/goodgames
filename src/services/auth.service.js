@@ -11,8 +11,13 @@ const authService = {
         });
         return data;
     },
-    register: async (payload) => {
-        const { data } = await http.post(authEndpoint + "register", payload);
+    register: async (email, pubgId, password, login) => {
+        const { data } = await http.post(authEndpoint + "register", {
+            email,
+            pubgId,
+            password,
+            login
+        });
         return data;
     },
     refresh: async () => {
