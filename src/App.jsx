@@ -1,5 +1,12 @@
+import {Routes, Route} from "react-router";
+import Registration from "./pages/Registration";
+
 function App() {
-    return <div className="App">Test</div>;
+    return (
+        <Routes>
+            <Route path="/reg" element={<Registration />}></Route>
+        </Routes>
+    )
 }
 
 export default App;
