@@ -30,9 +30,25 @@ export const userSlice = createSlice({
             } catch (error) {
                 console.log(e.responce?.data?.message);
             }
+        },
+        register: async (state, action) => {
+            try {
+                const responce = await authService.register(action.payload);
+                localStorage.setItem(responce.data.tokens); // пусть пока токены будут в таком объекте
+                state.entities = responce.data.user;
+                state.isLoading = false;
+            } catch (error) {
+                console.log(e.responce?.data?.message);
+            }
+        },
+        logout: (state, action) => {
+            state.entities = null;
+            state.auth = null;
+            state.isLoading = false;
+            localStorageService.removeAuthData();
         }
     }
 });
 
 export const { reducer: userReducer, actions } = userSlice;
-export const {} = actions;
+export const { login, register, logout } = actions;

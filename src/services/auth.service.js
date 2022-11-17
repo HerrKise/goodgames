@@ -8,10 +8,10 @@ const authService = {
     },
     register: async (payload) => {
         return http.post(authEndpoint + "register", payload);
-    },
+    } /* ,
     logout: async () => {
         return http.post(authEndpoint + "logout");
-    }
+    } */
 };
 
 export default authService;
