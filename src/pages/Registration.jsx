@@ -30,14 +30,15 @@ export default function Registration() {
         changeEmail(e.target.value)
     }
 
-    const handleSubmit = () => {
-        useDispatch(register({login, pubgId, password, email}))
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        useDispatch(register({email, pubgId, password, login}))
     }
 
     return(
         <section className="w-[100%] bg-black">
             <div className="w-[1024px] mx-auto h-[900px] flex flex-col justify-center items-center">
-                <form className="bg-[#161823] w-[500px] h-[600px] py-[30px] px-[20px] rounded-[20px]">
+                <form className="bg-[#161823] w-[500px] h-[600px] py-[30px] px-[20px] rounded-[20px]" onSubmit={handleSubmit}>
                     <div className="flex flex-col justify-center items-center border-b-[1px] border-gray-400 pb-[10px]">
                         <h2 className="text-white">
                             Добро пожаловать на Good Games!
@@ -118,13 +119,13 @@ export default function Registration() {
                     </div>
                     <div className="flex justify-between items-center">
                         <div className="flex w-[250px] items-center justify-between">
-                            <input type="checkbox" required />
+                            <input type="checkbox" />
                             <label className="text-gray-500 ml-[20px]">
                                 Я подтверждаю, что согласен с пользовательским
                                 соглашением и политикой конфиденциальности
                             </label>
                         </div>
-                        <button className="bg-amber-500 w-[150px] h-[50px] rounded-[10px]">
+                        <button className="bg-amber-500 w-[150px] h-[50px] rounded-[10px]" type="submit">
                             Готово!
                         </button>
                     </div>
