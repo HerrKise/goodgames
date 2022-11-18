@@ -1,29 +1,22 @@
 import http from "../http";
 import localStorageService from "./localStorage.service";
 
-const authEndpoint = "authenticate/";
+const authEndpoint = "/Authenticate";
 
 const authService = {
-    login: async (email, password) => {
-        const { data } = await http.post(authEndpoint + "login", {
-            email,
-            password
-        });
+    login: async (payload) => {
+        const { data } = await http.post(authEndpoint + "/Login", payload);
         return data;
     },
-    register: async (email, pubgId, password, login) => {
-        const { data } = await http.post(authEndpoint + "register", {
-            email,
-            pubgId,
-            password,
-            login
-        });
+    register: async (payload) => {
+        const { data } = await http.post(authEndpoint + "/Register", payload);
+        console.log(data);
         return data;
     },
     refresh: async () => {
-        const { data } = await http.post("token", {
-            grant_type: "refresh_token",
-            refresh_token: localStorageService.getRefreshToken()
+        const { data } = await http.post(authEndpoint + "/RefreshToken", {
+            accessToken: localStorageService.getAccessToken(),
+            refreshToken: localStorageService.getRefreshToken()
         });
         return data;
     }

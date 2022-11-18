@@ -12,8 +12,8 @@ function App() {
         <Routes>
             <Route path="/staff" element={<ProtectedRoute />}>
                 <Route path="/staff" element={<StaffPage />}>
-                    <Route path="/login" element={<StaffLogin />} />
-                    <Route path="/reg" element={<StaffRegistration />} />
+                    <Route path="/staff/login" element={<StaffLogin />} />
+                    <Route path="/staff/reg" element={<StaffRegistration />} />
                 </Route>
             </Route>
             <Route path="/reg" element={<Registration />}></Route>
