@@ -42,7 +42,7 @@ export default function Registration() {
                 login: login,
                 password: password,
                 confirmPassword: passwordR,
-                nickname: "test",
+                nickname: nickname,
                 pubgId: pubgId
             })
         );
