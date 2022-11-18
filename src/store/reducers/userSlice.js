@@ -21,9 +21,8 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         login: async (state, action) => {
-            const { email, password } = action.payload;
             try {
-                const responce = await authService.login(email, password);
+                const responce = await authService.login(action.payload);
                 localStorage.setItem(responce.data.tokens); // пусть пока токены будут в таком объекте
                 state.entities = responce.data.user;
                 state.isLoading = false;
@@ -32,15 +31,10 @@ export const userSlice = createSlice({
             }
         },
         register: async (state, action) => {
-            const { email, pubgId, password, login } = action.payload;
             try {
-                const responce = await authService.register(
-                    email,
-                    pubgId,
-                    password,
-                    login
-                );
-                localStorage.setItem(responce.data.tokens); // пусть пока токены будут в таком объекте
+                const responce = await authService.register(action.payload);
+                console.log(responce);
+                localStorage.setItem(responce.data?.tokens); // пусть пока токены будут в таком объекте
                 state.entities = responce.data.user;
                 state.isLoading = false;
             } catch (error) {

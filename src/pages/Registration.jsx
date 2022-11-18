@@ -1,44 +1,60 @@
 import React from "react";
-import {useDispatch} from "react-redux";
-import {register} from "../store/reducers/userSlice.js";
+import { useDispatch } from "react-redux";
+import { register } from "../store/reducers/userSlice.js";
 
 export default function Registration() {
-
     const [login, changeLogin] = React.useState("");
     const [pubgId, changePubgId] = React.useState("");
     const [password, changePassword] = React.useState("");
     const [passwordR, changePasswordR] = React.useState("");
     const [email, changeEmail] = React.useState("");
+    const [nickname, changeNickname] = React.useState("");
 
     const handleLoginChange = (e) => {
-        changeLogin(e.target.value)
-    }
+        changeLogin(e.target.value);
+    };
 
     const handlePubgIdChange = (e) => {
-        changePubgId(e.target.value)
-    }
+        changePubgId(e.target.value);
+    };
 
     const handlePasswordChange = (e) => {
-        changePassword(e.target.value)
-    }
+        changePassword(e.target.value);
+    };
 
     const handlePasswordRChange = (e) => {
-        changePasswordR(e.target.value)
-    }
+        changePasswordR(e.target.value);
+    };
 
     const handleEmailChange = (e) => {
-        changeEmail(e.target.value)
-    }
+        changeEmail(e.target.value);
+    };
+
+    const handleNicknameChange = (e) => {
+        changeNickname(e.target.value);
+    };
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        useDispatch(register({email, pubgId, password, login}))
-    }
+        e.preventDefault();
+        useDispatch(
+            register({
+                email: email,
+                login: login,
+                password: password,
+                confirmPassword: passwordR,
+                nickname: "test",
+                pubgId: pubgId
+            })
+        );
+    };
 
-    return(
+    return (
         <section className="w-[100%] bg-black">
             <div className="w-[1024px] mx-auto h-[900px] flex flex-col justify-center items-center">
-                <form className="bg-[#161823] w-[500px] h-[600px] py-[30px] px-[20px] rounded-[20px]" onSubmit={handleSubmit}>
+                <form
+                    className="bg-[#161823] w-[500px] h-[600px] py-[30px] px-[20px] rounded-[20px]"
+                    onSubmit={handleSubmit}
+                >
                     <div className="flex flex-col justify-center items-center border-b-[1px] border-gray-400 pb-[10px]">
                         <h2 className="text-white">
                             Добро пожаловать на Good Games!
@@ -116,6 +132,20 @@ export default function Registration() {
                                 className="border-[1px] w-[200px] border-[#9e9e9e] rounded-[5px] text-[16px] h-[40px] px-[20px] bg-gray-600"
                             />
                         </div>
+                        <div className="flex justify-between w-[80%] items-center">
+                            <label className="text-gray-500">Nickname</label>
+                            <input
+                                type="text"
+                                id="nickname"
+                                name="nickname"
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                placeholder=""
+                                value={nickname}
+                                onChange={handleNicknameChange}
+                                required
+                                className="border-[1px] w-[200px] border-[#9e9e9e] rounded-[5px] text-[16px] h-[40px] px-[20px] bg-gray-600"
+                            />
+                        </div>
                     </div>
                     <div className="flex justify-between items-center">
                         <div className="flex w-[250px] items-center justify-between">
@@ -125,7 +155,10 @@ export default function Registration() {
                                 соглашением и политикой конфиденциальности
                             </label>
                         </div>
-                        <button className="bg-amber-500 w-[150px] h-[50px] rounded-[10px]" type="submit">
+                        <button
+                            className="bg-amber-500 w-[150px] h-[50px] rounded-[10px]"
+                            type="submit"
+                        >
                             Готово!
                         </button>
                     </div>
