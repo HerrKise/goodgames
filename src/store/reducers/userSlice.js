@@ -32,8 +32,14 @@ export const userSlice = createSlice({
             }
         },
         register: async (state, action) => {
+            const { email, pubgId, password, login } = action.payload;
             try {
-                const responce = await authService.register(action.payload);
+                const responce = await authService.register(
+                    email,
+                    pubgId,
+                    password,
+                    login
+                );
                 localStorage.setItem(responce.data.tokens); // пусть пока токены будут в таком объекте
                 state.entities = responce.data.user;
                 state.isLoading = false;
