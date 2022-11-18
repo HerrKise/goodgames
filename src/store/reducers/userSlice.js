@@ -26,18 +26,7 @@ export const userSlice = createSlice({
                 localStorage.setItem(responce.data.tokens); // пусть пока токены будут в таком объекте
                 state.entities = responce.data.user;
                 state.isLoading = false;
-            } catch (error) {
-                console.log(e.responce?.data?.message);
-            }
-        },
-        register: async (state, action) => {
-            try {
-                const responce = await authService.register(action.payload);
-                console.log(responce);
-                localStorage.setItem(responce.data?.tokens); // пусть пока токены будут в таком объекте
-                state.entities = responce.data.user;
-                state.isLoading = false;
-            } catch (error) {
+            } catch (e) {
                 console.log(e.responce?.data?.message);
             }
         },
@@ -51,4 +40,16 @@ export const userSlice = createSlice({
 });
 
 export const { reducer: userReducer, actions } = userSlice;
-export const { login, register, logout } = actions;
+export const { login, logout } = actions;
+
+export const register = (payload) => async (dispatch) => {
+    try {
+        const responce = await authService.register(payload);
+        console.log(responce);
+        localStorage.setItem(responce.data?.tokens); // пусть пока токены будут в таком объекте
+        /* state.entities = responce.data.user;
+        state.isLoading = false; */
+    } catch (e) {
+        console.log(e.responce?.data?.message);
+    }
+};
