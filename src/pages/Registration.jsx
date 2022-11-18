@@ -1,14 +1,16 @@
-import React from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { register } from "../store/reducers/userSlice.js";
 
 export default function Registration() {
-    const [login, changeLogin] = React.useState("");
-    const [pubgId, changePubgId] = React.useState("");
-    const [password, changePassword] = React.useState("");
-    const [passwordR, changePasswordR] = React.useState("");
-    const [email, changeEmail] = React.useState("");
-    const [nickname, changeNickname] = React.useState("");
+    const [login, changeLogin] = useState("");
+    const [pubgId, changePubgId] = useState("");
+    const [password, changePassword] = useState("");
+    const [passwordR, changePasswordR] = useState("");
+    const [email, changeEmail] = useState("");
+    const [nickname, changeNickname] = useState("");
+
+    const dispatch = useDispatch();
 
     const handleLoginChange = (e) => {
         changeLogin(e.target.value);
@@ -36,7 +38,7 @@ export default function Registration() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        useDispatch(
+        dispatch(
             register({
                 email: email,
                 login: login,
@@ -138,7 +140,6 @@ export default function Registration() {
                                 type="text"
                                 id="nickname"
                                 name="nickname"
-                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                 placeholder=""
                                 value={nickname}
                                 onChange={handleNicknameChange}

@@ -2,7 +2,7 @@ import axios from "axios";
 import authService from "../services/auth.service";
 import localStorageService from "../services/localStorage.service";
 
-export const API_URL = "http://localhost:5050/api/"; // потом поменяем на настоящий
+export const API_URL = "http://176.99.11.245/api/"; // потом поменяем на настоящий
 
 const http = axios.create({
     baseURL: API_URL
