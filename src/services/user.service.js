@@ -18,6 +18,13 @@ const userService = {
             payload
         );
         return data;
+    },
+    updateProfilePicture: async (payload) => {
+        const { data } = await http.post(
+            userEndpoint + "/UpdateProfilePicture",
+            payload
+        );
+        return data;
     }
 };
 

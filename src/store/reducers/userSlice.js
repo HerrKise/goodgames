@@ -68,12 +68,16 @@ export const {
 } = actions;
 
 const editUserProfileRequested = createAction("user/editUserProfileRequested");
-const editUserProfileFailed = createAction("users/editUserProfileFailed");
-const editUserProfileSuccess = createAction("users/editUserProfileSuccess");
+const editUserProfileFailed = createAction("user/editUserProfileFailed");
+const editUserProfileSuccess = createAction("user/editUserProfileSuccess");
 
 const updatePasswordRequested = createAction("user/updatePasswordRequested");
-const updatePasswordFailed = createAction("users/updatePasswordFailed");
-const updatePasswordSuccess = createAction("users/updatePasswordSuccess");
+const updatePasswordFailed = createAction("user/updatePasswordFailed");
+const updatePasswordSuccess = createAction("user/updatePasswordSuccess");
+
+const updatePictureRequested = createAction("user/updatePictureRequested");
+const updatePictureFailed = createAction("user/updatePictureFailed");
+const updatePictureSuccess = createAction("user/updatePictureSuccess");
 
 export const signIn = (payload) => async (dispatch) => {
     dispatch(authRequested());
@@ -135,6 +139,17 @@ export const updatePassword = (payload) => async (dispatch) => {
     } catch (e) {
         console.log(e);
         dispatch(updatePasswordFailed());
+    }
+};
+
+export const updatePicture = (payload) => async (dispatch) => {
+    dispatch(updatePictureRequested());
+    try {
+        const data = await userService.updateProfilePicture(payload);
+        dispatch(updatePictureSuccess());
+    } catch (e) {
+        console.log(e);
+        dispatch(updatePictureFailed());
     }
 };
 
