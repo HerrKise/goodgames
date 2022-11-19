@@ -31,10 +31,7 @@ export const Profile = () => {
                             <p>дней</p>
                         </div>
                     </div>
-                    <div className="flex justify-between">
-                        <p>Баланс {"roubles"}</p>
-                        <NavLink to="/payment">Управлять</NavLink>
-                    </div>
+
 
                 </div>
 
