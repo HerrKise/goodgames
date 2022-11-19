@@ -1,9 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { useNavigate } from "react-router";
+import { createSlice, createAction } from "@reduxjs/toolkit";
 import authService from "../../services/auth.service";
 import localStorageService from "../../services/localStorage.service";
 import userService from "../../services/user.service";
-
 
 const initialState = localStorageService.getAccessToken()
     ? {
@@ -42,6 +40,7 @@ export const userSlice = createSlice({
         authRequestSuccess: (state, action) => {
             //тут возможно понадобиться еще через пейлоад передавать юзерайди, который надо будет отдельно полкчить по пост запросу
             state.isLoggedIn = true;
+            state.isLoading = false;
         },
         authRequestFailed: (state, action) => {
             state.error = action.payload;
@@ -66,6 +65,14 @@ export const {
     usersRequestFailed
 } = actions;
 
+const editUserProfileRequested = createAction("user/editUserProfileRequested");
+const editUserProfileFailed = createAction("users/editUserProfileFailed");
+const editUserProfileSuccess = createAction("users/editUserProfileSuccess");
+
+const updatePasswordRequested = createAction("user/updatePasswordRequested");
+const updatePasswordFailed = createAction("users/updatePasswordFailed");
+const updatePasswordSuccess = createAction("users/updatePasswordSuccess");
+
 export const signIn = (payload) => async (dispatch) => {
     dispatch(authRequested());
     try {
@@ -73,14 +80,6 @@ export const signIn = (payload) => async (dispatch) => {
         localStorageService.setTokens(refreshToken, accessToken);
         const { userId } = await authService.getUserId();
         localStorageService.setUserId(userId);
-
-        // работает норм
-        /* const data = await userService.getProfile({ userId: userId });
-        console.log(data); */
-
-        // пусть пока токены будут в таком объекте
-        /* state.entities = responce.data.user;
-        state.isLoading = false; */
         dispatch(authRequestSuccess());
     } catch (e) {
         console.log(e);
@@ -97,9 +96,6 @@ export const register = (payload) => async (dispatch) => {
         const { userId } = await authService.getUserId();
         localStorageService.setUserId(userId);
         dispatch(authRequestSuccess());
-        // пусть пока токены будут в таком объекте
-        /* state.entities = responce.data.user;
-        state.isLoading = false; */
     } catch (e) {
         console.log(e);
         dispatch(authRequestFailed(e.response.data.errors));
@@ -117,3 +113,28 @@ export const loadUserProfile = (payload) => async (dispatch) => {
         dispatch(usersRequestFailed(e.response.data.errors));
     }
 };
+
+export const editUserProfile = (payload) => async (dispatch) => {
+    dispatch(editUserProfileRequested());
+    try {
+        const data = await userService.editProfile(payload);
+        dispatch(editUserProfileSuccess());
+    } catch (e) {
+        console.log(e);
+        dispatch(editUserProfileFailed());
+    }
+};
+
+export const updatePassword = (payload) => async (dispatch) => {
+    dispatch(updatePasswordRequested());
+    try {
+        const data = await userService.updatePassword(payload);
+        dispatch(updatePasswordSuccess());
+    } catch (e) {
+        console.log(e);
+        dispatch(updatePasswordFailed());
+    }
+};
+
+export const getUserProfileData = () => (state) => state.user.entities;
+export const getUserLoadingStatus = () => (state) => state.user.isLoading;

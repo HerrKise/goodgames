@@ -1,3 +1,4 @@
+
 import {NavLink} from "react-router-dom";
 import localStorageService from "../services/localStorage.service.js";
 import {useDispatch, useSelector} from "react-redux";
@@ -25,12 +26,17 @@ export const Profile = () => {
                     <h2 className="mt-[30px] text-[30px]">Профиль</h2>
                     <div className="flex  justify-evenly items-center w-[100%]">
                         <div>
-                            <img alt="avatar"  className="w-[100px] h-[100px] rounded-[75px] border-black border-[2px]"/>
+                            <img
+                                alt="avatar"
+                                className="w-[100px] h-[100px] rounded-[75px] border-black border-[2px]"
+                            />
                         </div>
                         <div className="flex flex-col">
                             <div>
                                 <p>{"Имя"}</p>
-                                <NavLink to="/profile/change-name">Изменить имя</NavLink>
+                                <NavLink to="/profile/change-name">
+                                    Изменить имя
+                                </NavLink>
                             </div>
                             <div>
                                 <p>{userData.nickname}</p>
@@ -97,8 +103,7 @@ export const Profile = () => {
                         </li>
                     </ul>
                 </div>
-
             </div>
         </section>
-    )
-}
+    );
+};
