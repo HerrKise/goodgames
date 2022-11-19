@@ -13,7 +13,10 @@ const userService = {
         return data;
     },
     updatePassword: async () => {
-        const { data } = await http.post(userEndpoint + "/UpdatePassword");
+        const { data } = await http.post(
+            userEndpoint + "/UpdatePassword",
+            payload
+        );
         return data;
     }
 };
