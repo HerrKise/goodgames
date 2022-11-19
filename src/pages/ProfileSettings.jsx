@@ -116,8 +116,8 @@ export const ProfileSettings = () => {
                             <input type="text" value={"" || nickname} placeholder="изменить" className="px-[5px] py-[3px]" onChange={handleNicknameChange}/>
                         </div>
                         <div className="flex flex-col  border-white border-[1px] rounded-[5px] p-[5px]">
-                            <label>Ваш PUBGID: {selector.pubgid}</label>
-                            <input type="text" placeholder="изменить"  value={pubgId || ""} className="px-[5px] py-[3px]" onChange={handlePubgIdChange}/>
+                            <label>Ваш PUBGID: {selector.pubgId}</label>
+                            <input type="text" placeholder="изменить"  value={"" || pubgId} className="px-[5px] py-[3px]" onChange={handlePubgIdChange}/>
                         </div>
                         <button type="submit" className="w-[300px] h-[35px] rounded-[10px] bg-yellow-300 mx-auto">Обновить данные профиля</button>
                     </form>
