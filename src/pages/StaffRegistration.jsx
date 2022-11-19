@@ -64,6 +64,7 @@ const StaffRegistration = () => {
                             <option>Должность</option>
                             <option>Admin</option>
                             <option>Moderator</option>
+                            <option>Redactor</option>
                         </select>
                     </div>
                     <button type="submit" className="w-[300px] h-[30px] rounded-[20px] bg-orange-500">Создать профиль</button>
