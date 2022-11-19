@@ -80,8 +80,6 @@ export const ProfileSettings = () => {
             youtube: youTube,
             nickname: nickname,
             pubgId: pubgId,
-            profilePicture: profPic,
-
         }))
     }
     return(
