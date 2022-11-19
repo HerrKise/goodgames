@@ -11,31 +11,6 @@ export const Profile = () => {
     const userId = localStorageService.getUserId();
     const dispatch = useDispatch();
     const [userData, setUserData] = useState({});
-    /* const dispatch = useDispatch();
-
-    const [password, setpassword] = useState("");
-    const [newpassword, setnewpassword] = useState("");
-    const [confirmnewpassword, setconfirmnewpassword] = useState("");
-
-    const changepassword = (e) => {
-        setpassword(e.target.value);
-    };
-    const changenewpassword = (e) => {
-        setnewpassword(e.target.value);
-    };
-    const changeconfirmnewpassword = (e) => {
-        setconfirmnewpassword(e.target.value);
-    };
-
-    const handleChangePassword = () => {
-        dispatch(
-            updatePassword({
-                currentPassword: password,
-                newPassword: newpassword,
-                confirmNewPassword: confirmnewpassword
-            })
-        );
-    }; */
 
     const selector = useSelector((state) => state.user.entities);
 
@@ -49,15 +24,6 @@ export const Profile = () => {
     console.log(userData);
     return (
         <section className="w-[100%] bg-blue-300">
-            {/* <div>
-                <input value={password} onChange={changepassword} />
-                <input value={newpassword} onChange={changenewpassword} />
-                <input
-                    value={confirmnewpassword}
-                    onChange={changeconfirmnewpassword}
-                />
-                <button onClick={handleChangePassword}>Поменять пароль</button>
-            </div> */}
             <div className="w-[1240px mx-auto] flex flex-col items-center">
                 <div className="flex flex-col items-center h-[900px] gap-10 w-[500px]">
                     <h2 className="mt-[30px] text-[30px]">Профиль</h2>
