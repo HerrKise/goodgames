@@ -20,12 +20,13 @@ export const ProfileSettings = () => {
     const [tg, changeTg] = useState("");
     const [youTube, changeYouTube] = useState("");
     const [discord, setDiscord] = useState("");
+    const [profPic, setProfPic] = useState("")
 
 
     useEffect(() => {
         if (isLoading === false) {
             changeName(selector.name)
-            changePubgId(selector.pubgid)
+            changePubgId(selector.pubgId)
             changeEmail(selector.email)
             changeNickname(selector.nickname)
             changeTg(selector.telegram)
@@ -79,10 +80,10 @@ export const ProfileSettings = () => {
             youtube: youTube,
             nickname: nickname,
             pubgId: pubgId,
+            profilePicture: profPic,
 
         }))
     }
-
     return(
         isLoading? "" :
         <section className="w-[100%] bg-green-300">
@@ -91,8 +92,15 @@ export const ProfileSettings = () => {
                     <h2>Редактирование профиля</h2>
                     <form className="flex flex-col w-[400px] mt-[50px] gap-5" onSubmit={handleSubmit}>
                         <div className="flex flex-col  border-white border-[1px] rounded-[5px] p-[5px]">
+                            <img src={selector.profilePicture}/>
+                            <label>Аватар</label>
+                            <input type="file" placeholder="изменить"  value={"" || profPic} onChange={(e) => {
+                                setProfPic(e.target.value)
+                                console.log(profPic)
+                            }} className="px-[5px] py-[3px]"/>
+                        </div>
+                        <div className="flex flex-col  border-white border-[1px] rounded-[5px] p-[5px]">
                             <label>Ваше имя: {selector.name}</label>
-                            <label>Изменить</label>
                             <input type="text" value={"" || name} placeholder="изменить" className="px-[5px] py-[3px]" onChange={handleNameChange}/>
                         </div>
                         <div className="flex flex-col  border-white border-[1px] rounded-[5px] p-[5px]">
@@ -119,6 +127,7 @@ export const ProfileSettings = () => {
                             <label>Ваш PUBGID: {selector.pubgId}</label>
                             <input type="text" placeholder="изменить"  value={"" || pubgId} className="px-[5px] py-[3px]" onChange={handlePubgIdChange}/>
                         </div>
+
                         <button type="submit" className="w-[300px] h-[35px] rounded-[10px] bg-yellow-300 mx-auto">Обновить данные профиля</button>
                     </form>
                 </div>
