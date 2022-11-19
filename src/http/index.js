@@ -30,12 +30,9 @@ http.interceptors.response.use(
         ) {
             originalRequest._isRetry = true;
             try {
-                const data = await authService.refresh();
-                localStorageService.setTokens({
-                    refreshToken: data.refresh_token,
-                    accessToken: data.access_token,
-                    userId: data.userId
-                });
+                const { refreshToken, accessToken } =
+                    await authService.refresh();
+                localStorageService.setTokens(refreshToken, accessToken);
                 return http.request(originalRequest);
             } catch (error) {
                 console.log("Not authorized");

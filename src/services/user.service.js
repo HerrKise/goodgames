@@ -12,9 +12,16 @@ const userService = {
         const { data } = await http.put(userEndpoint + "/EditProfile", payload);
         return data;
     },
-    updatePassword: async () => {
+    updatePassword: async (payload) => {
         const { data } = await http.post(
             userEndpoint + "/UpdatePassword",
+            payload
+        );
+        return data;
+    },
+    updateProfilePicture: async (payload) => {
+        const { data } = await http.post(
+            userEndpoint + "/UpdateProfilePicture",
             payload
         );
         return data;
