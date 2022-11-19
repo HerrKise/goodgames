@@ -1,8 +1,12 @@
 import { NavLink } from "react-router-dom";
 import localStorageService from "../services/localStorage.service.js";
-import {useDispatch, useSelector} from "react-redux";
-import {getUserLoadingStatus, getUserProfileData, loadUserProfile} from "../store/reducers/userSlice.js";
-import {useEffect, useState} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    getUserLoadingStatus,
+    getUserProfileData,
+    loadUserProfile
+} from "../store/reducers/userSlice.js";
+import { useEffect, useState } from "react";
 
 export const Profile = () => {
     const userId = localStorageService.getUserId();
@@ -13,7 +17,7 @@ export const Profile = () => {
 
     useEffect(() => {
         if (userId) {
-            dispatch(loadUserProfile({userId:userId}))
+            dispatch(loadUserProfile({ userId: userId }));
         }
     }, []);
 
@@ -39,7 +43,9 @@ export const Profile = () => {
                             </div>
                         </div>
                         <div className="bg-gray-400 w-[90%] border-black border-[1px] rounded text-center">
-                            <NavLink to="/profile/settings">Настройки профиля</NavLink>
+                            <NavLink to="/profile/settings">
+                                Настройки профиля
+                            </NavLink>
                         </div>
                         <div className="w-[300px] bg-orange-400 rounded-[20px] h-[130px] flex justify-between items-center p-[10px]">
                             <div className="flex flex-col justify-between w-[50%] ">
@@ -54,7 +60,9 @@ export const Profile = () => {
                         <div className="bg-blue-500 w-[90%] rounded-[30px]">
                             <div className="flex  w-[100%] justify-evenly items-center">
                                 <p>Баланс {"Roubles"}</p>
-                                <NavLink to="/manage-balance">Управлять</NavLink>
+                                <NavLink to="/manage-balance">
+                                    Управлять
+                                </NavLink>
                             </div>
                             <div className="flex  w-[100%] justify-evenly items-center">
                                 <p>Монеты {"Coins"}</p>
@@ -73,10 +81,14 @@ export const Profile = () => {
                                 <NavLink to="/my-games">Мои игры</NavLink>
                             </li>
                             <li className="bg-gray-400 w-[90%] border-black border-[1px] rounded">
-                                <NavLink to="/my-notifications">Уведомления</NavLink>
+                                <NavLink to="/my-notifications">
+                                    Уведомления
+                                </NavLink>
                             </li>
                             <li className="bg-gray-400 w-[90%] border-black border-[1px] rounded">
-                                <NavLink to="/my-transactions">Мои транзакции</NavLink>
+                                <NavLink to="/my-transactions">
+                                    Мои транзакции
+                                </NavLink>
                             </li>
                             <li className="bg-gray-400 w-[90%] border-black border-[1px] rounded">
                                 <NavLink to="/my-referals">Рефералы</NavLink>
@@ -85,7 +97,9 @@ export const Profile = () => {
                                 <NavLink to="/shop">Магазин</NavLink>
                             </li>
                             <li className="bg-gray-400 w-[90%] border-black border-[1px] rounded">
-                                <NavLink to="/support">Служба поддержки</NavLink>
+                                <NavLink to="/support">
+                                    Служба поддержки
+                                </NavLink>
                             </li>
                             <li className="bg-gray-400 w-[90%] border-black border-[1px] rounded">
                                 <NavLink to="/learning">Обучение</NavLink>
@@ -99,7 +113,7 @@ export const Profile = () => {
                         </ul>
                     </div>
                 </div>
-            </section>
-
+            </div>
+        </section>
     );
 };
