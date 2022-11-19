@@ -1,13 +1,14 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { register } from "../store/reducers/userSlice.js";
+import { signIn } from "../store/reducers/userSlice.js";
 
 export default function Login() {
-    const [login, changeLogin] = React.useState("");
+    const [email, changeEmail] = React.useState("");
     const [password, changePassword] = React.useState("");
+    const dispatch = useDispatch();
 
-    const handleLoginChange = (e) => {
-        changeLogin(e.target.value);
+    const handleEmailChange = (e) => {
+        changeEmail(e.target.value);
     };
 
     const handlePasswordChange = (e) => {
@@ -16,7 +17,7 @@ export default function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        useDispatch(register({ login: login, password: password }));
+        dispatch(signIn({ email: email, password: password }));
     };
 
     return (
@@ -31,15 +32,15 @@ export default function Login() {
                     </div>
                     <div className="flex flex-col items-center justify-around h-[70%] py-[20px] border-b-[1px] border-gray-400">
                         <div className="flex justify-between w-[80%] items-center">
-                            <label className="text-gray-500">Логин</label>
+                            <label className="text-gray-500">Почта</label>
                             <input
                                 type="text"
-                                id="login"
-                                name="login"
+                                id="email"
+                                name="email"
                                 placeholder=""
                                 required
-                                value={login}
-                                onChange={handleLoginChange}
+                                value={email}
+                                onChange={handleEmailChange}
                                 className="border-[1px] w-[200px] border-[#9e9e9e] rounded-[5px] text-[16px] h-[40px] px-[20px] bg-gray-600"
                             />
                         </div>
