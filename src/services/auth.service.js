@@ -15,7 +15,7 @@ const authService = {
     },
     refresh: async () => {
         const { data } = await http.post(authEndpoint + "/RefreshToken", {
-            accessToken: localStorageService.getAccessToken(),
+            token: localStorageService.getAccessToken(),
             refreshToken: localStorageService.getRefreshToken()
         });
         return data;

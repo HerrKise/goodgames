@@ -44,11 +44,13 @@ export const userSlice = createSlice({
         },
         authRequestFailed: (state, action) => {
             state.error = action.payload;
+            state.isLoading = false;
         },
         logout: (state, action) => {
             state.entities = null;
             state.auth = null;
             state.isLoading = false;
+            state.isLoggedIn = false;
             localStorageService.removeAuthData();
         }
     }
@@ -138,3 +140,4 @@ export const updatePassword = (payload) => async (dispatch) => {
 
 export const getUserProfileData = () => (state) => state.user.entities;
 export const getUserLoadingStatus = () => (state) => state.user.isLoading;
+export const getIsLoggedIn = () => (state) => state.user.isLoggedIn;

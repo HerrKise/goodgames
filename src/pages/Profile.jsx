@@ -1,26 +1,63 @@
-
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import localStorageService from "../services/localStorage.service.js";
-import {useDispatch, useSelector} from "react-redux";
-import {loadUserProfile} from "../store/reducers/userSlice.js";
-import {useEffect, useState} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    loadUserProfile,
+    updatePassword
+} from "../store/reducers/userSlice.js";
+import { useEffect, useState } from "react";
 
 export const Profile = () => {
     const userId = localStorageService.getUserId();
     const dispatch = useDispatch();
     const [userData, setUserData] = useState({});
-    const selector = useSelector(state => state.user.entities);
+    /* const dispatch = useDispatch();
 
-    useEffect(()=> {
+    const [password, setpassword] = useState("");
+    const [newpassword, setnewpassword] = useState("");
+    const [confirmnewpassword, setconfirmnewpassword] = useState("");
+
+    const changepassword = (e) => {
+        setpassword(e.target.value);
+    };
+    const changenewpassword = (e) => {
+        setnewpassword(e.target.value);
+    };
+    const changeconfirmnewpassword = (e) => {
+        setconfirmnewpassword(e.target.value);
+    };
+
+    const handleChangePassword = () => {
+        dispatch(
+            updatePassword({
+                currentPassword: password,
+                newPassword: newpassword,
+                confirmNewPassword: confirmnewpassword
+            })
+        );
+    }; */
+
+    const selector = useSelector((state) => state.user.entities);
+
+    useEffect(() => {
         if (userId) {
-            dispatch(loadUserProfile({userId:userId}))
-            setUserData(selector)
+            dispatch(loadUserProfile({ userId: userId }));
+            setUserData(selector);
         }
-    }, [])
+    }, []);
 
-    console.log(userData)
-    return(
+    console.log(userData);
+    return (
         <section className="w-[100%] bg-blue-300">
+            {/* <div>
+                <input value={password} onChange={changepassword} />
+                <input value={newpassword} onChange={changenewpassword} />
+                <input
+                    value={confirmnewpassword}
+                    onChange={changeconfirmnewpassword}
+                />
+                <button onClick={handleChangePassword}>Поменять пароль</button>
+            </div> */}
             <div className="w-[1240px mx-auto] flex flex-col items-center">
                 <div className="flex flex-col items-center h-[900px] gap-10 w-[500px]">
                     <h2 className="mt-[30px] text-[30px]">Профиль</h2>
@@ -38,13 +75,13 @@ export const Profile = () => {
                                     Изменить имя
                                 </NavLink>
                             </div>
-                            <div>
-                                <p>{userData.nickname}</p>
-                            </div>
+                            <div>{<p>{userData.nickname}</p>}</div>
                         </div>
                     </div>
                     <div className="bg-gray-400 w-[90%] border-black border-[1px] rounded text-center">
-                        <NavLink to="/profile/settings">Настройки профиля</NavLink>
+                        <NavLink to="/profile/settings">
+                            Настройки профиля
+                        </NavLink>
                     </div>
                     <div className="w-[300px] bg-orange-400 rounded-[20px] h-[130px] flex justify-between items-center p-[10px]">
                         <div className="flex flex-col justify-between w-[50%] ">
@@ -78,10 +115,14 @@ export const Profile = () => {
                             <NavLink to="/my-games">Мои игры</NavLink>
                         </li>
                         <li className="bg-gray-400 w-[90%] border-black border-[1px] rounded">
-                            <NavLink to="/my-notifications">Уведомления</NavLink>
+                            <NavLink to="/my-notifications">
+                                Уведомления
+                            </NavLink>
                         </li>
                         <li className="bg-gray-400 w-[90%] border-black border-[1px] rounded">
-                            <NavLink to="/my-transactions">Мои транзакции</NavLink>
+                            <NavLink to="/my-transactions">
+                                Мои транзакции
+                            </NavLink>
                         </li>
                         <li className="bg-gray-400 w-[90%] border-black border-[1px] rounded">
                             <NavLink to="/my-referals">Рефералы</NavLink>
