@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useNavigate } from "react-router";
 import authService from "../../services/auth.service";
 import localStorageService from "../../services/localStorage.service";
 import userService from "../../services/user.service";
+import history from "../../utils/history";
 
 const initialState = localStorageService.getAccessToken()
     ? {
@@ -23,6 +25,17 @@ export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
+        userRequested: (state) => {
+            state.isLoading = true;
+        },
+        userReceived: (state, action) => {
+            state.entities = action.payload;
+            state.isLoading = false;
+        },
+        usersRequestFailed: (state, action) => {
+            state.error = action.payload;
+            state.isLoading = false;
+        },
         authRequested: (state) => {
             state.error = null;
         },
@@ -43,8 +56,15 @@ export const userSlice = createSlice({
 });
 
 export const { reducer: userReducer, actions } = userSlice;
-export const { logout, authRequested, authRequestSuccess, authRequestFailed } =
-    actions;
+export const {
+    logout,
+    authRequested,
+    authRequestSuccess,
+    authRequestFailed,
+    userRequested,
+    userReceived,
+    usersRequestFailed
+} = actions;
 
 export const signIn = (payload) => async (dispatch) => {
     dispatch(authRequested());
@@ -83,5 +103,17 @@ export const register = (payload) => async (dispatch) => {
     } catch (e) {
         console.log(e);
         dispatch(authRequestFailed(e.response.data.errors));
+    }
+};
+
+export const loadUserProfile = (payload) => async (dispatch) => {
+    dispatch(userRequested());
+    try {
+        const data = await userService.getProfile(payload);
+        dispatch(userReceived(data));
+        console.log(data);
+    } catch (e) {
+        console.log(e);
+        dispatch(usersRequestFailed(e.response.data.errors));
     }
 };
