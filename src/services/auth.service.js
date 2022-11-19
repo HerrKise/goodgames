@@ -19,6 +19,10 @@ const authService = {
             refreshToken: localStorageService.getRefreshToken()
         });
         return data;
+    },
+    getUserId: async () => {
+        const { data } = await http.get(authEndpoint + "/GetMe");
+        return data;
     }
 };
 

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import authService from "../../services/auth.service";
 import localStorageService from "../../services/localStorage.service";
+import userService from "../../services/user.service";
 
 const initialState = localStorageService.getAccessToken()
     ? {
@@ -48,11 +49,16 @@ export const { logout, authRequested, authRequestSuccess, authRequestFailed } =
 export const signIn = (payload) => async (dispatch) => {
     dispatch(authRequested());
     try {
-        const response = await authService.login(payload);
-        localStorageService.setTokens(
-            response.refreshToken,
-            response.accessToken
-        ); // пусть пока токены будут в таком объекте
+        const { refreshToken, accessToken } = await authService.login(payload);
+        localStorageService.setTokens(refreshToken, accessToken);
+        const { userId } = await authService.getUserId();
+        localStorageService.setUserId(userId);
+
+        // работает норм
+        /* const data = await userService.getProfile({ userId: userId });
+        console.log(data); */
+
+        // пусть пока токены будут в таком объекте
         /* state.entities = responce.data.user;
         state.isLoading = false; */
         dispatch(authRequestSuccess());
@@ -65,12 +71,11 @@ export const signIn = (payload) => async (dispatch) => {
 export const register = (payload) => async (dispatch) => {
     dispatch(authRequested());
     try {
-        const response = await authService.register(payload);
-        console.log(response);
-        localStorageService.setTokens(
-            response.refreshToken,
-            response.accessToken
-        );
+        const { refreshToken, accessToken } = await authService.login(payload);
+        localStorageService.setTokens(refreshToken, accessToken);
+
+        const { userId } = await authService.getUserId();
+        localStorageService.setUserId(userId);
         dispatch(authRequestSuccess());
         // пусть пока токены будут в таком объекте
         /* state.entities = responce.data.user;
