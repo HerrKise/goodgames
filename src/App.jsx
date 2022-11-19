@@ -8,6 +8,7 @@ import StaffLogin from "./pages/StaffLogin";
 import StaffRegistration from "./pages/StaffRegistration";
 import {useState} from "react";
 import {Profile} from "./pages/Profile";
+import {ProfileSettings} from "./pages/ProfileSettings";
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(true); // думаю лучше тянуть это тут, потому что компонент грузится первым
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/staff/login" element={<StaffLogin />} />
                 <Route path="/staff/reg" element={<StaffRegistration />} />
                 <Route path="/profile" element={<Profile />} ></Route>
+                <Route path="/profile/settings" element={<ProfileSettings />}></Route>
             </Route>
 
             <Route path="/reg" element={<Registration />}></Route>
