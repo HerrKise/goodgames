@@ -1,9 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useNavigate } from "react-router";
 import authService from "../../services/auth.service";
 import localStorageService from "../../services/localStorage.service";
 import userService from "../../services/user.service";
-import history from "../../utils/history";
 
 const initialState = localStorageService.getAccessToken()
     ? {
