@@ -20,10 +20,11 @@ export const Profile = () => {
         }
     }, []);
 
-
-    return (
-        isLoading ? "" :
+    return isLoading ? (
+        ""
+    ) : (
         <section className="w-[100%] bg-blue-300">
+            {console.log(selector.profilePicture)}
             <div className="w-[1240px mx-auto] flex flex-col items-center">
                 <div className="flex flex-col items-center h-[900px] gap-10 w-[500px]">
                     <h2 className="mt-[30px] text-[30px]">Профиль</h2>
@@ -61,9 +62,7 @@ export const Profile = () => {
                     <div className="bg-blue-500 w-[90%] rounded-[30px]">
                         <div className="flex  w-[100%] justify-evenly items-center">
                             <p>Баланс {"Roubles"}</p>
-                            <NavLink to="/manage-balance">
-                                Управлять
-                            </NavLink>
+                            <NavLink to="/manage-balance">Управлять</NavLink>
                         </div>
                         <div className="flex  w-[100%] justify-evenly items-center">
                             <p>Монеты {"Coins"}</p>
@@ -98,9 +97,7 @@ export const Profile = () => {
                             <NavLink to="/shop">Магазин</NavLink>
                         </li>
                         <li className="bg-gray-400 w-[90%] border-black border-[1px] rounded">
-                            <NavLink to="/support">
-                                Служба поддержки
-                            </NavLink>
+                            <NavLink to="/support">Служба поддержки</NavLink>
                         </li>
                         <li className="bg-gray-400 w-[90%] border-black border-[1px] rounded">
                             <NavLink to="/learning">Обучение</NavLink>
