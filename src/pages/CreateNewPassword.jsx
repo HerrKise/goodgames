@@ -1,5 +1,5 @@
 import {useDispatch} from "react-redux";
-import {updatePassword} from "../store/reducers/userSlice.js";
+import {restorePassword, updatePassword} from "../store/reducers/userSlice.js";
 
 import {useState} from "react";
 
@@ -23,15 +23,14 @@ export const CreateNewPassword = () => {
     const handleChangePassword = (e) => {
         e.preventDefault();
         if (newPassword === confirmPassword ) {
-            dispatch(
-                updatePassword({
-                    verificationCode: verificationCode,
-                    newPassword: newPassword,
-                    confirmNewPassword: confirmPassword
+            dispatch(restorePassword({
+                code: verificationCode,
+                password: newPassword,
+                confirmPassword: confirmPassword
                 })
             );
         } else {
-            console.log("Пароли не совпадают")
+            console.log("Пароли не совпадают");
         }
 
     };

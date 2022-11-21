@@ -1,8 +1,10 @@
 import React from "react";
 import {useDispatch} from "react-redux";
-import {register} from "../store/reducers/userSlice.js";
+import {generateRestorePassword, register} from "../store/reducers/userSlice.js";
 
 export default function ResetPassword() {
+
+    const dispatch = useDispatch();
 
     const [email, changeEmail] = React.useState("");
 
@@ -12,7 +14,8 @@ export default function ResetPassword() {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        dispatch(generateRestorePassword({email}));
     }
 
     return(
