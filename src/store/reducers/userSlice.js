@@ -142,6 +142,28 @@ export const updatePassword = (payload) => async (dispatch) => {
     }
 };
 
+export const generateRestorePassword = (payload) => async (dispatch) => {
+    dispatch(updatePasswordRequested());
+    try {
+        const data = await authService.generateRestorePassword(payload);
+        dispatch(updatePasswordSuccess());
+    } catch (e) {
+        console.log(e);
+        dispatch(updatePasswordFailed());
+    }
+};
+
+export const restorePassword = (payload) => async (dispatch) => {
+    dispatch(updatePasswordRequested());
+    try {
+        const data = await authService.restorePassword(payload);
+        dispatch(updatePasswordSuccess());
+    } catch (e) {
+        console.log(e);
+        dispatch(updatePasswordFailed());
+    }
+};
+
 export const updatePicture = (payload) => async (dispatch) => {
     dispatch(updatePictureRequested());
     try {
