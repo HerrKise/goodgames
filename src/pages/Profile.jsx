@@ -32,6 +32,10 @@ export const Profile = () => {
                         <div>
                             <img
                                 alt="avatar"
+                                src={
+                                    "http://176.99.11.245/" +
+                                    selector.profilePicture.path
+                                }
                                 className="w-[100px] h-[100px] rounded-[75px] border-black border-[2px]"
                             />
                         </div>
