@@ -23,6 +23,20 @@ const authService = {
     getUserId: async () => {
         const { data } = await http.get(authEndpoint + "/GetMe");
         return data;
+    },
+    generateRestorePassword: async (payload) => {
+        const { data } = await http.post(
+            authEndpoint + "/GenerateRestorePassword",
+            payload
+        );
+        return data;
+    },
+    restorePassword: async (payload) => {
+        const { data } = await http.post(
+            authEndpoint + "/RestorePassword",
+            payload
+        );
+        return data;
     }
 };
 
