@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { signIn } from "../store/reducers/userSlice.js";
+import {NavLink} from "react-router-dom";
 
 export default function Login() {
     const [email, changeEmail] = React.useState("");
@@ -69,9 +70,9 @@ export default function Login() {
                             Вход
                         </button>
                     </div>
-                    <div className="flex items-center justify-center text-white text-center mt-[10px]">
+                    <NavLink to="/reset-password" className="flex items-center justify-center text-white text-center mt-[10px]">
                         <p>Забыли пароль?</p>
-                    </div>
+                    </NavLink>
                 </form>
             </div>
         </section>
