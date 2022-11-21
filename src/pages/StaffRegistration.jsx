@@ -6,7 +6,6 @@ const StaffRegistration = () => {
 
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
-    const [email, setEmail] = useState("");
     const [role, setRole] = useState("");
     const dispatch = useDispatch();
 
@@ -14,9 +13,6 @@ const StaffRegistration = () => {
         setLogin(e.target.value)
     }
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value)
-    }
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value)
@@ -24,7 +20,7 @@ const StaffRegistration = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log({login, email,  password, role});
+        console.log({login,  password, role});
         dispatch(
             register(
                 {
@@ -48,10 +44,6 @@ const StaffRegistration = () => {
                         <input type="text" className="w-[400px]" value={login || ""} onChange={handleLoginChange}/>
                     </div>
                     <div className=" flex flex-col items-center">
-                        <label>Почта сотрудника</label>
-                        <input type="text" className="w-[400px]" value={email || ""} onChange={handleEmailChange}/>
-                    </div>
-                    <div className=" flex flex-col items-center">
                         <label>Пароль сотрудника</label>
                         <input type="password" className="w-[400px]" value={password || ""} onChange={handlePasswordChange}/>
                     </div>
@@ -62,7 +54,7 @@ const StaffRegistration = () => {
 
                         }}>
                             <option>Должность</option>
-                            <option>Admin</option>
+                            <option>Org</option>
                             <option>Moderator</option>
                             <option>Redactor</option>
                         </select>

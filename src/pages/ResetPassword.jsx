@@ -13,7 +13,6 @@ export default function ResetPassword() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        useDispatch(register({email}))
     }
 
     return(
