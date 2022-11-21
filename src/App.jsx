@@ -28,15 +28,22 @@ function App() {
                 </Route>
                 <Route path="/staff/login" element={<StaffLogin />} />
                 <Route path="/staff/reg" element={<StaffRegistration />} />
-                <Route path="/profile" element={<Profile/>} />
-                <Route path="/profile/settings" element={<ProfileSettings/>}/>
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/profile/settings" element={<ProfileSettings />} />
             </Route>
+
             <Route path="/confirm-email/:code" element={<ConfirmEmail />} />
             <Route path="/reg" element={<Registration/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/reset-password" element={<ResetPassword/>}/>
-            <Route path="/create-new-password" element={<CreateNewPassword/>}/>
-
+            <Route
+                path="/create-new-password"
+                element={<CreateNewPassword />}
+            />
+            <Route
+                path="/create-new-password/:code"
+                element={<CreateNewPassword />}
+            />
         </Routes>
     );
 }
