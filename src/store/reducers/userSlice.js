@@ -103,7 +103,9 @@ export const signIn = (payload) => async (dispatch) => {
 export const register = (payload) => async (dispatch) => {
     dispatch(authRequested());
     try {
-        const { refreshToken, accessToken } = await authService.login(payload);
+        const { refreshToken, accessToken } = await authService.register(
+            payload
+        );
         localStorageService.setTokens(refreshToken, accessToken);
 
         const { userId } = await authService.getUserId();
@@ -207,3 +209,4 @@ export const resendEmailConfirmation = () => async (dispatch) => {
 export const getUserProfileData = () => (state) => state.user.entities;
 export const getUserLoadingStatus = () => (state) => state.user.isLoading;
 export const getIsLoggedIn = () => (state) => state.user.isLoggedIn;
+export const getErrors = () => (state) => state.user.error;

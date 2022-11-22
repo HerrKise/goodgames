@@ -33,6 +33,7 @@ export const ProfileSettings = () => {
             changeYouTube(selector.youtube);
             setDiscord(selector.discord);
         }
+        console.log(isLoading);
     }, [isLoading]);
 
     useEffect(() => {
