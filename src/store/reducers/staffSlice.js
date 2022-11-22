@@ -56,7 +56,7 @@ export const staffSlice = createSlice({
     }
 });
 
-export const { reducer: userReducer, actions } = userSlice;
+export const { reducer: staffReducer, actions } = staffSlice;
 export const {
     logout,
     authRequested,
