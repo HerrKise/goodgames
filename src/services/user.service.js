@@ -1,5 +1,4 @@
 import http from "../http";
-import localStorageService from "./localStorage.service";
 
 const userEndpoint = "/Profile";
 
@@ -23,6 +22,19 @@ const userService = {
         const { data } = await http.post(
             userEndpoint + "/UpdateProfilePicture",
             payload
+        );
+        return data;
+    },
+    confirmEmail: async (payload) => {
+        const { data } = await http.post(
+            userEndpoint + "/ConfirmEmail",
+            payload
+        );
+        return data;
+    },
+    resendEmailConfirmation: async () => {
+        const { data } = await http.post(
+            authEndpoint + "/ResendEmailConfirmation"
         );
         return data;
     }

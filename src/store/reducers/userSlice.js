@@ -79,6 +79,12 @@ const updatePictureRequested = createAction("user/updatePictureRequested");
 const updatePictureFailed = createAction("user/updatePictureFailed");
 const updatePictureSuccess = createAction("user/updatePictureSuccess");
 
+const confirmEmailRequested = createAction("user/confirmEmailRequested");
+const confirmEmailFailed = createAction("user/confirmEmailFailed");
+const confirmEmailSuccessfullySent = createAction(
+    "user/confirmEmailSuccessfullySent"
+);
+
 export const signIn = (payload) => async (dispatch) => {
     dispatch(authRequested());
     try {
@@ -89,6 +95,7 @@ export const signIn = (payload) => async (dispatch) => {
         dispatch(authRequestSuccess());
     } catch (e) {
         console.log(e);
+        console.log(e.response.data.detail);
         dispatch(authRequestFailed(e.response.data.errors));
     }
 };
@@ -172,6 +179,28 @@ export const updatePicture = (payload) => async (dispatch) => {
     } catch (e) {
         console.log(e);
         dispatch(updatePictureFailed());
+    }
+};
+
+export const confirmEmail = (payload) => async (dispatch) => {
+    dispatch(confirmEmailRequested());
+    try {
+        const data = await userService.confirmEmail(payload);
+        dispatch(confirmEmailSuccessfullySent());
+    } catch (e) {
+        console.log(e);
+        dispatch(confirmEmailFailed());
+    }
+};
+
+export const resendEmailConfirmation = () => async (dispatch) => {
+    dispatch(confirmEmailRequested());
+    try {
+        const data = await userService.resendEmailConfirmation();
+        dispatch(confirmEmailSuccessfullySent());
+    } catch (e) {
+        console.log(e);
+        dispatch(confirmEmailFailed());
     }
 };
 
