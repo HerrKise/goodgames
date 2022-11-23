@@ -9,6 +9,7 @@ import {
     resendEmailConfirmation
 } from "../store/reducers/userSlice.js";
 import { useEffect, useState } from "react";
+import { API_URL } from "../http/index.js";
 
 const Profile = () => {
     const userId = localStorageService.getUserId();
@@ -19,20 +20,17 @@ const Profile = () => {
     const errors = useSelector(getErrors());
 
     useEffect(() => {
-        console.log(errors);
-    }, [errors]);
-
-    useEffect(() => {
         if (userId) {
             dispatch(loadUserProfile({ userId: userId }));
         }
     }, []);
 
+    const picture = `${API_URL + selector?.profilePicture?.path}` || "";
+
     return isLoading ? (
         ""
     ) : (
         <section className="w-[100%] bg-blue-300">
-            {console.log(selector.profilePicture)}
             <button onClick={() => dispatch(resendEmailConfirmation())}>
                 Перевыслать письмо подтверждения почты
             </button>
@@ -43,10 +41,7 @@ const Profile = () => {
                         <div>
                             <img
                                 alt="avatar"
-                                src={
-                                    "http://176.99.11.245/" +
-                                    selector.profilePicture?.path
-                                }
+                                src={picture}
                                 className="w-[100px] h-[100px] rounded-[75px] border-black border-[2px]"
                             />
                         </div>
