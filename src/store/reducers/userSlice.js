@@ -36,6 +36,7 @@ export const userSlice = createSlice({
             state.isLoading = false;
         },
         authRequested: (state) => {
+            state.isLoading = true;
             state.error = null;
         },
         authRequestSuccess: (state, action) => {
@@ -87,6 +88,18 @@ const confirmEmailSuccessfullySent = createAction(
     "user/confirmEmailSuccessfullySent"
 );
 
+export const loadUserProfile = (payload) => async (dispatch) => {
+    dispatch(userRequested());
+    try {
+        const data = await userService.getProfile(payload);
+        dispatch(userReceived(data));
+        console.log(data);
+    } catch (e) {
+        console.log(e);
+        dispatch(usersRequestFailed(e.response.data.errors));
+    }
+};
+
 export const signIn =
     ({ payload, navigate }) =>
     async (dispatch) => {
@@ -99,7 +112,16 @@ export const signIn =
             const { userId } = await authService.getUserId();
             localStorageService.setUserId(userId);
             dispatch(authRequestSuccess());
-            navigate("/");
+            dispatch(userRequested());
+            try {
+                const data = await userService.getProfile({ userId: userId });
+                dispatch(userReceived(data));
+                console.log(data);
+            } catch (error) {
+                console.log(e);
+                dispatch(usersRequestFailed(e.response.data.errors));
+            }
+            navigate("/profile");
             console.log("редирект сработал наверное");
         } catch (e) {
             console.log(e);
@@ -122,18 +144,6 @@ export const register = (payload) => async (dispatch) => {
     } catch (e) {
         console.log(e);
         dispatch(authRequestFailed(e.response.data.errors));
-    }
-};
-
-export const loadUserProfile = (payload) => async (dispatch) => {
-    dispatch(userRequested());
-    try {
-        const data = await userService.getProfile(payload);
-        dispatch(userReceived(data));
-        console.log(data);
-    } catch (e) {
-        console.log(e);
-        dispatch(usersRequestFailed(e.response.data.errors));
     }
 };
 
