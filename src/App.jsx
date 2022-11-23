@@ -7,6 +7,7 @@ import StaffPage from "./pages/StaffPage";
 import StaffLogin from "./pages/StaffLogin";
 import StaffRegistration from "./pages/StaffRegistration";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { useState } from "react";
 import Profile from "./pages/Profile";

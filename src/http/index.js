@@ -5,7 +5,8 @@ import localStorageService from "../services/localStorage.service";
 import staffService from "../services/staff.service";
 import { getIsStaff } from "../store/reducers/staffSlice";
 
-export const API_URL = "http://176.99.11.245/api/"; // потом поменяем на настоящий
+export const API_URL = "http://176.99.11.245/api/";
+export const IMG_URL = "http://176.99.11.245/";
 
 const http = axios.create({
     baseURL: API_URL
