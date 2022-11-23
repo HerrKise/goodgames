@@ -9,7 +9,7 @@ import {
     updatePicture
 } from "../store/reducers/userSlice.js";
 
-export const ProfileSettings = () => {
+const ProfileSettings = () => {
     const userId = localStorageService.getUserId();
     const dispatch = useDispatch();
     const selector = useSelector(getUserProfileData());
@@ -33,6 +33,7 @@ export const ProfileSettings = () => {
             changeYouTube(selector.youtube);
             setDiscord(selector.discord);
         }
+        console.log(isLoading);
     }, [isLoading]);
 
     useEffect(() => {
@@ -197,3 +198,5 @@ export const ProfileSettings = () => {
         </section>
     );
 };
+
+export default ProfileSettings;

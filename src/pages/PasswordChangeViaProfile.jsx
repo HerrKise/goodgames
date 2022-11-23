@@ -1,7 +1,6 @@
-import {useState} from "react";
+import { useState } from "react";
 
-export const PasswordChange = () => {
-
+const PasswordChangeViaProfile = () => {
     const dispatch = useDispatch();
     const [password, setpassword] = useState("");
     const [newpassword, setnewpassword] = useState("");
@@ -27,7 +26,7 @@ export const PasswordChange = () => {
         );
     };
 
-    return(
+    return (
         <div>
             <input value={password} onChange={changepassword} />
             <input value={newpassword} onChange={changenewpassword} />
@@ -37,7 +36,7 @@ export const PasswordChange = () => {
             />
             <button onClick={handleChangePassword}>Поменять пароль</button>
         </div>
-    )
-}
+    );
+};
 
-
+export default PasswordChangeViaProfile;

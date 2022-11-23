@@ -1,6 +1,7 @@
 import { createSlice, createAction } from "@reduxjs/toolkit";
 import authService from "../../services/auth.service";
 import localStorageService from "../../services/localStorage.service";
+import staffService from "../../services/staff.service";
 import userService from "../../services/user.service";
 
 const initialState = localStorageService.getAccessToken()
@@ -9,6 +10,7 @@ const initialState = localStorageService.getAccessToken()
           isLoading: true,
           error: null,
           isLoggedIn: true,
+          role: null,
           auth: { userId: localStorageService.getUserId() }
       }
     : {
@@ -16,6 +18,7 @@ const initialState = localStorageService.getAccessToken()
           isLoading: false,
           error: null,
           isLoggedIn: false,
+          role: null,
           auth: null
       };
 
@@ -28,6 +31,7 @@ export const staffSlice = createSlice({
         },
         staffReceived: (state, action) => {
             state.entities = action.payload;
+            state.role = action.payload.role;
             state.isLoading = false;
         },
         staffRequestFailed: (state, action) => {
@@ -82,16 +86,18 @@ const updatePictureSuccess = createAction("user/updatePictureSuccess");
 export const signIn = (payload) => async (dispatch) => {
     dispatch(authRequested());
     try {
-        const { refreshToken, accessToken } = await authService.login(payload);
+        const { refreshToken, accessToken } = await staffService.login(payload);
         localStorageService.setTokens(refreshToken, accessToken);
-        const { userId } = await authService.getUserId();
-        localStorageService.setUserId(userId);
+        const { id } = await staffService.getProfile();
+        localStorageService.setUserId(id);
         dispatch(authRequestSuccess());
     } catch (e) {
         console.log(e);
         dispatch(authRequestFailed(e.response.data.errors));
     }
 };
+
+// ======================================= ПЕРЕДЕЛАТЬ
 
 export const register = (payload) => async (dispatch) => {
     dispatch(authRequested());
@@ -108,10 +114,12 @@ export const register = (payload) => async (dispatch) => {
     }
 };
 
-export const loadUserProfile = (payload) => async (dispatch) => {
+// ======================================= ПЕРЕДЕЛАТЬ
+
+export const loadUserProfile = () => async (dispatch) => {
     dispatch(userRequested());
     try {
-        const data = await userService.getProfile(payload);
+        const data = await userService.getProfile();
         dispatch(userReceived(data));
         console.log(data);
     } catch (e) {
@@ -178,3 +186,4 @@ export const updatePicture = (payload) => async (dispatch) => {
 export const getUserProfileData = () => (state) => state.user.entities;
 export const getUserLoadingStatus = () => (state) => state.user.isLoading;
 export const getIsLoggedIn = () => (state) => state.user.isLoggedIn;
+export const getIsStaff = () => (state) => state.user.role;

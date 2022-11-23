@@ -2,17 +2,25 @@ import { NavLink } from "react-router-dom";
 import localStorageService from "../services/localStorage.service.js";
 import { useDispatch, useSelector } from "react-redux";
 import {
+    getErrors,
     getUserLoadingStatus,
     getUserProfileData,
-    loadUserProfile
+    loadUserProfile,
+    resendEmailConfirmation
 } from "../store/reducers/userSlice.js";
 import { useEffect, useState } from "react";
 
-export const Profile = () => {
+const Profile = () => {
     const userId = localStorageService.getUserId();
     const dispatch = useDispatch();
     const selector = useSelector(getUserProfileData());
     const isLoading = useSelector(getUserLoadingStatus());
+
+    const errors = useSelector(getErrors());
+
+    useEffect(() => {
+        console.log(errors);
+    }, [errors]);
 
     useEffect(() => {
         if (userId) {
@@ -25,6 +33,9 @@ export const Profile = () => {
     ) : (
         <section className="w-[100%] bg-blue-300">
             {console.log(selector.profilePicture)}
+            <button onClick={() => dispatch(resendEmailConfirmation())}>
+                Перевыслать письмо подтверждения почты
+            </button>
             <div className="w-[1240px mx-auto] flex flex-col items-center">
                 <div className="flex flex-col items-center h-[900px] gap-10 w-[500px]">
                     <h2 className="mt-[30px] text-[30px]">Профиль</h2>
@@ -34,7 +45,7 @@ export const Profile = () => {
                                 alt="avatar"
                                 src={
                                     "http://176.99.11.245/" +
-                                    selector.profilePicture.path
+                                    selector.profilePicture?.path
                                 }
                                 className="w-[100px] h-[100px] rounded-[75px] border-black border-[2px]"
                             />
@@ -118,3 +129,5 @@ export const Profile = () => {
         </section>
     );
 };
+
+export default Profile;

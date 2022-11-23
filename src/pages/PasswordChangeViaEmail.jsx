@@ -1,13 +1,10 @@
 import { useDispatch } from "react-redux";
-import {
-    restorePassword,
-    updatePassword
-} from "../store/reducers/userSlice.js";
+import { restorePassword } from "../store/reducers/userSlice.js";
 
 import { useState } from "react";
 import { useParams } from "react-router";
 
-export const CreateNewPassword = () => {
+const PasswordChangeViaEmail = () => {
     const dispatch = useDispatch();
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -75,3 +72,5 @@ export const CreateNewPassword = () => {
         </div>
     );
 };
+
+export default PasswordChangeViaEmail;

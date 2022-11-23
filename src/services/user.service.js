@@ -34,7 +34,7 @@ const userService = {
     },
     resendEmailConfirmation: async () => {
         const { data } = await http.post(
-            authEndpoint + "/ResendEmailConfirmation"
+            userEndpoint + "/ResendEmailConfirmation"
         );
         return data;
     }

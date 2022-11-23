@@ -1,6 +1,9 @@
 import axios from "axios";
+import { useSelector } from "react-redux";
 import authService from "../services/auth.service";
 import localStorageService from "../services/localStorage.service";
+import staffService from "../services/staff.service";
+import { getIsStaff } from "../store/reducers/staffSlice";
 
 export const API_URL = "http://176.99.11.245/api/"; // потом поменяем на настоящий
 
@@ -30,8 +33,11 @@ http.interceptors.response.use(
         ) {
             originalRequest._isRetry = true;
             try {
-                const { refreshToken, accessToken } =
-                    await authService.refresh();
+                const isStaff = useSelector(getIsStaff());
+                console.log("isStaff: ", isStaff);
+                const { refreshToken, accessToken } = isStaff
+                    ? await staffService.refresh()
+                    : await authService.refresh();
                 localStorageService.setTokens(refreshToken, accessToken);
                 return http.request(originalRequest);
             } catch (error) {
