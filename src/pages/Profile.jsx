@@ -10,7 +10,7 @@ import {
 } from "../store/reducers/userSlice.js";
 import { useEffect, useState } from "react";
 
-export const Profile = () => {
+const Profile = () => {
     const userId = localStorageService.getUserId();
     const dispatch = useDispatch();
     const selector = useSelector(getUserProfileData());
@@ -129,3 +129,5 @@ export const Profile = () => {
         </section>
     );
 };
+
+export default Profile;

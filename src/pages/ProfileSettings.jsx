@@ -9,7 +9,7 @@ import {
     updatePicture
 } from "../store/reducers/userSlice.js";
 
-export const ProfileSettings = () => {
+const ProfileSettings = () => {
     const userId = localStorageService.getUserId();
     const dispatch = useDispatch();
     const selector = useSelector(getUserProfileData());
@@ -198,3 +198,5 @@ export const ProfileSettings = () => {
         </section>
     );
 };
+
+export default ProfileSettings;

@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { useDispatch } from "react-redux";
 import { confirmEmail } from "../store/reducers/userSlice";
 
-export const ConfirmEmail = () => {
+const ConfirmEmail = () => {
     const dispatch = useDispatch();
 
     const { code } = useParams();
@@ -38,3 +38,5 @@ export const ConfirmEmail = () => {
         </section>
     );
 };
+
+export default ConfirmEmail;
