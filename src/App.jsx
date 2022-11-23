@@ -39,15 +39,11 @@ function App() {
                         path="/profile/settings"
                         element={<ProfileSettings />}
                     />
+                    <Route
+                        path="/profile/change-password"
+                        element={<PasswordChangeViaProfile />}
+                    />
                 </Route>
-
-                <Route path="/staff/login" element={<StaffLogin />} />
-                <Route path="/staff/reg" element={<StaffRegistration />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/profile/settings" element={<ProfileSettings />} />
-                <Route path="/profile/change-password" element={<PasswordChangeViaProfile />}/>
-            </Route>
-
 
                 <Route path="/confirm-email/:code" element={<ConfirmEmail />} />
                 <Route path="/reg" element={<Registration />} />
