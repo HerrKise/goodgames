@@ -31,7 +31,7 @@ export const staffSlice = createSlice({
         },
         staffReceived: (state, action) => {
             state.entities = action.payload;
-            state.role = action.payload.role.role;
+            state.role = action.payload.role;
             state.isLoading = false;
         },
         staffRequestFailed: (state, action) => {
