@@ -26,6 +26,8 @@ http.interceptors.response.use(
     },
     async (error) => {
         const originalRequest = error.config;
+        const isStaff = localStorageService.getIsStaff();
+        console.log("isStaff: ", isStaff);
         if (
             error.response.status === 401 &&
             error.config &&
@@ -33,11 +35,10 @@ http.interceptors.response.use(
         ) {
             originalRequest._isRetry = true;
             try {
-                const isStaff = useSelector(getIsStaff());
-                console.log("isStaff: ", isStaff);
-                const { refreshToken, accessToken } = isStaff
-                    ? await staffService.refresh()
-                    : await authService.refresh();
+                const { refreshToken, accessToken } =
+                    isStaff === "true"
+                        ? await staffService.refresh()
+                        : await authService.refresh();
                 localStorageService.setTokens(refreshToken, accessToken);
                 return http.request(originalRequest);
             } catch (error) {

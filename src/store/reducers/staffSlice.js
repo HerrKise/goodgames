@@ -90,6 +90,7 @@ export const signIn = (payload) => async (dispatch) => {
         localStorageService.setTokens(refreshToken, accessToken);
         const { id } = await staffService.getProfile();
         localStorageService.setUserId(id);
+        localStorageService.setStaff("true");
         dispatch(authRequestSuccess());
     } catch (e) {
         console.log(e);

@@ -6,6 +6,7 @@ import ProtectedRoute from "./common/protectedRoute";
 import StaffPage from "./pages/StaffPage";
 import StaffLogin from "./pages/StaffLogin";
 import StaffRegistration from "./pages/StaffRegistration";
+import { ToastContainer } from "react-toastify";
 
 import { useState } from "react";
 import Profile from "./pages/Profile";
@@ -18,15 +19,28 @@ function App() {
     const [loggedIn, setLoggedIn] = useState(true); // думаю лучше тянуть это тут, потому что компонент грузится первым
     const [isAdmin, setAdmin] = useState(true);
     return (
-        <Routes>
-            <Route
-                element={
-                    <ProtectedRoute isLoggedIn={loggedIn} isAdmin={isAdmin} />
-                }
-            >
-                <Route path="/staff" element={<StaffPage />}>
-                    {" "}
+        <>
+            <Routes>
+                <Route
+                    element={
+                        <ProtectedRoute
+                            isLoggedIn={loggedIn}
+                            isAdmin={isAdmin}
+                        />
+                    }
+                >
+                    <Route path="/staff" element={<StaffPage />}>
+                        {" "}
+                    </Route>
+                    <Route path="/staff/login" element={<StaffLogin />} />
+                    <Route path="/staff/reg" element={<StaffRegistration />} />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route
+                        path="/profile/settings"
+                        element={<ProfileSettings />}
+                    />
                 </Route>
+
                 <Route path="/staff/login" element={<StaffLogin />} />
                 <Route path="/staff/reg" element={<StaffRegistration />} />
                 <Route path="/profile" element={<Profile />} />
@@ -34,15 +48,18 @@ function App() {
                 <Route path="/profile/change-password" element={<PasswordChangeViaProfile />}/>
             </Route>
 
-            <Route path="/confirm-email/:code" element={<ConfirmEmail />} />
-            <Route path="/reg" element={<Registration />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/reset-password" element={<ResetPasswordPage />} />
-            <Route
-                path="/create-new-password/:code"
-                element={<PasswordChangeViaEmail />}
-            />
-        </Routes>
+
+                <Route path="/confirm-email/:code" element={<ConfirmEmail />} />
+                <Route path="/reg" element={<Registration />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/reset-password" element={<ResetPasswordPage />} />
+                <Route
+                    path="/create-new-password/:code"
+                    element={<PasswordChangeViaEmail />}
+                />
+            </Routes>
+            <ToastContainer />
+        </>
     );
 }
 

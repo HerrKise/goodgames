@@ -1,12 +1,15 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { signIn } from "../store/reducers/userSlice.js";
-import {NavLink} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getErrors, signIn } from "../store/reducers/userSlice.js";
+import { NavLink, redirect, useNavigate } from "react-router-dom";
 
 export default function Login() {
     const [email, changeEmail] = React.useState("");
     const [password, changePassword] = React.useState("");
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const error = useSelector(getErrors());
+    console.log(error);
 
     const handleEmailChange = (e) => {
         changeEmail(e.target.value);
@@ -18,7 +21,8 @@ export default function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(signIn({ email: email, password: password }));
+        const data = { email: email, password: password };
+        dispatch(signIn({ payload: data, navigate: navigate }));
     };
 
     return (
@@ -70,7 +74,10 @@ export default function Login() {
                             Вход
                         </button>
                     </div>
-                    <NavLink to="/reset-password" className="flex items-center justify-center text-white text-center mt-[10px]">
+                    <NavLink
+                        to="/reset-password"
+                        className="flex items-center justify-center text-white text-center mt-[10px]"
+                    >
                         <p>Забыли пароль?</p>
                     </NavLink>
                 </form>
