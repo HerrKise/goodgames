@@ -1,4 +1,5 @@
 import { createSlice, createAction } from "@reduxjs/toolkit";
+import { redirect, useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
 import localStorageService from "../../services/localStorage.service";
 import userService from "../../services/user.service";
@@ -43,6 +44,7 @@ export const userSlice = createSlice({
             state.isLoading = false;
         },
         authRequestFailed: (state, action) => {
+            console.log(action.payload);
             state.error = action.payload;
             state.isLoading = false;
         },
@@ -85,20 +87,26 @@ const confirmEmailSuccessfullySent = createAction(
     "user/confirmEmailSuccessfullySent"
 );
 
-export const signIn = (payload) => async (dispatch) => {
-    dispatch(authRequested());
-    try {
-        const { refreshToken, accessToken } = await authService.login(payload);
-        localStorageService.setTokens(refreshToken, accessToken);
-        const { userId } = await authService.getUserId();
-        localStorageService.setUserId(userId);
-        dispatch(authRequestSuccess());
-    } catch (e) {
-        console.log(e);
-        console.log(e.response.data.detail);
-        dispatch(authRequestFailed(e.response.data.errors));
-    }
-};
+export const signIn =
+    ({ payload, navigate }) =>
+    async (dispatch) => {
+        dispatch(authRequested());
+        try {
+            const { refreshToken, accessToken } = await authService.login(
+                payload
+            );
+            localStorageService.setTokens(refreshToken, accessToken);
+            const { userId } = await authService.getUserId();
+            localStorageService.setUserId(userId);
+            dispatch(authRequestSuccess());
+            navigate("/");
+            console.log("редирект сработал наверное");
+        } catch (e) {
+            console.log(e);
+            console.log(e.response.data.detail);
+            dispatch(authRequestFailed(e.response.data.detail));
+        }
+    };
 
 export const register = (payload) => async (dispatch) => {
     dispatch(authRequested());
