@@ -8,6 +8,7 @@ import {
     loadUserProfile,
     updatePicture
 } from "../store/reducers/userSlice.js";
+import {NavLink} from "react-router-dom";
 
 const ProfileSettings = () => {
     const userId = localStorageService.getUserId();
@@ -99,8 +100,10 @@ const ProfileSettings = () => {
     ) : (
         <section className="w-[100%] bg-green-300">
             <div className="w-[1240px]  h-[900px] mx-auto">
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center relative">
                     <h2>Редактирование профиля</h2>
+                    <NavLink to="/profile/change-password" className="absolute top-[100px] right-[40px]">Сменить пароль</NavLink>
+                    <NavLink to="/reset-password" className="absolute top-[150px] right-[40px]">Забыли пароль?</NavLink>
                     <form
                         className="flex flex-col w-[400px] mt-[50px] gap-5"
                         onSubmit={handleSubmit}
