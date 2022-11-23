@@ -8,8 +8,6 @@ export default function Login() {
     const [password, changePassword] = React.useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const error = useSelector(getErrors());
-    console.log(error);
 
     const handleEmailChange = (e) => {
         changeEmail(e.target.value);
@@ -18,7 +16,6 @@ export default function Login() {
     const handlePasswordChange = (e) => {
         changePassword(e.target.value);
     };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = { email: email, password: password };

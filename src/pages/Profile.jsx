@@ -9,7 +9,7 @@ import {
     resendEmailConfirmation
 } from "../store/reducers/userSlice.js";
 import { useEffect, useState } from "react";
-import { API_URL } from "../http/index.js";
+import { API_URL, IMG_URL } from "../http/index.js";
 
 const Profile = () => {
     const userId = localStorageService.getUserId();

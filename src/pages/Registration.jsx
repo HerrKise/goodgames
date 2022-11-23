@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import { register } from "../store/reducers/userSlice.js";
 
 export default function Registration() {
@@ -11,6 +12,7 @@ export default function Registration() {
     const [nickname, changeNickname] = useState("");
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleLoginChange = (e) => {
         changeLogin(e.target.value);
@@ -38,16 +40,15 @@ export default function Registration() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(
-            register({
-                email: email,
-                login: login,
-                password: password,
-                confirmPassword: passwordR,
-                nickname: nickname,
-                pubgId: pubgId
-            })
-        );
+        const data = {
+            email: email,
+            login: login,
+            password: password,
+            confirmPassword: passwordR,
+            nickname: nickname,
+            pubgId: pubgId
+        };
+        dispatch(register({ payload: data, navigate: navigate }));
     };
 
     return (

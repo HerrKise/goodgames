@@ -3,6 +3,9 @@ import { redirect, useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
 import localStorageService from "../../services/localStorage.service";
 import userService from "../../services/user.service";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+/* const dispatch = useDispatch(); */
 
 const initialState = localStorageService.getAccessToken()
     ? {
@@ -45,7 +48,6 @@ export const userSlice = createSlice({
             state.isLoading = false;
         },
         authRequestFailed: (state, action) => {
-            console.log(action.payload);
             state.error = action.payload;
             state.isLoading = false;
         },
@@ -112,40 +114,39 @@ export const signIn =
             const { userId } = await authService.getUserId();
             localStorageService.setUserId(userId);
             dispatch(authRequestSuccess());
-            dispatch(userRequested());
-            try {
-                const data = await userService.getProfile({ userId: userId });
-                dispatch(userReceived(data));
-                console.log(data);
-            } catch (error) {
-                console.log(e);
-                dispatch(usersRequestFailed(e.response.data.errors));
-            }
+            dispatch(loadUserProfile({ userId: userId }));
             navigate("/profile");
-            console.log("редирект сработал наверное");
         } catch (e) {
             console.log(e);
             console.log(e.response.data.detail);
             dispatch(authRequestFailed(e.response.data.detail));
+            toast.error(e.response.data.detail);
         }
     };
 
-export const register = (payload) => async (dispatch) => {
-    dispatch(authRequested());
-    try {
-        const { refreshToken, accessToken } = await authService.register(
-            payload
-        );
-        localStorageService.setTokens(refreshToken, accessToken);
+export const register =
+    ({ payload, navigate }) =>
+    async (dispatch) => {
+        dispatch(authRequested());
+        try {
+            const { refreshToken, accessToken } = await authService.register(
+                payload
+            );
+            localStorageService.setTokens(refreshToken, accessToken);
 
-        const { userId } = await authService.getUserId();
-        localStorageService.setUserId(userId);
-        dispatch(authRequestSuccess());
-    } catch (e) {
-        console.log(e);
-        dispatch(authRequestFailed(e.response.data.errors));
-    }
-};
+            const { userId } = await authService.getUserId();
+            localStorageService.setUserId(userId);
+            dispatch(authRequestSuccess());
+            dispatch(loadUserProfile({ userId: userId }));
+            navigate("/profile");
+        } catch (e) {
+            console.log(e);
+            Object.values(e.response.data.errors).map((log) =>
+                toast.error(log[0])
+            );
+            dispatch(authRequestFailed(e.response.data.errors));
+        }
+    };
 
 export const editUserProfile = (payload) => async (dispatch) => {
     dispatch(editUserProfileRequested());
@@ -166,6 +167,7 @@ export const updatePassword = (payload) => async (dispatch) => {
     } catch (e) {
         console.log(e);
         dispatch(updatePasswordFailed());
+        Object.values(e.response.data.errors).map((log) => toast.error(log[0]));
     }
 };
 
