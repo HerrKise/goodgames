@@ -6,6 +6,7 @@ import {
     getUserLoadingStatus,
     getUserProfileData,
     loadUserProfile,
+    logout,
     resendEmailConfirmation
 } from "../store/reducers/userSlice.js";
 import { useEffect, useState } from "react";
@@ -24,6 +25,10 @@ const Profile = () => {
             dispatch(loadUserProfile({ userId: userId }));
         }
     }, []);
+
+    const handleLogOut = () => {
+        dispatch(logout());
+    };
 
     const picture = `${API_URL + selector?.profilePicture?.path}` || "";
 
@@ -116,7 +121,9 @@ const Profile = () => {
                             <NavLink to="/about-us">О нас</NavLink>
                         </li>
                         <li className="bg-gray-400 w-[90%] border-black border-[1px] rounded">
-                            <NavLink to="/">Выйти</NavLink>
+                            <NavLink to="/login" onClick={handleLogOut}>
+                                Выйти
+                            </NavLink>
                         </li>
                     </ul>
                 </div>

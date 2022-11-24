@@ -153,6 +153,7 @@ export const editUserProfile = (payload) => async (dispatch) => {
     try {
         const data = await userService.editProfile(payload);
         dispatch(editUserProfileSuccess());
+        toast.success("Profile was successfully updated");
     } catch (e) {
         console.log(e);
         dispatch(editUserProfileFailed());
@@ -198,6 +199,8 @@ export const updatePicture = (payload) => async (dispatch) => {
     try {
         const data = await userService.updateProfilePicture(payload);
         dispatch(updatePictureSuccess());
+        const userId = localStorageService.getUserId();
+        dispatch(loadUserProfile({ userId: userId }));
     } catch (e) {
         console.log(e);
         dispatch(updatePictureFailed());

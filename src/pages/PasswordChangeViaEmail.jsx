@@ -10,7 +10,6 @@ const PasswordChangeViaEmail = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const { code } = useParams();
-    console.log(code);
 
     const changeNewPassword = (e) => {
         setNewPassword(e.target.value);

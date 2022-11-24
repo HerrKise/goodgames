@@ -26,6 +26,7 @@ http.interceptors.response.use(
         return config;
     },
     async (error) => {
+        console.log(error);
         const originalRequest = error.config;
         const isStaff = localStorageService.getIsStaff();
         console.log("isStaff: ", isStaff);
