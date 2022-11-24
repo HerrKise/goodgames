@@ -16,6 +16,7 @@ import PasswordChangeViaEmail from "./pages/PasswordChangeViaEmail";
 import ConfirmEmail from "./pages/ConfirmEmail";
 import PasswordChangeViaProfile from "./pages/PasswordChangeViaProfile.jsx";
 import Main from "./pages/Main.jsx";
+import Games from "./pages/Games.jsx";
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(true); // думаю лучше тянуть это тут, потому что компонент грузится первым
@@ -24,6 +25,7 @@ function App() {
         <>
             <Routes>
                 <Route path="/" element={<Main />}/>
+                <Route path="/games" element={<Games />} />
                 <Route
                     element={
                         <ProtectedRoute
