@@ -177,6 +177,9 @@ export const generateRestorePassword = (payload) => async (dispatch) => {
     try {
         const data = await authService.generateRestorePassword(payload);
         dispatch(updatePasswordSuccess());
+        toast.success(
+            "Message with password restoring link is sent. Please, check your email"
+        );
     } catch (e) {
         console.log(e);
         dispatch(updatePasswordFailed());
@@ -188,6 +191,7 @@ export const restorePassword = (payload) => async (dispatch) => {
     try {
         const data = await authService.restorePassword(payload);
         dispatch(updatePasswordSuccess());
+        toast.success("New password was set");
     } catch (e) {
         console.log(e);
         dispatch(updatePasswordFailed());
