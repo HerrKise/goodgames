@@ -40,6 +40,7 @@ export const staffSlice = createSlice({
         },
         authRequested: (state) => {
             state.error = null;
+            state.isLoading = true;
         },
         authRequestSuccess: (state, action) => {
             //тут возможно понадобиться еще через пейлоад передавать юзерайди, который надо будет отдельно полкчить по пост запросу
@@ -191,5 +192,5 @@ export const updatePicture = (payload) => async (dispatch) => {
 
 export const getUserProfileData = () => (state) => state.user.entities;
 export const getUserLoadingStatus = () => (state) => state.user.isLoading;
-export const getIsLoggedIn = () => (state) => state.user.isLoggedIn;
+export const getIsStaffLoggedIn = () => (state) => state.staff.isLoggedIn;
 export const getIsStaff = () => (state) => state.user.role;
