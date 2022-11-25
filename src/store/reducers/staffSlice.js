@@ -71,32 +71,49 @@ export const {
     staffRequestFailed
 } = actions;
 
-const editUserProfileRequested = createAction("user/editUserProfileRequested");
-const editUserProfileFailed = createAction("user/editUserProfileFailed");
-const editUserProfileSuccess = createAction("user/editUserProfileSuccess");
+const editUserProfileRequested = createAction("staff/editUserProfileRequested");
+const editUserProfileFailed = createAction("staff/editUserProfileFailed");
+const editUserProfileSuccess = createAction("staff/editUserProfileSuccess");
 
-const updatePasswordRequested = createAction("user/updatePasswordRequested");
-const updatePasswordFailed = createAction("user/updatePasswordFailed");
-const updatePasswordSuccess = createAction("user/updatePasswordSuccess");
+const updatePasswordRequested = createAction("staff/updatePasswordRequested");
+const updatePasswordFailed = createAction("staff/updatePasswordFailed");
+const updatePasswordSuccess = createAction("staff/updatePasswordSuccess");
 
-const updatePictureRequested = createAction("user/updatePictureRequested");
-const updatePictureFailed = createAction("user/updatePictureFailed");
-const updatePictureSuccess = createAction("user/updatePictureSuccess");
+const updatePictureRequested = createAction("staff/updatePictureRequested");
+const updatePictureFailed = createAction("staff/updatePictureFailed");
+const updatePictureSuccess = createAction("staff/updatePictureSuccess");
 
-export const signIn = (payload) => async (dispatch) => {
-    dispatch(authRequested());
+export const loadUserProfile = () => async (dispatch) => {
+    dispatch(userRequested());
     try {
-        const { refreshToken, accessToken } = await staffService.login(payload);
-        localStorageService.setTokens(refreshToken, accessToken);
-        const { id } = await staffService.getProfile();
-        localStorageService.setUserId(id);
-        localStorageService.setStaff("true");
-        dispatch(authRequestSuccess());
+        const data = await userService.getProfile();
+        dispatch(userReceived(data));
+        console.log(data);
     } catch (e) {
         console.log(e);
-        dispatch(authRequestFailed(e.response.data.errors));
+        dispatch(usersRequestFailed(e.response.data.errors));
     }
 };
+
+export const signIn =
+    ({ payload, navigate }) =>
+    async (dispatch) => {
+        dispatch(authRequested());
+        try {
+            const { refreshToken, accessToken } = await staffService.login(
+                payload
+            );
+            localStorageService.setTokens(refreshToken, accessToken);
+            const { id } = await staffService.getProfile();
+            localStorageService.setUserId(id);
+            localStorageService.setStaff("true");
+            dispatch(authRequestSuccess());
+            navigate("/");
+        } catch (e) {
+            console.log(e);
+            dispatch(authRequestFailed(e.response.data.errors));
+        }
+    };
 
 // ======================================= ПЕРЕДЕЛАТЬ
 
@@ -116,18 +133,6 @@ export const register = (payload) => async (dispatch) => {
 };
 
 // ======================================= ПЕРЕДЕЛАТЬ
-
-export const loadUserProfile = () => async (dispatch) => {
-    dispatch(userRequested());
-    try {
-        const data = await userService.getProfile();
-        dispatch(userReceived(data));
-        console.log(data);
-    } catch (e) {
-        console.log(e);
-        dispatch(usersRequestFailed(e.response.data.errors));
-    }
-};
 
 export const editUserProfile = (payload) => async (dispatch) => {
     dispatch(editUserProfileRequested());

@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import { signIn } from "../store/reducers/staffSlice.js";
 
 const StaffLogin = () => {
     const [password, setPassword] = useState("");
-    const [email, setEmail] = useState("");
+    const [nickname, setNickname] = useState("");
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleEmailChange = (e) => {
-        setEmail(e.target.value);
+        setNickname(e.target.value);
     };
 
     const handlePasswordChange = (e) => {
@@ -17,13 +19,8 @@ const StaffLogin = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log({ email, password });
-        dispatch(
-            signIn({
-                nickname: email,
-                password: password
-            })
-        );
+        const data = { nickname: nickname, password: password };
+        dispatch(signIn({ payload: data, navigate: navigate }));
     };
 
     return (
@@ -35,11 +32,11 @@ const StaffLogin = () => {
                 >
                     <h2>Авторизация сотрудника</h2>
                     <div className=" flex flex-col items-center">
-                        <label>Почта</label>
+                        <label>Никнейм</label>
                         <input
                             type="text"
                             className="w-[400px]"
-                            value={email || ""}
+                            value={nickname || ""}
                             onChange={handleEmailChange}
                         />
                     </div>
