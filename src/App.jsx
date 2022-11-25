@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Registration from "./pages/Registration";
 import Login from "./pages/Login";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
-import ProtectedRoute from "./common/protectedRoute";
+import UserProtectedRoute from "./common/userProtectedRoute";
 import StaffPage from "./pages/StaffPage";
 import StaffLogin from "./pages/StaffLogin";
 import StaffRegistration from "./pages/StaffRegistration";
@@ -17,28 +17,15 @@ import ConfirmEmail from "./pages/ConfirmEmail";
 import PasswordChangeViaProfile from "./pages/PasswordChangeViaProfile.jsx";
 import Main from "./pages/Main.jsx";
 import Games from "./pages/Games.jsx";
+import StaffProtectedRoute from "./common/staffProtectedRoute";
 
 function App() {
-    const [loggedIn, setLoggedIn] = useState(true); // думаю лучше тянуть это тут, потому что компонент грузится первым
-    const [isAdmin, setAdmin] = useState(true);
     return (
         <>
             <Routes>
-                <Route path="/" element={<Main />}/>
+                <Route path="/" element={<Main />} />
                 <Route path="/games" element={<Games />} />
-                <Route
-                    element={
-                        <ProtectedRoute
-                            isLoggedIn={loggedIn}
-                            isAdmin={isAdmin}
-                        />
-                    }
-                >
-                    <Route path="/staff" element={<StaffPage />}>
-                        {" "}
-                    </Route>
-
-                    <Route path="/staff/reg" element={<StaffRegistration />} />
+                <Route element={<UserProtectedRoute />}>
                     <Route path="/profile" element={<Profile />} />
                     <Route
                         path="/profile/settings"
@@ -48,6 +35,10 @@ function App() {
                         path="/profile/change-password"
                         element={<PasswordChangeViaProfile />}
                     />
+                </Route>
+                <Route element={<StaffProtectedRoute />}>
+                    <Route path="/staff" element={<StaffPage />} />
+                    <Route path="/staff/reg" element={<StaffRegistration />} />
                 </Route>
                 <Route path="/staff/login" element={<StaffLogin />} />
                 <Route path="/confirm-email/:code" element={<ConfirmEmail />} />
