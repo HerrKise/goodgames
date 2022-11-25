@@ -153,6 +153,7 @@ export const editUserProfile = (payload) => async (dispatch) => {
     try {
         const data = await userService.editProfile(payload);
         dispatch(editUserProfileSuccess());
+        toast.success("Profile was successfully updated");
     } catch (e) {
         console.log(e);
         dispatch(editUserProfileFailed());
@@ -176,6 +177,9 @@ export const generateRestorePassword = (payload) => async (dispatch) => {
     try {
         const data = await authService.generateRestorePassword(payload);
         dispatch(updatePasswordSuccess());
+        toast.success(
+            "Message with password restoring link is sent. Please, check your email"
+        );
     } catch (e) {
         console.log(e);
         dispatch(updatePasswordFailed());
@@ -187,6 +191,7 @@ export const restorePassword = (payload) => async (dispatch) => {
     try {
         const data = await authService.restorePassword(payload);
         dispatch(updatePasswordSuccess());
+        toast.success("New password was set");
     } catch (e) {
         console.log(e);
         dispatch(updatePasswordFailed());
@@ -198,6 +203,8 @@ export const updatePicture = (payload) => async (dispatch) => {
     try {
         const data = await userService.updateProfilePicture(payload);
         dispatch(updatePictureSuccess());
+        const userId = localStorageService.getUserId();
+        dispatch(loadUserProfile({ userId: userId }));
     } catch (e) {
         console.log(e);
         dispatch(updatePictureFailed());

@@ -8,7 +8,8 @@ import {
     loadUserProfile,
     updatePicture
 } from "../store/reducers/userSlice.js";
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { API_URL } from "../http/index.js";
 
 const ProfileSettings = () => {
     const userId = localStorageService.getUserId();
@@ -35,6 +36,7 @@ const ProfileSettings = () => {
             setDiscord(selector.discord);
         }
         console.log(isLoading);
+        console.log(selector);
     }, [isLoading]);
 
     useEffect(() => {
@@ -42,6 +44,8 @@ const ProfileSettings = () => {
             dispatch(loadUserProfile({ userId: userId }));
         }
     }, []);
+
+    const picture = `${API_URL + selector?.profilePicture?.path}` || "";
 
     const handleNameChange = (e) => {
         changeName(e.target.value);
@@ -89,11 +93,13 @@ const ProfileSettings = () => {
                 pubgId: pubgId
             })
         );
-        let formData = new FormData();
-        console.log(profPic);
-        formData.append("Picture", profPic);
-        console.log(formData);
-        dispatch(updatePicture(formData));
+        if (profPic.length !== 0) {
+            let formData = new FormData();
+            console.log(profPic);
+            formData.append("Picture", profPic);
+            console.log(formData);
+            dispatch(updatePicture(formData));
+        }
     };
     return isLoading ? (
         ""
@@ -102,14 +108,25 @@ const ProfileSettings = () => {
             <div className="w-[1240px]  h-[900px] mx-auto">
                 <div className="flex flex-col items-center relative">
                     <h2>Редактирование профиля</h2>
-                    <NavLink to="/profile/change-password" className="absolute top-[100px] right-[40px]">Сменить пароль</NavLink>
-                    <NavLink to="/reset-password" className="absolute top-[150px] right-[40px]">Забыли пароль?</NavLink>
+                    <NavLink
+                        to="/profile/change-password"
+                        className="absolute top-[100px] right-[40px]"
+                    >
+                        Сменить пароль
+                    </NavLink>
+                    <NavLink
+                        to="/profile"
+                        className="absolute top-[100px] left-[40px]"
+                    >
+                        Назад к профилю
+                    </NavLink>
+
                     <form
                         className="flex flex-col w-[400px] mt-[50px] gap-5"
                         onSubmit={handleSubmit}
                     >
                         <div className="flex flex-col  border-white border-[1px] rounded-[5px] p-[5px]">
-                            <img src={selector.profilePicture} />
+                            <img src={picture} />
                             <label>Аватар</label>
                             <input
                                 type="file"
