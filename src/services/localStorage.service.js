@@ -27,7 +27,6 @@ export function removeAuthData() {
     localStorage.removeItem(REFRESH_KEY);
     localStorage.removeItem(USERID_KEY);
     localStorage.removeItem(STUFF_KEY);
-    localStorage.removeItem(STUFF_KEY);
 }
 export function getUserId() {
     return localStorage.getItem(USERID_KEY);

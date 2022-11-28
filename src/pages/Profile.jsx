@@ -6,35 +6,39 @@ import {
     getUserLoadingStatus,
     getUserProfileData,
     loadUserProfile,
-    logout,
+    userLogout,
     resendEmailConfirmation
 } from "../store/reducers/userSlice.js";
-import { useEffect, useState } from "react";
-import { API_URL, IMG_URL } from "../http/index.js";
+import { useEffect } from "react";
+import { API_URL } from "../http/index.js";
 
 const Profile = () => {
+    useEffect(() => {
+        console.log("работает");
+    }, []);
     const userId = localStorageService.getUserId();
+    console.log(userId);
     const dispatch = useDispatch();
+    /* useEffect(() => {
+        console.log(userId);
+        if (userId) {
+            console.log("диспатч ушёл");
+            dispatch(loadUserProfile({ userId: userId }));
+        }
+    }, []); */
+
     const selector = useSelector(getUserProfileData());
-    const isLoading = useSelector(getUserLoadingStatus());
+    console.log(selector);
 
     const errors = useSelector(getErrors());
 
-    useEffect(() => {
-        if (userId) {
-            dispatch(loadUserProfile({ userId: userId }));
-        }
-    }, []);
-
     const handleLogOut = () => {
-        dispatch(logout());
+        dispatch(userLogout());
     };
 
     const picture = `${API_URL + selector?.profilePicture?.path}` || "";
 
-    return isLoading ? (
-        ""
-    ) : (
+    return (
         <section className="w-[100%] bg-blue-300">
             <button onClick={() => dispatch(resendEmailConfirmation())}>
                 Перевыслать письмо подтверждения почты

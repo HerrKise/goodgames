@@ -9,6 +9,8 @@ export default function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    console.log("render");
+
     const handleEmailChange = (e) => {
         changeEmail(e.target.value);
     };
@@ -20,6 +22,10 @@ export default function Login() {
         e.preventDefault();
         const data = { email: email, password: password };
         dispatch(signIn({ payload: data, navigate: navigate }));
+    };
+
+    const handleRedirectToRegistration = () => {
+        navigate("/reg");
     };
 
     return (
@@ -61,7 +67,10 @@ export default function Login() {
                         </div>
                     </div>
                     <div className="flex justify-around items-center pt-[15px]">
-                        <button className="bg-white w-[150px] h-[50px] rounded-[10px]">
+                        <button
+                            className="bg-white w-[150px] h-[50px] rounded-[10px]"
+                            onClick={handleRedirectToRegistration}
+                        >
                             Регистрация
                         </button>
                         <button

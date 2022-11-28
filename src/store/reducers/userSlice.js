@@ -5,12 +5,13 @@ import localStorageService from "../../services/localStorage.service";
 import userService from "../../services/user.service";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
+import { staffLogout } from "./staffSlice";
 /* const dispatch = useDispatch(); */
 
 const initialState = localStorageService.getAccessToken()
     ? {
           entities: null,
-          isLoading: true,
+          isLoading: false,
           error: null,
           isLoggedIn: true,
           auth: { userId: localStorageService.getUserId() }
@@ -51,7 +52,7 @@ export const userSlice = createSlice({
             state.error = action.payload;
             state.isLoading = false;
         },
-        logout: (state, action) => {
+        userLogout: (state, action) => {
             state.entities = null;
             state.auth = null;
             state.isLoading = false;
@@ -63,7 +64,7 @@ export const userSlice = createSlice({
 
 export const { reducer: userReducer, actions } = userSlice;
 export const {
-    logout,
+    userLogout,
     authRequested,
     authRequestSuccess,
     authRequestFailed,
@@ -127,6 +128,7 @@ export const signIn =
 export const register =
     ({ payload, navigate }) =>
     async (dispatch) => {
+        dispatch(staffLogout());
         dispatch(authRequested());
         try {
             const { refreshToken, accessToken } = await authService.register(
