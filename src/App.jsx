@@ -20,6 +20,7 @@ import Games from "./pages/Games.jsx";
 import StaffProtectedRoute from "./common/staffProtectedRoute";
 
 function App() {
+
     return (
         <>
             <Routes>
