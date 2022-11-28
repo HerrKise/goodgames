@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import localStorageService from "../services/localStorage.service.js";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    getErrors,
     getUserLoadingStatus,
     getUserProfileData,
     loadUserProfile,
@@ -13,24 +12,20 @@ import { useEffect } from "react";
 import { API_URL } from "../http/index.js";
 
 const Profile = () => {
-    useEffect(() => {
-        console.log("работает");
-    }, []);
     const userId = localStorageService.getUserId();
     console.log(userId);
     const dispatch = useDispatch();
-    /* useEffect(() => {
-        console.log(userId);
+    const selector = useSelector(getUserProfileData());
+
+    const isLoading = useSelector(getUserLoadingStatus());
+    console.log(isLoading);
+
+    useEffect(() => {
         if (userId) {
-            console.log("диспатч ушёл");
             dispatch(loadUserProfile({ userId: userId }));
         }
-    }, []); */
-
-    const selector = useSelector(getUserProfileData());
-    console.log(selector);
-
-    const errors = useSelector(getErrors());
+        return console.log("jnhf,jnfk");
+    }, []);
 
     const handleLogOut = () => {
         dispatch(userLogout());
@@ -38,7 +33,9 @@ const Profile = () => {
 
     const picture = `${API_URL + selector?.profilePicture?.path}` || "";
 
-    return (
+    return isLoading ? (
+        ""
+    ) : (
         <section className="w-[100%] bg-blue-300">
             <button onClick={() => dispatch(resendEmailConfirmation())}>
                 Перевыслать письмо подтверждения почты

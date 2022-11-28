@@ -92,6 +92,7 @@ const confirmEmailSuccessfullySent = createAction(
 );
 
 export const loadUserProfile = (payload) => async (dispatch) => {
+    console.log("загрузчик начал работу");
     dispatch(userRequested());
     try {
         const data = await userService.getProfile(payload);

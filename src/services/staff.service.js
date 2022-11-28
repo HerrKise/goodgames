@@ -26,6 +26,14 @@ const staffService = {
     getProfile: async () => {
         const { data } = await http.get(staffEndpoint + "/GetMe");
         return data;
+    },
+    getUsersList: async (payload) => {
+        const { data } = await http.get(staffEndpoint + "/GetUsers", payload);
+        return data;
+    },
+    getUser: async (payload) => {
+        const { data } = await http.get(staffEndpoint + "/GetUser", payload);
+        return data;
     }
 };
 

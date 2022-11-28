@@ -90,6 +90,14 @@ const updateLogoRequested = createAction("staff/updateLogoRequested");
 const updateLogoFailed = createAction("staff/updateLogoFailed");
 const updateLogoSuccess = createAction("staff/updateLogoSuccess");
 
+const getUsersRequested = createAction("staff/getUsersRequested");
+const getUsersFailed = createAction("staff/getUsersFailed");
+const getUsersSuccess = createAction("staff/getUsersSuccess");
+
+const getUserRequested = createAction("staff/getUserRequested");
+const getUserFailed = createAction("staff/getUserFailed");
+const getUserSuccess = createAction("staff/getUserSuccess");
+
 export const loadStaffProfile = () => async (dispatch) => {
     dispatch(staffRequested());
     try {
@@ -196,6 +204,29 @@ export const updateLogo = (payload) => async (dispatch) => {
     } catch (e) {
         console.log(e);
         dispatch(updateLogoFailed());
+    }
+};
+
+export const getUsersList = (payload) => async (dispatch) => {
+    dispatch(getUsersRequested());
+    try {
+        const data = await staffService.getUsersList(payload);
+        dispatch(getUsersSuccess());
+        console.log(data);
+    } catch (e) {
+        console.log(e);
+        dispatch(getUsersFailed());
+    }
+};
+
+export const getUser = (payload) => async (dispatch) => {
+    dispatch(getUserRequested());
+    try {
+        const data = await staffService.getUser(payload);
+        dispatch(getUserSuccess());
+    } catch (e) {
+        console.log(e);
+        dispatch(getUserFailed());
     }
 };
 
