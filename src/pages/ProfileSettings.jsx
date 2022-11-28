@@ -35,7 +35,7 @@ const ProfileSettings = () => {
             changeYouTube(selector.youtube);
             setDiscord(selector.discord);
         }
-        console.log(isLoading);
+        console.log("isloading", isLoading);
         console.log(selector);
     }, [isLoading]);
 

@@ -1,17 +1,15 @@
-import { useSelector } from "react-redux";
-import { getIsStaffLoggedIn } from "../store/reducers/staffSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getIsStaff, getIsStaffLoggedIn } from "../store/reducers/staffSlice";
 import { Outlet, Navigate } from "react-router";
-import localStorageService from "../services/localStorage.service";
+import { useEffect } from "react";
+import { userLogout } from "../store/reducers/userSlice";
 
 const StaffProtectedRoute = () => {
+    const dispatch = useDispatch();
     const isLoggedIn = useSelector(getIsStaffLoggedIn());
-    const isAdmin = localStorageService.getIsStaff();
-    console.log(isAdmin);
-    return isLoggedIn & (isAdmin === "true") ? (
-        <Outlet />
-    ) : (
-        <Navigate to="/staff/login" />
-    );
+    const isStaff = useSelector(getIsStaff());
+    console.log(isStaff, isLoggedIn);
+    return isLoggedIn & isStaff ? <Outlet /> : <Navigate to="/staff/login" />;
 };
 
 export default StaffProtectedRoute;

@@ -2,32 +2,33 @@ import { NavLink } from "react-router-dom";
 import localStorageService from "../services/localStorage.service.js";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    getErrors,
     getUserLoadingStatus,
     getUserProfileData,
     loadUserProfile,
-    logout,
+    userLogout,
     resendEmailConfirmation
 } from "../store/reducers/userSlice.js";
-import { useEffect, useState } from "react";
-import { API_URL, IMG_URL } from "../http/index.js";
+import { useEffect } from "react";
+import { API_URL } from "../http/index.js";
 
 const Profile = () => {
     const userId = localStorageService.getUserId();
+    console.log(userId);
     const dispatch = useDispatch();
     const selector = useSelector(getUserProfileData());
-    const isLoading = useSelector(getUserLoadingStatus());
 
-    const errors = useSelector(getErrors());
+    const isLoading = useSelector(getUserLoadingStatus());
+    console.log(isLoading);
 
     useEffect(() => {
         if (userId) {
             dispatch(loadUserProfile({ userId: userId }));
         }
+        return console.log("jnhf,jnfk");
     }, []);
 
     const handleLogOut = () => {
-        dispatch(logout());
+        dispatch(userLogout());
     };
 
     const picture = `${API_URL + selector?.profilePicture?.path}` || "";

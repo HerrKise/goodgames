@@ -4,14 +4,15 @@ import localStorageService from "../../services/localStorage.service";
 import organizerService from "../../services/organizer.service";
 import staffService from "../../services/staff.service";
 import userService from "../../services/user.service";
+import { userLogout } from "./userSlice";
 
-const initialState = localStorageService.getAccessToken()
+const initialState = localStorageService.getIsStaff()
     ? {
           entities: null,
           isLoading: true,
           error: null,
           isLoggedIn: true,
-          role: null,
+          role: "staff",
           auth: { userId: localStorageService.getUserId() }
       }
     : {
@@ -47,16 +48,18 @@ export const staffSlice = createSlice({
             //тут возможно понадобиться еще через пейлоад передавать юзерайди, который надо будет отдельно полкчить по пост запросу
             state.isLoggedIn = true;
             state.isLoading = false;
+            state.role = "staff";
         },
         authRequestFailed: (state, action) => {
             state.error = action.payload;
             state.isLoading = false;
         },
-        logout: (state, action) => {
+        staffLogout: (state, action) => {
             state.entities = null;
             state.auth = null;
             state.isLoading = false;
             state.isLoggedIn = false;
+            console.log("сброс стафа");
             localStorageService.removeAuthData();
         }
     }
@@ -64,7 +67,7 @@ export const staffSlice = createSlice({
 
 export const { reducer: staffReducer, actions } = staffSlice;
 export const {
-    logout,
+    staffLogout,
     authRequested,
     authRequestSuccess,
     authRequestFailed,
@@ -87,21 +90,30 @@ const updateLogoRequested = createAction("staff/updateLogoRequested");
 const updateLogoFailed = createAction("staff/updateLogoFailed");
 const updateLogoSuccess = createAction("staff/updateLogoSuccess");
 
-export const loadUserProfile = () => async (dispatch) => {
-    dispatch(userRequested());
+const getUsersRequested = createAction("staff/getUsersRequested");
+const getUsersFailed = createAction("staff/getUsersFailed");
+const getUsersSuccess = createAction("staff/getUsersSuccess");
+
+const getUserRequested = createAction("staff/getUserRequested");
+const getUserFailed = createAction("staff/getUserFailed");
+const getUserSuccess = createAction("staff/getUserSuccess");
+
+export const loadStaffProfile = () => async (dispatch) => {
+    dispatch(staffRequested());
     try {
-        const data = await userService.getProfile();
-        dispatch(userReceived(data));
+        const data = await staffService.getProfile();
+        dispatch(staffReceived(data));
         console.log(data);
     } catch (e) {
         console.log(e);
-        dispatch(usersRequestFailed(e.response.data.errors));
+        dispatch(staffRequestFailed(e.response.data.errors));
     }
 };
 
 export const signIn =
     ({ payload, navigate }) =>
     async (dispatch) => {
+        dispatch(userLogout());
         dispatch(authRequested());
         try {
             const { refreshToken, accessToken } = await staffService.login(
@@ -112,7 +124,7 @@ export const signIn =
             localStorageService.setUserId(id);
             localStorageService.setStaff("true");
             dispatch(authRequestSuccess());
-            navigate("/");
+            navigate("/staff");
         } catch (e) {
             console.log(e);
             dispatch(authRequestFailed(e.response.data.errors));
@@ -124,11 +136,12 @@ export const signIn =
 export const register = (payload) => async (dispatch) => {
     dispatch(authRequested());
     try {
-        const { refreshToken, accessToken } = await authService.login(payload);
-        localStorageService.setTokens(refreshToken, accessToken);
+        const { data } = await staffService.createEmployee(payload);
+        console.log(data);
+        /* localStorageService.setTokens(refreshToken, accessToken);
 
         const { userId } = await authService.getUserId();
-        localStorageService.setUserId(userId);
+        localStorageService.setUserId(userId); */
         dispatch(authRequestSuccess());
     } catch (e) {
         console.log(e);
@@ -194,7 +207,30 @@ export const updateLogo = (payload) => async (dispatch) => {
     }
 };
 
+export const getUsersList = (payload) => async (dispatch) => {
+    dispatch(getUsersRequested());
+    try {
+        const data = await staffService.getUsersList(payload);
+        dispatch(getUsersSuccess());
+        console.log(data);
+    } catch (e) {
+        console.log(e);
+        dispatch(getUsersFailed());
+    }
+};
+
+export const getUser = (payload) => async (dispatch) => {
+    dispatch(getUserRequested());
+    try {
+        const data = await staffService.getUser(payload);
+        dispatch(getUserSuccess());
+    } catch (e) {
+        console.log(e);
+        dispatch(getUserFailed());
+    }
+};
+
 export const getStaffProfileData = () => (state) => state.staff.entities;
 export const getStaffLoadingStatus = () => (state) => state.staff.isLoading;
 export const getIsStaffLoggedIn = () => (state) => state.staff.isLoggedIn;
-export const getIsStaff = () => (state) => state.user.role;
+export const getIsStaff = () => (state) => state.staff.role !== null;
