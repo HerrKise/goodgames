@@ -10,7 +10,7 @@ const initialState =
     localStorageService.getAccessToken() &&
     localStorageService.getIsStaff() === "true"
         ? {
-              entities: await staffService.getProfile(),
+              entities: null,
               isLoading: false,
               error: null,
               isLoggedIn: true,
