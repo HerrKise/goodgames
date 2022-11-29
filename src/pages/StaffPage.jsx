@@ -149,11 +149,14 @@ const StaffPage = () => {
                             >
                                 <p>nickname: {user.profile.nickname}</p>
                                 <p>id: {user.id} </p>
-                            <NavLink to={`/staff/user-profile/${user.id}`}>Больше информации</NavLink>
-                        </li>
-                    );
-                })}
-            </ul>
+                                <NavLink to={`/staff/user-profile/${user.id}`}>
+                                    Больше информации
+                                </NavLink>
+                            </li>
+                        );
+                    })}
+                </ul>
+            )}
             <StaffData />
         </section>
     );
