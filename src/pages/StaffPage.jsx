@@ -7,6 +7,7 @@ import {
     loadStaffProfile,
     staffLogout
 } from "../store/reducers/staffSlice";
+import StaffData from "../components/StaffData";
 
 const StaffPage = () => {
     const dispatch = useDispatch();
@@ -144,6 +145,7 @@ const StaffPage = () => {
                     )
                 })}
             </ul>
+            <StaffData />
         </section>
     );
 };
