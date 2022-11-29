@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import UserPopup from "../components/UserPopup";
+import UserPopup from "./UserProfile";
 import {
     getUsersList,
     loadStaffProfile,
@@ -140,23 +140,13 @@ const StaffPage = () => {
                         <li className="border-[1px] border-black" key={user.id}>
                             <p>nickname: {user.nickname}</p>
                             <p>id: {user.id} </p>
-                            <button
-                                onClick={() => {
-                                    handleButtonClick(user.id, user.nickname);
-                                }}
-                            >
-                                Больше информации
-                            </button>
+
+                            <NavLink to={`/staff/user-profile/${user.id}`}>Больше информации</NavLink>
+
                         </li>
                     );
                 })}
             </ul>
-            <UserPopup
-                isVisible={popupVisible}
-                id={id}
-                userName={userName}
-                setVisible={setPopupVisible}
-            />
         </section>
     );
 };
