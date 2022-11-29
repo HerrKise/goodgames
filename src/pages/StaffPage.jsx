@@ -19,58 +19,12 @@ const StaffPage = () => {
     const [popupVisible, setPopupVisible] = useState(false);
     const [userName, setUserName] = useState("");
     const [id, setId] = useState("");
-    /* const [users, setUsers] = useState([
-        {
-            id: "id1",
-            nickname: "nickname1"
-        },
-        {
-            id: "id2",
-            nickname: "nickname2"
-        },
-        {
-            id: "id3",
-            nickname: "nickname3"
-        },
-        {
-            id: "id4",
-            nickname: "nickname4"
-        },
-        {
-            id: "id5",
-            nickname: "nickname5"
-        },
-        {
-            id: "id6",
-            nickname: "nickname6"
-        },
-        {
-            id: "id7",
-            nickname: "nickname7"
-        },
-        {
-            id: "id8",
-            nickname: "nickname8"
-        },
-        {
-            id: "id9",
-            nickname: "nickname9"
-        },
-        {
-            id: "id10",
-            nickname: "nickname10"
-        }
-    ]); */
     const isLoading = useSelector(getStaffLoadingStatus());
     const usersList = useSelector(getListOfUsers());
 
     useEffect(() => {
         console.log(pageSize);
     }, [pageSize]);
-
-    /* useEffect(() => {
-        dispatch(loadStaffProfile());
-    }, []); */
 
     const handleLogOut = () => {
         dispatch(staffLogout());
@@ -149,11 +103,14 @@ const StaffPage = () => {
                             >
                                 <p>nickname: {user.profile.nickname}</p>
                                 <p>id: {user.id} </p>
-                            <NavLink to={`/staff/user-profile/${user.id}`}>Больше информации</NavLink>
-                        </li>
-                    );
-                })}
-            </ul>
+                                <NavLink to={`/staff/user-profile/${user.id}`}>
+                                    Больше информации
+                                </NavLink>
+                            </li>
+                        );
+                    })}
+                </ul>
+            )}
             <StaffData />
         </section>
     );

@@ -15,6 +15,7 @@ const UserProtectedRoute = () => {
     if (isStaff) {
         dispatch(staffLogout());
     }
+    console.log("проверяется");
     const isLoggedIn = useSelector(getIsUserLoggedIn());
 
     return (
