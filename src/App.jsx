@@ -18,6 +18,7 @@ import PasswordChangeViaProfile from "./pages/PasswordChangeViaProfile.jsx";
 import Main from "./pages/Main.jsx";
 import Games from "./pages/Games.jsx";
 import StaffProtectedRoute from "./common/staffProtectedRoute";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
                 <Route element={<StaffProtectedRoute />}>
                     <Route path="/staff" element={<StaffPage />} />
                     <Route path="/staff/reg" element={<StaffRegistration />} />
+                    <Route path="/staff/user-profile/:id" element={<UserProfile />}></Route>
                 </Route>
                 <Route path="/staff/login" element={<StaffLogin />} />
                 <Route path="/confirm-email/:code" element={<ConfirmEmail />} />
