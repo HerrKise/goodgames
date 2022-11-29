@@ -9,6 +9,7 @@ import {
     loadStaffProfile,
     staffLogout
 } from "../store/reducers/staffSlice";
+import StaffData from "../components/StaffData";
 
 const StaffPage = () => {
     const dispatch = useDispatch();
@@ -148,15 +149,12 @@ const StaffPage = () => {
                             >
                                 <p>nickname: {user.profile.nickname}</p>
                                 <p>id: {user.id} </p>
-
-                                <NavLink to={`/staff/user-profile/${user.id}`}>
-                                    Больше информации
-                                </NavLink>
-                            </li>
-                        );
-                    })}
-                </ul>
-            )}
+                            <NavLink to={`/staff/user-profile/${user.id}`}>Больше информации</NavLink>
+                        </li>
+                    );
+                })}
+            </ul>
+            <StaffData />
         </section>
     );
 };
