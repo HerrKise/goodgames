@@ -1,6 +1,8 @@
 import http from "../http";
 import localStorageService from "./localStorage.service";
 
+console.log("initiate staff service");
+
 const staffEndpoint = "/AdminPanel";
 
 const staffService = {
@@ -24,6 +26,7 @@ const staffService = {
         return data;
     },
     getProfile: async () => {
+        console.log("get working");
         const { data } = await http.get(staffEndpoint + "/GetMe");
         return data;
     },

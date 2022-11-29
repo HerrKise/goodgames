@@ -6,23 +6,25 @@ import staffService from "../../services/staff.service";
 import userService from "../../services/user.service";
 import { userLogout } from "./userSlice";
 
-const initialState = localStorageService.getIsStaff()
-    ? {
-          entities: null,
-          isLoading: true,
-          error: null,
-          isLoggedIn: true,
-          role: "staff",
-          auth: { userId: localStorageService.getUserId() }
-      }
-    : {
-          entities: null,
-          isLoading: false,
-          error: null,
-          isLoggedIn: false,
-          role: null,
-          auth: null
-      };
+const initialState =
+    localStorageService.getAccessToken() &&
+    localStorageService.getIsStaff() === "true"
+        ? {
+              entities: await staffService.getProfile(),
+              isLoading: false,
+              error: null,
+              isLoggedIn: true,
+              role: "staff",
+              auth: { userId: localStorageService.getUserId() }
+          }
+        : {
+              entities: null,
+              isLoading: false,
+              error: null,
+              isLoggedIn: false,
+              role: null,
+              auth: null
+          };
 
 export const staffSlice = createSlice({
     name: "staff",
@@ -124,6 +126,7 @@ export const signIn =
             localStorageService.setUserId(id);
             localStorageService.setStaff("true");
             dispatch(authRequestSuccess());
+            dispatch(loadStaffProfile());
             navigate("/staff");
         } catch (e) {
             console.log(e);

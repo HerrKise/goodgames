@@ -1,5 +1,7 @@
 import http from "../http";
 
+console.log("initiate user service");
+
 const userEndpoint = "/Profile";
 
 const userService = {

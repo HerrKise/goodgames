@@ -8,6 +8,8 @@ import { getIsStaff } from "../store/reducers/staffSlice";
 export const API_URL = "http://176.99.11.245/api/";
 export const IMG_URL = "http://176.99.11.245/";
 
+console.log("http init");
+
 const http = axios.create({
     baseURL: API_URL
 });
