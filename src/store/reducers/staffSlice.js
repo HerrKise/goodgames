@@ -15,7 +15,9 @@ const initialState =
               error: null,
               isLoggedIn: true,
               role: "staff",
-              auth: { userId: localStorageService.getUserId() }
+              auth: { userId: localStorageService.getUserId() },
+              usersList: null,
+              selectedUser: null
           }
         : {
               entities: null,
@@ -23,7 +25,9 @@ const initialState =
               error: null,
               isLoggedIn: false,
               role: null,
-              auth: null
+              auth: null,
+              usersList: null,
+              selectedUser: null
           };
 
 export const staffSlice = createSlice({
@@ -56,6 +60,28 @@ export const staffSlice = createSlice({
             state.error = action.payload;
             state.isLoading = false;
         },
+        getUsersListRequested: (state, action) => {
+            state.isLoading = true;
+        },
+        getUsersListSuccess: (state, action) => {
+            state.usersList = action.payload;
+            state.isLoading = false;
+        },
+        getUsersListFailed: (state, action) => {
+            state.error = action.payload;
+            state.isLoading = false;
+        },
+        getSelectedUserRequested: (state, action) => {
+            state.isLoading = true;
+        },
+        getSelectedUserSuccess: (state, action) => {
+            state.selectedUser = action.payload;
+            state.isLoading = false;
+        },
+        getSelectedUserFailed: (state, action) => {
+            state.error = action.payload;
+            state.isLoading = false;
+        },
         staffLogout: (state, action) => {
             state.entities = null;
             state.auth = null;
@@ -75,7 +101,13 @@ export const {
     authRequestFailed,
     staffRequested,
     staffReceived,
-    staffRequestFailed
+    staffRequestFailed,
+    getUsersListRequested,
+    getUsersListSuccess,
+    getUsersListFailed,
+    getSelectedUserRequested,
+    getSelectedUserSuccess,
+    getSelectedUserFailed
 } = actions;
 
 const editStaffProfileRequested = createAction(
@@ -162,7 +194,7 @@ export const editUserProfile = (payload) => async (dispatch) => {
         toast.success("Profile was successfully updated");
     } catch (e) {
         console.log(e);
-        dispatch(editStaffProfileFailed());
+        dispatch(editStaffProfileFailed(e.response.data.errors));
     }
 };
 
@@ -211,25 +243,25 @@ export const updateLogo = (payload) => async (dispatch) => {
 };
 
 export const getUsersList = (payload) => async (dispatch) => {
-    dispatch(getUsersRequested());
+    dispatch(getUsersListRequested());
     try {
         const data = await staffService.getUsersList(payload);
-        dispatch(getUsersSuccess());
+        dispatch(getUsersListSuccess(data));
         console.log(data);
     } catch (e) {
         console.log(e);
-        dispatch(getUsersFailed());
+        dispatch(getUsersListFailed(e.response.data.errors));
     }
 };
 
 export const getUser = (payload) => async (dispatch) => {
-    dispatch(getUserRequested());
+    dispatch(getSelectedUserRequested());
     try {
         const data = await staffService.getUser(payload);
-        dispatch(getUserSuccess());
+        dispatch(getSelectedUserSuccess(data));
     } catch (e) {
         console.log(e);
-        dispatch(getUserFailed());
+        dispatch(getSelectedUserFailed(e.response.data.errors));
     }
 };
 
@@ -237,3 +269,5 @@ export const getStaffProfileData = () => (state) => state.staff.entities;
 export const getStaffLoadingStatus = () => (state) => state.staff.isLoading;
 export const getIsStaffLoggedIn = () => (state) => state.staff.isLoggedIn;
 export const getIsStaff = () => (state) => state.staff.role !== null;
+export const getListOfUsers = () => (state) => state.staff.usersList;
+export const getSelectedUser = () => (state) => state.staff.selectedUser;

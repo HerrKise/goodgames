@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import UserPopup from "./UserProfile";
 import {
+    getListOfUsers,
+    getStaffLoadingStatus,
     getUsersList,
     loadStaffProfile,
     staffLogout
@@ -16,7 +18,7 @@ const StaffPage = () => {
     const [popupVisible, setPopupVisible] = useState(false);
     const [userName, setUserName] = useState("");
     const [id, setId] = useState("");
-    const [users, setUsers] = useState([
+    /* const [users, setUsers] = useState([
         {
             id: "id1",
             nickname: "nickname1"
@@ -57,7 +59,9 @@ const StaffPage = () => {
             id: "id10",
             nickname: "nickname10"
         }
-    ]);
+    ]); */
+    const isLoading = useSelector(getStaffLoadingStatus());
+    const usersList = useSelector(getListOfUsers());
 
     useEffect(() => {
         console.log(pageSize);
@@ -134,20 +138,25 @@ const StaffPage = () => {
                 />
                 <button type="submit">Получить список пользователей</button>
             </form>
-            <ul className="bg-gray-200 mt-[30px]">
-                {users.map((user) => {
-                    return (
-                        <li className="border-[1px] border-black" key={user.id}>
-                            <p>nickname: {user.nickname}</p>
-                            <p>id: {user.id} </p>
+            {!isLoading && usersList !== null && (
+                <ul className="bg-gray-200 mt-[30px]">
+                    {usersList.items.map((user) => {
+                        return (
+                            <li
+                                className="border-[1px] border-black"
+                                key={user.id}
+                            >
+                                <p>nickname: {user.profile.nickname}</p>
+                                <p>id: {user.id} </p>
 
-                            <NavLink to={`/staff/user-profile/${user.id}`}>
-                                Больше информации
-                            </NavLink>
-                        </li>
-                    );
-                })}
-            </ul>
+                                <NavLink to={`/staff/user-profile/${user.id}`}>
+                                    Больше информации
+                                </NavLink>
+                            </li>
+                        );
+                    })}
+                </ul>
+            )}
         </section>
     );
 };
