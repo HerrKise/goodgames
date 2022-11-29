@@ -58,15 +58,14 @@ const StaffPage = () => {
             nickname: "nickname10"
         }
     ]);
-    const loadedUsersSelector = dispatch(getUsersList());
 
     useEffect(() => {
         console.log(pageSize);
     }, [pageSize]);
 
-    useEffect(() => {
+    /* useEffect(() => {
         dispatch(loadStaffProfile());
-    }, []);
+    }, []); */
 
     const handleLogOut = () => {
         dispatch(staffLogout());

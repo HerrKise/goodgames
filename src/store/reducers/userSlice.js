@@ -8,21 +8,25 @@ import { useDispatch } from "react-redux";
 import { staffLogout } from "./staffSlice";
 /* const dispatch = useDispatch(); */
 
-const initialState = localStorageService.getAccessToken()
-    ? {
-          entities: null,
-          isLoading: false,
-          error: null,
-          isLoggedIn: true,
-          auth: { userId: localStorageService.getUserId() }
-      }
-    : {
-          entities: null,
-          isLoading: false,
-          error: null,
-          isLoggedIn: false,
-          auth: null
-      };
+const initialState =
+    localStorageService.getAccessToken() &&
+    localStorageService.getIsStaff() !== "true"
+        ? {
+              entities: await userService.getProfile({
+                  userId: localStorageService.getUserId()
+              }),
+              isLoading: false,
+              error: null,
+              isLoggedIn: true,
+              auth: { userId: localStorageService.getUserId() }
+          }
+        : {
+              entities: null,
+              isLoading: false,
+              error: null,
+              isLoggedIn: false,
+              auth: null
+          };
 
 export const userSlice = createSlice({
     name: "user",
