@@ -42,9 +42,41 @@ const staffService = {
         const { data } = await http.post(staffEndpoint + "/GiveBan", payload);
         return data;
     },
+    giveUnban: async (payload) => {
+        const { data } = await http.post(staffEndpoint + "/Unban", payload);
+        return data;
+    },
     giveShadowBan: async (payload) => {
         const { data } = await http.post(
             staffEndpoint + "/GiveShadowBan",
+            payload
+        );
+        return data;
+    },
+    deleteUser: async (payload) => {
+        const { data } = await http.delete(
+            staffEndpoint + "/DeleteUser",
+            payload
+        );
+        return data;
+    },
+    deleteEmployee: async (payload) => {
+        const { data } = await http.delete(
+            staffEndpoint + "/DeleteEmployee",
+            payload
+        );
+        return data;
+    },
+    restoreUser: async (payload) => {
+        const { data } = await http.post(
+            staffEndpoint + "/RestoreUser",
+            payload
+        );
+        return data;
+    },
+    restoreEmployee: async (payload) => {
+        const { data } = await http.post(
+            staffEndpoint + "/RestoreEmployee",
             payload
         );
         return data;
