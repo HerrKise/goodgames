@@ -25,7 +25,7 @@ const PasswordChangeViaEmail = () => {
                 restorePassword({
                     code: code,
                     password: newPassword,
-                    confirmPassword: confirmPassword
+                    confirmPassword: confirmPassword,
                 })
             );
         } else {
