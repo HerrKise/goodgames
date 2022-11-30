@@ -12,9 +12,7 @@ const initialState =
     localStorageService.getAccessToken() &&
     localStorageService.getIsStaff() !== "true"
         ? {
-              entities: await userService.getProfile({
-                  userId: localStorageService.getUserId()
-              }),
+              entities: null,
               isLoading: false,
               error: null,
               isLoggedIn: true,
