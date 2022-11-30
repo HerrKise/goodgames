@@ -37,6 +37,17 @@ const staffService = {
     getUser: async (payload) => {
         const { data } = await http.get(staffEndpoint + "/GetUser", payload);
         return data;
+    },
+    giveBan: async (payload) => {
+        const { data } = await http.post(staffEndpoint + "/GiveBan", payload);
+        return data;
+    },
+    giveShadowBan: async (payload) => {
+        const { data } = await http.post(
+            staffEndpoint + "/GiveShadowBan",
+            payload
+        );
+        return data;
     }
 };
 
