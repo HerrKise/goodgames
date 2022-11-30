@@ -14,6 +14,10 @@ const newsService = {
     delete: async (payload) => {
         const { data } = await http.delete(newsEndpoint + "/Delete", payload);
         return data;
+    },
+    get: async (payload) => {
+        const { data } = await http.get(newsEndpoint + "/GetNews", payload);
+        return data;
     }
 };
 
