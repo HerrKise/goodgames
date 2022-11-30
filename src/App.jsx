@@ -19,9 +19,9 @@ import Main from "./pages/Main.jsx";
 import Games from "./pages/Games.jsx";
 import StaffProtectedRoute from "./common/staffProtectedRoute";
 import UserProfile from "./pages/UserProfile";
+import TournamentCreation from "./pages/TournamentCreation";
 
 function App() {
-
     return (
         <>
             <Routes>
@@ -41,7 +41,14 @@ function App() {
                 <Route element={<StaffProtectedRoute />}>
                     <Route path="/staff" element={<StaffPage />} />
                     <Route path="/staff/reg" element={<StaffRegistration />} />
-                    <Route path="/staff/user-profile/:id" element={<UserProfile />}></Route>
+                    <Route
+                        path="/staff/user-profile/:id"
+                        element={<UserProfile />}
+                    ></Route>
+                    <Route
+                        path="/staff/create-event"
+                        element={<TournamentCreation />}
+                    ></Route>
                 </Route>
                 <Route path="/staff/login" element={<StaffLogin />} />
                 <Route path="/confirm-email/:code" element={<ConfirmEmail />} />
