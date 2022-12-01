@@ -45,9 +45,10 @@ const StaffPage = () => {
 
     const handleGetUsersList = (e) => {
         e.preventDefault();
+        console.log(active);
         dispatch(
             getUsersList({
-                PageNumer: pageNumber,
+                PageNumber: pageNumber,
                 PageSize: pageSize,
                 GetActive: active
             })
@@ -84,7 +85,7 @@ const StaffPage = () => {
                     value={pageNumber}
                     onChange={handlePageNumberChange}
                 />
-                <label htmlFor="active">Активные пользователи</label>
+                <label htmlFor="active">Только активные пользователи</label>
                 <input
                     id="active"
                     checked={active}
@@ -94,22 +95,29 @@ const StaffPage = () => {
                 <button type="submit">Получить список пользователей</button>
             </form>
             {!isLoading && usersList !== null && (
-                <ul className="bg-gray-200 mt-[30px]">
-                    {usersList.items.map((user) => {
-                        return (
-                            <li
-                                className="border-[1px] border-black"
-                                key={user.id}
-                            >
-                                <p>nickname: {user.profile.nickname}</p>
-                                <p>id: {user.id} </p>
-                                <NavLink to={`/staff/user-profile/${user.id}`}>
-                                    Больше информации
-                                </NavLink>
-                            </li>
-                        );
-                    })}
-                </ul>
+                <>
+                    <p>
+                        Текущее количество пользователей: {usersList.totalCount}
+                    </p>
+                    <ul className="bg-gray-200 mt-[30px]">
+                        {usersList.items.map((user) => {
+                            return (
+                                <li
+                                    className="border-[1px] border-black"
+                                    key={user.id}
+                                >
+                                    <p>nickname: {user.profile.nickname}</p>
+                                    <p>id: {user.id} </p>
+                                    <NavLink
+                                        to={`/staff/user-profile/${user.id}`}
+                                    >
+                                        Больше информации
+                                    </NavLink>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </>
             )}
             <StaffData />
         </section>
