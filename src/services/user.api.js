@@ -1,10 +1,9 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import baseQueryWithReauth from "../http/http";
 
 export const userApi = createApi({
     reducerPath: "user/api",
-    baseQuery: fetchBaseQuery({
-        baseUrl: "http://176.99.11.245/api/"
-    }),
+    baseQuery: baseQueryWithReauth,
     endpoints: (build) => ({
         getProfile: build.query({
             query: (payload) => ({
