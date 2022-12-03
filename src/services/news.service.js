@@ -15,8 +15,23 @@ const newsService = {
         const { data } = await http.delete(newsEndpoint + "/Delete", payload);
         return data;
     },
-    get: async (payload) => {
+    getNews: async (payload) => {
         const { data } = await http.get(newsEndpoint + "/GetNews", payload);
+        return data;
+    },
+    getNewsByEditorId: async (payload) => {
+        const { data } = await http.get(
+            newsEndpoint + "/GetNewsByNewsEditorId",
+            payload
+        );
+        return data;
+    },
+    uploadPicture: async (payload) => {
+        const { data } = await http.post(
+            newsEndpoint + "/UploadPicture",
+            payload
+        );
+        console.log(data);
         return data;
     }
 };

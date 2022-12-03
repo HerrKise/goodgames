@@ -1,21 +1,32 @@
 import React, { useEffect, useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    getNewsLoadingStatus,
+    getPhotoUrl,
+    getPhotoUrlData
+} from "../store/reducers/newsSlice";
 
 const Editor = () => {
     const [value, setValue] = React.useState("**Hello world!!!**");
     const [postPic, setPostPic] = useState([]);
-    const [imgUrl, setImgUrl] = useState("");
-    useEffect(() => {
-        console.log(value);
-    }, [value]);
+    const isLoading = useSelector(getNewsLoadingStatus());
+    const photoUrl = useSelector(getPhotoUrlData());
 
-    const handlePicUpload = (e) => {
+    const dispatch = useDispatch();
+
+    const handlePicChange = (e) => {
         e.preventDefault();
         setPostPic(e.target.files[0]);
-        //тут диспатч файла на сервер
-        //сервер возвращает ответ
-        //закидываем адрес картинки
-        setImgUrl("Какой-то адрес картинки с сервера");
+    };
+
+    const handleUrlGet = (e) => {
+        e.preventDefault();
+        if (postPic.length !== 0) {
+            let formData = new FormData();
+            formData.append("file", postPic);
+            dispatch(getPhotoUrl(formData));
+        }
     };
 
     const uploadPost = () => {
@@ -34,10 +45,11 @@ const Editor = () => {
                 <input
                     type="file"
                     placeholder="изменить"
-                    onChange={handlePicUpload}
+                    onChange={handlePicChange}
                     className="px-[5px] py-[3px]"
                 />
-                <p>Ваша ссылка появится здесь: {imgUrl}</p>
+                <button onClick={handleUrlGet}>Получить ссылку</button>
+                <p>Ваша ссылка появится здесь: {!isLoading ? photoUrl : ""}</p>
             </form>
             <MDEditor value={value} onChange={setValue} />
             <MDEditor.Markdown
