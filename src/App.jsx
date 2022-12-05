@@ -20,6 +20,8 @@ import Games from "./pages/Games.jsx";
 import StaffProtectedRoute from "./common/staffProtectedRoute";
 import UserProfile from "./pages/UserProfile";
 import TournamentCreation from "./pages/TournamentCreation";
+import PostContent from "./pages/PostContent";
+import EditPosts from "./pages/EditPosts";
 
 function App() {
     return (
@@ -49,6 +51,10 @@ function App() {
                         path="/staff/create-event"
                         element={<TournamentCreation />}
                     ></Route>
+                    <Route
+                        path="/staff/edit-posts"
+                        element={<EditPosts />}
+                    ></Route>
                 </Route>
                 <Route path="/staff/login" element={<StaffLogin />} />
                 <Route path="/confirm-email/:code" element={<ConfirmEmail />} />
@@ -59,6 +65,7 @@ function App() {
                     path="/create-new-password/:code"
                     element={<PasswordChangeViaEmail />}
                 />
+                <Route path="/posts" element={<PostContent />}></Route>
             </Routes>
             <ToastContainer />
         </>
