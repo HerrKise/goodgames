@@ -5,7 +5,7 @@ const initialState = {
     entities: null,
     isLoading: false,
     uploadingPhotoUrl: null,
-    error: null,
+    error: null
 };
 
 export const actionsSlice = createSlice({
@@ -33,31 +33,31 @@ export const actionsSlice = createSlice({
         actionsRequestByIdFailed: (state, action) => {
             state.error = action.payload;
             state.isLoading = false;
-        },
-    },
+        }
+    }
 });
 
-export const { reducer: newsReducer, actions } = newsSlice;
+export const { reducer: actionsReducer, actions } = actionsSlice;
 export const {
     actionsRequested,
     actionsReceived,
     actionsRequestFailed,
     actionsRequestedById,
     actionsReceivedById,
-    actionsRequestByIdFailed,
+    actionsRequestByIdFailed
 } = actions;
 
-const createActionsRequested = createAction("news/createNewsRequested");
-const createActionsFailed = createAction("news/createNewsFailed");
-const createActionsSuccess = createAction("news/createNewsSuccess");
+const createActionsRequested = createAction("actions/createActionsRequested");
+const createActionsFailed = createAction("actions/createActionsFailed");
+const createActionsSuccess = createAction("actions/createActionsSuccess");
 
-const editActionsRequested = createAction("news/editNewsRequested");
-const editActionsFailed = createAction("news/editNewsFailed");
-const editActionsSuccess = createAction("news/editNewsSuccess");
+const editActionsRequested = createAction("actions/editActionsRequested");
+const editActionsFailed = createAction("actions/editActionsFailed");
+const editActionsSuccess = createAction("actions/editActionsSuccess");
 
-const deleteActionsRequested = createAction("news/deleteNewsRequested");
-const deleteActionsFailed = createAction("news/deleteNewsFailed");
-const deleteActionsSuccess = createAction("news/deleteNewsSuccess");
+const deleteActionsRequested = createAction("actions/deleteActionsRequested");
+const deleteActionsFailed = createAction("actions/deleteActionsFailed");
+const deleteActionsSuccess = createAction("actions/deleteActionsSuccess");
 
 export const loadActions = (payload) => async (dispatch) => {
     dispatch(actionsRequested());
@@ -109,5 +109,5 @@ export const deleteActions = (payload) => async (dispatch) => {
     }
 };
 
-export const getOffersData = () => (state) => state.news.entities;
-export const getOffersLoadingStatus = () => (state) => state.news.isLoading;
+export const getActionsData = () => (state) => state.actions.entities;
+export const getActionsLoadingStatus = () => (state) => state.actions.isLoading;
