@@ -3,7 +3,7 @@ import { useState } from "react";
 const CreateEventForm = () => {
     const [mods, setMods] = useState([]);
     return (
-        <section className="bg-grey-300 w-[100%] min-h-[100vh]">
+        <section className="bg-gray-300 w-[100%] min-h-[100vh]">
             <div className="w-[1024px] mx-auto flex flex-col items-center">
                 <h2>Создание ивента</h2>
                 <form>
