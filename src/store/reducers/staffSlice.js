@@ -17,7 +17,8 @@ const initialState =
               role: "staff",
               auth: { userId: localStorageService.getUserId() },
               usersList: null,
-              selectedUser: null
+              selectedUser: null,
+              employeeLogs: null
           }
         : {
               entities: null,
@@ -27,7 +28,8 @@ const initialState =
               role: null,
               auth: null,
               usersList: null,
-              selectedUser: null
+              selectedUser: null,
+              employeeLogs: null
           };
 
 export const staffSlice = createSlice({
@@ -82,6 +84,17 @@ export const staffSlice = createSlice({
             state.error = action.payload;
             state.isLoading = false;
         },
+        getEmployeeLogsRequested: (state, action) => {
+            state.isLoading = true;
+        },
+        getEmployeeLogsSuccess: (state, action) => {
+            state.employeeLogs = action.payload;
+            state.isLoading = false;
+        },
+        getEmployeeLogsFailed: (state, action) => {
+            state.error = action.payload;
+            state.isLoading = false;
+        },
         staffLogout: (state, action) => {
             state.entities = null;
             state.auth = null;
@@ -107,7 +120,10 @@ export const {
     getUsersListFailed,
     getSelectedUserRequested,
     getSelectedUserSuccess,
-    getSelectedUserFailed
+    getSelectedUserFailed,
+    getEmployeeLogsSuccess,
+    getEmployeeLogsRequested,
+    getEmployeeLogsFailed
 } = actions;
 
 const editStaffProfileRequested = createAction(
@@ -166,25 +182,17 @@ export const signIn =
         }
     };
 
-// ======================================= ПЕРЕДЕЛАТЬ
-
 export const register = (payload) => async (dispatch) => {
     dispatch(authRequested());
     try {
         const { data } = await staffService.createEmployee(payload);
         console.log(data);
-        /* localStorageService.setTokens(refreshToken, accessToken);
-
-        const { userId } = await authService.getUserId();
-        localStorageService.setUserId(userId); */
         dispatch(authRequestSuccess());
     } catch (e) {
         console.log(e);
         dispatch(authRequestFailed(e.response.data.errors));
     }
 };
-
-// ======================================= ПЕРЕДЕЛАТЬ
 
 export const editUserProfile = (payload) => async (dispatch) => {
     dispatch(editStaffProfileRequested());
@@ -265,9 +273,21 @@ export const getUser = (payload) => async (dispatch) => {
     }
 };
 
+export const getEmployeeLogs = (payload) => async (dispatch) => {
+    dispatch(getEmployeeLogsRequested());
+    try {
+        const data = await staffService.getEmployeeLogs(payload);
+        dispatch(getEmployeeLogsSuccess(data));
+    } catch (e) {
+        console.log(e);
+        dispatch(getEmployeeLogsFailed(e.response.data.errors));
+    }
+};
+
 export const getStaffProfileData = () => (state) => state.staff.entities;
 export const getStaffLoadingStatus = () => (state) => state.staff.isLoading;
 export const getIsStaffLoggedIn = () => (state) => state.staff.isLoggedIn;
 export const getIsStaff = () => (state) => state.staff.role !== null;
 export const getListOfUsers = () => (state) => state.staff.usersList;
 export const getSelectedUser = () => (state) => state.staff.selectedUser;
+export const getEmployeeLogsList = () => (state) => state.staff.employeeLogs;

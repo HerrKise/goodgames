@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-const StaffData = ({ users }) => {
+const UsersListShortData = ({ users }) => {
     return (
         <section className="w-[100%] bg-yellow-400">
             <div className="w-[1024px] mx-auto flex flex-col items-center">
@@ -26,4 +26,4 @@ const StaffData = ({ users }) => {
     );
 };
 
-export default StaffData;
+export default UsersListShortData;

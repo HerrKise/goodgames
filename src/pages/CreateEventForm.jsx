@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const TournamentCreation = () => {
+const CreateEventForm = () => {
     const [mods, setMods] = useState([]);
     return (
         <section className="bg-grey-300 w-[100%] min-h-[100vh]">
@@ -59,4 +59,4 @@ const TournamentCreation = () => {
     );
 };
 
-export default TournamentCreation;
+export default CreateEventForm;
