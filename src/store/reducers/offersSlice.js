@@ -5,10 +5,10 @@ const initialState = {
     entities: null,
     isLoading: false,
     uploadingPhotoUrl: null,
-    error: null,
+    error: null
 };
 
-export const offerSlice = createSlice({
+export const offersSlice = createSlice({
     name: "offers",
     initialState,
     reducers: {
@@ -33,31 +33,31 @@ export const offerSlice = createSlice({
         offersRequestByIdFailed: (state, action) => {
             state.error = action.payload;
             state.isLoading = false;
-        },
-    },
+        }
+    }
 });
 
-export const { reducer: newsReducer, actions } = newsSlice;
+export const { reducer: offersReducer, actions } = offersSlice;
 export const {
     offersRequested,
     offersReceived,
     offersRequestFailed,
     offersRequestedById,
     offersReceivedById,
-    offersRequestByIdFailed,
+    offersRequestByIdFailed
 } = actions;
 
-const createOffersRequested = createAction("news/createNewsRequested");
-const createOffersFailed = createAction("news/createNewsFailed");
-const createOffersSuccess = createAction("news/createNewsSuccess");
+const createOffersRequested = createAction("offers/createOffersRequested");
+const createOffersFailed = createAction("offers/createOffersFailed");
+const createOffersSuccess = createAction("offers/createOffersSuccess");
 
-const editOffersRequested = createAction("news/editNewsRequested");
-const editOffersFailed = createAction("news/editNewsFailed");
-const editOffersSuccess = createAction("news/editNewsSuccess");
+const editOffersRequested = createAction("offers/editOffersRequested");
+const editOffersFailed = createAction("offers/editOffersFailed");
+const editOffersSuccess = createAction("offers/editOffersSuccess");
 
-const deleteOffersRequested = createAction("news/deleteNewsRequested");
-const deleteOffersFailed = createAction("news/deleteNewsFailed");
-const deleteOffersSuccess = createAction("news/deleteNewsSuccess");
+const deleteOffersRequested = createAction("offers/deleteOffersRequested");
+const deleteOffersFailed = createAction("offers/deleteOffersFailed");
+const deleteOffersSuccess = createAction("offers/deleteOffersSuccess");
 
 export const loadOffers = (payload) => async (dispatch) => {
     dispatch(offersRequested());
@@ -109,5 +109,5 @@ export const deleteOffers = (payload) => async (dispatch) => {
     }
 };
 
-export const getOffersData = () => (state) => state.news.entities;
-export const getOffersLoadingStatus = () => (state) => state.news.isLoading;
+export const getOffersData = () => (state) => state.offers.entities;
+export const getOffersLoadingStatus = () => (state) => state.offers.isLoading;
