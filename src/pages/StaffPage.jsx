@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import UserPopup from "./UserProfile";
 import {
+    getEmployeeLogs,
+    getEmployeeLogsList,
     getListOfUsers,
     getStaffLoadingStatus,
     getStaffProfileData,
@@ -10,7 +12,7 @@ import {
     loadStaffProfile,
     staffLogout
 } from "../store/reducers/staffSlice";
-import StaffData from "../components/StaffData";
+import UsersListShortData from "../components/UsersListShortData";
 
 const StaffPage = () => {
     const dispatch = useDispatch();
@@ -27,7 +29,20 @@ const StaffPage = () => {
     const isLoading = useSelector(getStaffLoadingStatus());
     const usersList = useSelector(getListOfUsers());
     const staffData = useSelector(getStaffProfileData());
+    const logs = useSelector(getEmployeeLogsList());
     console.log(staffData);
+
+    useEffect(() => {
+        dispatch(getEmployeeLogs());
+    }, []);
+
+    if (!isLoading && logs) {
+        console.log(logs); //это логи самого стафа, за которого мы зареганы
+    }
+
+    if (!isLoading && staffData) {
+        console.log(staffData);
+    }
 
     const toggleLogging = () => {
         setLogging((prevState) => !prevState);
@@ -98,6 +113,13 @@ const StaffPage = () => {
                 >
                     Авторизация сотрудников
                 </NavLink>
+                <NavLink
+                    to="/staff/create-event"
+                    type="button"
+                    className="rounded border-2 border-black py-[10px] px-[20px] hover:bg-green-400"
+                >
+                    Создать событие
+                </NavLink>
                 <button
                     onClick={handleLogOut}
                     className="rounded border-2 border-black py-[10px] px-[20px] hover:bg-green-400"
@@ -140,7 +162,7 @@ const StaffPage = () => {
                         </button>
                     </form>
                     {!isLoading && usersList !== null && (
-                        <StaffData users={usersList} />
+                        <UsersListShortData users={usersList} />
                     )}
                 </div>
             </div>

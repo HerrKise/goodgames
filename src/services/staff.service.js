@@ -26,7 +26,6 @@ const staffService = {
         return data;
     },
     getProfile: async () => {
-        console.log("get working");
         const { data } = await http.get(staffEndpoint + "/GetMe");
         return data;
     },
@@ -77,6 +76,20 @@ const staffService = {
     restoreEmployee: async (payload) => {
         const { data } = await http.post(
             staffEndpoint + "/RestoreEmployee",
+            payload
+        );
+        return data;
+    },
+    getEmployeeLogs: async (payload) => {
+        const { data } = await http.get(
+            staffEndpoint + "/GetEmployeeLogs",
+            payload
+        );
+        return data;
+    },
+    getLogsByEmployeeId: async (payload) => {
+        const { data } = await http.get(
+            staffEndpoint + "/GetLogsByEmployeeId",
             payload
         );
         return data;

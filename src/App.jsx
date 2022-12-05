@@ -19,9 +19,10 @@ import Main from "./pages/Main.jsx";
 import Games from "./pages/Games.jsx";
 import StaffProtectedRoute from "./common/staffProtectedRoute";
 import UserProfile from "./pages/UserProfile";
-import TournamentCreation from "./pages/TournamentCreation";
 import PostContent from "./pages/PostContent";
 import EditPosts from "./pages/EditPosts";
+import CreateEventForm from "./pages/CreateEventForm";
+import StaffProfile from "./pages/StaffProfile";
 
 function App() {
     return (
@@ -48,8 +49,12 @@ function App() {
                         element={<UserProfile />}
                     ></Route>
                     <Route
+                        path="/staff/staff-profile/:id"
+                        element={<StaffProfile />}
+                    ></Route>
+                    <Route
                         path="/staff/create-event"
-                        element={<TournamentCreation />}
+                        element={<CreateEventForm />}
                     ></Route>
                     <Route
                         path="/staff/edit-posts"
