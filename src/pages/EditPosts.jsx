@@ -2,7 +2,7 @@ import { useState } from "react";
 import EditNews from "../components/EditNews";
 
 const EditPosts = () => {
-    const [current, setCurrent] = useState(1);
+    const [current, setCurrent] = useState("News");
     return (
         <section>
             <div>
@@ -10,35 +10,41 @@ const EditPosts = () => {
                 <div>
                     <button
                         onClick={() => {
-                            setCurrent(1);
+                            setCurrent("News");
                         }}
-                        className={current === 1 ? "bg-yellow-600" : "bg-white"}
+                        className={
+                            current === "News" ? "bg-yellow-600" : "bg-white"
+                        }
                     >
                         Новости
                     </button>
                     <button
                         onClick={() => {
-                            setCurrent(2);
+                            setCurrent("Offers");
                         }}
-                        className={current === 1 ? "bg-yellow-600" : "bg-white"}
+                        className={
+                            current === "Offers" ? "bg-yellow-600" : "bg-white"
+                        }
                     >
                         Предложения
                     </button>
                     <button
                         onClick={() => {
-                            setCurrent(3);
+                            setCurrent("Actions");
                         }}
-                        className={current === 1 ? "bg-yellow-600" : "bg-white"}
+                        className={
+                            current === "Actions" ? "bg-yellow-600" : "bg-white"
+                        }
                     >
                         Акции
                     </button>
                 </div>
                 <div>
-                    {current === 1 ? (
+                    {current === "News" ? (
                         <EditNews />
-                    ) : current === 2 ? (
+                    ) : current === "Offers" ? (
                         "Тут будут предложения"
-                    ) : current === 3 ? (
+                    ) : current === "Actions" ? (
                         "Тут будут акции"
                     ) : (
                         ""
