@@ -4,7 +4,10 @@ const postsEndpoint = "/News";
 
 const postsService = {
     create: async (payload) => {
-        const { data } = await http.post(postsEndpoint + "/Create", payload);
+        const { data } = await http.post(
+            postsEndpoint + "/CreateNews",
+            payload
+        );
         return data;
     },
     edit: async (payload) => {
