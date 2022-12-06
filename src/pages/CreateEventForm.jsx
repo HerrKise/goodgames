@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import CreateStageForm from "../components/createStageForm";
 import localStorageService from "../services/localStorage.service";
 
 const CreateEventForm = () => {
@@ -15,7 +15,8 @@ const CreateEventForm = () => {
         entryPrice: 0,
         requirements: "",
         isQuantityLimited: "false",
-        maxQuantity: 10000000
+        maxQuantity: 10000000,
+        stages: [{}]
     });
 
     const [datePicker, setDatePicker] = useState({
@@ -204,14 +205,7 @@ const CreateEventForm = () => {
                                 />
                             </div>
                         </div>
-                        <p>Модератор</p>
-                        <select>
-                            <option>mod1</option>
-                            <option>mod2</option>
-                            <option>mod3</option>
-                            <option>mod4</option>
-                            <option>mod5</option>
-                        </select>
+
                         <p>Есть плата за вход</p>
                         <select
                             value={eventSettings.isPaid}
@@ -307,6 +301,7 @@ const CreateEventForm = () => {
                     </div>
                 </form>
             </div>
+            <CreateStageForm eventType={eventSettings.eventType} />
         </section>
     );
 };
