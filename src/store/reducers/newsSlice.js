@@ -109,7 +109,7 @@ export const createNews = (payload) => async (dispatch) => {
         const data = await postService.create(payload);
         dispatch(createNewsSuccess());
     } catch (e) {
-        dispatch(createNewsFailed(e.responce.data.error));
+        dispatch(createNewsFailed(e));
     }
 };
 

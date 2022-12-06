@@ -28,6 +28,7 @@ const teamService = {
         return data;
     },
     getInvitationCodeLink: async (teamId) => {
+        console.log(teamId);
         const { data } = await http.get(
             teamEndpoint + `/GetInvitationCodeLink/${teamId}`
         );
@@ -36,7 +37,7 @@ const teamService = {
     getTeam: async (teamId) => {
         const { data } = await http.get(teamEndpoint + `/GetMyTeams/${teamId}`);
         return data;
-    }
+    },
 };
 
 export default teamService;

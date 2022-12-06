@@ -7,6 +7,7 @@ const initialState = {
     uploadingPhotoUrl: null,
     error: null,
     selectedTeam: null,
+    code: null,
 };
 
 export const teamsSlice = createSlice({
@@ -35,6 +36,17 @@ export const teamsSlice = createSlice({
             state.error = action.payload;
             state.isLoading = false;
         },
+        getInvCodeRequested: (state, action) => {
+            state.isLoading = true;
+        },
+        getInvCodeReceived: (state, action) => {
+            state.code = action.payload;
+            state.isLoading = false;
+        },
+        getInvCodeFailed: (state, action) => {
+            state.error = action.payload;
+            state.isLoading = false;
+        },
     },
 });
 
@@ -47,6 +59,9 @@ export const {
     teamsRequestedById,
     teamsReceivedById,
     teamsRequestByIdFailed,
+    getInvCodeRequested,
+    getInvCodeReceived,
+    getInvCodeFailed,
 } = actions;
 
 const createTeamsRequested = createAction("teams/createTeamsRequested");
@@ -78,10 +93,6 @@ const leaveTeamsRequested = createAction("teams/leaveTeamsRequested");
 const leaveTeamsFailed = createAction("teams/leaveTeamsFailed");
 const leaveTeamsSuccess = createAction("teams/leaveTeamsSuccess");
 
-const getInvCodeRequested = createAction("teams/getInvCodeRequested");
-const getInvCodeFailed = createAction("teams/getInvCodeFailed");
-const getInvCodeSuccess = createAction("teams/getInvCodeSuccess");
-
 export const createTeams = (payload) => async (dispatch) => {
     dispatch(createTeamsRequested());
     try {
@@ -98,7 +109,7 @@ export const editTeams = (payload) => async (dispatch) => {
         const data = await teamService.update(payload);
         dispatch(editTeamsSuccess());
     } catch (e) {
-        dispatch(editTeamsFailed(e.responce.data.error));
+        dispatch(editTeamsFailed(e));
     }
 };
 
@@ -118,7 +129,7 @@ export const updateTeamsPicture = (payload) => async (dispatch) => {
         const data = await teamService.updateLogo(payload);
         dispatch(updateTeamsPictureSuccess());
     } catch (e) {
-        dispatch(updateTeamsPictureFailed(e.responce.data.error));
+        dispatch(updateTeamsPictureFailed(e));
     }
 };
 
@@ -142,13 +153,13 @@ export const leaveTeams = (payload) => async (dispatch) => {
     }
 };
 
-export const getInvitationLink = (payload) => async (dispatch) => {
+export const getInvitationCode = (payload) => async (dispatch) => {
     dispatch(getInvCodeRequested());
     try {
         const data = await teamService.getInvitationCodeLink(payload);
-        dispatch(getInvCodeSuccess());
+        dispatch(getInvCodeReceived(data));
     } catch (e) {
-        dispatch(getInvCodeFailed(e.responce.data.error));
+        dispatch(getInvCodeFailed(e));
     }
 };
 

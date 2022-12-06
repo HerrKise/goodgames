@@ -6,7 +6,7 @@ import {
     getUserProfileData,
     loadUserProfile,
     userLogout,
-    resendEmailConfirmation
+    resendEmailConfirmation,
 } from "../store/reducers/userSlice.js";
 import { useEffect } from "react";
 import { API_URL } from "../http/index.js";
@@ -91,7 +91,7 @@ const Profile = () => {
                     </div>
                     <ul className="flex flex-col w-[300px] gap-1">
                         <li className="bg-gray-400 w-[90%] border-black border-[1px] rounded">
-                            <NavLink to="/my-teams">Мои команды</NavLink>
+                            <NavLink to="/profile/teams">Мои команды</NavLink>
                         </li>
                         <li className="bg-gray-400 w-[90%] border-black border-[1px] rounded">
                             <NavLink to="/my-games">Мои игры</NavLink>
