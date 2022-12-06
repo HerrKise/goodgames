@@ -1,8 +1,6 @@
 import http from "../http";
 import localStorageService from "./localStorage.service";
 
-console.log("initiate staff service");
-
 const staffEndpoint = "/AdminPanel";
 
 const staffService = {
