@@ -1,6 +1,13 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editTeams, updateTeamsPicture } from "../store/reducers/teamsSlice";
+import {
+    editTeams,
+    getSelectedTeam,
+    getTeamsLoadingStatus,
+    loadTeamByID,
+    updateTeamsPicture,
+} from "../store/reducers/teamsSlice";
 
 const EditTeam = (props) => {
     const dispatch = useDispatch();
@@ -8,6 +15,21 @@ const EditTeam = (props) => {
     const [name, setName] = useState("Title");
     const [tag, setTag] = useState("Tag");
     const [img, setImg] = useState([]);
+    const pickedTeamSelector = useSelector(getSelectedTeam());
+    const isLoading = useSelector(getTeamsLoadingStatus());
+
+    useEffect(() => {
+        if (props.teamId !== "") {
+            dispatch(loadTeamByID(props.teamId));
+        }
+    }, [props.isVisible]);
+
+    useEffect(() => {
+        if (isLoading === false && props.isVisible === true) {
+            setName(pickedTeamSelector.title);
+            setTag(pickedTeamSelector.tag);
+        }
+    }, [isLoading]);
 
     const changeName = (e) => {
         setName(e.target.value);
@@ -69,6 +91,9 @@ const EditTeam = (props) => {
                         />
                     </svg>
                 </button>
+                <p>Данные команды</p>
+                <p>Title: {name}</p>
+                <p>Tag: {tag}</p>
                 <h3>Редактировать команду</h3>
                 <form
                     className="w-[350px] h-[400px] flex flex-col items-center justify-around"
