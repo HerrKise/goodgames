@@ -24,6 +24,7 @@ import EditPosts from "./pages/EditPosts";
 import CreateEventForm from "./pages/CreateEventForm";
 import StaffProfile from "./pages/StaffProfile";
 import Teams from "./pages/Teams";
+import TeamProfile from "./pages/TeamProfile";
 
 function App() {
     return (
@@ -42,6 +43,10 @@ function App() {
                         element={<PasswordChangeViaProfile />}
                     />
                     <Route path="/profile/teams" element={<Teams />}></Route>
+                    <Route
+                        path="/profile/teams/:code/:teamId"
+                        element={<TeamProfile />}
+                    ></Route>
                 </Route>
                 <Route element={<StaffProtectedRoute />}>
                     <Route path="/staff" element={<StaffPage />} />

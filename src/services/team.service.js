@@ -35,7 +35,19 @@ const teamService = {
         return data;
     },
     getTeam: async (teamId) => {
-        const { data } = await http.get(teamEndpoint + `/GetMyTeams/${teamId}`);
+        const { data } = await http.get(teamEndpoint + `/GetTeam/${teamId}`);
+        return data;
+    },
+    getTeamByInvitationCode: async (code) => {
+        const { data } = await http.get(
+            teamEndpoint + `/GetTeamByInvitationCode/${code}`
+        );
+        return data;
+    },
+    getTeammates: async (teamId) => {
+        const { data } = await http.get(
+            teamEndpoint + `/GetTeammates/${teamId}`
+        );
         return data;
     },
 };

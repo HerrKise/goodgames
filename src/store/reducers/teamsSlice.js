@@ -7,7 +7,9 @@ const initialState = {
     uploadingPhotoUrl: null,
     error: null,
     selectedTeam: null,
+    selectedTeamByCode: null,
     code: null,
+    teammates: null,
 };
 
 export const teamsSlice = createSlice({
@@ -47,6 +49,28 @@ export const teamsSlice = createSlice({
             state.error = action.payload;
             state.isLoading = false;
         },
+        teamsRequestedByCode: (state) => {
+            state.isLoading = true;
+        },
+        teamsReceivedByCode: (state, action) => {
+            state.selectedTeamByCode = action.payload;
+            state.isLoading = false;
+        },
+        teamsRequestByCodeFailed: (state, action) => {
+            state.error = action.payload;
+            state.isLoading = false;
+        },
+        teammatesRequested: (state) => {
+            state.isLoading = true;
+        },
+        teammatesReceived: (state, action) => {
+            state.teammates = action.payload;
+            state.isLoading = false;
+        },
+        teammatesRequestFailed: (state, action) => {
+            state.error = action.payload;
+            state.isLoading = false;
+        },
     },
 });
 
@@ -62,6 +86,12 @@ export const {
     getInvCodeRequested,
     getInvCodeReceived,
     getInvCodeFailed,
+    teamsRequestedByCode,
+    teamsReceivedByCode,
+    teamsRequestByCodeFailed,
+    teammatesRequested,
+    teammatesReceived,
+    teammatesRequestFailed,
 } = actions;
 
 const createTeamsRequested = createAction("teams/createTeamsRequested");
@@ -157,7 +187,7 @@ export const getInvitationCode = (payload) => async (dispatch) => {
     dispatch(getInvCodeRequested());
     try {
         const data = await teamService.getInvitationCodeLink(payload);
-        dispatch(getInvCodeReceived(data));
+        dispatch(getInvCodeReceived(data.code));
     } catch (e) {
         dispatch(getInvCodeFailed(e));
     }
@@ -179,10 +209,35 @@ export const loadTeamByID = (payload) => async (dispatch) => {
         const data = await teamService.getTeam(payload);
         dispatch(teamsReceivedById(data));
     } catch (e) {
-        dispatch(teamsRequestByIdFailed(e.responce.data.error));
+        dispatch(teamsRequestByIdFailed(e));
+    }
+};
+
+export const loadTeamByCode = (payload, navigate) => async (dispatch) => {
+    dispatch(teamsRequestedByCode());
+    try {
+        const data = await teamService.getTeamByInvitationCode(payload);
+        dispatch(teamsReceivedByCode(data));
+        navigate(`/profile/teams/${payload}/${data.id}`);
+    } catch (e) {
+        dispatch(teamsRequestByCodeFailed(e));
+    }
+};
+
+export const loadTeammates = (payload) => async (dispatch) => {
+    dispatch(teammatesRequested());
+    try {
+        const data = await teamService.getTeammates(payload);
+        console.log(data);
+        dispatch(teammatesReceived(data));
+    } catch (e) {
+        dispatch(teammatesRequestFailed(e));
     }
 };
 
 export const getTeamsData = () => (state) => state.teams.entities;
 export const getSelectedTeam = () => (state) => state.teams.selectedTeam;
 export const getTeamsLoadingStatus = () => (state) => state.teams.isLoading;
+export const getTeamsInvCode = () => (state) => state.teams.code;
+export const getTeamByCode = () => (state) => state.teams.selectedTeamByCode;
+export const getTeammatesData = () => (state) => state.teams.teammates;

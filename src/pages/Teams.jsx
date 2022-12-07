@@ -2,13 +2,17 @@ import { code } from "@uiw/react-md-editor";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import EditTeam from "../components/EditTeam";
 import {
     createTeams,
     getInvitationCode,
+    getTeamByCode,
     getTeamsData,
+    getTeamsInvCode,
     getTeamsLoadingStatus,
     loadMyTeams,
+    loadTeamByCode,
 } from "../store/reducers/teamsSlice";
 
 const Teams = () => {
@@ -19,9 +23,12 @@ const Teams = () => {
     const [id, setId] = useState("");
     const [invCode, setInvCode] = useState("");
     const [editVisible, setEditVisible] = useState(false);
+    const navigate = useNavigate();
 
     const myTeams = useSelector(getTeamsData());
     const isLoading = useSelector(getTeamsLoadingStatus());
+    const codeSelector = useSelector(getTeamsInvCode());
+    const teamGotByCode = useSelector(getTeamByCode());
 
     const changeName = (e) => {
         setName(e.target.value);
@@ -33,6 +40,11 @@ const Teams = () => {
 
     const getCode = (id) => {
         dispatch(getInvitationCode(id));
+        console.log(codeSelector);
+    };
+
+    const changeCode = (e) => {
+        setInvCode(e.target.value);
     };
 
     const handlePicUpload = (e) => {
@@ -53,6 +65,10 @@ const Teams = () => {
         console.log("удаление команды с id", teamId);
     };
 
+    const navigateToTeamPage = () => {
+        dispatch(loadTeamByCode(invCode, navigate));
+    };
+
     useEffect(() => {
         dispatch(loadMyTeams());
     }, []);
@@ -60,6 +76,7 @@ const Teams = () => {
     useEffect(() => {
         if (myTeams && !isLoading) {
             console.log(myTeams);
+            console.log(codeSelector);
         }
     }, [isLoading]);
 
@@ -67,13 +84,13 @@ const Teams = () => {
         <section className="bg-gray-400 w-[100%] min-h-[100vh] ">
             <div className="w-[1240px] mx-auto flex flex-col items-center">
                 <h2>My teams</h2>
-                <ul className="flex">
+                <ul className="flex overflow-scroll w-[900px]">
                     {myTeams
                         ? myTeams.map((team) => {
                               return (
                                   <li
                                       key={team.id}
-                                      className="bg-yellow-600 border-[1px] border-black rounded-[10px] w-[300px] h-[200px] flex flex-col items-center text-center"
+                                      className="bg-yellow-600 border-[1px] border-black rounded-[10px] w-[300px] h-[300px] flex flex-col items-center text-center"
                                   >
                                       <div className="flex flex-col items-center justify-between h-[100%]">
                                           <p>{team.title} - название</p>
@@ -105,7 +122,9 @@ const Teams = () => {
                                           >
                                               Получить код для вступления
                                           </button>
-                                          <p>Код для вступления {invCode}</p>
+                                          <p>
+                                              Код для вступления {codeSelector}
+                                          </p>
                                       </div>
                                   </li>
                               );
@@ -132,6 +151,15 @@ const Teams = () => {
                         <button type="submit">Создать команду</button>
                     </form>
                 </div>
+            </div>
+            <div className="w-full bg-orange-600 h-[200px]">
+                <p>
+                    Если вы хотите присоединиться в команду, вставьте код сюда
+                </p>
+                <input type="text" value={invCode} onChange={changeCode} />
+                <button onClick={navigateToTeamPage}>
+                    Посмотреть профиль команды
+                </button>
             </div>
             <EditTeam
                 teamId={id}
