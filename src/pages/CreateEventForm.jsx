@@ -15,8 +15,7 @@ const CreateEventForm = () => {
         entryPrice: 0,
         requirements: "",
         isQuantityLimited: "false",
-        maxQuantity: 10000000,
-        stages: [{}]
+        maxQuantity: 10000000
     });
 
     const [datePicker, setDatePicker] = useState({
@@ -57,6 +56,23 @@ const CreateEventForm = () => {
         20: 0
     });
 
+    const [stages, setStages] = useState([]);
+    const [stagesQuantity, setStagesQuantity] = useState([]);
+
+    useEffect(() => {
+        console.log(stages);
+    }, [stages]);
+
+    const handleAddStage = (e) => {
+        e.preventDefault();
+        setStagesQuantity((prevState) => [...prevState, prevState.length + 1]);
+    };
+
+    const handleSubmitStage = (data) => {
+        console.log(data);
+        setStages((prevState) => [...prevState, data]);
+    };
+
     const handleEventSettingsChange = (e) => {
         setEventSettings((prevState) => ({
             ...prevState,
@@ -81,7 +97,6 @@ const CreateEventForm = () => {
         const startMinute = Number(startTimeArr[1]) * 1000 * 60;
         const newStartDate =
             new Date(datePicker.startDate).getTime() + startHour + startMinute;
-        console.log(startHour, startMinute, newStartDate);
         setEventSettings((prevState) => ({
             ...prevState,
             eventStart: newStartDate
@@ -96,7 +111,6 @@ const CreateEventForm = () => {
             new Date(datePicker.registrationStartDate).getTime() +
             startRegHour +
             startRegMinute;
-        console.log(startRegHour, startRegMinute, newStartRegDate);
         setEventSettings((prevState) => ({
             ...prevState,
             registrationStart: newStartRegDate
@@ -111,7 +125,6 @@ const CreateEventForm = () => {
             new Date(datePicker.registrationEndDate).getTime() +
             endRegHour +
             endRegMinute;
-        console.log(endRegHour, endRegMinute, newEndRegDate);
         setEventSettings((prevState) => ({
             ...prevState,
             registrationEnd: newEndRegDate
@@ -301,7 +314,19 @@ const CreateEventForm = () => {
                     </div>
                 </form>
             </div>
-            <CreateStageForm eventType={eventSettings.eventType} />
+            <button
+                onClick={handleAddStage}
+                className="rounded bg-blue-400 p-3"
+            >
+                Добавить этап
+            </button>
+            {stagesQuantity.map((stage) => (
+                <CreateStageForm
+                    eventType={eventSettings.eventType}
+                    key={stage}
+                    saveStage={handleSubmitStage}
+                />
+            ))}
         </section>
     );
 };

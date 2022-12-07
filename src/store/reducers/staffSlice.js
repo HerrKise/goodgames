@@ -153,7 +153,6 @@ export const loadStaffProfile = () => async (dispatch) => {
     try {
         const data = await staffService.getProfile();
         dispatch(staffReceived(data));
-        console.log(data);
     } catch (e) {
         console.log(e);
         dispatch(staffRequestFailed(e.response.data.errors));
