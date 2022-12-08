@@ -150,6 +150,15 @@ const CreateEventForm = () => {
         }
     }, [eventSettings.isQuantityLimited]);
 
+    const handleDeleteStage = (quantityId, stageId) => {
+        setStagesQuantity((prevState) =>
+            prevState.filter((stage) => stage !== quantityId)
+        );
+        setStages((prevState) =>
+            prevState.filter((stage) => stage.id !== stageId)
+        );
+    };
+
     return (
         <section className="bg-gray-300 w-[100%] min-h-[100vh]">
             <div className="w-[1024px] mx-auto flex flex-col items-center">
@@ -327,6 +336,12 @@ const CreateEventForm = () => {
                     stageId={eventSettings.id + "-" + stage + "-stage"}
                     key={stage}
                     saveStage={handleSubmitStage}
+                    deleteStage={() =>
+                        handleDeleteStage(
+                            stage,
+                            eventSettings.id + "-" + stage + "-stage"
+                        )
+                    }
                 />
             ))}
         </section>
