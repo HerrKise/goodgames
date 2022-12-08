@@ -11,10 +11,12 @@ const CreateGroupForm = ({ eventType, saveGroup, groupId, deleteGroup }) => {
         name: "название группы",
         groupStart: "",
         participants: null,
+        reserveParticipants: null,
         map: "",
         staff: [],
         results: null,
-        slotsQuantity: 0
+        slotsQuantity: 0,
+        reserveSlotsQuantity: 0
     });
 
     const [datePicker, setDatePicker] = useState({
@@ -25,6 +27,15 @@ const CreateGroupForm = ({ eventType, saveGroup, groupId, deleteGroup }) => {
     console.log(eventType);
 
     useEffect(() => {
+        if (eventType === "tournament") {
+            setGroupSettings((prevState) => ({
+                ...prevState,
+                slotsQuantity: 16
+            }));
+        }
+    }, []);
+
+    useEffect(() => {
         if (eventType === "practice") {
             setGroupSettings((prevState) => ({
                 ...prevState,
@@ -33,23 +44,42 @@ const CreateGroupForm = ({ eventType, saveGroup, groupId, deleteGroup }) => {
         } else if (groupSettings.hasOwnProperty("paidSlots")) {
             let newObj = JSON.parse(JSON.stringify(groupSettings));
             delete newObj["paidSlots"];
+            console.log(newObj);
             setGroupSettings(newObj);
         }
     }, [eventType]);
 
     useEffect(() => {
-        console.log(groupSettings.slotsQuantity * 2);
         let participantsArray = [];
         for (let i = 1; i <= groupSettings.slotsQuantity; i++) {
             participantsArray.push({
                 slotId: i,
                 participantId: "",
+                participantName: "",
+                participantPicture: "",
                 participationConfirmed: false
             });
         }
         setGroupSettings((prevState) => ({
             ...prevState,
             participants: participantsArray
+        }));
+    }, [groupSettings.slotsQuantity, groupSettings.reserveSlotsQuantity]);
+
+    useEffect(() => {
+        let participantsArray = [];
+        for (let i = 1; i <= groupSettings.reserveSlotsQuantity; i++) {
+            participantsArray.push({
+                slotId: groupSettings.slotsQuantity + i,
+                participantId: "",
+                participantName: "",
+                participantPicture: "",
+                participationConfirmed: false
+            });
+        }
+        setGroupSettings((prevState) => ({
+            ...prevState,
+            reserveParticipants: participantsArray
         }));
     }, [groupSettings.slotsQuantity]);
 
@@ -167,6 +197,13 @@ const CreateGroupForm = ({ eventType, saveGroup, groupId, deleteGroup }) => {
                                 name="slotsQuantity"
                                 type="number"
                                 value={groupSettings.slotsQuantity}
+                                onChange={handleGroupSettingsChange}
+                            />
+                            <p>Количество резервных слотов в группе</p>
+                            <input
+                                name="reserveSlotsQuantity"
+                                type="number"
+                                value={groupSettings.reserveSlotsQuantity}
                                 onChange={handleGroupSettingsChange}
                             />
                         </>
