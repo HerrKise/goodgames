@@ -5,7 +5,7 @@ import {
     getStaffProfileData
 } from "../store/reducers/staffSlice";
 
-const CreateGroupForm = ({ eventType }) => {
+const CreateGroupForm = ({ eventType, saveGroup }) => {
     const [groupSettings, setGroupSettings] = useState({
         name: "название группы",
         groupStart: "",
@@ -21,20 +21,36 @@ const CreateGroupForm = ({ eventType }) => {
         startTime: ""
     });
 
+    console.log(eventType);
+
     useEffect(() => {
         if (eventType === "practice") {
             setGroupSettings((prevState) => ({
                 ...prevState,
-                freeSlots: 0,
                 paidSlots: 0
             }));
-        } else if (groupSettings.hasOwnProperty("freeSlots")) {
-            const newObj = JSON.parse(JSON.stringify(groupSettings));
-            delete newObj["freeSlots"];
+        } else if (groupSettings.hasOwnProperty("paidSlots")) {
+            let newObj = JSON.parse(JSON.stringify(groupSettings));
             delete newObj["paidSlots"];
             setGroupSettings(newObj);
         }
     }, [eventType]);
+
+    useEffect(() => {
+        console.log(groupSettings.slotsQuantity * 2);
+        let participantsArray = [];
+        for (let i = 1; i <= groupSettings.slotsQuantity; i++) {
+            participantsArray.push({
+                slotId: i,
+                participantId: "",
+                participationConfirmed: false
+            });
+        }
+        setGroupSettings((prevState) => ({
+            ...prevState,
+            participants: participantsArray
+        }));
+    }, [groupSettings.slotsQuantity]);
 
     const currentStaffData = useSelector(getStaffProfileData());
     const isLoading = useSelector(getStaffLoadingStatus());
@@ -63,7 +79,7 @@ const CreateGroupForm = ({ eventType }) => {
         console.log(startHour, startMinute, newStartDate);
         setGroupSettings((prevState) => ({
             ...prevState,
-            stageStart: newStartDate
+            groupStart: newStartDate
         }));
     }, [datePicker.startDate, datePicker.startTime]);
 
@@ -105,9 +121,17 @@ const CreateGroupForm = ({ eventType }) => {
         }));
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        saveGroup(groupSettings);
+    };
+
     return (
-        <section className="bg-yellow-500 w-[100%] min-h-[100vh]">
-            <form className="flex mx-auto items-center justify-around">
+        <section className="bg-yellow-500 w-[100%] min-h-[300px]">
+            <form
+                className="flex mx-auto items-center justify-around"
+                onSubmit={handleSubmit}
+            >
                 <div className="flex flex-col">
                     <p>Дата начала группы</p>
                     <input
@@ -130,13 +154,30 @@ const CreateGroupForm = ({ eventType }) => {
                         value={groupSettings.name}
                         onChange={handleGroupSettingsChange}
                     />
-                    <p>Количество слотов в группе</p>
-                    <input
-                        name="slotsQuantity"
-                        type="number"
-                        value={groupSettings.slotsQuantity}
+                    {eventType !== "practice" && eventType !== "" && (
+                        <>
+                            <p>Количество слотов в группе</p>
+                            <input
+                                name="slotsQuantity"
+                                type="number"
+                                value={groupSettings.slotsQuantity}
+                                onChange={handleGroupSettingsChange}
+                            />
+                        </>
+                    )}
+                    <p>Карта группы</p>
+                    <select
+                        name="map"
+                        value={groupSettings.map}
                         onChange={handleGroupSettingsChange}
-                    />
+                    >
+                        <option value="" disabled>
+                            Выберите карту
+                        </option>
+                        <option value="Erangel">Эрангель</option>
+                        <option value="Sanhok">Санук</option>
+                        <option value="Miramar">Мирамар</option>
+                    </select>
                 </div>
                 <div>
                     <div>
@@ -186,6 +227,9 @@ const CreateGroupForm = ({ eventType }) => {
                         </>
                     )}
                 </div>
+                <button type="submit">
+                    Закончить настройку группы и сохранить данные
+                </button>
             </form>
         </section>
     );
