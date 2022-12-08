@@ -93,11 +93,11 @@ const confirmEmailSuccessfullySent = createAction(
     "user/confirmEmailSuccessfullySent"
 );
 
-export const loadUserProfile = (payload) => async (dispatch) => {
+export const loadUserProfile = () => async (dispatch) => {
     console.log("загрузчик начал работу");
     dispatch(userRequested());
     try {
-        const data = await userService.getProfile(payload);
+        const data = await userService.getProfile();
         dispatch(userReceived(data));
         console.log(data);
     } catch (e) {
@@ -115,10 +115,10 @@ export const signIn =
                 payload
             );
             localStorageService.setTokens(refreshToken, accessToken);
-            const { userId } = await authService.getUserId();
-            localStorageService.setUserId(userId);
+            const { id } = await authService.getMe();
+            localStorageService.setUserId(id);
             dispatch(authRequestSuccess());
-            dispatch(loadUserProfile({ userId: userId }));
+            /* dispatch(loadUserProfile({ userId: userId })); */
             navigate("/profile");
         } catch (e) {
             console.log(e);

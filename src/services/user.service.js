@@ -3,8 +3,8 @@ import http from "../http";
 const userEndpoint = "/Profile";
 
 const userService = {
-    getProfile: async (payload) => {
-        const { data } = await http.get(userEndpoint + "/GetProfile", payload);
+    getProfile: async () => {
+        const { data } = await http.get(userEndpoint + "/GetProfile");
         return data;
     },
     editProfile: async (payload) => {

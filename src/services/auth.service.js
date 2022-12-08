@@ -20,7 +20,7 @@ const authService = {
         });
         return data;
     },
-    getUserId: async () => {
+    getMe: async () => {
         const { data } = await http.get(authEndpoint + "/GetMe");
         return data;
     },
