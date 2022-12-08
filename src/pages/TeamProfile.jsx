@@ -6,6 +6,7 @@ import {
     getSelectedTeam,
     getTeammatesData,
     getTeamsLoadingStatus,
+    joinTeamAsManager,
     joinTeams,
     leaveTeams,
     loadTeamByID,
@@ -54,8 +55,12 @@ const TeamProfile = () => {
         dispatch(joinTeams({ code: code }));
     };
 
+    const enterTeamAsManager = () => {
+        dispatch(joinTeamAsManager({ code: code }));
+    };
+
     const leaveTeam = () => {
-        dispatch(leaveTeams(teamId));
+        dispatch(leaveTeams({ teamId: teamId }));
     };
 
     return (
@@ -104,6 +109,17 @@ const TeamProfile = () => {
                     </button>
                 ) : (
                     ""
+                )}
+                {isInTeam ? (
+                    ""
+                ) : (
+                    <button
+                        className="bg-orange-600 rounded-[10px] p-[5px]"
+                        onClick={enterTeamAsManager}
+                        disabled={isInTeam ? true : false}
+                    >
+                        Вступить как менеджер
+                    </button>
                 )}
             </div>
         </section>

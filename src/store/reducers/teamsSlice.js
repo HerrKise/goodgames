@@ -136,6 +136,14 @@ const joinTeamsRequested = createAction("teams/joinTeamsRequested");
 const joinTeamsFailed = createAction("teams/joinTeamsFailed");
 const joinTeamsSuccess = createAction("teams/joinTeamsSuccess");
 
+const joinTeamsAsManagerRequested = createAction(
+    "teams/joinTeamsAsManagerRequested"
+);
+const joinTeamsAsManagerFailed = createAction("teams/joinTeamsAsManagerFailed");
+const joinTeamsAsManagerSuccess = createAction(
+    "teams/joinTeamsAsManagerSuccess"
+);
+
 const leaveTeamsRequested = createAction("teams/leaveTeamsRequested");
 const leaveTeamsFailed = createAction("teams/leaveTeamsFailed");
 const leaveTeamsSuccess = createAction("teams/leaveTeamsSuccess");
@@ -187,6 +195,16 @@ export const joinTeams = (payload) => async (dispatch) => {
         dispatch(joinTeamsSuccess());
     } catch (e) {
         dispatch(joinTeamsFailed(e.responce.data.error));
+    }
+};
+
+export const joinTeamAsManager = (payload) => async (dispatch) => {
+    dispatch(joinTeamsAsManagerRequested());
+    try {
+        const data = await teamService.joinAsManager(payload);
+        dispatch(joinTeamsAsManagerSuccess());
+    } catch (e) {
+        dispatch(joinTeamsAsManagerFailed(e.responce.data.error));
     }
 };
 
