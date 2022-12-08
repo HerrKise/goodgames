@@ -19,13 +19,22 @@ const TeamProfile = () => {
     const teammates = useSelector(getTeammatesData());
     const [isInTeam, setIsInTeam] = useState(false);
     const userId = localStorageService.getUserId();
-    console.log(localStorage);
     const [tag, setTag] = useState("");
     const [title, setTitle] = useState("");
 
     useEffect(() => {
         dispatch(loadTeamByID(teamId));
     }, []);
+
+    useEffect(() => {
+        if (isLoading === false) {
+            teammates.map((teammate) => {
+                if (teammate.user.id === userId) {
+                    setIsInTeam(true);
+                }
+            });
+        }
+    }, [teammates]);
 
     useEffect(() => {
         if (teamProfileData) {
@@ -43,6 +52,9 @@ const TeamProfile = () => {
     const enterTeam = () => {
         dispatch(joinTeams({ code: code }));
     };
+    const disableButton = () => {
+        setIsInTeam(false);
+    };
 
     return (
         <section className="bg-gray-400 w-full min-h-[100vh]">
@@ -56,9 +68,6 @@ const TeamProfile = () => {
                         ? teammates.map((teammate) => {
                               console.log(teammate.user.id);
                               console.log(userId);
-                              if (teammate.user.id === userId) {
-                                  setIsInTeam(true);
-                              }
                               return (
                                   <li
                                       key={teammate.user.id}
@@ -80,6 +89,7 @@ const TeamProfile = () => {
                 <button
                     className="bg-orange-600 rounded-[10px] p-[5px]"
                     onClick={enterTeam}
+                    disabled={isInTeam ? true : false}
                 >
                     {isInTeam
                         ? "Вы уже состоите в этой команде"
