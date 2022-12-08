@@ -28,7 +28,7 @@ const StaffRegistration = () => {
                 nickname: nickname,
                 role: role,
                 password: password,
-                confirmPassword: confirmPassword
+                confirmPassword: confirmPassword,
             })
         );
     };
@@ -81,6 +81,7 @@ const StaffRegistration = () => {
                             <option>Moderator</option>
                             <option>EventModerator</option>
                             <option>Organizer</option>
+                            <option>NewsEditor</option>
                         </select>
                     </div>
                     <button
