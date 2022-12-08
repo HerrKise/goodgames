@@ -12,6 +12,7 @@ import {
     getTeamsData,
     getTeamsInvCode,
     getTeamsLoadingStatus,
+    leaveTeams,
     loadManagerCode,
     loadMyTeams,
     loadTeamByCode,
@@ -75,6 +76,10 @@ const Teams = () => {
 
     const navigateToTeamPage = () => {
         dispatch(loadTeamByCode(invCode, navigate));
+    };
+
+    const leaveTeam = (id) => {
+        dispatch(leaveTeams({ teamId: id }));
     };
 
     useEffect(() => {
@@ -141,6 +146,13 @@ const Teams = () => {
                                               Получить код для менеджера
                                           </button>
                                           <p>Код для менеджера {managerCode}</p>
+                                          <button
+                                              onClick={() => {
+                                                  leaveTeam(team.id);
+                                              }}
+                                          >
+                                              Покинуть команду
+                                          </button>
                                       </div>
                                   </li>
                               );

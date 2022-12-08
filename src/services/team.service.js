@@ -19,6 +19,13 @@ const teamService = {
         const { data } = await http.post(teamEndpoint + "/JoinTeam", payload);
         return data;
     },
+    joinAsManager: async (payload) => {
+        const { data } = await http.post(
+            teamEndpoint + "/JoinTeamManager",
+            payload
+        );
+        return data;
+    },
     leave: async (payload) => {
         const { data } = await http.post(teamEndpoint + "/LeaveTeam", payload);
         return data;
