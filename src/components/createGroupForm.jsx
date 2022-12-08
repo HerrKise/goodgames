@@ -5,8 +5,9 @@ import {
     getStaffProfileData
 } from "../store/reducers/staffSlice";
 
-const CreateGroupForm = ({ eventType, saveGroup }) => {
+const CreateGroupForm = ({ eventType, saveGroup, groupId, deleteGroup }) => {
     const [groupSettings, setGroupSettings] = useState({
+        id: groupId,
         name: "название группы",
         groupStart: "",
         participants: null,
@@ -126,6 +127,11 @@ const CreateGroupForm = ({ eventType, saveGroup }) => {
         saveGroup(groupSettings);
     };
 
+    const handleDelete = (e) => {
+        e.preventDefault();
+        deleteGroup();
+    };
+
     return (
         <section className="bg-yellow-500 w-[100%] min-h-[300px]">
             <form
@@ -229,6 +235,9 @@ const CreateGroupForm = ({ eventType, saveGroup }) => {
                 </div>
                 <button type="submit">
                     Закончить настройку группы и сохранить данные
+                </button>
+                <button type="button" onClick={handleDelete}>
+                    Удалить группу и сохранённые её данные
                 </button>
             </form>
         </section>

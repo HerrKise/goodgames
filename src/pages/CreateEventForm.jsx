@@ -4,6 +4,7 @@ import localStorageService from "../services/localStorage.service";
 
 const CreateEventForm = () => {
     const [eventSettings, setEventSettings] = useState({
+        id: `${Date.now()}-event`,
         organizerId: localStorageService.getUserId(),
         eventType: "",
         eventStart: "",
@@ -323,6 +324,7 @@ const CreateEventForm = () => {
             {stagesQuantity.map((stage) => (
                 <CreateStageForm
                     eventType={eventSettings.eventType}
+                    stageId={eventSettings.id + "-" + stage + "-stage"}
                     key={stage}
                     saveStage={handleSubmitStage}
                 />
