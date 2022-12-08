@@ -27,7 +27,7 @@ const TeamProfile = () => {
     }, []);
 
     useEffect(() => {
-        if (isLoading === false) {
+        if (isLoading === false && teammates) {
             teammates.map((teammate) => {
                 if (teammate.user.id === userId) {
                     setIsInTeam(true);
@@ -66,8 +66,6 @@ const TeamProfile = () => {
                 <ul className="flex flex-col items-center ">
                     {teammates
                         ? teammates.map((teammate) => {
-                              console.log(teammate.user.id);
-                              console.log(userId);
                               return (
                                   <li
                                       key={teammate.user.id}
