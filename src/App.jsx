@@ -8,8 +8,6 @@ import StaffLogin from "./pages/StaffLogin";
 import StaffRegistration from "./pages/StaffRegistration";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-import { useState } from "react";
 import Profile from "./pages/Profile";
 import ProfileSettings from "./pages/ProfileSettings";
 import PasswordChangeViaEmail from "./pages/PasswordChangeViaEmail";
@@ -32,6 +30,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Main />} />
                 <Route path="/games" element={<Games />} />
+                <Route path="/posts" element={<PostContent />} />
                 <Route element={<UserProtectedRoute />}>
                     <Route path="/profile" element={<Profile />} />
                     <Route
@@ -77,7 +76,6 @@ function App() {
                     path="/create-new-password/:code"
                     element={<PasswordChangeViaEmail />}
                 />
-                <Route path="/posts" element={<PostContent />}></Route>
             </Routes>
             <ToastContainer />
         </>
