@@ -7,10 +7,12 @@ import EditTeam from "../components/EditTeam";
 import {
     createTeams,
     getInvitationCode,
+    getManagerCodeData,
     getTeamByCode,
     getTeamsData,
     getTeamsInvCode,
     getTeamsLoadingStatus,
+    loadManagerCode,
     loadMyTeams,
     loadTeamByCode,
 } from "../store/reducers/teamsSlice";
@@ -29,6 +31,7 @@ const Teams = () => {
     const isLoading = useSelector(getTeamsLoadingStatus());
     const codeSelector = useSelector(getTeamsInvCode());
     const teamGotByCode = useSelector(getTeamByCode());
+    const managerCode = useSelector(getManagerCodeData());
 
     const changeName = (e) => {
         setName(e.target.value);
@@ -41,6 +44,11 @@ const Teams = () => {
     const getCode = (id) => {
         dispatch(getInvitationCode(id));
         console.log(codeSelector);
+    };
+
+    const getManagerCode = (id) => {
+        dispatch(loadManagerCode(id));
+        console.log(managerCode);
     };
 
     const changeCode = (e) => {
@@ -84,15 +92,15 @@ const Teams = () => {
         <section className="bg-gray-400 w-[100%] min-h-[100vh] ">
             <div className="w-[1240px] mx-auto flex flex-col items-center">
                 <h2>My teams</h2>
-                <ul className="flex overflow-scroll w-[900px]">
+                <ul className="flex overflow-scroll w-[900px] h-[300px] flex-wrap">
                     {myTeams
                         ? myTeams.map((team) => {
                               return (
                                   <li
                                       key={team.id}
-                                      className="bg-yellow-600 border-[1px] border-black rounded-[10px] w-[300px] h-[300px] flex flex-col items-center text-center"
+                                      className="bg-yellow-600 border-[1px] border-black rounded-[10px] w-[300px] h-[300px] flex flex-col items-center text-center text-[12px]"
                                   >
-                                      <div className="flex flex-col items-center justify-between h-[100%]">
+                                      <div className="flex flex-col items-center justify-around h-[100%]">
                                           <p>{team.title} - название</p>
                                           <p>{team.tag} - Тэг </p>
                                           <img
@@ -125,6 +133,14 @@ const Teams = () => {
                                           <p>
                                               Код для вступления {codeSelector}
                                           </p>
+                                          <button
+                                              onClick={() => {
+                                                  getManagerCode(team.id);
+                                              }}
+                                          >
+                                              Получить код для менеджера
+                                          </button>
+                                          <p>Код для менеджера {managerCode}</p>
                                       </div>
                                   </li>
                               );

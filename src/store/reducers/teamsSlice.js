@@ -10,6 +10,7 @@ const initialState = {
     selectedTeamByCode: null,
     code: null,
     teammates: null,
+    managerCode: null,
 };
 
 export const teamsSlice = createSlice({
@@ -49,6 +50,19 @@ export const teamsSlice = createSlice({
             state.error = action.payload;
             state.isLoading = false;
         },
+
+        getManagerCodeRequested: (state, action) => {
+            state.isLoading = true;
+        },
+        getManagerCodeReceived: (state, action) => {
+            state.managerCode = action.payload;
+            state.isLoading = false;
+        },
+        getManagerCodeFailed: (state, action) => {
+            state.error = action.payload;
+            state.isLoading = false;
+        },
+
         teamsRequestedByCode: (state) => {
             state.isLoading = true;
         },
@@ -92,6 +106,9 @@ export const {
     teammatesRequested,
     teammatesReceived,
     teammatesRequestFailed,
+    getManagerCodeRequested,
+    getManagerCodeReceived,
+    getManagerCodeFailed,
 } = actions;
 
 const createTeamsRequested = createAction("teams/createTeamsRequested");
@@ -179,7 +196,7 @@ export const leaveTeams = (payload) => async (dispatch) => {
         const data = await teamService.leave(payload);
         dispatch(leaveTeamsSuccess());
     } catch (e) {
-        dispatch(leaveTeamsFailed(e.responce.data.error));
+        dispatch(leaveTeamsFailed(e));
     }
 };
 
@@ -190,6 +207,16 @@ export const getInvitationCode = (payload) => async (dispatch) => {
         dispatch(getInvCodeReceived(data.code));
     } catch (e) {
         dispatch(getInvCodeFailed(e));
+    }
+};
+
+export const loadManagerCode = (payload) => async (dispatch) => {
+    dispatch(getManagerCodeRequested());
+    try {
+        const data = await teamService.getManagerCodeLink(payload);
+        dispatch(getManagerCodeReceived(data.code));
+    } catch (e) {
+        dispatch(getManagerCodeFailed(e));
     }
 };
 
@@ -241,3 +268,4 @@ export const getTeamsLoadingStatus = () => (state) => state.teams.isLoading;
 export const getTeamsInvCode = () => (state) => state.teams.code;
 export const getTeamByCode = () => (state) => state.teams.selectedTeamByCode;
 export const getTeammatesData = () => (state) => state.teams.teammates;
+export const getManagerCodeData = () => (state) => state.teams.managerCode;

@@ -34,6 +34,13 @@ const teamService = {
         );
         return data;
     },
+    getManagerCodeLink: async (teamId) => {
+        console.log(teamId);
+        const { data } = await http.get(
+            teamEndpoint + `/GetManagerInvitationCodeLinkQuery/${teamId}`
+        );
+        return data;
+    },
     getTeam: async (teamId) => {
         const { data } = await http.get(teamEndpoint + `/GetTeam/${teamId}`);
         return data;
