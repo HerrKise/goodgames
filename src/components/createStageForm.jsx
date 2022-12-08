@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import CreateGroupForm from "./createGroupForm";
 
-const CreateStageForm = ({ eventType, saveStage }) => {
+const CreateStageForm = ({ eventType, saveStage, stageId }) => {
     const [stage, setStage] = useState({
+        id: stageId,
         name: "Название этапа",
         stageStart: "",
         winners: [],
         participants: []
     });
+
+    console.log(stageId);
 
     const [datePicker, setDatePicker] = useState({
         startDate: "",
@@ -21,9 +24,13 @@ const CreateStageForm = ({ eventType, saveStage }) => {
         setGroupsQuantity((prevState) => [...prevState, prevState.length + 1]);
     };
 
-    const handleDeleteGroup = (e) => {
-        e.preventDefault();
-        setGroupsQuantity((prevState) => [...prevState, prevState.length + 1]);
+    const handleDeleteGroup = (quantityId, groupId) => {
+        setGroupsQuantity((prevState) =>
+            prevState.filter((group) => group !== quantityId)
+        );
+        setGroups((prevState) =>
+            prevState.filter((group) => group.id !== groupId)
+        );
     };
 
     useEffect(() => {
@@ -115,7 +122,14 @@ const CreateStageForm = ({ eventType, saveStage }) => {
                 <CreateGroupForm
                     eventType={eventType}
                     key={group}
+                    groupId={stage.id + "-" + group + "-group"}
                     saveGroup={handleSubmitGroup}
+                    deleteGroup={() =>
+                        handleDeleteGroup(
+                            group,
+                            stage.id + "-" + group + "-group"
+                        )
+                    }
                 />
             ))}
         </section>
