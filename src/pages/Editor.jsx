@@ -51,6 +51,7 @@ const Editor = () => {
                 type: type,
             })
         );
+
         console.log("Creating post: ", value);
     };
 
@@ -92,16 +93,8 @@ const Editor = () => {
                     onChange={handlePicChange}
                     className="px-[5px] py-[3px]"
                 />
-                <button onClick={handleUrlGet}>Получить ссылку</button>
-                <p>Ваша ссылка появится здесь: {!isLoading ? photoUrl : ""}</p>
+                <button onClick={handleUrlGet}>Вставить картинку</button>
             </form>
-            <p>Вставьте ссылку на главную картинку сюда:</p>
-            <input
-                type="file"
-                placeholder="изменить"
-                onChange={handleMainPicChange}
-                className="px-[5px] py-[3px]"
-            />
             <MDEditor value={value} onChange={setValue} />
             <MDEditor.Markdown
                 source={value}

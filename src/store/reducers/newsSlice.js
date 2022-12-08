@@ -76,10 +76,11 @@ const deleteNewsSuccess = createAction("news/deleteNewsSuccess");
 export const loadNews = (payload) => async (dispatch) => {
     dispatch(newsRequested());
     try {
-        const data = await postService.getNews(payload);
+        const data = await postService.getPosts(payload);
+        console.log(data);
         dispatch(newsReceived(data));
     } catch (e) {
-        dispatch(newsRequestFailed(e.responce.data.error));
+        dispatch(newsRequestFailed(e));
     }
 };
 
