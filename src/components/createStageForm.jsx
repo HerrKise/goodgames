@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import CreateGroupForm from "./createGroupForm";
 
-const CreateStageForm = ({ eventType, saveStage, stageId }) => {
+const CreateStageForm = ({ eventType, saveStage, stageId, deleteStage }) => {
     const [stage, setStage] = useState({
         id: stageId,
         name: "Название этапа",
@@ -24,7 +24,7 @@ const CreateStageForm = ({ eventType, saveStage, stageId }) => {
         setGroupsQuantity((prevState) => [...prevState, prevState.length + 1]);
     };
 
-    const handleDeleteGroup = (quantityId, groupId) => {
+    const handleDeleteGroup = (quantityId, groupId, deleteStage) => {
         setGroupsQuantity((prevState) =>
             prevState.filter((group) => group !== quantityId)
         );
@@ -80,6 +80,10 @@ const CreateStageForm = ({ eventType, saveStage, stageId }) => {
         e.preventDefault();
         saveStage({ ...stage, groups: groups });
     };
+
+    const handleDelete = () => {
+        deleteStage();
+    };
     return (
         <section className="bg-gray-300 w-[100%] min-h-[100vh]">
             <div className="w-[1024px] mx-auto flex flex-col items-center">
@@ -118,6 +122,9 @@ const CreateStageForm = ({ eventType, saveStage, stageId }) => {
                 </form>
             </div>
             <button onClick={handleAddGroup}>Добавить группу</button>
+            <button type="button" onClick={handleDelete}>
+                Удалить этап и его сохранённые данные
+            </button>
             {groupsQuantity.map((group) => (
                 <CreateGroupForm
                     eventType={eventType}
