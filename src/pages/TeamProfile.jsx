@@ -7,6 +7,7 @@ import {
     getTeammatesData,
     getTeamsLoadingStatus,
     joinTeams,
+    leaveTeams,
     loadTeamByID,
     loadTeammates,
 } from "../store/reducers/teamsSlice";
@@ -52,8 +53,9 @@ const TeamProfile = () => {
     const enterTeam = () => {
         dispatch(joinTeams({ code: code }));
     };
-    const disableButton = () => {
-        setIsInTeam(false);
+
+    const leaveTeam = () => {
+        dispatch(leaveTeams(teamId));
     };
 
     return (
@@ -93,6 +95,16 @@ const TeamProfile = () => {
                         ? "Вы уже состоите в этой команде"
                         : "Вступить в команду"}
                 </button>
+                {isInTeam ? (
+                    <button
+                        className="bg-red-600 rounded-[10px] p-[5px]"
+                        onClick={leaveTeam}
+                    >
+                        Покинуть команду
+                    </button>
+                ) : (
+                    ""
+                )}
             </div>
         </section>
     );
