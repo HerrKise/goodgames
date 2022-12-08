@@ -139,10 +139,9 @@ export const register =
             );
             localStorageService.setTokens(refreshToken, accessToken);
 
-            const { userId } = await authService.getUserId();
-            localStorageService.setUserId(userId);
+            const { id } = await authService.getMe();
+            localStorageService.setUserId(id);
             dispatch(authRequestSuccess());
-            dispatch(loadUserProfile({ userId: userId }));
             navigate("/profile");
         } catch (e) {
             console.log(e);
