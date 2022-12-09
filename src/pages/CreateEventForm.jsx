@@ -34,27 +34,27 @@ const CreateEventForm = () => {
     });
 
     const [placementPrize, setPlacementPrize] = useState({
-        1: 0,
-        2: 0,
-        3: 0,
-        4: 0,
-        5: 0,
-        6: 0,
-        7: 0,
-        8: 0,
-        9: 0,
-        10: 0,
-        11: 0,
-        11: 0,
-        12: 0,
-        13: 0,
-        14: 0,
-        15: 0,
-        16: 0,
-        17: 0,
-        18: 0,
-        19: 0,
-        20: 0
+        1: "",
+        2: "",
+        3: "",
+        4: "",
+        5: "",
+        6: "",
+        7: "",
+        8: "",
+        9: "",
+        10: "",
+        11: "",
+        11: "",
+        12: "",
+        13: "",
+        14: "",
+        15: "",
+        16: "",
+        17: "",
+        18: "",
+        19: "",
+        20: ""
     });
 
     const [stages, setStages] = useState([]);
@@ -64,33 +64,13 @@ const CreateEventForm = () => {
         console.log(stages);
     }, [stages]);
 
-    const handleAddStage = (e) => {
-        e.preventDefault();
-        setStagesQuantity((prevState) => [...prevState, prevState.length + 1]);
-    };
-
-    const handleSubmitStage = (data) => {
-        console.log(data);
-        setStages((prevState) => [...prevState, data]);
-    };
-
-    const handleEventSettingsChange = (e) => {
-        setEventSettings((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }));
-    };
-
-    const handleDatePickerChange = (e) => {
-        setDatePicker((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }));
-    };
-
     useEffect(() => {
         console.log(eventSettings);
     }, [eventSettings]);
+
+    useEffect(() => {
+        console.log(prize);
+    }, [prize]);
 
     useEffect(() => {
         const startTimeArr = datePicker.startTime.split(":");
@@ -150,6 +130,44 @@ const CreateEventForm = () => {
         }
     }, [eventSettings.isQuantityLimited]);
 
+    const handleAddStage = (e) => {
+        e.preventDefault();
+        setStagesQuantity((prevState) => [...prevState, prevState.length + 1]);
+    };
+
+    const handleSubmitStage = (data) => {
+        console.log(data);
+        setStages((prevState) => [...prevState, data]);
+    };
+
+    const handleEventSettingsChange = (e) => {
+        setEventSettings((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value
+        }));
+    };
+
+    const handleDatePickerChange = (e) => {
+        setDatePicker((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value
+        }));
+    };
+
+    const handlePrizeChange = (e) => {
+        setPlacementPrize((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value
+        }));
+    };
+
+    const handlePrizeDataChange = (e) => {
+        setPrize((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value
+        }));
+    };
+
     const handleDeleteStage = (quantityId, stageId) => {
         setStagesQuantity((prevState) =>
             prevState.filter((stage) => stage !== quantityId)
@@ -159,10 +177,25 @@ const CreateEventForm = () => {
         );
     };
 
+    const handleCreateEvent = (e) => {
+        e.preventDefault();
+        console.log({
+            ...eventSettings,
+            stages: stages,
+            prize: { ...prize, placementPrize: placementPrize }
+        });
+    };
+
     return (
         <section className="bg-gray-300 w-[100%] min-h-[100vh]">
             <div className="w-[1024px] mx-auto flex flex-col items-center">
                 <h2>Создание ивента</h2>
+                <button
+                    onClick={handleCreateEvent}
+                    className="rounded bg-red-600 p-2"
+                >
+                    Создать ивент
+                </button>
                 <form>
                     <div className="flex flex-col items-center">
                         <p>Тип события</p>
@@ -228,102 +261,140 @@ const CreateEventForm = () => {
                                 />
                             </div>
                         </div>
-
-                        <p>Есть плата за вход</p>
-                        <select
-                            value={eventSettings.isPaid}
-                            name="isPaid"
-                            onChange={handleEventSettingsChange}
-                        >
-                            <option value="true">Да</option>
-                            <option value="false">Нет</option>
-                        </select>
-                        {eventSettings.isPaid === "true" && (
-                            <>
-                                <p>Стоимость входа</p>
+                        <div className="flex flex-row items-center mt-[50px] gap-10">
+                            <div>
+                                <p>Есть плата за вход</p>
+                                <select
+                                    value={eventSettings.isPaid}
+                                    name="isPaid"
+                                    onChange={handleEventSettingsChange}
+                                >
+                                    <option value="true">Да</option>
+                                    <option value="false">Нет</option>
+                                </select>
+                                {eventSettings.isPaid === "true" && (
+                                    <>
+                                        <p>Стоимость входа</p>
+                                        <input
+                                            name="entryPrice"
+                                            type="number"
+                                            value={eventSettings.entryPrice}
+                                            onChange={handleEventSettingsChange}
+                                        />
+                                    </>
+                                )}
+                                <p>Режим</p>
+                                <select
+                                    value={eventSettings.regime}
+                                    name="regime"
+                                    onChange={handleEventSettingsChange}
+                                >
+                                    <option value="" disabled>
+                                        Выберите режим события
+                                    </option>
+                                    <option
+                                        disabled={
+                                            eventSettings.eventType ===
+                                                "tournament" ||
+                                            eventSettings.eventType ===
+                                                "practice"
+                                        }
+                                        value="solo"
+                                    >
+                                        Solo
+                                    </option>
+                                    <option
+                                        disabled={
+                                            eventSettings.eventType ===
+                                            "practice"
+                                        }
+                                        value="duo"
+                                    >
+                                        Duo
+                                    </option>
+                                    <option
+                                        disabled={
+                                            eventSettings.eventType ===
+                                            "miniTournament"
+                                        }
+                                        value="squad"
+                                    >
+                                        Squad
+                                    </option>
+                                </select>
+                                <p>Вид</p>
+                                <select
+                                    value={eventSettings.view}
+                                    name="view"
+                                    onChange={handleEventSettingsChange}
+                                >
+                                    <option value="" disabled>
+                                        Выберите режим камеры
+                                    </option>
+                                    <option value="1st person">
+                                        От 1-го лица
+                                    </option>
+                                    <option value="3rd person">
+                                        От 3-го лица
+                                    </option>
+                                </select>
+                                <p>Дополнительные условия участия:</p>
                                 <input
-                                    name="entryPrice"
-                                    type="number"
-                                    value={eventSettings.entryPrice}
+                                    name="requirements"
+                                    value={eventSettings.requirements}
                                     onChange={handleEventSettingsChange}
                                 />
-                            </>
-                        )}
-                        <p>Режим</p>
-                        <select
-                            value={eventSettings.regime}
-                            name="regime"
-                            onChange={handleEventSettingsChange}
-                        >
-                            <option value="" disabled>
-                                Выберите режим события
-                            </option>
-                            <option
-                                disabled={
-                                    eventSettings.eventType === "tournament" ||
-                                    eventSettings.eventType === "practice"
-                                }
-                                value="solo"
-                            >
-                                Solo
-                            </option>
-                            <option
-                                disabled={
-                                    eventSettings.eventType === "practice"
-                                }
-                                value="duo"
-                            >
-                                Duo
-                            </option>
-                            <option
-                                disabled={
-                                    eventSettings.eventType === "miniTournament"
-                                }
-                                value="squad"
-                            >
-                                Squad
-                            </option>
-                        </select>
-                        <p>Вид</p>
-                        <select
-                            value={eventSettings.view}
-                            name="view"
-                            onChange={handleEventSettingsChange}
-                        >
-                            <option value="" disabled>
-                                Выберите режим камеры
-                            </option>
-                            <option value="1st person">От 1-го лица</option>
-                            <option value="3rd person">От 3-го лица</option>
-                        </select>
-                        <p>Дополнительные условия участия:</p>
-                        <input
-                            name="requirements"
-                            value={eventSettings.requirements}
-                            onChange={handleEventSettingsChange}
-                        />
-                        <p>Есть ограничение по количеству участников</p>
-                        <select
-                            value={eventSettings.isQuantityLimited}
-                            name="isQuantityLimited"
-                            onChange={handleEventSettingsChange}
-                        >
-                            <option value="true">Да</option>
-                            <option value="false">Нет</option>
-                        </select>
-                        {eventSettings.isQuantityLimited === "true" && (
-                            <>
-                                <p>
-                                    Укажите максимальное количество участников
-                                </p>
+                                <p>Есть ограничение по количеству участников</p>
+                                <select
+                                    value={eventSettings.isQuantityLimited}
+                                    name="isQuantityLimited"
+                                    onChange={handleEventSettingsChange}
+                                >
+                                    <option value="true">Да</option>
+                                    <option value="false">Нет</option>
+                                </select>
+                                {eventSettings.isQuantityLimited === "true" && (
+                                    <>
+                                        <p>
+                                            Укажите максимальное количество
+                                            участников
+                                        </p>
+                                        <input
+                                            type="number"
+                                            value={eventSettings.maxQuantity}
+                                            onChange={handleEventSettingsChange}
+                                            name="maxQuantity"
+                                        />
+                                    </>
+                                )}
+                            </div>
+                            <div>
+                                <p>Укажите общий призовой фонд</p>
                                 <input
                                     type="number"
-                                    value={eventSettings.maxQuantity}
-                                    onChange={handleEventSettingsChange}
-                                    name="maxQuantity"
+                                    value={prize.pool}
+                                    onChange={handlePrizeDataChange}
+                                    name="pool"
                                 />
-                            </>
-                        )}
+                                <p>Укажите приз за килл</p>
+                                <input
+                                    type="number"
+                                    value={prize.prizePerKill}
+                                    onChange={handlePrizeDataChange}
+                                    name="prizePerKill"
+                                />
+                                {Object.keys(placementPrize).map((place) => (
+                                    <div key={place}>
+                                        <input
+                                            name={place}
+                                            placeholder={`Приз за ${place} место`}
+                                            value={placementPrize[`${place}`]}
+                                            onChange={handlePrizeChange}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>

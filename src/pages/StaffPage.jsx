@@ -192,7 +192,7 @@ const StaffPage = () => {
                                 aria-labelledby="dropdownUsersButton"
                             >
                                 {staffData.profile.created.map((person) => (
-                                    <li key={person}>{person.nickname}</li>
+                                    <li key={person.id}>{person.nickname}</li>
                                 ))}
                             </ul>
                         </div>
