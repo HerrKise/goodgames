@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import CreateGroupForm from "./createGroupForm";
 
-const CreateStageForm = ({ eventType, saveStage, stageId, deleteStage }) => {
+const CreateStageForm = ({
+    eventType,
+    saveStage,
+    stageId,
+    deleteStage,
+    regime
+}) => {
     const [stage, setStage] = useState({
         id: stageId,
         name: "Название этапа",
@@ -19,20 +25,6 @@ const CreateStageForm = ({ eventType, saveStage, stageId, deleteStage }) => {
     const [groups, setGroups] = useState([]);
     const [groupsQuantity, setGroupsQuantity] = useState([]);
 
-    const handleAddGroup = (e) => {
-        e.preventDefault();
-        setGroupsQuantity((prevState) => [...prevState, prevState.length + 1]);
-    };
-
-    const handleDeleteGroup = (quantityId, groupId, deleteStage) => {
-        setGroupsQuantity((prevState) =>
-            prevState.filter((group) => group !== quantityId)
-        );
-        setGroups((prevState) =>
-            prevState.filter((group) => group.id !== groupId)
-        );
-    };
-
     useEffect(() => {
         console.log(groupsQuantity);
     }, [groupsQuantity]);
@@ -46,6 +38,15 @@ const CreateStageForm = ({ eventType, saveStage, stageId, deleteStage }) => {
     }, [stage]);
 
     useEffect(() => {
+        if (eventType === "practice") {
+            setGroupsQuantity((prevState) => [
+                ...prevState,
+                prevState.length + 1
+            ]);
+        }
+    }, []);
+
+    useEffect(() => {
         const startTimeArr = datePicker.startTime.split(":");
         const startHour = Number(startTimeArr[0]) * 1000 * 3600;
         const startMinute = Number(startTimeArr[1]) * 1000 * 60;
@@ -57,6 +58,20 @@ const CreateStageForm = ({ eventType, saveStage, stageId, deleteStage }) => {
             stageStart: newStartDate
         }));
     }, [datePicker.startDate, datePicker.startTime]);
+
+    const handleAddGroup = (e) => {
+        e.preventDefault();
+        setGroupsQuantity((prevState) => [...prevState, prevState.length + 1]);
+    };
+
+    const handleDeleteGroup = (quantityId, groupId, deleteStage) => {
+        setGroupsQuantity((prevState) =>
+            prevState.filter((group) => group !== quantityId)
+        );
+        setGroups((prevState) =>
+            prevState.filter((group) => group.id !== groupId)
+        );
+    };
 
     const handleDatePickerChange = (e) => {
         setDatePicker((prevState) => ({
@@ -121,12 +136,18 @@ const CreateStageForm = ({ eventType, saveStage, stageId, deleteStage }) => {
                     </button>
                 </form>
             </div>
-            <button onClick={handleAddGroup}>Добавить группу</button>
+            <button
+                onClick={handleAddGroup}
+                disabled={eventType === "practice"}
+            >
+                Добавить группу
+            </button>
             <button type="button" onClick={handleDelete}>
                 Удалить этап и его сохранённые данные
             </button>
             {groupsQuantity.map((group) => (
                 <CreateGroupForm
+                    regime={regime}
                     eventType={eventType}
                     key={group}
                     groupId={stage.id + "-" + group + "-group"}

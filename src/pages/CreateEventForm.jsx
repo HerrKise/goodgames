@@ -263,6 +263,7 @@ const CreateEventForm = () => {
                                     eventSettings.eventType === "tournament" ||
                                     eventSettings.eventType === "practice"
                                 }
+                                value="solo"
                             >
                                 Solo
                             </option>
@@ -270,6 +271,7 @@ const CreateEventForm = () => {
                                 disabled={
                                     eventSettings.eventType === "practice"
                                 }
+                                value="duo"
                             >
                                 Duo
                             </option>
@@ -277,6 +279,7 @@ const CreateEventForm = () => {
                                 disabled={
                                     eventSettings.eventType === "miniTournament"
                                 }
+                                value="squad"
                             >
                                 Squad
                             </option>
@@ -327,12 +330,14 @@ const CreateEventForm = () => {
             <button
                 onClick={handleAddStage}
                 className="rounded bg-blue-400 p-3"
+                disabled={eventSettings.eventType === ""}
             >
                 Добавить этап
             </button>
             {stagesQuantity.map((stage) => (
                 <CreateStageForm
                     eventType={eventSettings.eventType}
+                    regime={eventSettings.regime}
                     stageId={eventSettings.id + "-" + stage + "-stage"}
                     key={stage}
                     saveStage={handleSubmitStage}
