@@ -14,17 +14,35 @@ const News = () => {
 
     useEffect(() => {
         dispatch(loadNews({ type: "News" }));
+        console.log("newsData");
     }, []);
 
     useEffect(() => {
-        if (isLoading === false) {
+        if (isLoading === false && newsData) {
             console.log(newsData);
         }
     }, [isLoading]);
 
     return (
-        <section>
-            <p>News</p>
+        <section className="bg-gray-300 w-full min-h-[400px]">
+            <div className="w-[1240px] mx-auto">
+                <p>News</p>
+                <ul className="flex w-900px gap-5 flex-wrap overflow-scroll h-[200px]">
+                    {newsData
+                        ? newsData.items.map((post) => {
+                              return (
+                                  <li
+                                      key={post.id}
+                                      className="flex flex-col items-center justify-around bg-yellow-200 w-[300px] h-[200px]"
+                                  >
+                                      <h3>{post.title}</h3>
+                                      <p>{post.content}</p>
+                                  </li>
+                              );
+                          })
+                        : ""}
+                </ul>
+            </div>
         </section>
     );
 };

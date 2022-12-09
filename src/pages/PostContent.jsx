@@ -5,7 +5,7 @@ import Offers from "../components/Offers";
 const PostContent = () => {
     return (
         <section className="bg-gray-400 w-[100%] min-h-[100vh]">
-            <div className="w-[1240px] flex flex-col items-center justify-center">
+            <div className="w-[1240px] flex flex-col items-center justify-center mx-auto">
                 <h2>Посты</h2>
                 <News />
                 <Offers />
