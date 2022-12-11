@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@microsoft/signalr": "^7.0.0",
     "@reduxjs/toolkit": "^1.9.0",
     "@uiw/react-md-editor": "^3.19.7",
     "axios": "^1.1.3",
