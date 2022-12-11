@@ -6,6 +6,7 @@ import { actionsReducer } from "./reducers/actionsSlice";
 import { offersReducer } from "./reducers/offersSlice";
 import { teamsReducer } from "./reducers/teamsSlice";
 import { eventsReducer } from "./reducers/eventsSlice";
+import { shopReducer } from "./reducers/shopSlice";
 
 const rootReducer = combineReducers({
     user: userReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     actions: actionsReducer,
     offers: offersReducer,
     teams: teamsReducer,
-    events: eventsReducer
+    events: eventsReducer,
+    shop: shopReducer
 });
 
 export const setupStore = () => {
