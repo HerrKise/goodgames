@@ -20,6 +20,10 @@ const eventService = {
     get: async () => {
         const { data } = await http.get(eventEndpoint + "/GetEvents");
         return data;
+    },
+    getById: async (id) => {
+        const { data } = await http.get(eventEndpoint + "/GetEvent" + `/${id}`);
+        return data;
     }
 };
 
