@@ -4,7 +4,6 @@ import localStorageService from "../services/localStorage.service";
 
 const CreateEventForm = () => {
     const [eventSettings, setEventSettings] = useState({
-        id: `${Date.now()}-event`,
         organizerId: localStorageService.getUserId(),
         eventType: "",
         eventStart: "",
@@ -168,14 +167,14 @@ const CreateEventForm = () => {
         }));
     };
 
-    const handleDeleteStage = (quantityId, stageId) => {
+    /* const handleDeleteStage = (quantityId, stageId) => {
         setStagesQuantity((prevState) =>
             prevState.filter((stage) => stage !== quantityId)
         );
         setStages((prevState) =>
             prevState.filter((stage) => stage.id !== stageId)
         );
-    };
+    }; */
 
     const handleCreateEvent = (e) => {
         e.preventDefault();
@@ -409,15 +408,14 @@ const CreateEventForm = () => {
                 <CreateStageForm
                     eventType={eventSettings.eventType}
                     regime={eventSettings.regime}
-                    stageId={eventSettings.id + "-" + stage + "-stage"}
                     key={stage}
                     saveStage={handleSubmitStage}
-                    deleteStage={() =>
+                    /* deleteStage={() =>
                         handleDeleteStage(
                             stage,
                             eventSettings.id + "-" + stage + "-stage"
                         )
-                    }
+                    } */
                 />
             ))}
         </section>

@@ -5,15 +5,8 @@ import {
     getStaffProfileData
 } from "../store/reducers/staffSlice";
 
-const CreateGroupForm = ({
-    eventType,
-    saveGroup,
-    groupId,
-    deleteGroup,
-    regime
-}) => {
+const CreateGroupForm = ({ eventType, saveGroup, deleteGroup, regime }) => {
     const [groupSettings, setGroupSettings] = useState({
-        id: groupId,
         name: "название группы",
         groupStart: "",
         participants: null,
@@ -28,7 +21,9 @@ const CreateGroupForm = ({
         paidSlots: 0,
         slotsQuantity: 0,
         reserveSlotsQuantity: 0,
-        slotPrice: 0
+        slotPrice: 0,
+        lobbyId: "",
+        lobbyPassword: ""
     });
 
     const [datePicker, setDatePicker] = useState({
@@ -251,10 +246,10 @@ const CreateGroupForm = ({
         saveGroup(groupSettings);
     };
 
-    const handleDelete = (e) => {
+    /* const handleDelete = (e) => {
         e.preventDefault();
         deleteGroup();
-    };
+    }; */
 
     const handleDeadlineChange = (e) => {
         e.preventDefault();
@@ -290,6 +285,19 @@ const CreateGroupForm = ({
                         name="name"
                         type="text"
                         value={groupSettings.name}
+                        onChange={handleGroupSettingsChange}
+                    />
+                    <p>Данные лобби</p>
+                    <input
+                        name="lobbyId"
+                        placeholder="Lobby ID"
+                        value={groupSettings.lobbyId}
+                        onChange={handleGroupSettingsChange}
+                    />
+                    <input
+                        name="lobbyPassword"
+                        placeholder="Lobby password"
+                        value={groupSettings.lobbyPassword}
                         onChange={handleGroupSettingsChange}
                     />
                     {eventType !== "" && (
@@ -427,9 +435,6 @@ const CreateGroupForm = ({
                 </div>
                 <button type="submit">
                     Закончить настройку группы и сохранить данные
-                </button>
-                <button type="button" onClick={handleDelete}>
-                    Удалить группу и сохранённые её данные
                 </button>
             </form>
         </section>
