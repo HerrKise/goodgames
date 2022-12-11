@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import CreateStageForm from "../components/createStageForm";
 import localStorageService from "../services/localStorage.service";
+import { create } from "../store/reducers/eventsSlice";
 
 const CreateEventForm = () => {
+    const dispatch = useDispatch();
     const [eventSettings, setEventSettings] = useState({
         organizerId: localStorageService.getUserId(),
+        title: "",
+        picture: "",
         eventType: "",
         eventStart: "",
         registrationStart: "",
@@ -72,43 +77,60 @@ const CreateEventForm = () => {
     }, [prize]);
 
     useEffect(() => {
-        const startTimeArr = datePicker.startTime.split(":");
-        const startHour = Number(startTimeArr[0]) * 1000 * 3600;
-        const startMinute = Number(startTimeArr[1]) * 1000 * 60;
-        const newStartDate =
-            new Date(datePicker.startDate).getTime() + startHour + startMinute;
-        setEventSettings((prevState) => ({
-            ...prevState,
-            eventStart: newStartDate
-        }));
+        if (datePicker.startDate !== "" && datePicker.startTime !== "") {
+            const startTimeArr = datePicker.startTime.split(":");
+            const startHour = Number(startTimeArr[0]) * 1000 * 3600;
+            const startMinute = Number(startTimeArr[1]) * 1000 * 60;
+            const newStartDate = new Date(
+                new Date(datePicker.startDate).getTime() +
+                    startHour +
+                    startMinute
+            );
+            setEventSettings((prevState) => ({
+                ...prevState,
+                eventStart: newStartDate.toISOString()
+            }));
+        }
     }, [datePicker.startDate, datePicker.startTime]);
 
     useEffect(() => {
-        const startRegTimeArr = datePicker.registrationStartTime.split(":");
-        const startRegHour = Number(startRegTimeArr[0]) * 1000 * 3600;
-        const startRegMinute = Number(startRegTimeArr[1]) * 1000 * 60;
-        const newStartRegDate =
-            new Date(datePicker.registrationStartDate).getTime() +
-            startRegHour +
-            startRegMinute;
-        setEventSettings((prevState) => ({
-            ...prevState,
-            registrationStart: newStartRegDate
-        }));
+        if (
+            datePicker.registrationStartDate !== "" &&
+            datePicker.registrationStartTime !== ""
+        ) {
+            const startRegTimeArr = datePicker.registrationStartTime.split(":");
+            const startRegHour = Number(startRegTimeArr[0]) * 1000 * 3600;
+            const startRegMinute = Number(startRegTimeArr[1]) * 1000 * 60;
+            const newStartRegDate = new Date(
+                new Date(datePicker.registrationStartDate).getTime() +
+                    startRegHour +
+                    startRegMinute
+            );
+            setEventSettings((prevState) => ({
+                ...prevState,
+                registrationStart: newStartRegDate.toISOString()
+            }));
+        }
     }, [datePicker.registrationStartDate, datePicker.registrationStartTime]);
 
     useEffect(() => {
-        const endRegTimeArr = datePicker.registrationEndTime.split(":");
-        const endRegHour = Number(endRegTimeArr[0]) * 1000 * 3600;
-        const endRegMinute = Number(endRegTimeArr[1]) * 1000 * 60;
-        const newEndRegDate =
-            new Date(datePicker.registrationEndDate).getTime() +
-            endRegHour +
-            endRegMinute;
-        setEventSettings((prevState) => ({
-            ...prevState,
-            registrationEnd: newEndRegDate
-        }));
+        if (
+            datePicker.registrationEndDate !== "" &&
+            datePicker.registrationEndTime !== ""
+        ) {
+            const endRegTimeArr = datePicker.registrationEndTime.split(":");
+            const endRegHour = Number(endRegTimeArr[0]) * 1000 * 3600;
+            const endRegMinute = Number(endRegTimeArr[1]) * 1000 * 60;
+            const newEndRegDate = new Date(
+                new Date(datePicker.registrationEndDate).getTime() +
+                    endRegHour +
+                    endRegMinute
+            );
+            setEventSettings((prevState) => ({
+                ...prevState,
+                registrationEnd: newEndRegDate.toISOString()
+            }));
+        }
     }, [datePicker.registrationEndDate, datePicker.registrationEndTime]);
 
     useEffect(() => {
@@ -178,11 +200,13 @@ const CreateEventForm = () => {
 
     const handleCreateEvent = (e) => {
         e.preventDefault();
-        console.log({
+        const data = {
             ...eventSettings,
             stages: stages,
             prize: { ...prize, placementPrize: placementPrize }
-        });
+        };
+        console.log(data);
+        dispatch(create(data));
     };
 
     return (
@@ -210,6 +234,12 @@ const CreateEventForm = () => {
                             <option value="miniTournament">Мини-турнир</option>
                             <option value="practice">Практис</option>
                         </select>
+                        <p>Название события</p>
+                        <input
+                            name="title"
+                            value={eventSettings.title}
+                            onChange={handleEventSettingsChange}
+                        />
                         <div className="flex mt-2 gap-10">
                             <div className="flex flex-col">
                                 <p>Дата начала турнира</p>
@@ -330,10 +360,10 @@ const CreateEventForm = () => {
                                     <option value="" disabled>
                                         Выберите режим камеры
                                     </option>
-                                    <option value="1st person">
+                                    <option value="FirstPerson">
                                         От 1-го лица
                                     </option>
-                                    <option value="3rd person">
+                                    <option value="ThirdPerson">
                                         От 3-го лица
                                     </option>
                                 </select>
