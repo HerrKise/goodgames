@@ -5,7 +5,7 @@ const initialState = {
     entities: null,
     isLoading: false,
     uploadingPhotoUrl: null,
-    error: null
+    error: null,
 };
 
 export const actionsSlice = createSlice({
@@ -33,8 +33,8 @@ export const actionsSlice = createSlice({
         actionsRequestByIdFailed: (state, action) => {
             state.error = action.payload;
             state.isLoading = false;
-        }
-    }
+        },
+    },
 });
 
 export const { reducer: actionsReducer, actions } = actionsSlice;
@@ -44,7 +44,7 @@ export const {
     actionsRequestFailed,
     actionsRequestedById,
     actionsReceivedById,
-    actionsRequestByIdFailed
+    actionsRequestByIdFailed,
 } = actions;
 
 const createActionsRequested = createAction("actions/createActionsRequested");
@@ -62,7 +62,7 @@ const deleteActionsSuccess = createAction("actions/deleteActionsSuccess");
 export const loadActions = (payload) => async (dispatch) => {
     dispatch(actionsRequested());
     try {
-        const data = await postService.getNews(payload);
+        const data = await postService.getPosts(payload);
         dispatch(actionsReceived(data));
     } catch (e) {
         dispatch(actionsRequestFailed(e.responce.data.error));
