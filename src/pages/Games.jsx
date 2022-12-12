@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import {
     getEventsListData,
     getEventsLoadingStatus,
@@ -11,6 +12,7 @@ const Games = () => {
     const dispatch = useDispatch();
     const isLoading = useSelector(getEventsLoadingStatus());
     const events = useSelector(getEventsListData());
+    const navigate = useNavigate();
     useEffect(() => {
         dispatch(getEventsList());
     }, []);
@@ -91,6 +93,10 @@ const Games = () => {
         dispatch(getSelectedEvent(id));
     };
 
+    const handleMoveToEdit = (id) => {
+        navigate("/staff/edit-event");
+    };
+
     return (
         <section className="w-[100%] min-h-[100vh] bg-gray-800">
             <div className="w-[1240px mx-auto] flex flex-col items-center p-[75px] gap-10">
@@ -100,13 +106,21 @@ const Games = () => {
                     {!isLoading &&
                         events &&
                         events.map((event) => (
-                            <button
-                                key={event.id}
-                                className="rounded bg-green-500 border-2 border-black"
-                                onClick={() => handleEventSelect(event.id)}
-                            >
-                                Получить инфу по ивенту
-                            </button>
+                            <div key={event.id}>
+                                <button
+                                    className="rounded bg-green-500 border-2 border-black"
+                                    onClick={() => handleEventSelect(event.id)}
+                                >
+                                    Получить инфу по ивенту
+                                </button>
+                                <p>сначала получи данные, потом редактируй</p>
+                                <button
+                                    className="rounded bg-green-500 border-2 border-black"
+                                    onClick={() => handleMoveToEdit(event.id)}
+                                >
+                                    Редактировать ивент
+                                </button>
+                            </div>
                         ))}
                 </div>
 

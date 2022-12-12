@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CreateStageForm from "../components/createStageForm";
 import localStorageService from "../services/localStorage.service";
-import { create } from "../store/reducers/eventsSlice";
+import { create, getEventsLoadingStatus } from "../store/reducers/eventsSlice";
 
-const CreateEventForm = () => {
+const EditEventForm = () => {
     const dispatch = useDispatch();
+    const isLoading = useSelector(getEventsLoadingStatus);
     const [eventSettings, setEventSettings] = useState({
         organizerId: localStorageService.getUserId(),
-        isApproved: false,
         title: "",
         picture: "",
         eventType: "",
@@ -21,34 +21,7 @@ const CreateEventForm = () => {
         entryPrice: 0,
         requirements: "",
         isQuantityLimited: "false",
-        maxQuantity: 10000000,
-        prize: {
-            pool: 0,
-            prizePerKill: 0,
-            placementPrize: {
-                1: "",
-                2: "",
-                3: "",
-                4: "",
-                5: "",
-                6: "",
-                7: "",
-                8: "",
-                9: "",
-                10: "",
-                11: "",
-                11: "",
-                12: "",
-                13: "",
-                14: "",
-                15: "",
-                16: "",
-                17: "",
-                18: "",
-                19: "",
-                20: ""
-            }
-        }
+        maxQuantity: 10000000
     });
 
     const [datePicker, setDatePicker] = useState({
@@ -58,6 +31,35 @@ const CreateEventForm = () => {
         registrationStartTime: "",
         registrationEndDate: "",
         registrationEndTime: ""
+    });
+
+    const [prize, setPrize] = useState({
+        pool: 0,
+        prizePerKill: 0
+    });
+
+    const [placementPrize, setPlacementPrize] = useState({
+        1: "",
+        2: "",
+        3: "",
+        4: "",
+        5: "",
+        6: "",
+        7: "",
+        8: "",
+        9: "",
+        10: "",
+        11: "",
+        11: "",
+        12: "",
+        13: "",
+        14: "",
+        15: "",
+        16: "",
+        17: "",
+        18: "",
+        19: "",
+        20: ""
     });
 
     const [stages, setStages] = useState([]);
@@ -70,6 +72,10 @@ const CreateEventForm = () => {
     useEffect(() => {
         console.log(eventSettings);
     }, [eventSettings]);
+
+    useEffect(() => {
+        console.log(prize);
+    }, [prize]);
 
     useEffect(() => {
         if (datePicker.startDate !== "" && datePicker.startTime !== "") {
@@ -170,23 +176,17 @@ const CreateEventForm = () => {
         }));
     };
 
-    const handlePrizeSettingsChange = (e) => {
-        setEventSettings((prevState) => ({
+    const handlePrizeChange = (e) => {
+        setPlacementPrize((prevState) => ({
             ...prevState,
-            prize: { ...prevState.prize, [e.target.name]: e.target.value }
+            [e.target.name]: e.target.value
         }));
     };
 
-    const handlePlacementPrizeChange = (e) => {
-        setEventSettings((prevState) => ({
+    const handlePrizeDataChange = (e) => {
+        setPrize((prevState) => ({
             ...prevState,
-            prize: {
-                ...prevState.prize,
-                placementPrize: {
-                    ...prevState.prize.placementPrize,
-                    [e.target.name]: e.target.value
-                }
-            }
+            [e.target.name]: e.target.value
         }));
     };
 
@@ -402,31 +402,24 @@ const CreateEventForm = () => {
                                 <p>Укажите общий призовой фонд</p>
                                 <input
                                     type="number"
-                                    value={eventSettings.prize.pool}
-                                    onChange={handlePrizeSettingsChange}
+                                    value={prize.pool}
+                                    onChange={handlePrizeDataChange}
                                     name="pool"
                                 />
                                 <p>Укажите приз за килл</p>
                                 <input
                                     type="number"
-                                    value={eventSettings.prize.prizePerKill}
-                                    onChange={handlePrizeSettingsChange}
+                                    value={prize.prizePerKill}
+                                    onChange={handlePrizeDataChange}
                                     name="prizePerKill"
                                 />
-                                {Object.keys(
-                                    eventSettings.prize.placementPrize
-                                ).map((place) => (
+                                {Object.keys(placementPrize).map((place) => (
                                     <div key={place}>
                                         <input
                                             name={place}
                                             placeholder={`Приз за ${place} место`}
-                                            value={
-                                                eventSettings.prize
-                                                    .placementPrize[`${place}`]
-                                            }
-                                            onChange={
-                                                handlePlacementPrizeChange
-                                            }
+                                            value={placementPrize[`${place}`]}
+                                            onChange={handlePrizeChange}
                                         />
                                     </div>
                                 ))}
@@ -460,4 +453,4 @@ const CreateEventForm = () => {
     );
 };
 
-export default CreateEventForm;
+export default EditEventForm;
