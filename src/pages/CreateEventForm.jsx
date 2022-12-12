@@ -51,15 +51,6 @@ const CreateEventForm = () => {
         }
     });
 
-    const [datePicker, setDatePicker] = useState({
-        startDate: "",
-        startTime: "",
-        registrationStartDate: "",
-        registrationStartTime: "",
-        registrationEndDate: "",
-        registrationEndTime: ""
-    });
-
     const [stages, setStages] = useState([]);
     const [stagesQuantity, setStagesQuantity] = useState([]);
 
@@ -70,63 +61,6 @@ const CreateEventForm = () => {
     useEffect(() => {
         console.log(eventSettings);
     }, [eventSettings]);
-
-    useEffect(() => {
-        if (datePicker.startDate !== "" && datePicker.startTime !== "") {
-            const startTimeArr = datePicker.startTime.split(":");
-            const startHour = Number(startTimeArr[0]) * 1000 * 3600;
-            const startMinute = Number(startTimeArr[1]) * 1000 * 60;
-            const newStartDate = new Date(
-                new Date(datePicker.startDate).getTime() +
-                    startHour +
-                    startMinute
-            );
-            setEventSettings((prevState) => ({
-                ...prevState,
-                eventStart: newStartDate.toISOString()
-            }));
-        }
-    }, [datePicker.startDate, datePicker.startTime]);
-
-    useEffect(() => {
-        if (
-            datePicker.registrationStartDate !== "" &&
-            datePicker.registrationStartTime !== ""
-        ) {
-            const startRegTimeArr = datePicker.registrationStartTime.split(":");
-            const startRegHour = Number(startRegTimeArr[0]) * 1000 * 3600;
-            const startRegMinute = Number(startRegTimeArr[1]) * 1000 * 60;
-            const newStartRegDate = new Date(
-                new Date(datePicker.registrationStartDate).getTime() +
-                    startRegHour +
-                    startRegMinute
-            );
-            setEventSettings((prevState) => ({
-                ...prevState,
-                registrationStart: newStartRegDate.toISOString()
-            }));
-        }
-    }, [datePicker.registrationStartDate, datePicker.registrationStartTime]);
-
-    useEffect(() => {
-        if (
-            datePicker.registrationEndDate !== "" &&
-            datePicker.registrationEndTime !== ""
-        ) {
-            const endRegTimeArr = datePicker.registrationEndTime.split(":");
-            const endRegHour = Number(endRegTimeArr[0]) * 1000 * 3600;
-            const endRegMinute = Number(endRegTimeArr[1]) * 1000 * 60;
-            const newEndRegDate = new Date(
-                new Date(datePicker.registrationEndDate).getTime() +
-                    endRegHour +
-                    endRegMinute
-            );
-            setEventSettings((prevState) => ({
-                ...prevState,
-                registrationEnd: newEndRegDate.toISOString()
-            }));
-        }
-    }, [datePicker.registrationEndDate, datePicker.registrationEndTime]);
 
     useEffect(() => {
         if (eventSettings.isPaid === "false") {
@@ -163,12 +97,30 @@ const CreateEventForm = () => {
         }));
     };
 
-    const handleDatePickerChange = (e) => {
-        setDatePicker((prevState) => ({
+    const handleDateChange = (e) => {
+        setEventSettings((prevState) => ({
             ...prevState,
-            [e.target.name]: e.target.value
+            [e.target.name]: new Date(e.target.value).toISOString()
         }));
     };
+    let startTimeTransform;
+    let regStartTimeTransform;
+    let regEndTimeTransform;
+    if (eventSettings.eventStart) {
+        startTimeTransform = new Date(
+            Date.parse(eventSettings.eventStart) + 60 * 60 * 3 * 1000
+        ).toISOString();
+    }
+    if (eventSettings.registrationStart) {
+        regStartTimeTransform = new Date(
+            Date.parse(eventSettings.registrationStart) + 60 * 60 * 3 * 1000
+        ).toISOString();
+    }
+    if (eventSettings.registrationEnd) {
+        regEndTimeTransform = new Date(
+            Date.parse(eventSettings.registrationEnd) + 60 * 60 * 3 * 1000
+        ).toISOString();
+    }
 
     const handlePrizeSettingsChange = (e) => {
         setEventSettings((prevState) => ({
@@ -243,51 +195,42 @@ const CreateEventForm = () => {
                         />
                         <div className="flex mt-2 gap-10">
                             <div className="flex flex-col">
-                                <p>Дата начала турнира</p>
-                                <input
-                                    type="date"
-                                    name="startDate"
-                                    onChange={handleDatePickerChange}
-                                    value={datePicker.startDate}
-                                ></input>
                                 <p>Время начала турнира</p>
                                 <input
-                                    name="startTime"
-                                    type="time"
-                                    value={datePicker.startTime}
-                                    onChange={handleDatePickerChange}
-                                />
+                                    type="datetime-local"
+                                    name="eventStart"
+                                    onChange={handleDateChange}
+                                    value={
+                                        startTimeTransform
+                                            ? startTimeTransform.slice(0, 16)
+                                            : ""
+                                    }
+                                ></input>
                             </div>
                             <div className="flex flex-col">
-                                <p>Дата начала регистрации</p>
-                                <input
-                                    type="date"
-                                    name="registrationStartDate"
-                                    onChange={handleDatePickerChange}
-                                    value={datePicker.registrationStartDate}
-                                />
                                 <p>Время начала регистрации</p>
                                 <input
-                                    name="registrationStartTime"
-                                    type="time"
-                                    value={datePicker.registrationStartTime}
-                                    onChange={handleDatePickerChange}
+                                    type="datetime-local"
+                                    name="registrationStart"
+                                    onChange={handleDateChange}
+                                    value={
+                                        regStartTimeTransform
+                                            ? regStartTimeTransform.slice(0, 16)
+                                            : ""
+                                    }
                                 />
                             </div>
                             <div className="flex flex-col">
-                                <p>Дата окончания регистрации</p>
-                                <input
-                                    type="date"
-                                    name="registrationEndDate"
-                                    onChange={handleDatePickerChange}
-                                    value={datePicker.registrationEndDate}
-                                />
                                 <p>Время окончания регистрации</p>
                                 <input
-                                    name="registrationEndTime"
-                                    type="time"
-                                    value={datePicker.registrationEndTime}
-                                    onChange={handleDatePickerChange}
+                                    type="datetime-local"
+                                    name="registrationEnd"
+                                    onChange={handleDateChange}
+                                    value={
+                                        regEndTimeTransform
+                                            ? regEndTimeTransform.slice(0, 16)
+                                            : ""
+                                    }
                                 />
                             </div>
                         </div>
