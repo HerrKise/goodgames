@@ -23,6 +23,8 @@ import CreateEventForm from "./pages/CreateEventForm";
 import StaffProfile from "./pages/StaffProfile";
 import Teams from "./pages/Teams";
 import TeamProfile from "./pages/TeamProfile";
+import Shop from "./pages/Shop";
+import ShopItemsCreation from "./pages/ShopItemsCreations";
 import EditEventForm from "./pages/EditEventForm";
 
 function App() {
@@ -32,6 +34,7 @@ function App() {
                 <Route path="/" element={<Main />} />
                 <Route path="/games" element={<Games />} />
                 <Route path="/posts" element={<PostContent />} />
+                <Route path="/shop" element={<Shop />}></Route>
                 <Route element={<UserProtectedRoute />}>
                     <Route path="/profile" element={<Profile />} />
                     <Route
@@ -63,9 +66,14 @@ function App() {
                         path="/staff/create-event"
                         element={<CreateEventForm />}
                     ></Route>
+                    <Route>
+                     path="/staff/createShopItem"
+                        element={<ShopItemsCreation />}
+                    </Route>
                     <Route
                         path="/staff/edit-event"
                         element={<EditEventForm />}
+
                     ></Route>
                     <Route
                         path="/staff/edit-posts"
