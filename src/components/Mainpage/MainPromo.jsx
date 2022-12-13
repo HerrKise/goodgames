@@ -1,9 +1,12 @@
 import { Button } from "../UI/Button"
 
+import promobg from "../../assets/Main/gg-bg.png"
+
 
 export const MainPromo = () => {
     return(
-        <section className="bg-promobg w-full h-[600px] bg-no-repeat bg-center bg-cover relative" >
+        <section className="w-full h-[600px] relative">
+            <img src={promobg} alt="promopic" className="absolute top-0 h-full w-full object-top object-cover"/>
             <div className="wrap relative z-20 h-full flex flex-col items-center justify-end pb-8">
                 <p className="bg-[#FFFFFF33] text-white text-[10px] leading-3 px-4 py-2 font-bold rounded-full mb-1">ГЛАВНОЕ СОБЫТИЕ</p>
                 <h1 className="text-4xl font-bold text-center mb-6">Сезонный турнир Призовой фонд 50.000 ₽</h1>

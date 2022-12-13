@@ -1,12 +1,14 @@
-
+import placeholdergame from "../../../assets/Main/placeholdergame.jfif"
 
 export const Tournaments = ({tournaments}) => {
     return (
         <ul className="space-y-5">
             {tournaments.map((tournament, i) => {
                 return (
-                    <li className="bg-gray-700 p-[14px] rounded-2xl h-[200px]" key={i}>
-                        <div className="flex flex-col justify-between w-full h-full">
+                    <li className="bg-gray-700 p-[14px] rounded-2xl h-[200px] relative overflow-clip" key={i}>
+                        <img src={placeholdergame} alt="placeholdergame" className="absolute top-0 left-0 h-full w-full object-top object-cover"/>
+                        <div className='absolute bottom-0 left-0 h-full w-full bg-[#2626268C]'></div>
+                        <div className="flex flex-col justify-between w-full h-full relative z-10">
                             <div className="flex items-center justify-between">
                                 <div className="text-xs font-semibold space-y-1">
                                     <p>{tournament.time}</p>

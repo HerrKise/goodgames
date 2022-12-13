@@ -1,8 +1,9 @@
-
+import promobg from "../../assets/Main/gg-bg.png"
 
 export const GamesPromo = () => {
     return (
-        <section className="bg-promobg w-full h-[420px] bg-no-repeat bg-center bg-cover relative" >
+        <section className="w-full h-[420px] relative" >
+            <img src={promobg} alt="promopic" className="absolute top-0 h-full w-full object-top object-cover"/>
             <div className="wrap relative z-20 h-full flex flex-col items-center justify-end pb-10 text-white ">
                 <p className="bg-[#FFFFFF33] text-[10px] leading-3 px-4 py-2 font-bold rounded-full mb-3 flex items-center space-x-1 bg-blur-sm">
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">

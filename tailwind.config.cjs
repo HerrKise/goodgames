@@ -12,11 +12,9 @@ module.exports = {
       screens: {
         "lg": {"min":"1120px"}
       },
-      backgroundImage: {
-        "promobg": "url('./src/assets/Main/gg-bg.png')",
-        "appsbg": "url('./src/assets/Main/appsbg.jfif')"
-      },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }
