@@ -37,11 +37,11 @@ const shopService = {
     },
     getExtendedShopItems: async (payload) => {
         const { data } = await http.get(
-            eventEndpoint + "/GetExtendedShopItems",
+            shopEndpoint + "/GetExtendedShopItems",
             payload
         );
         return data;
-    }
+    },
 };
 
 export default shopService;

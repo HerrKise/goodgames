@@ -26,6 +26,8 @@ import TeamProfile from "./pages/TeamProfile";
 import Shop from "./pages/Shop";
 import ShopItemsCreation from "./pages/ShopItemsCreations";
 import EditEventForm from "./pages/EditEventForm";
+import EditShopItem from "./pages/EditShopItem";
+import ExtendedShop from "./pages/ExtendedShop";
 
 function App() {
     return (
@@ -77,6 +79,14 @@ function App() {
                     <Route
                         path="/staff/edit-posts"
                         element={<EditPosts />}
+                    ></Route>
+                    <Route
+                        path="/staff/extended-shop"
+                        element={<ExtendedShop />}
+                    ></Route>
+                    <Route
+                        path="/staff/edit-shop-item/:id"
+                        element={<EditShopItem />}
                     ></Route>
                 </Route>
                 <Route path="/staff/login" element={<StaffLogin />} />

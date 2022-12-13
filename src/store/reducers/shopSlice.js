@@ -82,7 +82,7 @@ export const buyProduct = (payload) => async (dispatch) => {
 export const updateProduct = (payload) => async (dispatch) => {
     dispatch(productUpdateRequested());
     try {
-        const data = await eventService.create(payload);
+        const data = await shopService.create(payload);
         dispatch(productUpdateSuccess());
     } catch (e) {
         dispatch(productUpdateFailed());

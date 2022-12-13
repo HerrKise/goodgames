@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import {
     buyProduct,
+    getExtendedProductsList,
     getProductsList,
     getSelectedShopItem,
     getSelectedShopItemData,
@@ -10,14 +11,14 @@ import {
     getShopLoadingStatus,
 } from "../store/reducers/shopSlice";
 
-const Shop = () => {
+const ExtendedShop = () => {
     const dispatch = useDispatch();
     const isLoading = useSelector(getShopLoadingStatus());
     const shopList = useSelector(getShopListData());
     const selectedShopListItem = useSelector(getSelectedShopItemData());
 
     useEffect(() => {
-        dispatch(getProductsList());
+        dispatch(getExtendedProductsList());
     }, []);
 
     useEffect(() => {
@@ -28,15 +29,10 @@ const Shop = () => {
 
     const navigate = useNavigate();
 
-    const buyShopItem = (id) => {
-        console.log(id);
-        dispatch(buyProduct({ shopItemId: id }));
-    };
-
     return (
         <section className="bg-gray-400 w-[100%] min-h-[100vh]">
             <div className="w-[1240px] flex flex-col items-center justify-center mx-auto">
-                <h2>Shop</h2>
+                <h2>Extended shop for staff</h2>
                 <ul className="flex w-900px gap-5 flex-wrap overflow-scroll h-[400px]">
                     {shopList
                         ? shopList.items.map((shopListItem) => {
@@ -51,12 +47,22 @@ const Shop = () => {
                                       <p>{shopListItem.specifications}</p>
                                       <p>{shopListItem.amount}</p>
                                       <p>{shopListItem.price} Рублей</p>
+                                      <p>
+                                          Куплено : -
+                                          {shopListItem.amountUsersPurchased}
+                                      </p>
+                                      <p>
+                                          Создатель -{" "}
+                                          {shopListItem.createdBy.nickname}
+                                      </p>
                                       <button
                                           onClick={() => {
-                                              buyShopItem(shopListItem.id);
+                                              navigate(
+                                                  `/staff/edit-shop-item/${shopListItem.id}`
+                                              );
                                           }}
                                       >
-                                          Купить!!!!!
+                                          Редактировать
                                       </button>
                                   </li>
                               );
@@ -68,4 +74,4 @@ const Shop = () => {
     );
 };
 
-export default Shop;
+export default ExtendedShop;
