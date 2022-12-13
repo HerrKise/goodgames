@@ -25,6 +25,7 @@ import Teams from "./pages/Teams";
 import TeamProfile from "./pages/TeamProfile";
 import Shop from "./pages/Shop";
 import ShopItemsCreation from "./pages/ShopItemsCreations";
+import EditEventForm from "./pages/EditEventForm";
 
 function App() {
     return (
@@ -65,9 +66,14 @@ function App() {
                         path="/staff/create-event"
                         element={<CreateEventForm />}
                     ></Route>
-                    <Route
-                        path="/staff/createShopItem"
+                    <Route>
+                     path="/staff/createShopItem"
                         element={<ShopItemsCreation />}
+                    </Route>
+                    <Route
+                        path="/staff/edit-event"
+                        element={<EditEventForm />}
+
                     ></Route>
                     <Route
                         path="/staff/edit-posts"

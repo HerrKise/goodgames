@@ -12,6 +12,7 @@ const StaffProtectedRoute = () => {
     const dispatch = useDispatch();
     const isLoggedIn = useSelector(getIsStaffLoggedIn());
     const isStaff = useSelector(getIsStaff());
+    console.log();
     if (isLoggedIn && isStaff) {
         dispatch(loadStaffProfile());
     }
