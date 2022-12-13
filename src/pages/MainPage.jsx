@@ -34,7 +34,7 @@ export const MainPage = () => {
     return (
         <div className="bg-darkgrey min-h-[100vh]">
             <Header/>
-            <main className="text-white">
+            <main className="text-white pb-20">
                 <MainPromo/>
                 <MainOffers offers={offers}/>
                 <MainLearnMore/>

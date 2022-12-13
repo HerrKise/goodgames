@@ -24,6 +24,7 @@ import StaffProfile from "./pages/StaffProfile";
 import Teams from "./pages/Teams";
 import TeamProfile from "./pages/TeamProfile";
 import { MainPage } from "./pages/MainPage";
+import { NewsPage } from "./pages/NewsPage";
 
 function App() {
     return (
@@ -78,6 +79,7 @@ function App() {
                     element={<PasswordChangeViaEmail />}
                 />
                 <Route path="/mainpage" element={<MainPage/>}/>
+                <Route path="/newspage" element={<NewsPage/>}/>
             </Routes>
             <ToastContainer />
         </>
