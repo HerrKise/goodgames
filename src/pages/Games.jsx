@@ -90,11 +90,13 @@ const Games = () => {
     };
 
     const handleEventSelect = (id) => {
-        dispatch(getSelectedEvent(id));
-    };
-
-    const handleMoveToEdit = (id) => {
-        navigate("/staff/edit-event");
+        console.log(id);
+        dispatch(
+            getSelectedEvent({
+                id: id,
+                navigate: () => navigate("/staff/edit-event")
+            })
+        );
     };
 
     return (
@@ -111,14 +113,7 @@ const Games = () => {
                                     className="rounded bg-green-500 border-2 border-black"
                                     onClick={() => handleEventSelect(event.id)}
                                 >
-                                    Получить инфу по ивенту
-                                </button>
-                                <p>сначала получи данные, потом редактируй</p>
-                                <button
-                                    className="rounded bg-green-500 border-2 border-black"
-                                    onClick={() => handleMoveToEdit(event.id)}
-                                >
-                                    Редактировать ивент
+                                    Получить инфу по ивенту {event.name}
                                 </button>
                             </div>
                         ))}

@@ -3,11 +3,13 @@ import { useDispatch } from "react-redux";
 import CreateStageForm from "../components/createStageForm";
 import localStorageService from "../services/localStorage.service";
 import { create } from "../store/reducers/eventsSlice";
+import moment from "moment";
 
 const CreateEventForm = () => {
     const dispatch = useDispatch();
     const [eventSettings, setEventSettings] = useState({
         organizerId: localStorageService.getUserId(),
+        description: "",
         isApproved: false,
         title: "",
         picture: "",
@@ -22,6 +24,7 @@ const CreateEventForm = () => {
         requirements: "",
         isQuantityLimited: "false",
         maxQuantity: 10000000,
+        stages: [],
         prize: {
             pool: 0,
             prizePerKill: 0,
@@ -51,13 +54,6 @@ const CreateEventForm = () => {
         }
     });
 
-    const [stages, setStages] = useState([]);
-    const [stagesQuantity, setStagesQuantity] = useState([]);
-
-    useEffect(() => {
-        console.log(stages);
-    }, [stages]);
-
     useEffect(() => {
         console.log(eventSettings);
     }, [eventSettings]);
@@ -82,12 +78,105 @@ const CreateEventForm = () => {
 
     const handleAddStage = (e) => {
         e.preventDefault();
-        setStagesQuantity((prevState) => [...prevState, prevState.length + 1]);
+        setEventSettings((prevState) => ({
+            ...prevState,
+            stages: [
+                ...prevState.stages,
+                {
+                    name: "Название этапа",
+                    stageStart: "",
+                    winners: [],
+                    participants: [],
+                    groups: []
+                }
+            ]
+        }));
     };
 
-    const handleSubmitStage = (data) => {
-        console.log(data);
-        setStages((prevState) => [...prevState, data]);
+    const handleDeleteStage = (stageIndex) => {
+        setEventSettings((prevState) => ({
+            ...prevState,
+            stages: [
+                ...prevState.stages.filter(
+                    (stage) => prevState.stages.indexOf(stage) !== stageIndex
+                )
+            ]
+        }));
+    };
+
+    const handleAddGroup = (index) => {
+        setEventSettings((prevState) => ({
+            ...prevState,
+            stages: [
+                ...prevState.stages.map((stage) => {
+                    if (prevState.stages.indexOf(stage) === index) {
+                        return {
+                            ...stage,
+                            groups: [
+                                ...stage.groups,
+                                {
+                                    name: "название группы",
+                                    groupStart: "",
+                                    participants: null,
+                                    confirmationTimeStart: "",
+                                    confirmationTimeEnd: "",
+                                    reserveConfirmationTimeEnd: "",
+                                    reserveParticipants: null,
+                                    paidParticipants: null,
+                                    map: "",
+                                    groupModerators: [],
+                                    results: null,
+                                    paidSlots: 0,
+                                    slotsQuantity: 0,
+                                    reserveSlotsQuantity: 0,
+                                    slotPrice: 0,
+                                    lobbyId: "",
+                                    lobbyPassword: ""
+                                }
+                            ]
+                        };
+                    }
+                    return stage;
+                })
+            ]
+        }));
+    };
+
+    const handleDeleteGroup = (stageIndex, groupIndex) => {
+        setEventSettings((prevState) => ({
+            ...prevState,
+            stages: [
+                ...prevState.stages.map((stage) => {
+                    if (prevState.stages.indexOf(stage) === stageIndex) {
+                        return {
+                            ...stage,
+                            groups: [
+                                ...stage.groups.filter(
+                                    (group) =>
+                                        stage.groups.indexOf(group) !==
+                                        groupIndex
+                                )
+                            ]
+                        };
+                    }
+                    return stage;
+                })
+            ]
+        }));
+    };
+
+    const handleStageChange = (e, index) => {
+        setEventSettings((prevState) => ({
+            ...prevState,
+            stages: [
+                ...prevState.stages.map((stage) => {
+                    if (prevState.stages.indexOf(stage) === index) {
+                        return { ...stage, [e.target.name]: e.target.value };
+                    }
+                    return stage;
+                })
+            ]
+        }));
     };
 
     const handleEventSettingsChange = (e) => {
@@ -100,27 +189,278 @@ const CreateEventForm = () => {
     const handleDateChange = (e) => {
         setEventSettings((prevState) => ({
             ...prevState,
-            [e.target.name]: new Date(e.target.value).toISOString()
+            [e.target.name]: moment(e.target.value).toISOString()
         }));
     };
-    let startTimeTransform;
-    let regStartTimeTransform;
-    let regEndTimeTransform;
-    if (eventSettings.eventStart) {
-        startTimeTransform = new Date(
-            Date.parse(eventSettings.eventStart) + 60 * 60 * 3 * 1000
-        ).toISOString();
-    }
-    if (eventSettings.registrationStart) {
-        regStartTimeTransform = new Date(
-            Date.parse(eventSettings.registrationStart) + 60 * 60 * 3 * 1000
-        ).toISOString();
-    }
-    if (eventSettings.registrationEnd) {
-        regEndTimeTransform = new Date(
-            Date.parse(eventSettings.registrationEnd) + 60 * 60 * 3 * 1000
-        ).toISOString();
-    }
+
+    const handleDateStageChange = (e, index) => {
+        setEventSettings((prevState) => ({
+            ...prevState,
+            stages: [
+                ...prevState.stages.map((stage) => {
+                    if (prevState.stages.indexOf(stage) === index) {
+                        return {
+                            ...stage,
+                            [e.target.name]: moment(
+                                e.target.value
+                            ).toISOString()
+                        };
+                    }
+                    return stage;
+                })
+            ]
+        }));
+    };
+
+    const handleDateGroupChange = (e, stageIndex, groupIndex) => {
+        console.log(e.target.value, stageIndex, groupIndex);
+        setEventSettings((prevState) => ({
+            ...prevState,
+            stages: [
+                ...prevState.stages.map((stage) => {
+                    if (prevState.stages.indexOf(stage) === stageIndex) {
+                        return {
+                            ...stage,
+                            groups: [
+                                ...stage.groups.map((group) => {
+                                    if (
+                                        prevState.stages
+                                            .at(stageIndex)
+                                            .groups.indexOf(group) ===
+                                        groupIndex
+                                    ) {
+                                        return {
+                                            ...group,
+                                            [e.target.name]: moment(
+                                                e.target.value
+                                            ).toISOString()
+                                        };
+                                    }
+                                    return group;
+                                })
+                            ]
+                        };
+                    }
+                    return stage;
+                })
+            ]
+        }));
+    };
+
+    const handleModeratorGroupPick = (moderator, stageIndex, groupIndex) => {
+        setEventSettings((prevState) => ({
+            ...prevState,
+            stages: [
+                ...prevState.stages.map((stage) => {
+                    if (prevState.stages.indexOf(stage) === stageIndex) {
+                        return {
+                            ...stage,
+                            groups: [
+                                ...stage.groups.map((group) => {
+                                    if (
+                                        prevState.stages
+                                            .at(stageIndex)
+                                            .groups.indexOf(group) ===
+                                        groupIndex
+                                    ) {
+                                        return {
+                                            ...group,
+                                            groupModerators: [
+                                                ...group.groupModerators,
+                                                moderator
+                                            ]
+                                        };
+                                    }
+                                    return group;
+                                })
+                            ]
+                        };
+                    }
+                    return stage;
+                })
+            ]
+        }));
+    };
+
+    const handleModeratorGroupRemove = (moderator, stageIndex, groupIndex) => {
+        setEventSettings((prevState) => ({
+            ...prevState,
+            stages: [
+                ...prevState.stages.map((stage) => {
+                    if (prevState.stages.indexOf(stage) === stageIndex) {
+                        return {
+                            ...stage,
+                            groups: [
+                                ...stage.groups.map((group) => {
+                                    if (
+                                        prevState.stages
+                                            .at(stageIndex)
+                                            .groups.indexOf(group) ===
+                                        groupIndex
+                                    ) {
+                                        return {
+                                            ...group,
+                                            groupModerators: [
+                                                ...group.groupModerators.filter(
+                                                    (moder) =>
+                                                        moder.id !==
+                                                        moderator.id
+                                                )
+                                            ]
+                                        };
+                                    }
+                                    return group;
+                                })
+                            ]
+                        };
+                    }
+                    return stage;
+                })
+            ]
+        }));
+    };
+
+    const handleParticipantsGroupChange = (
+        participantsArray,
+        stageIndex,
+        groupIndex
+    ) => {
+        setEventSettings((prevState) => ({
+            ...prevState,
+            stages: [
+                ...prevState.stages.map((stage) => {
+                    if (prevState.stages.indexOf(stage) === stageIndex) {
+                        return {
+                            ...stage,
+                            groups: [
+                                ...stage.groups.map((group) => {
+                                    if (
+                                        prevState.stages
+                                            .at(stageIndex)
+                                            .groups.indexOf(group) ===
+                                        groupIndex
+                                    ) {
+                                        return {
+                                            ...group,
+                                            participants: participantsArray
+                                        };
+                                    }
+                                    return group;
+                                })
+                            ]
+                        };
+                    }
+                    return stage;
+                })
+            ]
+        }));
+    };
+
+    const handleReserveParticipantsGroupChange = (
+        reserveParticipantsArray,
+        stageIndex,
+        groupIndex
+    ) => {
+        setEventSettings((prevState) => ({
+            ...prevState,
+            stages: [
+                ...prevState.stages.map((stage) => {
+                    if (prevState.stages.indexOf(stage) === stageIndex) {
+                        return {
+                            ...stage,
+                            groups: [
+                                ...stage.groups.map((group) => {
+                                    if (
+                                        prevState.stages
+                                            .at(stageIndex)
+                                            .groups.indexOf(group) ===
+                                        groupIndex
+                                    ) {
+                                        return {
+                                            ...group,
+                                            reserveParticipants:
+                                                reserveParticipantsArray
+                                        };
+                                    }
+                                    return group;
+                                })
+                            ]
+                        };
+                    }
+                    return stage;
+                })
+            ]
+        }));
+    };
+
+    const handlePaidParticipantsGroupChange = (
+        paidParticipantsArray,
+        stageIndex,
+        groupIndex
+    ) => {
+        setEventSettings((prevState) => ({
+            ...prevState,
+            stages: [
+                ...prevState.stages.map((stage) => {
+                    if (prevState.stages.indexOf(stage) === stageIndex) {
+                        return {
+                            ...stage,
+                            groups: [
+                                ...stage.groups.map((group) => {
+                                    if (
+                                        prevState.stages
+                                            .at(stageIndex)
+                                            .groups.indexOf(group) ===
+                                        groupIndex
+                                    ) {
+                                        return {
+                                            ...group,
+                                            paidParticipants:
+                                                paidParticipantsArray
+                                        };
+                                    }
+                                    return group;
+                                })
+                            ]
+                        };
+                    }
+                    return stage;
+                })
+            ]
+        }));
+    };
+
+    const handleGroupChange = (e, stageIndex, groupIndex) => {
+        setEventSettings((prevState) => ({
+            ...prevState,
+            stages: [
+                ...prevState.stages.map((stage) => {
+                    if (prevState.stages.indexOf(stage) === stageIndex) {
+                        return {
+                            ...stage,
+                            groups: [
+                                ...stage.groups.map((group) => {
+                                    if (
+                                        prevState.stages
+                                            .at(stageIndex)
+                                            .groups.indexOf(group) ===
+                                        groupIndex
+                                    ) {
+                                        return {
+                                            ...group,
+                                            [e.target.name]: e.target.value
+                                        };
+                                    }
+                                    return group;
+                                })
+                            ]
+                        };
+                    }
+                    return stage;
+                })
+            ]
+        }));
+    };
 
     const handlePrizeSettingsChange = (e) => {
         setEventSettings((prevState) => ({
@@ -153,13 +493,8 @@ const CreateEventForm = () => {
 
     const handleCreateEvent = (e) => {
         e.preventDefault();
-        const data = {
-            ...eventSettings,
-            stages: stages,
-            prize: { ...prize, placementPrize: placementPrize }
-        };
-        console.log(data);
-        dispatch(create(data));
+        console.log(eventSettings);
+        dispatch(create(eventSettings));
     };
 
     return (
@@ -200,11 +535,9 @@ const CreateEventForm = () => {
                                     type="datetime-local"
                                     name="eventStart"
                                     onChange={handleDateChange}
-                                    value={
-                                        startTimeTransform
-                                            ? startTimeTransform.slice(0, 16)
-                                            : ""
-                                    }
+                                    value={moment(
+                                        eventSettings.eventStart
+                                    ).format("YYYY-MM-DDTHH:mm")}
                                 ></input>
                             </div>
                             <div className="flex flex-col">
@@ -213,11 +546,9 @@ const CreateEventForm = () => {
                                     type="datetime-local"
                                     name="registrationStart"
                                     onChange={handleDateChange}
-                                    value={
-                                        regStartTimeTransform
-                                            ? regStartTimeTransform.slice(0, 16)
-                                            : ""
-                                    }
+                                    value={moment(
+                                        eventSettings.registrationStart
+                                    ).format("YYYY-MM-DDTHH:mm")}
                                 />
                             </div>
                             <div className="flex flex-col">
@@ -226,11 +557,9 @@ const CreateEventForm = () => {
                                     type="datetime-local"
                                     name="registrationEnd"
                                     onChange={handleDateChange}
-                                    value={
-                                        regEndTimeTransform
-                                            ? regEndTimeTransform.slice(0, 16)
-                                            : ""
-                                    }
+                                    value={moment(
+                                        eventSettings.registrationEnd
+                                    ).format("YYYY-MM-DDTHH:mm")}
                                 />
                             </div>
                         </div>
@@ -385,18 +714,27 @@ const CreateEventForm = () => {
             >
                 Добавить этап
             </button>
-            {stagesQuantity.map((stage) => (
+            {eventSettings.stages.map((stage) => (
                 <CreateStageForm
                     eventType={eventSettings.eventType}
                     regime={eventSettings.regime}
-                    key={stage}
-                    saveStage={handleSubmitStage}
-                    /* deleteStage={() =>
-                        handleDeleteStage(
-                            stage,
-                            eventSettings.id + "-" + stage + "-stage"
-                        )
-                    } */
+                    state={stage}
+                    key={eventSettings.stages.indexOf(stage)}
+                    index={eventSettings.stages.indexOf(stage)}
+                    onChangeStage={handleStageChange}
+                    onChangeTime={handleDateStageChange}
+                    addGroup={handleAddGroup}
+                    onChangeGroupTime={handleDateGroupChange}
+                    onChangeGroup={handleGroupChange}
+                    removeModerator={handleModeratorGroupRemove}
+                    pickModerator={handleModeratorGroupPick}
+                    onChangeParticipants={handleParticipantsGroupChange}
+                    onChangeReserveParticipants={
+                        handleReserveParticipantsGroupChange
+                    }
+                    onChangePaidParticipants={handlePaidParticipantsGroupChange}
+                    deleteGroup={handleDeleteGroup}
+                    deleteStage={handleDeleteStage}
                 />
             ))}
         </section>
