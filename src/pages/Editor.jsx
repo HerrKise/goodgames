@@ -43,7 +43,6 @@ const Editor = () => {
     };
 
     const uploadPost = () => {
-        //тут будет диспатч
         dispatch(
             createNews({
                 title: title,
