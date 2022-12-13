@@ -66,14 +66,13 @@ function App() {
                         path="/staff/create-event"
                         element={<CreateEventForm />}
                     ></Route>
-                    <Route>
-                     path="/staff/createShopItem"
+                    <Route
+                        path="/staff/create-shop-item"
                         element={<ShopItemsCreation />}
-                    </Route>
+                    ></Route>
                     <Route
                         path="/staff/edit-event"
                         element={<EditEventForm />}
-
                     ></Route>
                     <Route
                         path="/staff/edit-posts"

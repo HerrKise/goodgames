@@ -5,7 +5,7 @@ const initialState = {
     entities: null,
     selectedShopItem: null,
     isLoading: false,
-    error: null
+    error: null,
 };
 
 export const shopSlice = createSlice({
@@ -33,8 +33,8 @@ export const shopSlice = createSlice({
         shopItemByIdFailed: (state, action) => {
             state.error = action.payload;
             state.isLoading = false;
-        }
-    }
+        },
+    },
 });
 
 export const { reducer: shopReducer, actions } = shopSlice;
@@ -44,7 +44,7 @@ export const {
     shopListItemsFailed,
     shopItemRequestedById,
     shopItemRequestByIdSuccess,
-    shopItemByIdFailed
+    shopItemByIdFailed,
 } = actions;
 
 const productCreateRequested = createAction("shop/productCreateRequested");
