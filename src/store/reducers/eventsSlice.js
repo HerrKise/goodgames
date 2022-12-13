@@ -85,15 +85,18 @@ export const getEventsList = () => async (dispatch) => {
     }
 };
 
-export const getSelectedEvent = (id) => async (dispatch) => {
-    dispatch(eventRequestedById());
-    try {
-        const data = await eventService.getById(id);
-        dispatch(eventReceivedById(data));
-    } catch (e) {
-        dispatch(eventRequestByIdFailed(e));
-    }
-};
+export const getSelectedEvent =
+    ({ id, navigate }) =>
+    async (dispatch) => {
+        dispatch(eventRequestedById());
+        try {
+            const data = await eventService.getById(id);
+            dispatch(eventReceivedById(data));
+            navigate();
+        } catch (e) {
+            dispatch(eventRequestByIdFailed(e));
+        }
+    };
 
 export const getEventsListData = () => (state) => state.events.entities;
 export const getSelectedEventData = () => (state) => state.events.selectedEvent;

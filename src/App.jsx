@@ -23,6 +23,7 @@ import CreateEventForm from "./pages/CreateEventForm";
 import StaffProfile from "./pages/StaffProfile";
 import Teams from "./pages/Teams";
 import TeamProfile from "./pages/TeamProfile";
+import EditEventForm from "./pages/EditEventForm";
 
 function App() {
     return (
@@ -61,6 +62,10 @@ function App() {
                     <Route
                         path="/staff/create-event"
                         element={<CreateEventForm />}
+                    ></Route>
+                    <Route
+                        path="/staff/edit-event"
+                        element={<EditEventForm />}
                     ></Route>
                     <Route
                         path="/staff/edit-posts"

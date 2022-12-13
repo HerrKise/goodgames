@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import {
     getEventsListData,
     getEventsLoadingStatus,
@@ -11,6 +12,7 @@ const Games = () => {
     const dispatch = useDispatch();
     const isLoading = useSelector(getEventsLoadingStatus());
     const events = useSelector(getEventsListData());
+    const navigate = useNavigate();
     useEffect(() => {
         dispatch(getEventsList());
     }, []);
@@ -88,7 +90,13 @@ const Games = () => {
     };
 
     const handleEventSelect = (id) => {
-        dispatch(getSelectedEvent(id));
+        console.log(id);
+        dispatch(
+            getSelectedEvent({
+                id: id,
+                navigate: () => navigate("/staff/edit-event")
+            })
+        );
     };
 
     return (
@@ -100,13 +108,14 @@ const Games = () => {
                     {!isLoading &&
                         events &&
                         events.map((event) => (
-                            <button
-                                key={event.id}
-                                className="rounded bg-green-500 border-2 border-black"
-                                onClick={() => handleEventSelect(event.id)}
-                            >
-                                Получить инфу по ивенту
-                            </button>
+                            <div key={event.id}>
+                                <button
+                                    className="rounded bg-green-500 border-2 border-black"
+                                    onClick={() => handleEventSelect(event.id)}
+                                >
+                                    Получить инфу по ивенту {event.name}
+                                </button>
+                            </div>
                         ))}
                 </div>
 
