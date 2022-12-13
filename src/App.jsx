@@ -25,6 +25,7 @@ import Teams from "./pages/Teams";
 import TeamProfile from "./pages/TeamProfile";
 import { MainPage } from "./pages/MainPage";
 import { NewsPage } from "./pages/NewsPage";
+import { GamesPage } from "./pages/GamesPage";
 
 function App() {
     return (
@@ -80,6 +81,7 @@ function App() {
                 />
                 <Route path="/mainpage" element={<MainPage/>}/>
                 <Route path="/newspage" element={<NewsPage/>}/>
+                <Route path="/gamespage" element={<GamesPage/>}/>
             </Routes>
             <ToastContainer />
         </>
