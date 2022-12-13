@@ -13,10 +13,6 @@ const ShopItemsCreation = () => {
 
     const dispatch = useDispatch();
 
-    const changeTag = (e) => {
-        setTag(e.target.value);
-    };
-
     const changeTitle = (e) => {
         setTitle(e.target.value);
     };
@@ -56,10 +52,18 @@ const ShopItemsCreation = () => {
                         source={value}
                         style={{ whiteSpace: "pre-wrap" }}
                     />
-                    <p>Tag</p>
-                    <input type="text" onChange={changeTag} value={tag} />
+                    <select
+                        className="w-[400px] text-black"
+                        onChange={(e) => {
+                            setTag(e.target.value);
+                        }}
+                    >
+                        <option>Выберите тип поста</option>
+                        <option value="Product">Product</option>
+                        <option value="Merch">Merch</option>
+                    </select>
                     <p>Title</p>
-                    <input type="text" onChange={title} value={changeTitle} />
+                    <input type="text" onChange={changeTitle} value={title} />
                     <p>Specifications</p>
                     <input
                         type="text"
@@ -72,8 +76,8 @@ const ShopItemsCreation = () => {
                         onChange={changeAmount}
                         value={amount}
                     />
-                    <p></p>
-                    <input type="text" onChange={changePrice} value={price} />
+                    <p>Price</p>
+                    <input type="number" onChange={changePrice} value={price} />
 
                     <button
                         className="bg-yellow-700 rounded-[5px]"
