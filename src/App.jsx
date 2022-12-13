@@ -23,6 +23,7 @@ import CreateEventForm from "./pages/CreateEventForm";
 import StaffProfile from "./pages/StaffProfile";
 import Teams from "./pages/Teams";
 import TeamProfile from "./pages/TeamProfile";
+import { MainPage } from "./pages/MainPage";
 
 function App() {
     return (
@@ -76,6 +77,7 @@ function App() {
                     path="/create-new-password/:code"
                     element={<PasswordChangeViaEmail />}
                 />
+                <Route path="/mainpage" element={<MainPage/>}/>
             </Routes>
             <ToastContainer />
         </>
