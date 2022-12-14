@@ -27,6 +27,11 @@ import { MainPage } from "./pages/MainPage";
 import { NewsPage } from "./pages/NewsPage";
 import { GamesPage } from "./pages/GamesPage";
 import { ProfilePage } from "./pages/ProfilePage";
+import { TournamentPage } from "./pages/TournamentPage";
+import { TournamentList } from "./components/TournamentPage/TournamentList";
+import { MatchesPage } from "./pages/MatchesPage";
+import { ProfilePageSettings } from "./components/ProfilePage/ProfilePageSettings";
+import { ProfilePageStatistics } from "./components/ProfilePage/ProfilePageStatistics";
 
 function App() {
     return (
@@ -84,6 +89,11 @@ function App() {
                 <Route path="/newspage" element={<NewsPage/>}/>
                 <Route path="/gamespage" element={<GamesPage/>}/>
                 <Route path="/profilepage" element={<ProfilePage/>}/>
+                <Route path="/tournamentpage" element={<TournamentPage/>}/>
+                <Route path="/tournamentlist" element={<TournamentList/>}/>
+                <Route path="/matchespage" element={<MatchesPage/>}/>
+                <Route path="/profilepage-settings" element={<ProfilePageSettings/>}/>
+                <Route path="/profilepage-statistics" element={<ProfilePageStatistics/>}/>
             </Routes>
             <ToastContainer />
         </>

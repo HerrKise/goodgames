@@ -35,3 +35,7 @@ body {
         @apply text-sm font-bold py-3 text-darkgrey bg-white rounded-3xl text-center px-5;
     }
 }
+
+.ReactCollapse--collapse {
+    transition: height 300ms;
+}
