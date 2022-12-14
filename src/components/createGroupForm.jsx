@@ -150,6 +150,17 @@ const CreateGroupForm = ({
         onChangeGroup(e, stageIndex, index);
     };
 
+    let moderatorsList = [];
+    availableStaff.map((staff) => {
+        state.groupModerators.map((moder) => {
+            if (staff.id === moder.employeeId) {
+                moderatorsList.push(staff);
+            }
+        });
+    });
+
+    console.log(moderatorsList);
+
     return (
         <section className="bg-yellow-500 w-[100%] min-h-[300px]">
             <form
@@ -277,11 +288,9 @@ const CreateGroupForm = ({
                     <div>
                         <p>Список назначенных модераторов на матч</p>
                         <ul className="bg-green-500">
-                            {state.staff.map((person) => (
-                                <li key={person.id}>
-                                    <p>
-                                        {person.nickname}, {person.role}
-                                    </p>
+                            {moderatorsList.map((moder) => (
+                                <li>
+                                    {moder.nickname}, {moder.role}
                                 </li>
                             ))}
                         </ul>
@@ -302,7 +311,9 @@ const CreateGroupForm = ({
                                         <button
                                             className="border-2 border-black rounded m-3 p-2"
                                             onClick={(e) =>
-                                                handleModeratorsPick(e, moder)
+                                                handleModeratorsPick(e, {
+                                                    employeeId: moder.id
+                                                })
                                             }
                                         >
                                             Назначить в группу
@@ -310,7 +321,9 @@ const CreateGroupForm = ({
                                         <button
                                             className="border-2 border-black rounded m-3 p-2"
                                             onClick={(e) =>
-                                                handleModeratorsRemove(e, moder)
+                                                handleModeratorsRemove(e, {
+                                                    employeeId: moder.employeeId
+                                                })
                                             }
                                         >
                                             Убрать из группы
