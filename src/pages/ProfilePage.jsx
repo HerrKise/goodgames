@@ -3,30 +3,47 @@ import { NavBar } from "../components/UI/NavBar"
 import { ProfilePromo } from "../components/ProfilePage/ProfilePromo"
 import { Link } from "react-router-dom"
 
+import { useDispatch, useSelector } from "react-redux";
+import {
+    getUserLoadingStatus,
+    getUserProfileData,
+    loadUserProfile,
+    userLogout,
+    resendEmailConfirmation,
+} from "../store/reducers/userSlice.js";
+import localStorageService from "../services/localStorage.service.js";
+import { useEffect } from "react";
+import { API_URL } from "../http/index";
+
 
 export const ProfilePage = () => {
 
-    const user = {
-        confirmed: true,
-        username: "@user",
-        nickname: "user",
-        premium: true
-    }
+    const userId = localStorageService.getUserId();
+    console.log(userId);
+    const dispatch = useDispatch();
+    const user = useSelector(getUserProfileData());
 
-    const user2 = {
-        confirmed: true,
-        username: "@user",
-        nickname: "user",
-        premium: false
-    }
+    const isLoading = useSelector(getUserLoadingStatus());
+    console.log(isLoading);
+
+    useEffect(() => {
+        if (userId) {
+            console.log("setset")
+            dispatch(loadUserProfile({ userId: userId }));
+        }
+    }, []);
+
+    const handleLogOut = () => {
+        dispatch(userLogout());
+    };
 
     return (
         <div className="bg-darkgrey min-h-[100vh]">
             <Header/>
             <main className="text-white pb-20">
-                <ProfilePromo  user={user}/>
+                <ProfilePromo  user={user} isLoading={isLoading}/>
                 <ul className="wrap space-y-3">
-                    <li className={user.premium ? "bg-yellow text-darkgrey w-full rounded-xl p-4" : "bg-[#262626] w-full rounded-xl p-4"}>
+                    {/* <li className={user.premium ? "bg-yellow text-darkgrey w-full rounded-xl p-4" : "bg-[#262626] w-full rounded-xl p-4"}>
                         <Link className="flex items-center justify-between">
                             <div className="flex items-center space-x-3">
                                 <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +63,7 @@ export const ProfilePage = () => {
                                     </div>
                             }
                         </Link>
-                    </li>
+                    </li> */}
                     <li className="bg-[#26262633] w-full rounded-xl p-4">
                         <Link className="flex items-center space-x-3" to="/profilepage-settings">
                             <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -104,6 +121,11 @@ export const ProfilePage = () => {
                         <Link className="flex items-center justify-center">
                             <h3 className="h3">Мои матчи</h3>
                         </Link>
+                    </li>
+                    <li className="bg-grey w-full rounded-xl p-4" onClick={handleLogOut}>
+                        <button className="flex items-center justify-center">
+                            <h3 className="h3">Выйти из профиля</h3>
+                        </button>
                     </li>
                 </ul>
             </main>

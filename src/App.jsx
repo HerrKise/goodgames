@@ -55,6 +55,9 @@ function App() {
                         path="/profile/teams/:code/:teamId"
                         element={<TeamProfile />}
                     ></Route>
+                    <Route path="/profilepage-settings" element={<ProfilePageSettings/>}/>
+                    <Route path="/profilepage-statistics" element={<ProfilePageStatistics/>}/>
+                    <Route path="/profilepage" element={<ProfilePage/>}/>
                 </Route>
                 <Route element={<StaffProtectedRoute />}>
                     <Route path="/staff" element={<StaffPage />} />
@@ -88,12 +91,9 @@ function App() {
                 <Route path="/mainpage" element={<MainPage/>}/>
                 <Route path="/newspage" element={<NewsPage/>}/>
                 <Route path="/gamespage" element={<GamesPage/>}/>
-                <Route path="/profilepage" element={<ProfilePage/>}/>
                 <Route path="/tournamentpage" element={<TournamentPage/>}/>
                 <Route path="/tournamentlist" element={<TournamentList/>}/>
                 <Route path="/matchespage" element={<MatchesPage/>}/>
-                <Route path="/profilepage-settings" element={<ProfilePageSettings/>}/>
-                <Route path="/profilepage-statistics" element={<ProfilePageStatistics/>}/>
             </Routes>
             <ToastContainer />
         </>

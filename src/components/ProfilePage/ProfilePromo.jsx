@@ -1,16 +1,22 @@
 import promobg from "../../assets/Main/gg-bg.png"
 import userpic from "../../assets/Profile/userpic.jfif"
+import { API_URL } from "../../http/index";
 
-export const ProfilePromo = ({user}) => {
-    return (
+export const ProfilePromo = ({user, isLoading}) => {
+
+    const picture = `${API_URL + user?.profilePicture?.path}` || "";
+
+    return isLoading ? (
+        ""
+    ) : (
         <section className="w-full h-[420px] relative">
             <img src={promobg} alt="promopic" className="absolute top-0 h-full w-full object-top object-cover"/>
             <div className="wrap relative z-20 h-full flex flex-col items-center justify-end pb-8">
                 <div className="w-40 h-40 rounded-full relative overflow-clip">
-                    <img src={userpic} alt="userpic" className="absolute top-0 h-full w-full object-top object-cover"/>
+                    <img src={picture} alt="userpic" className="absolute top-0 h-full w-full object-center object-cover"/>
                 </div>
                 <div className="mt-5 space-y-2 text-center flex flex-col items-center">
-                    {user.confirmed
+                    {/* {user.confirmed
                         ?   <button className="bg-yellow flex items-center text-darkgrey px-3 py-1 rounded-full text-[8px] font-bold space-x-1">
                                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fillRule="evenodd" clipRule="evenodd" d="M0.126343 4.89886C0.126343 2.22102 2.29695 0.050415 4.97478 0.050415C7.65262 0.050415 9.82323 2.22102 9.82323 4.89886C9.82323 7.57669 7.65262 9.7473 4.97478 9.7473C2.29695 9.7473 0.126343 7.57669 0.126343 4.89886ZM6.76995 3.9968C6.79979 3.95704 6.82138 3.91172 6.83345 3.8635C6.84552 3.81528 6.84783 3.76514 6.84024 3.71601C6.83266 3.66689 6.81533 3.61978 6.78927 3.57744C6.76322 3.53511 6.72897 3.49842 6.68853 3.46951C6.64809 3.44061 6.60228 3.42008 6.55379 3.40913C6.5053 3.39818 6.45512 3.39704 6.40618 3.40577C6.35725 3.41449 6.31055 3.43291 6.26884 3.45994C6.22712 3.48698 6.19123 3.52207 6.16327 3.56317L4.55409 5.81583L3.74651 5.00826C3.67581 4.94238 3.5823 4.90651 3.48568 4.90822C3.38906 4.90992 3.29687 4.94906 3.22854 5.0174C3.16021 5.08573 3.12107 5.17792 3.11936 5.27454C3.11766 5.37116 3.15352 5.46467 3.2194 5.53537L4.33827 6.65424C4.37656 6.6925 4.42271 6.72196 4.47352 6.74059C4.52434 6.75922 4.5786 6.76656 4.63254 6.76212C4.68648 6.75767 4.73881 6.74154 4.78588 6.71484C4.83296 6.68813 4.87366 6.65151 4.90517 6.6075L6.76995 3.9968Z" fill="#191919"/>
@@ -18,8 +24,8 @@ export const ProfilePromo = ({user}) => {
                                 <span>ПОДТВЕРЖДЕН</span>
                             </button>
                         : <></>
-                    }
-                    <h1 className="h1">{user.username}</h1>
+                    } */}
+                    <h1 className="h1">{user.name}</h1>
                     <div className="flex items-center p space-x-1">
                         <svg width="26" height="16" viewBox="0 0 26 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g opacity="0.5" clipPath="url(#clip0_400_1153)">
