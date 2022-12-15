@@ -1,7 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getErrors, signIn } from "../store/reducers/userSlice.js";
-import { NavLink, redirect, useNavigate } from "react-router-dom";
+import { Link, NavLink, redirect, useNavigate } from "react-router-dom";
+
+import logopic from "../assets/Main/logo.png"
 
 export default function Login() {
     const [email, changeEmail] = React.useState("");
@@ -29,63 +31,60 @@ export default function Login() {
     };
 
     return (
-        <section className="w-[100%] bg-black">
-            <div className="w-[1024px] mx-auto h-[900px] flex flex-col justify-center items-center">
+        <section className="bg-darkgrey min-h-[100vh] flex flex-col items-center justify-center relative">
+            <Link className="w-full flex items-center justify-center fixed top-12" to="/mainpage">
+                <img src={logopic} alt="logopic" className="w-[132px]"/>
+            </Link>
+            <div className="wrap py-20 h-full w-full  text-white">
+                <h1 className="h1 pb-8 text-center">Вход</h1>
                 <form
-                    className="bg-[#161823] w-[500px] h-[600px] py-[30px] px-[20px] rounded-[20px]"
+                    className="space-y-[10px]"
                     onSubmit={handleSubmit}
-                >
-                    <div className="flex flex-col justify-center items-center border-b-[1px] border-gray-400 pb-[10px]">
-                        <h2 className="text-white">С возвращением, дружище!</h2>
-                    </div>
-                    <div className="flex flex-col items-center justify-around h-[70%] py-[20px] border-b-[1px] border-gray-400">
-                        <div className="flex justify-between w-[80%] items-center">
-                            <label className="text-gray-500">Почта</label>
-                            <input
-                                type="text"
-                                id="email"
-                                name="email"
-                                placeholder=""
-                                required
-                                value={email}
-                                onChange={handleEmailChange}
-                                className="border-[1px] w-[200px] border-[#9e9e9e] rounded-[5px] text-[16px] h-[40px] px-[20px] bg-gray-600"
-                            />
-                        </div>
-                        <div className="flex justify-between w-[80%] items-center">
-                            <label className="text-gray-500">Пароль</label>
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                placeholder=""
-                                required
-                                value={password}
-                                onChange={handlePasswordChange}
-                                className="border-[1px] w-[200px] border-[#9e9e9e] rounded-[5px] text-[16px] h-[40px] px-[20px] bg-gray-600"
-                            />
-                        </div>
-                    </div>
-                    <div className="flex justify-around items-center pt-[15px]">
-                        <button
-                            className="bg-white w-[150px] h-[50px] rounded-[10px]"
-                            onClick={handleRedirectToRegistration}
-                        >
-                            Регистрация
-                        </button>
-                        <button
-                            className="bg-amber-500 w-[150px] h-[50px] rounded-[10px]"
-                            type="submit"
-                        >
-                            Вход
-                        </button>
-                    </div>
+                > 
+                    <input
+                        type="text"
+                        id="email"
+                        name="email"
+                        placeholder="Email"
+                        required
+                        value={email}
+                        onChange={handleEmailChange}
+                        className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
+                    />
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Пароль"
+                        required
+                        value={password}
+                        onChange={handlePasswordChange}
+                        className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
+                    />
+                        
+                    <button
+                        className='w-full rounded-lg bg-yellow py-4 text-darkgrey text-sm font-bold'
+                        type="submit"
+                    >
+                        Вход
+                    </button>
                     <NavLink
                         to="/reset-password"
-                        className="flex items-center justify-center text-white text-center mt-[10px]"
+                        className="w-[50%]"
                     >
-                        <p>Забыли пароль?</p>
+                        <button 
+                            type="button"
+                            className='w-[calc(50%-5px)] rounded-lg bg-[#26262633] py-4 text-sm font-bold mr-[10px]'
+                        >
+                            Забыли пароль?
+                    </button>
                     </NavLink>
+                    <button
+                        className='w-[calc(50%-5px)] rounded-lg bg-grey py-4 text-sm font-bold'
+                        onClick={handleRedirectToRegistration}
+                    >
+                        Регистрация
+                    </button>
                 </form>
             </div>
         </section>
