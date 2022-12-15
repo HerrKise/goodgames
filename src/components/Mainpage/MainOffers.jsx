@@ -1,26 +1,22 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper";
-import "swiper/css";
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 import placeholder from "../../assets/Main/placeholder.jfif";
 //
 import NewsItem from "../UI/newsCard";
 //
 
+
 export const MainOffers = ({ offers }) => {
   return (
-    <section className="py-10 wrap">
-      <h1 className="h1">Предложения</h1>
+    <section className="py-10">
+      <h1 className=" wrap h1">Предложения</h1>
       <Swiper
         spaceBetween={12}
         loop={true}
-        autoplay={{
-          delay: 5500,
-          disableOnInteraction: false,
-        }}
         slidesPerView={"auto"}
-        modules={[Autoplay]}
-        className="h-[230px] my-5 "
+        className="h-[230px] my-5 px-3"
       >
         {offers.map((offer, i) => {
           return (
