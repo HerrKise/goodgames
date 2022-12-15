@@ -45,7 +45,7 @@ function App() {
     return (
         <>
             <Routes>
-                <Route path="/" element={<Main />} />
+                <Route path="/mainpage" element={<Main />} />
                 <Route path="/games" element={<Games />} />
                 <Route path="/posts" element={<PostContent />} />
                 <Route path="/shop" element={<Shop />}></Route>
@@ -113,7 +113,7 @@ function App() {
                     path="/create-new-password/:code"
                     element={<PasswordChangeViaEmail />}
                 />
-                <Route path="/mainpage" element={<MainPage/>}/>
+                <Route path="/" element={<MainPage/>}/>
                 <Route path="/newspage" element={<NewsPage/>}/>
                 <Route path="/gamespage" element={<GamesPage/>}/>
                 <Route path="/tournamentpage" element={<TournamentPage/>}/>
