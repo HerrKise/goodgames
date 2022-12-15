@@ -10,13 +10,12 @@ import NewsItem from "../UI/newsCard";
 
 export const MainOffers = ({ offers }) => {
   return (
-    <section className="py-10 wrap">
-      <h1 className="h1">Предложения</h1>
+    <section className="py-10">
+      <h1 className=" wrap h1">Предложения</h1>
       <Swiper
         spaceBetween={12}
         loop={true}
         slidesPerView={"auto"}
-        modules={[Autoplay]}
         className="h-[230px] my-5 px-3"
       >
         {offers.map((offer, i) => {
