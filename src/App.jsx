@@ -40,33 +40,45 @@ import EditEventForm from "./pages/EditEventForm";
 import EditShopItem from "./pages/EditShopItem";
 import ExtendedShop from "./pages/ExtendedShop";
 
-
 function App() {
     return (
         <>
             <Routes>
-                <Route path="/" element={<Main />} />
+                {/* <Route path="/" element={<Main />} /> */}
+                <Route path="/" element={<MainPage />} />
                 <Route path="/games" element={<Games />} />
+                {/* перетянуть функционал для страницы игр */}
+                <Route path="/gamespage" element={<GamesPage />} />
                 <Route path="/posts" element={<PostContent />} />
+                <Route path="/newspage" element={<NewsPage />} />
                 <Route path="/shop" element={<Shop />}></Route>
                 <Route element={<UserProtectedRoute />}>
-                    <Route path="/profile" element={<Profile />} />
-                    <Route
+                    {/* <Route path="/profile" element={<Profile />} /> */}
+                    <Route path="/profilepage" element={<ProfilePage />} />
+                    {/* <Route
                         path="/profile/settings"
                         element={<ProfileSettings />}
+                    /> */}
+                    <Route
+                        path="/profilepage-settings"
+                        element={<ProfilePageSettings />}
+                    />
+                    {/* где кнопка для перехода на страницу статистики? */}
+                    <Route
+                        path="/profilepage-statistics"
+                        element={<ProfilePageStatistics />}
                     />
                     <Route
                         path="/profile/change-password"
                         element={<PasswordChangeViaProfile />}
                     />
+                    {/* переименовать руты потом */}
+                    <Route path="/matchespage" element={<MatchesPage />} />
                     <Route path="/profile/teams" element={<Teams />}></Route>
                     <Route
                         path="/profile/teams/:code/:teamId"
                         element={<TeamProfile />}
                     ></Route>
-                    <Route path="/profilepage-settings" element={<ProfilePageSettings/>}/>
-                    <Route path="/profilepage-statistics" element={<ProfilePageStatistics/>}/>
-                    <Route path="/profilepage" element={<ProfilePage/>}/>
                 </Route>
                 <Route element={<StaffProtectedRoute />}>
                     <Route path="/staff" element={<StaffPage />} />
@@ -113,12 +125,9 @@ function App() {
                     path="/create-new-password/:code"
                     element={<PasswordChangeViaEmail />}
                 />
-                <Route path="/mainpage" element={<MainPage/>}/>
-                <Route path="/newspage" element={<NewsPage/>}/>
-                <Route path="/gamespage" element={<GamesPage/>}/>
-                <Route path="/tournamentpage" element={<TournamentPage/>}/>
-                <Route path="/tournamentlist" element={<TournamentList/>}/>
-                <Route path="/matchespage" element={<MatchesPage/>}/>
+
+                <Route path="/tournamentpage" element={<TournamentPage />} />
+                <Route path="/tournamentlist" element={<TournamentList />} />
             </Routes>
             <ToastContainer />
         </>
@@ -126,3 +135,6 @@ function App() {
 }
 
 export default App;
+
+// <Route path="/mainpage" element={<MainPage/>}/>
+// <Route path="/matchespage" element={<MatchesPage />} />
