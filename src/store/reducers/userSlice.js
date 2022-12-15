@@ -119,7 +119,7 @@ export const signIn =
             localStorageService.setUserId(id);
             dispatch(authRequestSuccess());
             /* dispatch(loadUserProfile({ userId: userId })); */
-            navigate("/profile");
+            navigate("/profilepage");
         } catch (e) {
             console.log(e);
             console.log(e.response.data.detail);
