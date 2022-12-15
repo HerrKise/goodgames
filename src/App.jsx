@@ -127,7 +127,7 @@ function App() {
                 />
                 <Route path="/newspage" element={<NewsPage/>}/>
                 <Route path="/gamespage" element={<GamesPage/>}/>
-                <Route path="/tournamentpage" element={<TournamentPage/>}/>
+                <Route path="/tournamentpage/:id" element={<TournamentPage/>}/>
                 <Route path="/tournamentlist" element={<TournamentList/>}/>
                 <Route path="/matchespage" element={<MatchesPage/>}/>
             </Routes>
