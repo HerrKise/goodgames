@@ -1,23 +1,17 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from "swiper";
 import 'swiper/css';
 
 import placeholder from "../../assets/Main/placeholder.jfif"
 
 export const MainContests = ({offers}) => {
     return (
-        <section className="py-5 wrap">
-            <h1 className="h1">Конкурсы и розыгрыши</h1>
+        <section className="py-5">
+            <h1 className="h1 wrap ">Конкурсы и розыгрыши</h1>
             <Swiper
                 spaceBetween={12}
                 loop={true}
-                autoplay={{
-                    delay: 5500,
-                    disableOnInteraction: false,
-                }}
                 slidesPerView={"auto"}
-                modules={[Autoplay]}
-                className="h-[230px] my-5 "
+                className="h-[230px] my-5 px-3"
             >
                 {offers.map((offer, i) => {
                     return (

@@ -56,7 +56,7 @@ export default function Registration() {
 
     return (
         <section className="bg-darkgrey min-h-[100vh] flex flex-col items-center justify-center relative">
-            <Link className="w-full flex items-center justify-center fixed top-12" to="/mainpage">
+            <Link className="w-full flex items-center justify-center fixed top-12" to="/">
                 <img src={logopic} alt="logopic" className="w-[132px]"/>
             </Link>
             <div className="wrap py-20 h-full w-full  text-white">
