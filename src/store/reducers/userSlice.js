@@ -142,7 +142,7 @@ export const register =
             const { id } = await authService.getMe();
             localStorageService.setUserId(id);
             dispatch(authRequestSuccess());
-            navigate("/profile");
+            navigate("/profilepage");
         } catch (e) {
             console.log(e);
             Object.values(e.response.data.errors).map((log) =>
