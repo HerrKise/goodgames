@@ -48,7 +48,7 @@ http.interceptors.response.use(
             } catch (error) {
                 console.log("Not authorized");
                 localStorageService.removeAuthData();
-                return http.request(originalRequest);
+                http.request(originalRequest);
             }
         }
         throw error;

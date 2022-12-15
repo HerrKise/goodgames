@@ -9,12 +9,14 @@ const CreateEventForm = () => {
     const dispatch = useDispatch();
     const [eventSettings, setEventSettings] = useState({
         organizerId: localStorageService.getUserId(),
+        paricipants: [],
         description: "",
         isApproved: false,
         title: "",
         picture: "",
         eventType: "",
         eventStart: "",
+        eventEnd: "",
         registrationStart: "",
         registrationEnd: "",
         regime: "",
@@ -28,29 +30,28 @@ const CreateEventForm = () => {
         prize: {
             pool: 0,
             prizePerKill: 0,
-            placementPrize: {
-                1: "",
-                2: "",
-                3: "",
-                4: "",
-                5: "",
-                6: "",
-                7: "",
-                8: "",
-                9: "",
-                10: "",
-                11: "",
-                11: "",
-                12: "",
-                13: "",
-                14: "",
-                15: "",
-                16: "",
-                17: "",
-                18: "",
-                19: "",
-                20: ""
-            }
+            placementPrize: [
+                { number: 1, prize: "" },
+                { number: 2, prize: "" },
+                { number: 3, prize: "" },
+                { number: 4, prize: "" },
+                { number: 5, prize: "" },
+                { number: 6, prize: "" },
+                { number: 7, prize: "" },
+                { number: 8, prize: "" },
+                { number: 9, prize: "" },
+                { number: 10, prize: "" },
+                { number: 11, prize: "" },
+                { number: 12, prize: "" },
+                { number: 13, prize: "" },
+                { number: 14, prize: "" },
+                { number: 15, prize: "" },
+                { number: 16, prize: "" },
+                { number: 17, prize: "" },
+                { number: 18, prize: "" },
+                { number: 19, prize: "" },
+                { number: 20, prize: "" }
+            ]
         }
     });
 
@@ -303,8 +304,8 @@ const CreateEventForm = () => {
                                             groupModerators: [
                                                 ...group.groupModerators.filter(
                                                     (moder) =>
-                                                        moder.id !==
-                                                        moderator.id
+                                                        moder.employeeId !==
+                                                        moderator.employeeId
                                                 )
                                             ]
                                         };
@@ -469,7 +470,7 @@ const CreateEventForm = () => {
         }));
     };
 
-    const handlePlacementPrizeChange = (e) => {
+    /* const handlePlacementPrizeChange = (e) => {
         setEventSettings((prevState) => ({
             ...prevState,
             prize: {
@@ -478,6 +479,24 @@ const CreateEventForm = () => {
                     ...prevState.prize.placementPrize,
                     [e.target.name]: e.target.value
                 }
+            }
+        }));
+    }; */
+
+    const handlePlacementPrizeChange = (e) => {
+        console.log(e.target.name);
+        setEventSettings((prevState) => ({
+            ...prevState,
+            prize: {
+                ...prevState.prize,
+                placementPrize: [
+                    ...prevState.prize.placementPrize.map((place) => {
+                        if (e.target.name == place.number) {
+                            return { ...place, prize: e.target.value };
+                        }
+                        return place;
+                    })
+                ]
             }
         }));
     };
@@ -537,6 +556,17 @@ const CreateEventForm = () => {
                                     onChange={handleDateChange}
                                     value={moment(
                                         eventSettings.eventStart
+                                    ).format("YYYY-MM-DDTHH:mm")}
+                                ></input>
+                            </div>
+                            <div className="flex flex-col">
+                                <p>Время окончания турнира</p>
+                                <input
+                                    type="datetime-local"
+                                    name="eventEnd"
+                                    onChange={handleDateChange}
+                                    value={moment(
+                                        eventSettings.eventEnd
                                     ).format("YYYY-MM-DDTHH:mm")}
                                 ></input>
                             </div>
@@ -685,7 +715,7 @@ const CreateEventForm = () => {
                                     onChange={handlePrizeSettingsChange}
                                     name="prizePerKill"
                                 />
-                                {Object.keys(
+                                {/* {Object.keys(
                                     eventSettings.prize.placementPrize
                                 ).map((place) => (
                                     <div key={place}>
@@ -701,7 +731,21 @@ const CreateEventForm = () => {
                                             }
                                         />
                                     </div>
-                                ))}
+                                ))} */}
+                                {eventSettings.prize.placementPrize.map(
+                                    (place) => (
+                                        <div key={place.number}>
+                                            <input
+                                                name={place.number}
+                                                placeholder={`Приз за ${place.number} место`}
+                                                value={place.prize}
+                                                onChange={
+                                                    handlePlacementPrizeChange
+                                                }
+                                            />
+                                        </div>
+                                    )
+                                )}
                             </div>
                         </div>
                     </div>

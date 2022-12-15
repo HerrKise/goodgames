@@ -289,7 +289,7 @@ const CreateGroupForm = ({
                         <p>Список назначенных модераторов на матч</p>
                         <ul className="bg-green-500">
                             {moderatorsList.map((moder) => (
-                                <li>
+                                <li key={moder.id}>
                                     {moder.nickname}, {moder.role}
                                 </li>
                             ))}
@@ -322,7 +322,7 @@ const CreateGroupForm = ({
                                             className="border-2 border-black rounded m-3 p-2"
                                             onClick={(e) =>
                                                 handleModeratorsRemove(e, {
-                                                    employeeId: moder.employeeId
+                                                    employeeId: moder.id
                                                 })
                                             }
                                         >
