@@ -6,7 +6,7 @@ export const Header = () => {
     return (
         <header className="fixed top-0 w-full h-[84px] z-[100] bg-[#FFFFFF33] backdrop-blur-sm">
             <div className="wrap flex justify-between items-center py-7">
-                <Link className="w-[132px] h-auto" to="/mainpage">
+                <Link className="w-[132px] h-auto" to="/">
                     <img src={logo} alt="logo" />
                 </Link>
                 <div className="flex space-x-6">

@@ -44,7 +44,7 @@ function App() {
     return (
         <>
             <Routes>
-                {/* <Route path="/" element={<Main />} /> */}
+                <Route path="/mainpage" element={<Main />} />
                 <Route path="/" element={<MainPage />} />
                 <Route path="/games" element={<Games />} />
                 {/* перетянуть функционал для страницы игр */}
@@ -125,9 +125,11 @@ function App() {
                     path="/create-new-password/:code"
                     element={<PasswordChangeViaEmail />}
                 />
-
-                <Route path="/tournamentpage" element={<TournamentPage />} />
-                <Route path="/tournamentlist" element={<TournamentList />} />
+                <Route path="/newspage" element={<NewsPage/>}/>
+                <Route path="/gamespage" element={<GamesPage/>}/>
+                <Route path="/tournamentpage" element={<TournamentPage/>}/>
+                <Route path="/tournamentlist" element={<TournamentList/>}/>
+                <Route path="/matchespage" element={<MatchesPage/>}/>
             </Routes>
             <ToastContainer />
         </>
