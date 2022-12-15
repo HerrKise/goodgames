@@ -12,7 +12,7 @@ body {
 
 @layer components {
     .wrap {
-        @apply w-full max-w-[370px] mx-auto px-4;
+        @apply w-full mx-auto px-4;
     }
 
     .h1 {
