@@ -37,8 +37,8 @@ export const MainPage = () => {
             <main className="text-white pb-20">
                 <MainPromo/>
                 <MainOffers offers={offers}/>
-                <MainLearnMore/>
-                <MainServices offers={offers}/>
+                {/* <MainLearnMore/> */}
+                {/* <MainServices offers={offers}/> */}
                 <MainApps/>
                 <MainContests offers={offers}/>
                 <MainNews/>

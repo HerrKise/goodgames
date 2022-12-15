@@ -1,6 +1,6 @@
-import googlebadge from "../../assets/Main/google-play-badge.png"
-import appstorebadge from "../../assets/Main/App_Store_Badge.svg"
-import { NavLink } from "react-router-dom"
+import googlebadge from "../../assets/Main/google-play-badge.png";
+import appstorebadge from "../../assets/Main/App_Store_Badge.svg";
+import { NavLink } from "react-router-dom";
 
 export const MainApps = () => {
     return (
@@ -28,3 +28,4 @@ export const MainApps = () => {
         </section>
     )
 }
+
