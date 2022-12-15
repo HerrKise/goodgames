@@ -4,55 +4,34 @@ import {
     getStaffLoadingStatus,
     getStaffProfileData
 } from "../store/reducers/staffSlice";
+import moment from "moment";
 
-const CreateGroupForm = ({ eventType, saveGroup, deleteGroup, regime }) => {
-    const [groupSettings, setGroupSettings] = useState({
-        name: "название группы",
-        groupStart: "",
-        participants: null,
-        confirmationTimeStart: "",
-        confirmationTimeEnd: "",
-        reserveConfirmationTimeEnd: "",
-        reserveParticipants: null,
-        paidParticipants: null,
-        map: "",
-        staff: [],
-        results: null,
-        paidSlots: 0,
-        slotsQuantity: 0,
-        reserveSlotsQuantity: 0,
-        slotPrice: 0,
-        lobbyId: "",
-        lobbyPassword: ""
-    });
-
-    const [datePicker, setDatePicker] = useState({
-        startDate: "",
-        startTime: ""
-    });
-
-    const [deadlinePicker, setDeadlinePicker] = useState({
-        startConfirm: 0,
-        endConfirm: 0,
-        reserveEndConfirm: 0
-    });
-
+const CreateGroupForm = ({
+    eventType,
+    saveGroup,
+    deleteGroup,
+    regime,
+    index,
+    stageIndex,
+    state,
+    onChangeTime,
+    onChangeGroup,
+    pickModerator,
+    removeModerator,
+    onChangeParticipants,
+    onChangeReserveParticipants,
+    onChangePaidParticipants
+}) => {
     const currentStaffData = useSelector(getStaffProfileData());
     const isLoading = useSelector(getStaffLoadingStatus());
 
     useEffect(() => {
-        if (eventType === "practice") {
+        /* if (eventType === "practice") {
             setGroupSettings((prevState) => ({
                 ...prevState,
                 slotsQuantity: 16,
                 paidSlots: 4,
                 slotPrice: 50
-            }));
-            setDeadlinePicker((prevState) => ({
-                ...prevState,
-                startConfirm: 0.5,
-                endConfirm: 0.25,
-                reserveEndConfirm: 0.1
             }));
         }
         if (eventType === "tournament") {
@@ -60,71 +39,37 @@ const CreateGroupForm = ({ eventType, saveGroup, deleteGroup, regime }) => {
                 ...prevState,
                 slotsQuantity: 16
             }));
-            setDeadlinePicker((prevState) => ({
-                ...prevState,
-                startConfirm: 2,
-                endConfirm: 1,
-                reserveEndConfirm: 0.5
-            }));
         } else if (eventType === "miniTournament" && regime === "solo") {
             setGroupSettings((prevState) => ({
                 ...prevState,
                 slotsQuantity: 100
-            }));
-            setDeadlinePicker((prevState) => ({
-                ...prevState,
-                startConfirm: 0.5,
-                endConfirm: 0.25
             }));
         } else if (eventType === "miniTournament" && regime === "duo") {
             setGroupSettings((prevState) => ({
                 ...prevState,
                 slotsQuantity: 50
             }));
-            setDeadlinePicker((prevState) => ({
-                ...prevState,
-                startConfirm: 0.5,
-                endConfirm: 0.25
-            }));
-        }
+        } */
         refreshSlotsQuantity();
         refreshReserveSlotsQuantity();
         refreshPaidSlotsQuantity();
     }, []);
 
     useEffect(() => {
-        if (eventType === "tournament" && groupSettings.groupStart !== null) {
-            console.log(groupSettings.groupStart);
-            setGroupSettings((prevState) => ({
-                ...prevState,
-                confirmationTimeStart:
-                    groupSettings.groupStart -
-                    Number(deadlinePicker.startConfirm) * 60 * 60 * 1000,
-                confirmationTimeEnd:
-                    groupSettings.groupStart -
-                    Number(deadlinePicker.endConfirm) * 60 * 60 * 1000,
-                reserveConfirmationTimeEnd:
-                    groupSettings.groupStart -
-                    Number(deadlinePicker.reserveEndConfirm) * 60 * 60 * 1000
-            }));
-        }
-    }, [groupSettings.groupStart, deadlinePicker]);
-
-    useEffect(() => {
         refreshSlotsQuantity();
-    }, [groupSettings.slotsQuantity]);
+    }, [state.slotsQuantity]);
 
     useEffect(() => {
         refreshPaidSlotsQuantity();
-    }, [groupSettings.paidSlots]);
+    }, [state.paidSlots]);
 
     useEffect(() => {
         refreshReserveSlotsQuantity();
-    }, [groupSettings.slotsQuantity, groupSettings.reserveSlotsQuantity]);
+    }, [state.slotsQuantity, state.reserveSlotsQuantity]);
 
     function refreshSlotsQuantity() {
         let participantsArray = [];
-        for (let i = 1; i <= Number(groupSettings.slotsQuantity); i++) {
+        for (let i = 1; i <= Number(state.slotsQuantity); i++) {
             participantsArray.push({
                 slotId: i,
                 participantId: "",
@@ -133,16 +78,13 @@ const CreateGroupForm = ({ eventType, saveGroup, deleteGroup, regime }) => {
                 participationConfirmed: false
             });
         }
-        setGroupSettings((prevState) => ({
-            ...prevState,
-            participants: participantsArray
-        }));
+        onChangeParticipants(participantsArray, stageIndex, index);
     }
 
     function refreshPaidSlotsQuantity() {
-        if (groupSettings.paidSlots) {
+        if (state.paidSlots) {
             let participantsArray = [];
-            for (let i = 1; i <= Number(groupSettings.paidSlots); i++) {
+            for (let i = 1; i <= Number(state.paidSlots); i++) {
                 participantsArray.push({
                     slotId: i,
                     participantId: "",
@@ -151,28 +93,22 @@ const CreateGroupForm = ({ eventType, saveGroup, deleteGroup, regime }) => {
                     participationConfirmed: false
                 });
             }
-            setGroupSettings((prevState) => ({
-                ...prevState,
-                paidParticipants: participantsArray
-            }));
+            onChangePaidParticipants(participantsArray, stageIndex, index);
         }
     }
 
     function refreshReserveSlotsQuantity() {
         let participantsArray = [];
-        for (let i = 1; i <= groupSettings.reserveSlotsQuantity; i++) {
+        for (let i = 1; i <= Number(state.reserveSlotsQuantity); i++) {
             participantsArray.push({
-                slotId: groupSettings.slotsQuantity + i,
+                slotId: Number(state.slotsQuantity) + i,
                 participantId: "",
                 participantName: "",
                 participantPicture: "",
                 participationConfirmed: false
             });
         }
-        setGroupSettings((prevState) => ({
-            ...prevState,
-            reserveParticipants: participantsArray
-        }));
+        onChangeReserveParticipants(participantsArray, stageIndex, index);
     }
 
     const availableStaff = [];
@@ -186,59 +122,14 @@ const CreateGroupForm = ({ eventType, saveGroup, deleteGroup, regime }) => {
         console.log(availableStaff);
     }
 
-    useEffect(() => {
-        console.log(groupSettings);
-    }, [groupSettings]);
-
-    useEffect(() => {
-        const startTimeArr = datePicker.startTime.split(":");
-        const startHour = Number(startTimeArr[0]) * 1000 * 3600;
-        const startMinute = Number(startTimeArr[1]) * 1000 * 60;
-        const newStartDate =
-            new Date(datePicker.startDate).getTime() + startHour + startMinute;
-        console.log(startHour, startMinute, newStartDate);
-        setGroupSettings((prevState) => ({
-            ...prevState,
-            groupStart: newStartDate
-        }));
-    }, [datePicker.startDate, datePicker.startTime]);
-
-    const handleDatePickerChange = (e) => {
-        e.preventDefault();
-        setDatePicker((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }));
-    };
-
-    const handleGroupSettingsChange = (e) => {
-        e.preventDefault();
-        setGroupSettings((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }));
-    };
-
     const handleModeratorsPick = (e, moderator) => {
         e.preventDefault();
-        const newArr = [...groupSettings.staff, moderator];
-        console.log(newArr);
-        setGroupSettings((prevState) => ({
-            ...prevState,
-            staff: newArr
-        }));
+        pickModerator(moderator, stageIndex, index);
     };
 
     const handleModeratorsRemove = (e, moderator) => {
         e.preventDefault();
-        const newArr = [...groupSettings.staff].filter(
-            (person) => person.id !== moderator.id
-        );
-        console.log(newArr);
-        setGroupSettings((prevState) => ({
-            ...prevState,
-            staff: newArr
-        }));
+        removeModerator(moderator, stageIndex, index);
     };
 
     const handleSubmit = (e) => {
@@ -246,18 +137,29 @@ const CreateGroupForm = ({ eventType, saveGroup, deleteGroup, regime }) => {
         saveGroup(groupSettings);
     };
 
-    /* const handleDelete = (e) => {
+    const handleDelete = (e) => {
         e.preventDefault();
-        deleteGroup();
-    }; */
-
-    const handleDeadlineChange = (e) => {
-        e.preventDefault();
-        setDeadlinePicker((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }));
+        deleteGroup(stageIndex, index);
     };
+
+    const handleTimeGroupChange = (e) => {
+        onChangeTime(e, stageIndex, index);
+    };
+
+    const handleGroupChange = (e) => {
+        onChangeGroup(e, stageIndex, index);
+    };
+
+    let moderatorsList = [];
+    availableStaff.map((staff) => {
+        state.groupModerators.map((moder) => {
+            if (staff.id === moder.employeeId) {
+                moderatorsList.push(staff);
+            }
+        });
+    });
+
+    console.log(moderatorsList);
 
     return (
         <section className="bg-yellow-500 w-[100%] min-h-[300px]">
@@ -266,39 +168,34 @@ const CreateGroupForm = ({ eventType, saveGroup, deleteGroup, regime }) => {
                 onSubmit={handleSubmit}
             >
                 <div className="flex flex-col">
-                    <p>Дата начала группы</p>
-                    <input
-                        type="date"
-                        name="startDate"
-                        onChange={handleDatePickerChange}
-                        value={datePicker.startDate}
-                    ></input>
                     <p>Время начала группы</p>
                     <input
-                        name="startTime"
-                        type="time"
-                        value={datePicker.startTime}
-                        onChange={handleDatePickerChange}
-                    />
+                        type="datetime-local"
+                        name="groupStart"
+                        onChange={handleTimeGroupChange}
+                        value={moment(state.groupStart).format(
+                            "YYYY-MM-DDTHH:mm"
+                        )}
+                    ></input>
                     <p>Название группы</p>
                     <input
                         name="name"
                         type="text"
-                        value={groupSettings.name}
-                        onChange={handleGroupSettingsChange}
+                        value={state.name}
+                        onChange={handleGroupChange}
                     />
                     <p>Данные лобби</p>
                     <input
                         name="lobbyId"
                         placeholder="Lobby ID"
-                        value={groupSettings.lobbyId}
-                        onChange={handleGroupSettingsChange}
+                        value={state.lobbyId}
+                        onChange={handleGroupChange}
                     />
                     <input
                         name="lobbyPassword"
                         placeholder="Lobby password"
-                        value={groupSettings.lobbyPassword}
-                        onChange={handleGroupSettingsChange}
+                        value={state.lobbyPassword}
+                        onChange={handleGroupChange}
                     />
                     {eventType !== "" && (
                         <>
@@ -306,8 +203,8 @@ const CreateGroupForm = ({ eventType, saveGroup, deleteGroup, regime }) => {
                             <input
                                 name="slotsQuantity"
                                 type="number"
-                                value={groupSettings.slotsQuantity}
-                                onChange={handleGroupSettingsChange}
+                                value={state.slotsQuantity}
+                                onChange={handleGroupChange}
                             />
                         </>
                     )}
@@ -317,27 +214,34 @@ const CreateGroupForm = ({ eventType, saveGroup, deleteGroup, regime }) => {
                             <input
                                 name="reserveSlotsQuantity"
                                 type="number"
-                                value={groupSettings.reserveSlotsQuantity}
-                                onChange={handleGroupSettingsChange}
+                                value={state.reserveSlotsQuantity}
+                                onChange={handleGroupChange}
                             />
                         </>
                     )}
                     {eventType === "practice" && eventType !== "" && (
                         <>
+                            <p>Количество платных слотов</p>
+                            <input
+                                name="paidSlots"
+                                type="number"
+                                value={state.paidSlots}
+                                onChange={handleGroupChange}
+                            />
                             <p>Стоимость платного слота</p>
                             <input
                                 name="slotPrice"
                                 type="number"
-                                value={groupSettings.slotPrice}
-                                onChange={handleGroupSettingsChange}
+                                value={state.slotPrice}
+                                onChange={handleGroupChange}
                             />
                         </>
                     )}
                     <p>Карта группы</p>
                     <select
                         name="map"
-                        value={groupSettings.map}
-                        onChange={handleGroupSettingsChange}
+                        value={state.map}
+                        onChange={handleGroupChange}
                     >
                         <option value="" disabled>
                             Выберите карту
@@ -346,54 +250,47 @@ const CreateGroupForm = ({ eventType, saveGroup, deleteGroup, regime }) => {
                         <option value="Sanhok">Санук</option>
                         <option value="Miramar">Мирамар</option>
                     </select>
-                    {datePicker.startDate !== "" &&
-                        datePicker.startTime !== "" && (
-                            <>
-                                <p>
-                                    За сколько часов до начала группы
-                                    открывается доступ для подтверждения участия
-                                    в часах?
-                                </p>
-                                <input
-                                    name="startConfirm"
-                                    type="number"
-                                    value={deadlinePicker.startConfirm}
-                                    onChange={handleDeadlineChange}
-                                />
-                                <p>
-                                    За сколько часов до начала группы
-                                    закрывается доступ для подтверждения участия
-                                    в часах?
-                                </p>
-                                <input
-                                    name="endConfirm"
-                                    type="number"
-                                    value={deadlinePicker.endConfirm}
-                                    onChange={handleDeadlineChange}
-                                />
-                                <p>
-                                    За сколько часов до начала группы
-                                    закрывается доступ для подтверждения участия
-                                    в часах для резервных участников?
-                                </p>
-                                <input
-                                    name="reserveEndConfirm"
-                                    type="number"
-                                    value={deadlinePicker.reserveEndConfirm}
-                                    onChange={handleDeadlineChange}
-                                />
-                            </>
-                        )}
+                    {state.groupStart !== "" && (
+                        <>
+                            <p>Время открытия подтверждения участия</p>
+                            <input
+                                name="confirmationTimeStart"
+                                type="datetime-local"
+                                value={moment(
+                                    state.confirmationTimeStart
+                                ).format("YYYY-MM-DDTHH:mm")}
+                                onChange={handleTimeGroupChange}
+                            />
+                            <p>Время дедлайна для подтверждения участия</p>
+                            <input
+                                name="confirmationTimeEnd"
+                                type="datetime-local"
+                                value={moment(state.confirmationTimeEnd).format(
+                                    "YYYY-MM-DDTHH:mm"
+                                )}
+                                onChange={handleTimeGroupChange}
+                            />
+                            <p>
+                                Время дедлайна для подтверждения участия резерва
+                            </p>
+                            <input
+                                name="reserveConfirmationTimeEnd"
+                                type="datetime-local"
+                                value={moment(
+                                    state.reserveConfirmationTimeEnd
+                                ).format("YYYY-MM-DDTHH:mm")}
+                                onChange={handleTimeGroupChange}
+                            />
+                        </>
+                    )}
                 </div>
                 <div>
                     <div>
                         <p>Список назначенных модераторов на матч</p>
                         <ul className="bg-green-500">
-                            {groupSettings.staff.map((person) => (
-                                <li key={person.id}>
-                                    <p>
-                                        {person.nickname}, {person.role}
-                                    </p>
+                            {moderatorsList.map((moder) => (
+                                <li>
+                                    {moder.nickname}, {moder.role}
                                 </li>
                             ))}
                         </ul>
@@ -414,7 +311,9 @@ const CreateGroupForm = ({ eventType, saveGroup, deleteGroup, regime }) => {
                                         <button
                                             className="border-2 border-black rounded m-3 p-2"
                                             onClick={(e) =>
-                                                handleModeratorsPick(e, moder)
+                                                handleModeratorsPick(e, {
+                                                    employeeId: moder.id
+                                                })
                                             }
                                         >
                                             Назначить в группу
@@ -422,7 +321,9 @@ const CreateGroupForm = ({ eventType, saveGroup, deleteGroup, regime }) => {
                                         <button
                                             className="border-2 border-black rounded m-3 p-2"
                                             onClick={(e) =>
-                                                handleModeratorsRemove(e, moder)
+                                                handleModeratorsRemove(e, {
+                                                    employeeId: moder.employeeId
+                                                })
                                             }
                                         >
                                             Убрать из группы
@@ -433,8 +334,8 @@ const CreateGroupForm = ({ eventType, saveGroup, deleteGroup, regime }) => {
                         </>
                     )}
                 </div>
-                <button type="submit">
-                    Закончить настройку группы и сохранить данные
+                <button type="button" onClick={handleDelete}>
+                    Удалить группу
                 </button>
             </form>
         </section>

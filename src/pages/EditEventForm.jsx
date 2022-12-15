@@ -1,58 +1,27 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CreateStageForm from "../components/createStageForm";
 import localStorageService from "../services/localStorage.service";
-import { create } from "../store/reducers/eventsSlice";
+import {
+    create,
+    getEventsLoadingStatus,
+    getSelectedEventData
+} from "../store/reducers/eventsSlice";
 import moment from "moment";
 
-const CreateEventForm = () => {
+const EditEventForm = () => {
     const dispatch = useDispatch();
-    const [eventSettings, setEventSettings] = useState({
-        organizerId: localStorageService.getUserId(),
-        description: "",
-        isApproved: false,
-        title: "",
-        picture: "",
-        eventType: "",
-        eventStart: "",
-        registrationStart: "",
-        registrationEnd: "",
-        regime: "",
-        view: "",
-        isPaid: "false",
-        entryPrice: 0,
-        requirements: "",
-        isQuantityLimited: "false",
-        maxQuantity: 10000000,
-        stages: [],
-        prize: {
-            pool: 0,
-            prizePerKill: 0,
-            placementPrize: {
-                1: "",
-                2: "",
-                3: "",
-                4: "",
-                5: "",
-                6: "",
-                7: "",
-                8: "",
-                9: "",
-                10: "",
-                11: "",
-                11: "",
-                12: "",
-                13: "",
-                14: "",
-                15: "",
-                16: "",
-                17: "",
-                18: "",
-                19: "",
-                20: ""
-            }
+    const isLoading = useSelector(getEventsLoadingStatus());
+    const selectedEvent = useSelector(getSelectedEventData());
+    console.log(selectedEvent);
+    const [eventSettings, setEventSettings] = useState(selectedEvent);
+
+    useEffect(() => {
+        if (!isLoading && selectedEvent) {
+            console.log(selectedEvent);
+            setEventSettings(selectedEvent);
         }
-    });
+    }, []);
 
     useEffect(() => {
         console.log(eventSettings);
@@ -483,13 +452,13 @@ const CreateEventForm = () => {
     };
 
     /* const handleDeleteStage = (quantityId, stageId) => {
-        setStagesQuantity((prevState) =>
-            prevState.filter((stage) => stage !== quantityId)
-        );
-        setStages((prevState) =>
-            prevState.filter((stage) => stage.id !== stageId)
-        );
-    }; */
+            setStagesQuantity((prevState) =>
+                prevState.filter((stage) => stage !== quantityId)
+            );
+            setStages((prevState) =>
+                prevState.filter((stage) => stage.id !== stageId)
+            );
+        }; */
 
     const handleCreateEvent = (e) => {
         e.preventDefault();
@@ -741,4 +710,4 @@ const CreateEventForm = () => {
     );
 };
 
-export default CreateEventForm;
+export default EditEventForm;

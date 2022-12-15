@@ -1,144 +1,96 @@
 import { useState, useEffect } from "react";
 import CreateGroupForm from "./createGroupForm";
+import moment from "moment";
 
-const CreateStageForm = ({ eventType, saveStage, regime }) => {
-    const [stage, setStage] = useState({
-        name: "Название этапа",
-        stageStart: "",
-        winners: [],
-        participants: []
-    });
-
-    const [datePicker, setDatePicker] = useState({
-        startDate: "",
-        startTime: ""
-    });
-    const [groups, setGroups] = useState([]);
-    const [groupsQuantity, setGroupsQuantity] = useState([]);
-
-    useEffect(() => {
-        console.log(groupsQuantity);
-    }, [groupsQuantity]);
-
-    useEffect(() => {
-        console.log(groups);
-    }, [groups]);
-
-    useEffect(() => {
-        console.log(stage);
-    }, [stage]);
-
-    useEffect(() => {
+const CreateStageForm = ({
+    eventType,
+    regime,
+    onChangeStage,
+    index,
+    state,
+    onChangeTime,
+    addGroup,
+    deleteGroup,
+    onChangeGroupTime,
+    onChangeGroup,
+    removeModerator,
+    pickModerator,
+    onChangeParticipants,
+    onChangeReserveParticipants,
+    onChangePaidParticipants,
+    deleteStage
+}) => {
+    /* useEffect(() => {
         if (eventType === "practice") {
             setGroupsQuantity((prevState) => [
                 ...prevState,
                 prevState.length + 1
             ]);
         }
-    }, []);
-
-    useEffect(() => {
-        const startTimeArr = datePicker.startTime.split(":");
-        const startHour = Number(startTimeArr[0]) * 1000 * 3600;
-        const startMinute = Number(startTimeArr[1]) * 1000 * 60;
-        const newStartDate =
-            new Date(datePicker.startDate).getTime() + startHour + startMinute;
-        console.log(startHour, startMinute, newStartDate);
-        setStage((prevState) => ({
-            ...prevState,
-            stageStart: newStartDate
-        }));
-    }, [datePicker.startDate, datePicker.startTime]);
+    }, []); */
 
     const handleAddGroup = (e) => {
         e.preventDefault();
-        setGroupsQuantity((prevState) => [...prevState, prevState.length + 1]);
-    };
-
-    /* const handleDeleteGroup = (quantityId, groupId,) => {
-        setGroupsQuantity((prevState) =>
-            prevState.filter((group) => group !== quantityId)
-        );
-        setGroups((prevState) =>
-            prevState.filter((group) => group.id !== groupId)
-        );
-    }; */
-
-    const handleDatePickerChange = (e) => {
-        setDatePicker((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }));
+        addGroup(index);
     };
 
     const handleStageSettingsChange = (e) => {
-        setStage((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }));
+        onChangeStage(e, index);
+    };
+    const handleTimeStageChange = (e) => {
+        onChangeTime(e, index);
     };
 
-    const handleSubmitGroup = (data) => {
-        setGroups((prevState) => [...prevState, data]);
-    };
-
-    const handleSubmit = (e) => {
+    const handleDelete = (e) => {
         e.preventDefault();
-        saveStage({ ...stage, groups: groups });
+        deleteStage(index);
     };
-
-    /* const handleDelete = () => {
-        deleteStage();
-    }; */
     return (
         <section className="bg-gray-300 w-[100%] min-h-[100vh]">
             <div className="w-[1024px] mx-auto flex flex-col items-center">
                 <h2>Создание этапа</h2>
-                <form
-                    className="flex items-center gap-10"
-                    onSubmit={handleSubmit}
-                >
+                <form className="flex items-center gap-10">
                     <div className="flex flex-col">
-                        <p>Дата начала этапа</p>
-                        <input
-                            type="date"
-                            name="startDate"
-                            onChange={handleDatePickerChange}
-                            value={datePicker.startDate}
-                        ></input>
                         <p>Время начала этапа</p>
                         <input
-                            name="startTime"
-                            type="time"
-                            value={datePicker.startTime}
-                            onChange={handleDatePickerChange}
+                            type="datetime-local"
+                            name="stageStart"
+                            onChange={handleTimeStageChange}
+                            value={moment(state.stageStart).format(
+                                "YYYY-MM-DDTHH:mm"
+                            )}
                         />
                     </div>
                     <div className="flex flex-col">
                         <p>Название этапа</p>
                         <input
-                            value={stage.name}
+                            value={state.name}
                             onChange={handleStageSettingsChange}
                             name="name"
                         />
                     </div>
-                    <button type="submit">
-                        Закончить настройку этапа и сохранить данные
+                    <button type="button" onClick={handleDelete}>
+                        Удалить этап
                     </button>
                 </form>
             </div>
-            <button
-                onClick={handleAddGroup}
-                disabled={eventType === "practice"}
-            >
-                Добавить группу
-            </button>
-            {groupsQuantity.map((group) => (
+            <button onClick={handleAddGroup}>Добавить группу</button>
+            {state.groups.map((group) => (
                 <CreateGroupForm
                     regime={regime}
                     eventType={eventType}
-                    key={group}
-                    saveGroup={handleSubmitGroup}
+                    key={state.groups.indexOf(group)}
+                    index={state.groups.indexOf(group)}
+                    stageIndex={index}
+                    state={group}
+                    onChangeTime={onChangeGroupTime}
+                    onChangeGroup={onChangeGroup}
+                    pickModerator={pickModerator}
+                    removeModerator={removeModerator}
+                    onChangeParticipants={onChangeParticipants}
+                    onChangeReserveParticipants={onChangeReserveParticipants}
+                    onChangePaidParticipants={onChangePaidParticipants}
+                    deleteGroup={deleteGroup}
                     /* deleteGroup={() =>
                         handleDeleteGroup(
                             group,

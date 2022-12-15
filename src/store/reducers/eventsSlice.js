@@ -23,26 +23,6 @@ export const eventsSlice = createSlice({
             state.error = action.payload;
             state.isLoading = false;
         },
-        eventCreateRequested: (state) => {
-            state.isLoading = true;
-        },
-        eventCreateSuccess: (state, action) => {
-            state.isLoading = false;
-        },
-        eventCreateFailed: (state, action) => {
-            state.error = action.payload;
-            state.isLoading = false;
-        },
-        eventUpdateRequested: (state) => {
-            state.isLoading = true;
-        },
-        eventUpdateSuccess: (state, action) => {
-            state.isLoading = false;
-        },
-        eventUpdateFailed: (state, action) => {
-            state.error = action.payload;
-            state.isLoading = false;
-        },
         eventRequestedById: (state) => {
             state.isLoading = true;
         },
@@ -64,14 +44,16 @@ export const {
     eventsRequestFailed,
     eventRequestedById,
     eventReceivedById,
-    eventRequestByIdFailed,
-    eventCreateSuccess,
-    eventCreateRequested,
-    eventCreateFailed,
-    eventUpdateRequested,
-    eventUpdateSuccess,
-    eventUpdateFailed
+    eventRequestByIdFailed
 } = actions;
+
+const eventCreateRequested = createAction("events/eventCreateRequested");
+const eventCreateFailed = createAction("events/eventCreateFailed");
+const eventCreateSuccess = createAction("events/eventCreateSuccess");
+
+const eventUpdateRequested = createAction("events/eventUpdateRequested");
+const eventUpdateSuccess = createAction("events/eventUpdateSuccess");
+const eventUpdateFailed = createAction("events/eventUpdateFailed");
 
 export const create = (payload) => async (dispatch) => {
     dispatch(eventCreateRequested());
@@ -79,7 +61,7 @@ export const create = (payload) => async (dispatch) => {
         const data = await eventService.create(payload);
         dispatch(eventCreateSuccess());
     } catch (e) {
-        dispatch(eventCreateFailed(e));
+        dispatch(eventCreateFailed());
     }
 };
 
@@ -89,7 +71,7 @@ export const update = (payload) => async (dispatch) => {
         const data = await eventService.create(payload);
         dispatch(eventUpdateSuccess());
     } catch (e) {
-        dispatch(eventUpdateFailed(e));
+        dispatch(eventUpdateFailed());
     }
 };
 
@@ -103,15 +85,18 @@ export const getEventsList = () => async (dispatch) => {
     }
 };
 
-export const getSelectedEvent = (id) => async (dispatch) => {
-    dispatch(eventRequestedById());
-    try {
-        const data = await eventService.getById(id);
-        dispatch(eventReceivedById(data));
-    } catch (e) {
-        dispatch(eventRequestByIdFailed(e));
-    }
-};
+export const getSelectedEvent =
+    ({ id, navigate }) =>
+    async (dispatch) => {
+        dispatch(eventRequestedById());
+        try {
+            const data = await eventService.getById(id);
+            dispatch(eventReceivedById(data));
+            navigate();
+        } catch (e) {
+            dispatch(eventRequestByIdFailed(e));
+        }
+    };
 
 export const getEventsListData = () => (state) => state.events.entities;
 export const getSelectedEventData = () => (state) => state.events.selectedEvent;

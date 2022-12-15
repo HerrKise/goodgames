@@ -5,7 +5,7 @@ const initialState = {
     entities: null,
     isLoading: false,
     uploadingPhotoUrl: null,
-    error: null
+    error: null,
 };
 
 export const offersSlice = createSlice({
@@ -33,8 +33,8 @@ export const offersSlice = createSlice({
         offersRequestByIdFailed: (state, action) => {
             state.error = action.payload;
             state.isLoading = false;
-        }
-    }
+        },
+    },
 });
 
 export const { reducer: offersReducer, actions } = offersSlice;
@@ -44,7 +44,7 @@ export const {
     offersRequestFailed,
     offersRequestedById,
     offersReceivedById,
-    offersRequestByIdFailed
+    offersRequestByIdFailed,
 } = actions;
 
 const createOffersRequested = createAction("offers/createOffersRequested");
@@ -62,7 +62,7 @@ const deleteOffersSuccess = createAction("offers/deleteOffersSuccess");
 export const loadOffers = (payload) => async (dispatch) => {
     dispatch(offersRequested());
     try {
-        const data = await postService.getNews(payload);
+        const data = await postService.getPosts(payload);
         dispatch(offersReceived(data));
     } catch (e) {
         dispatch(offersRequestFailed(e.responce.data.error));
