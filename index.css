@@ -1,3 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
+
+
+body {
+    font-family: 'Rubik', sans-serif;
+}
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .wrap {
+        @apply max-w-[370px] w-full mx-auto;
+    }
+
+    .h1 {
+        @apply text-[25px] leading-8 font-semibold;
+    }
+
+    .h3 {
+        @apply text-[17px] leading-[21px] font-bold;
+    }
+
+    .p {
+        @apply text-[14px] leading-[17px] opacity-70;
+    }
+
+    .yellowbtn {
+        @apply text-sm font-bold py-3 text-darkgrey bg-yellow rounded-3xl text-center px-5;
+    }
+
+    .whitebtn {
+        @apply text-sm font-bold py-3 text-darkgrey bg-white rounded-3xl text-center px-5;
+    }
+}
+
+.ReactCollapse--collapse {
+    transition: height 300ms;
+}

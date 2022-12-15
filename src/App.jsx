@@ -23,11 +23,23 @@ import CreateEventForm from "./pages/CreateEventForm";
 import StaffProfile from "./pages/StaffProfile";
 import Teams from "./pages/Teams";
 import TeamProfile from "./pages/TeamProfile";
+
+import { MainPage } from "./pages/MainPage";
+import { NewsPage } from "./pages/NewsPage";
+import { GamesPage } from "./pages/GamesPage";
+import { ProfilePage } from "./pages/ProfilePage";
+import { TournamentPage } from "./pages/TournamentPage";
+import { TournamentList } from "./components/TournamentPage/TournamentList";
+import { MatchesPage } from "./pages/MatchesPage";
+import { ProfilePageSettings } from "./components/ProfilePage/ProfilePageSettings";
+import { ProfilePageStatistics } from "./components/ProfilePage/ProfilePageStatistics";
+
 import Shop from "./pages/Shop";
 import ShopItemsCreation from "./pages/ShopItemsCreations";
 import EditEventForm from "./pages/EditEventForm";
 import EditShopItem from "./pages/EditShopItem";
 import ExtendedShop from "./pages/ExtendedShop";
+
 
 function App() {
     return (
@@ -52,6 +64,9 @@ function App() {
                         path="/profile/teams/:code/:teamId"
                         element={<TeamProfile />}
                     ></Route>
+                    <Route path="/profilepage-settings" element={<ProfilePageSettings/>}/>
+                    <Route path="/profilepage-statistics" element={<ProfilePageStatistics/>}/>
+                    <Route path="/profilepage" element={<ProfilePage/>}/>
                 </Route>
                 <Route element={<StaffProtectedRoute />}>
                     <Route path="/staff" element={<StaffPage />} />
@@ -98,6 +113,12 @@ function App() {
                     path="/create-new-password/:code"
                     element={<PasswordChangeViaEmail />}
                 />
+                <Route path="/mainpage" element={<MainPage/>}/>
+                <Route path="/newspage" element={<NewsPage/>}/>
+                <Route path="/gamespage" element={<GamesPage/>}/>
+                <Route path="/tournamentpage" element={<TournamentPage/>}/>
+                <Route path="/tournamentlist" element={<TournamentList/>}/>
+                <Route path="/matchespage" element={<MatchesPage/>}/>
             </Routes>
             <ToastContainer />
         </>
