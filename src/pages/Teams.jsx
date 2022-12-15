@@ -1,9 +1,14 @@
+import { useCallback } from 'react';
+import {Collapse} from 'react-collapse';
+
 import { code } from "@uiw/react-md-editor";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import EditTeam from "../components/EditTeam";
+import { Header } from "../components/UI/Header";
+import { NavBar } from "../components/UI/NavBar";
 import {
     createTeams,
     getInvitationCode,
@@ -17,6 +22,7 @@ import {
     loadMyTeams,
     loadTeamByCode,
 } from "../store/reducers/teamsSlice";
+import { ProFileTeamsItem } from '../components/ProfilePage/ProfileTeamsItem';
 
 const Teams = () => {
     const dispatch = useDispatch();
@@ -93,73 +99,41 @@ const Teams = () => {
         }
     }, [isLoading]);
 
-    return (
-        <section className="bg-gray-400 w-[100%] min-h-[100vh] ">
-            <div className="w-[1240px] mx-auto flex flex-col items-center">
-                <h2>My teams</h2>
-                <ul className="flex overflow-scroll w-[900px] h-[300px] flex-wrap">
-                    {myTeams
-                        ? myTeams.map((team) => {
-                              return (
-                                  <li
-                                      key={team.id}
-                                      className="bg-yellow-600 border-[1px] border-black rounded-[10px] w-[300px] h-[300px] flex flex-col items-center text-center text-[12px]"
-                                  >
-                                      <div className="flex flex-col items-center justify-around h-[100%]">
-                                          <p>{team.title} - название</p>
-                                          <p>{team.tag} - Тэг </p>
-                                          <img
-                                              src={team.logo}
-                                              alt="team logo"
-                                          />
+    
+    const [isTermsOpen, setIsTermsOpen] = useState(false);
+    const [isInfoOpen, setIsInfoOpen] = useState(false);
 
-                                          <button
-                                              onClick={() => {
-                                                  setId(team.id);
-                                                  setEditVisible(true);
-                                              }}
-                                          >
-                                              Редактировать
-                                          </button>
-                                          <button
-                                              onClick={() => {
-                                                  deleteTeam(team.id);
-                                              }}
-                                          >
-                                              Удалить
-                                          </button>
-                                          <button
-                                              onClick={() => {
-                                                  getCode(team.id);
-                                              }}
-                                          >
-                                              Получить код для вступления
-                                          </button>
-                                          <p>
-                                              Код для вступления {codeSelector}
-                                          </p>
-                                          <button
-                                              onClick={() => {
-                                                  getManagerCode(team.id);
-                                              }}
-                                          >
-                                              Получить код для менеджера
-                                          </button>
-                                          <p>Код для менеджера {managerCode}</p>
-                                          <button
-                                              onClick={() => {
-                                                  leaveTeam(team.id);
-                                              }}
-                                          >
-                                              Покинуть команду
-                                          </button>
-                                      </div>
-                                  </li>
-                              );
-                          })
-                        : ""}
+    const openInfo = useCallback(
+        () => setIsInfoOpen(!isInfoOpen),
+        [isInfoOpen]
+    )
+
+    const openTerms = useCallback(
+        () => setIsTermsOpen(!isTermsOpen),
+        [isTermsOpen]
+    );
+
+    return (
+        <div className="bg-darkgrey min-h-[100vh]">
+            <Header/>
+            <main className="wrap pt-28 text-white pb-20">
+                <h1 className="h1">Мои команды</h1>
+                {/* <div className="w-full bg-[#26262633] rounded-lg relative">
+                    <input type="text" placeholder="Вставьте код приглашения" value={invCode} onChange={changeCode} className="bg-[#26262633] w-full py-4 px-7 rounded-lg"/>
+                    <button onClick={navigateToTeamPage} className="bg-grey absolute p-4 rounded-r-lg right-0">
+                        <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4.37671 18.476H16.6267C17.5918 18.476 18.3767 17.6911 18.3767 16.726V4.47595C18.3767 3.51083 17.5918 2.72595 16.6267 2.72595H4.37671C3.41158 2.72595 2.62671 3.51083 2.62671 4.47595V9.72683H8.74996V6.22595L14 10.601L8.74996 14.976V11.4768H2.62671V16.726C2.62671 17.6911 3.41158 18.476 4.37671 18.476Z" fill="white"/>
+                        </svg>
+                    </button>
+                </div> */}
+                <ul className="flex flex-wrap gap-5 pt-5">
+                    {myTeams
+                        ? <ProFileTeamsItem />
+                    : ""}
                 </ul>
-                <div className="flex flex-col justify-around items-center">
+            </main>
+            
+            <div className="flex flex-col justify-around items-center">
                     <h3>Создать команду</h3>
                     <form
                         className="w-[350px] h-[400px] flex flex-col items-center gap-5"
@@ -178,23 +152,15 @@ const Teams = () => {
                         />
                         <button type="submit">Создать команду</button>
                     </form>
-                </div>
             </div>
-            <div className="w-full bg-orange-600 h-[200px]">
-                <p>
-                    Если вы хотите присоединиться в команду, вставьте код сюда
-                </p>
-                <input type="text" value={invCode} onChange={changeCode} />
-                <button onClick={navigateToTeamPage}>
-                    Посмотреть профиль команды
-                </button>
-            </div>
+            
             <EditTeam
                 teamId={id}
                 isVisible={editVisible}
                 setVisible={setEditVisible}
             />
-        </section>
+            <NavBar/>
+        </div>
     );
 };
 
