@@ -11,7 +11,7 @@ const ChooseTeamToParticipate = () => {
     const myTeamsList = useDispatch(loadMyTeams());
 
     const handlePickTeam = (teamId) => {
-        dispatch(sendTeamApplication({ id: teamId, isApproved: false }));
+        dispatch(sendTeamApplication({ id: teamId, isApproved: "Pending" }));
     };
     return (
         <>
