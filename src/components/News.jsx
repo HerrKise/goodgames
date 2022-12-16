@@ -13,7 +13,7 @@ const News = () => {
     const newsData = useSelector(getNewsData());
 
     useEffect(() => {
-        dispatch(loadNews("News"));
+        dispatch(loadNews({ type: "News", page: "1" }));
         console.log("newsData");
     }, []);
 

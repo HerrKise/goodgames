@@ -3,10 +3,14 @@ import { useDispatch } from "react-redux";
 import CreateStageForm from "../components/createStageForm";
 import localStorageService from "../services/localStorage.service";
 import { create } from "../store/reducers/eventsSlice";
+import MDEditor from "@uiw/react-md-editor";
 import moment from "moment";
 
 const CreateEventForm = () => {
     const dispatch = useDispatch();
+    const [requirements, setRequirements] = useState("");
+    const [description, setDescription] = useState("");
+
     const [eventSettings, setEventSettings] = useState({
         organizerId: localStorageService.getUserId(),
         paricipants: [],
@@ -50,9 +54,9 @@ const CreateEventForm = () => {
                 { number: 17, prize: "" },
                 { number: 18, prize: "" },
                 { number: 19, prize: "" },
-                { number: 20, prize: "" }
-            ]
-        }
+                { number: 20, prize: "" },
+            ],
+        },
     });
 
     useEffect(() => {
@@ -63,7 +67,7 @@ const CreateEventForm = () => {
         if (eventSettings.isPaid === "false") {
             setEventSettings((prevState) => ({
                 ...prevState,
-                entryPrice: 0
+                entryPrice: 0,
             }));
         }
     }, [eventSettings.isPaid]);
@@ -72,7 +76,7 @@ const CreateEventForm = () => {
         if (eventSettings.isQuantityLimited === "false") {
             setEventSettings((prevState) => ({
                 ...prevState,
-                maxQuantity: 10000000
+                maxQuantity: 10000000,
             }));
         }
     }, [eventSettings.isQuantityLimited]);
@@ -88,9 +92,9 @@ const CreateEventForm = () => {
                     stageStart: "",
                     winners: [],
                     participants: [],
-                    groups: []
-                }
-            ]
+                    groups: [],
+                },
+            ],
         }));
     };
 
@@ -100,8 +104,8 @@ const CreateEventForm = () => {
             stages: [
                 ...prevState.stages.filter(
                     (stage) => prevState.stages.indexOf(stage) !== stageIndex
-                )
-            ]
+                ),
+            ],
         }));
     };
 
@@ -132,14 +136,14 @@ const CreateEventForm = () => {
                                     reserveSlotsQuantity: 0,
                                     slotPrice: 0,
                                     lobbyId: "",
-                                    lobbyPassword: ""
-                                }
-                            ]
+                                    lobbyPassword: "",
+                                },
+                            ],
                         };
                     }
                     return stage;
-                })
-            ]
+                }),
+            ],
         }));
     };
 
@@ -156,13 +160,13 @@ const CreateEventForm = () => {
                                     (group) =>
                                         stage.groups.indexOf(group) !==
                                         groupIndex
-                                )
-                            ]
+                                ),
+                            ],
                         };
                     }
                     return stage;
-                })
-            ]
+                }),
+            ],
         }));
     };
 
@@ -175,22 +179,22 @@ const CreateEventForm = () => {
                         return { ...stage, [e.target.name]: e.target.value };
                     }
                     return stage;
-                })
-            ]
+                }),
+            ],
         }));
     };
 
     const handleEventSettingsChange = (e) => {
         setEventSettings((prevState) => ({
             ...prevState,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         }));
     };
 
     const handleDateChange = (e) => {
         setEventSettings((prevState) => ({
             ...prevState,
-            [e.target.name]: moment(e.target.value).toISOString()
+            [e.target.name]: moment(e.target.value).toISOString(),
         }));
     };
 
@@ -204,12 +208,12 @@ const CreateEventForm = () => {
                             ...stage,
                             [e.target.name]: moment(
                                 e.target.value
-                            ).toISOString()
+                            ).toISOString(),
                         };
                     }
                     return stage;
-                })
-            ]
+                }),
+            ],
         }));
     };
 
@@ -234,17 +238,17 @@ const CreateEventForm = () => {
                                             ...group,
                                             [e.target.name]: moment(
                                                 e.target.value
-                                            ).toISOString()
+                                            ).toISOString(),
                                         };
                                     }
                                     return group;
-                                })
-                            ]
+                                }),
+                            ],
                         };
                     }
                     return stage;
-                })
-            ]
+                }),
+            ],
         }));
     };
 
@@ -268,18 +272,18 @@ const CreateEventForm = () => {
                                             ...group,
                                             groupModerators: [
                                                 ...group.groupModerators,
-                                                moderator
-                                            ]
+                                                moderator,
+                                            ],
                                         };
                                     }
                                     return group;
-                                })
-                            ]
+                                }),
+                            ],
                         };
                     }
                     return stage;
-                })
-            ]
+                }),
+            ],
         }));
     };
 
@@ -306,18 +310,18 @@ const CreateEventForm = () => {
                                                     (moder) =>
                                                         moder.employeeId !==
                                                         moderator.employeeId
-                                                )
-                                            ]
+                                                ),
+                                            ],
                                         };
                                     }
                                     return group;
-                                })
-                            ]
+                                }),
+                            ],
                         };
                     }
                     return stage;
-                })
-            ]
+                }),
+            ],
         }));
     };
 
@@ -343,17 +347,17 @@ const CreateEventForm = () => {
                                     ) {
                                         return {
                                             ...group,
-                                            participants: participantsArray
+                                            participants: participantsArray,
                                         };
                                     }
                                     return group;
-                                })
-                            ]
+                                }),
+                            ],
                         };
                     }
                     return stage;
-                })
-            ]
+                }),
+            ],
         }));
     };
 
@@ -380,17 +384,17 @@ const CreateEventForm = () => {
                                         return {
                                             ...group,
                                             reserveParticipants:
-                                                reserveParticipantsArray
+                                                reserveParticipantsArray,
                                         };
                                     }
                                     return group;
-                                })
-                            ]
+                                }),
+                            ],
                         };
                     }
                     return stage;
-                })
-            ]
+                }),
+            ],
         }));
     };
 
@@ -417,17 +421,17 @@ const CreateEventForm = () => {
                                         return {
                                             ...group,
                                             paidParticipants:
-                                                paidParticipantsArray
+                                                paidParticipantsArray,
                                         };
                                     }
                                     return group;
-                                })
-                            ]
+                                }),
+                            ],
                         };
                     }
                     return stage;
-                })
-            ]
+                }),
+            ],
         }));
     };
 
@@ -449,24 +453,24 @@ const CreateEventForm = () => {
                                     ) {
                                         return {
                                             ...group,
-                                            [e.target.name]: e.target.value
+                                            [e.target.name]: e.target.value,
                                         };
                                     }
                                     return group;
-                                })
-                            ]
+                                }),
+                            ],
                         };
                     }
                     return stage;
-                })
-            ]
+                }),
+            ],
         }));
     };
 
     const handlePrizeSettingsChange = (e) => {
         setEventSettings((prevState) => ({
             ...prevState,
-            prize: { ...prevState.prize, [e.target.name]: e.target.value }
+            prize: { ...prevState.prize, [e.target.name]: e.target.value },
         }));
     };
 
@@ -495,9 +499,9 @@ const CreateEventForm = () => {
                             return { ...place, prize: e.target.value };
                         }
                         return place;
-                    })
-                ]
-            }
+                    }),
+                ],
+            },
         }));
     };
 
@@ -671,10 +675,23 @@ const CreateEventForm = () => {
                                     </option>
                                 </select>
                                 <p>Дополнительные условия участия:</p>
-                                <input
-                                    name="requirements"
-                                    value={eventSettings.requirements}
-                                    onChange={handleEventSettingsChange}
+                                <MDEditor
+                                    value={requirements}
+                                    onChange={setRequirements}
+                                />
+                                <MDEditor.Markdown
+                                    source={requirements}
+                                    style={{ whiteSpace: "pre-wrap" }}
+                                />
+
+                                <p>Описание:</p>
+                                <MDEditor
+                                    value={description}
+                                    onChange={setDescription}
+                                />
+                                <MDEditor.Markdown
+                                    source={description}
+                                    style={{ whiteSpace: "pre-wrap" }}
                                 />
                                 <p>Есть ограничение по количеству участников</p>
                                 <select

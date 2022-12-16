@@ -16,6 +16,8 @@ const Editor = () => {
     const [postPic, setPostPic] = useState([]);
     const isLoading = useSelector(getNewsLoadingStatus());
     const photoUrl = useSelector(getPhotoUrlData());
+    const [pictures, setPictures] = useState([]);
+    const [bgPic, setBgPic] = useState("");
 
     const dispatch = useDispatch();
 
@@ -43,13 +45,13 @@ const Editor = () => {
     };
 
     const uploadPost = () => {
-        dispatch(
-            createNews({
-                title: title,
-                content: value,
-                type: type,
-            })
-        );
+        let formData = new FormData();
+        formData.append("Title", title);
+        formData.append("Content", value);
+        formData.append("Type", type);
+        formData.append("Pictures", pictures);
+        formData.append("Background", bgPic);
+        dispatch(createNews(formData));
 
         console.log("Creating post: ", value);
     };
@@ -93,6 +95,7 @@ const Editor = () => {
                     className="px-[5px] py-[3px]"
                 />
                 <button onClick={handleUrlGet}>Вставить картинку</button>
+                <p>Ссылка на картинку появится здесь {photoUrl}</p>
             </form>
             <MDEditor value={value} onChange={setValue} />
             <MDEditor.Markdown

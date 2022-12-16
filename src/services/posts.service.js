@@ -19,7 +19,9 @@ const postsService = {
         return data;
     },
     getPosts: async (payload) => {
-        const { data } = await http.get(postsEndpoint + "/GetNews", payload);
+        const { data } = await http.get(
+            postsEndpoint + `/GetNews/${payload.type}/${payload.page}`
+        );
         return data;
     },
     getPostsByEditorId: async (payload) => {
