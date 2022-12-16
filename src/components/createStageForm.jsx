@@ -46,12 +46,19 @@ const CreateStageForm = ({
         deleteStage(index);
     };
     return (
-        <section className="bg-gray-300 w-[100%] min-h-[100vh]">
-            <div className="w-[1024px] mx-auto flex flex-col items-center">
-                <h2>Создание этапа</h2>
-                <form className="flex items-center gap-10">
-                    <div className="flex flex-col">
-                        <p>Время начала этапа</p>
+        <section  className="bg-darkgrey/50">
+            <div className="wrap">
+                <form  className="pt-5 space-y-[10px] rounded-lg p-2">
+                    <div className="flex">
+                        <input
+                            value={state.name}
+                            onChange={handleStageSettingsChange}
+                            name="name"
+                            className="bg-darkgrey w-full p-3 p rounded-lg"
+                        />
+                    </div>
+                    <div className="flex items-center justify-between space-x-4">
+                        <label htmlFor="stageStart" className="p w-28">Начало этапа</label>
                         <input
                             type="datetime-local"
                             name="stageStart"
@@ -59,46 +66,44 @@ const CreateStageForm = ({
                             value={moment(state.stageStart).format(
                                 "YYYY-MM-DDTHH:mm"
                             )}
+                            className="bg-darkgrey w-[160px] p-2 p rounded-lg"
                         />
                     </div>
-                    <div className="flex flex-col">
-                        <p>Название этапа</p>
-                        <input
-                            value={state.name}
-                            onChange={handleStageSettingsChange}
-                            name="name"
-                        />
-                    </div>
-                    <button type="button" onClick={handleDelete}>
+                    
+                    <button type="button" onClick={handleDelete} className='w-full rounded-lg bg-darkgrey py-3 p font-bold'>
                         Удалить этап
                     </button>
+                    <div className=" bg-white rounded-lg">
+                        <button type="button" onClick={handleAddGroup} className='w-full text-black py-3 p font-bold'>Добавить группу</button>
+                        {state.groups.map((group) => (
+                            <CreateGroupForm
+                                regime={regime}
+                                eventType={eventType}
+                                key={state.groups.indexOf(group)}
+                                index={state.groups.indexOf(group)}
+                                stageIndex={index}
+                                state={group}
+                                onChangeTime={onChangeGroupTime}
+                                onChangeGroup={onChangeGroup}
+                                pickModerator={pickModerator}
+                                removeModerator={removeModerator}
+                                onChangeParticipants={onChangeParticipants}
+                                onChangeReserveParticipants={onChangeReserveParticipants}
+                                onChangePaidParticipants={onChangePaidParticipants}
+                                deleteGroup={deleteGroup}
+                                /* deleteGroup={() =>
+                                    handleDeleteGroup(
+                                        group,
+                                        stage.id + "-" + group + "-group"
+                                    )
+                                } */
+                            />
+                        ))}
+                    </div>
                 </form>
             </div>
-            <button onClick={handleAddGroup}>Добавить группу</button>
-            {state.groups.map((group) => (
-                <CreateGroupForm
-                    regime={regime}
-                    eventType={eventType}
-                    key={state.groups.indexOf(group)}
-                    index={state.groups.indexOf(group)}
-                    stageIndex={index}
-                    state={group}
-                    onChangeTime={onChangeGroupTime}
-                    onChangeGroup={onChangeGroup}
-                    pickModerator={pickModerator}
-                    removeModerator={removeModerator}
-                    onChangeParticipants={onChangeParticipants}
-                    onChangeReserveParticipants={onChangeReserveParticipants}
-                    onChangePaidParticipants={onChangePaidParticipants}
-                    deleteGroup={deleteGroup}
-                    /* deleteGroup={() =>
-                        handleDeleteGroup(
-                            group,
-                            stage.id + "-" + group + "-group"
-                        )
-                    } */
-                />
-            ))}
+            
+            
         </section>
     );
 };
