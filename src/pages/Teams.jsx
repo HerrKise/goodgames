@@ -1,12 +1,8 @@
-import { useCallback } from 'react';
-import {Collapse} from 'react-collapse';
 
-import { code } from "@uiw/react-md-editor";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import EditTeam from "../components/EditTeam";
 import { Header } from "../components/UI/Header";
 import { NavBar } from "../components/UI/NavBar";
 import {
@@ -22,23 +18,26 @@ import {
     loadMyTeams,
     loadTeamByCode,
 } from "../store/reducers/teamsSlice";
+
+import {
+    getUserProfileData,
+} from "../store/reducers/userSlice.js";
+
 import { ProFileTeamsItem } from '../components/ProfilePage/ProfileTeamsItem';
 
 const Teams = () => {
+    
     const dispatch = useDispatch();
+    const user = useSelector(getUserProfileData());
+    
+    const isLoading = useSelector(getTeamsLoadingStatus());
+
+    const myTeams = useSelector(getTeamsData());
+    const codeSelector = useSelector(getTeamsInvCode());
+
     const [name, setName] = useState("");
     const [tag, setTag] = useState("");
     const [img, setImg] = useState("");
-    const [id, setId] = useState("");
-    const [invCode, setInvCode] = useState("");
-    const [editVisible, setEditVisible] = useState(false);
-    const navigate = useNavigate();
-
-    const myTeams = useSelector(getTeamsData());
-    const isLoading = useSelector(getTeamsLoadingStatus());
-    const codeSelector = useSelector(getTeamsInvCode());
-    const teamGotByCode = useSelector(getTeamByCode());
-    const managerCode = useSelector(getManagerCodeData());
 
     const changeName = (e) => {
         setName(e.target.value);
@@ -46,20 +45,6 @@ const Teams = () => {
 
     const changeTag = (e) => {
         setTag(e.target.value);
-    };
-
-    const getCode = (id) => {
-        dispatch(getInvitationCode(id));
-        console.log(codeSelector);
-    };
-
-    const getManagerCode = (id) => {
-        dispatch(loadManagerCode(id));
-        console.log(managerCode);
-    };
-
-    const changeCode = (e) => {
-        setInvCode(e.target.value);
     };
 
     const handlePicUpload = (e) => {
@@ -76,22 +61,6 @@ const Teams = () => {
         dispatch(createTeams(formData));
     };
 
-    const deleteTeam = (teamId) => {
-        console.log("удаление команды с id", teamId);
-    };
-
-    const navigateToTeamPage = () => {
-        dispatch(loadTeamByCode(invCode, navigate));
-    };
-
-    const leaveTeam = (id) => {
-        dispatch(leaveTeams({ teamId: id }));
-    };
-
-    useEffect(() => {
-        dispatch(loadMyTeams());
-    }, []);
-
     useEffect(() => {
         if (myTeams && !isLoading) {
             console.log(myTeams);
@@ -99,24 +68,28 @@ const Teams = () => {
         }
     }, [isLoading]);
 
+    useEffect(() => {
+        dispatch(loadMyTeams());
+    }, []);
     
-    const [isTermsOpen, setIsTermsOpen] = useState(false);
-    const [isInfoOpen, setIsInfoOpen] = useState(false);
-
-    const openInfo = useCallback(
-        () => setIsInfoOpen(!isInfoOpen),
-        [isInfoOpen]
-    )
-
-    const openTerms = useCallback(
-        () => setIsTermsOpen(!isTermsOpen),
-        [isTermsOpen]
-    );
-
     return (
         <div className="bg-darkgrey min-h-[100vh]">
             <Header/>
-            <main className="wrap pt-28 text-white pb-20">
+            <main className="wrap pt-28 text-white pb-20 space-y-5">
+                <h1 className="h1">Создать команду</h1>
+                    <form
+                        className="space-y-3"
+                        onSubmit={handleSubmit}
+                    >
+                        <div className="bg-grey w-full py-4 px-7 rounded-lg text-center text-sm font-bold flex flex-col items-center">
+                            <input type="file" name="avatar" id="avatar" onChange={handlePicUpload} className="hidden" />
+                            <label htmlFor="avatar" >Добавить аватар команды</label>
+                        </div>
+                        <input type="text" placeholder="Название команды" value={name} onChange={changeName} className="bg-[#26262633] w-full py-4 px-7 rounded-lg"/>
+                        <input type="text" placeholder="Тэг команды" value={tag} onChange={changeTag} className="bg-[#26262633] w-full py-4 px-7 rounded-lg"/>
+                        
+                        <button type="submit" className='w-full rounded-lg bg-yellow py-4 text-darkgrey text-sm font-bold'>Создать команду</button>
+                    </form>
                 <h1 className="h1">Мои команды</h1>
                 {/* <div className="w-full bg-[#26262633] rounded-lg relative">
                     <input type="text" placeholder="Вставьте код приглашения" value={invCode} onChange={changeCode} className="bg-[#26262633] w-full py-4 px-7 rounded-lg"/>
@@ -126,39 +99,17 @@ const Teams = () => {
                         </svg>
                     </button>
                 </div> */}
-                <ul className="flex flex-wrap gap-5 pt-5">
-                    {myTeams
-                        ? <ProFileTeamsItem />
-                    : ""}
-                </ul>
+                {myTeams
+                    ? <ul className="flex flex-wrap gap-5">
+                        {myTeams.map((team, i) => {
+                            return(
+                                <ProFileTeamsItem team={team} i={i} key={team.id} user={user}/>
+                            )
+                        })}
+                    </ul>
+                    : <></>
+                }  
             </main>
-            
-            <div className="flex flex-col justify-around items-center">
-                    <h3>Создать команду</h3>
-                    <form
-                        className="w-[350px] h-[400px] flex flex-col items-center gap-5"
-                        onSubmit={handleSubmit}
-                    >
-                        <p>Название команды</p>
-                        <input type="text" value={name} onChange={changeName} />
-                        <p>Тэг команды</p>
-                        <input type="text" value={tag} onChange={changeTag} />
-                        <p>Aватар команды</p>
-                        <input
-                            type="file"
-                            placeholder="изменить"
-                            onChange={handlePicUpload}
-                            className="px-[5px] py-[3px]"
-                        />
-                        <button type="submit">Создать команду</button>
-                    </form>
-            </div>
-            
-            <EditTeam
-                teamId={id}
-                isVisible={editVisible}
-                setVisible={setEditVisible}
-            />
             <NavBar/>
         </div>
     );
