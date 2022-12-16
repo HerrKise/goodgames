@@ -4,36 +4,40 @@ import { useDispatch, useSelector } from "react-redux";
 import localStorageService from "../services/localStorage.service";
 import MDEditor from "@uiw/react-md-editor";
 import {
-    deleteNews,
-    editNews,
     getNewsData,
     getNewsLoadingStatus,
     loadUserNews,
 } from "../store/reducers/newsSlice";
+import {
+    getActionsData,
+    getActionsLoadingStatus,
+    loadUserActions,
+} from "../store/reducers/actionsSlice";
 
-const EditNews = () => {
+const EditActions = () => {
     const dispatch = useDispatch();
     const currentUser = localStorageService.getUserId();
     const [value, setValue] = useState("**Hello world!!!**");
     const [postId, setPostId] = useState("");
-    const newsData = useSelector(getNewsData());
-    const isLoading = useSelector(getNewsLoadingStatus());
+    const actionsData = useSelector(getActionsData());
+    const isLoading = useSelector(getActionsLoadingStatus());
     const [title, setTitle] = useState("");
     const [type, setType] = useState("");
 
     const changeTitle = (e) => {
         setTitle(e.target.value);
     };
-
     const changeId = (e) => {
         setPostId(e.target.value);
     };
 
     useEffect(() => {
-        dispatch(loadUserNews({ newsEditorId: currentUser, type: "News" }));
+        dispatch(
+            loadUserActions({ newsEditorId: currentUser, type: "Action" })
+        );
     }, []);
 
-    const editNewsPost = () => {
+    const editActions = () => {
         dispatch(
             editNews({
                 newsId: postId,
@@ -44,8 +48,7 @@ const EditNews = () => {
         );
     };
 
-    const deleteNewsPost = (postId) => {
-        console.log(postId);
+    const deleteActionsPost = (postId) => {
         dispatch(
             deleteNews({
                 newsId: postId,
@@ -54,11 +57,12 @@ const EditNews = () => {
     };
 
     return (
-        <section className="w-full bg-gray-400">
-            <h2>Ваши новости</h2>
+        <section className="bg-orange-300">
+            <h2>Ваши Акции</h2>
+
             <ul className="flex w-900px gap-5 flex-wrap overflow-scroll h-[200px]">
-                {newsData
-                    ? newsData.items.map((post) => {
+                {actionsData
+                    ? actionsData.items.map((post) => {
                           return (
                               <li
                                   key={post.id}
@@ -70,7 +74,7 @@ const EditNews = () => {
                                   <p>{post.content}</p>
                                   <button
                                       onClick={() => {
-                                          deleteNewsPost(post.id);
+                                          deleteActionsPost(post.id);
                                       }}
                                   >
                                       Удалить
@@ -80,8 +84,7 @@ const EditNews = () => {
                       })
                     : ""}
             </ul>
-
-            <div className="rounded-[10px]">
+            <div className="container">
                 <p>ID поста</p>
                 <input type="text" value={postId} onChange={changeId} />
                 <p>Название поста</p>
@@ -109,13 +112,13 @@ const EditNews = () => {
                 />
                 <button
                     className="bg-yellow-700 rounded-[5px]"
-                    onClick={editNewsPost}
+                    onClick={editActions}
                 >
-                    Редактировать новость
+                    Редактировать акцию
                 </button>
             </div>
         </section>
     );
 };
 
-export default EditNews;
+export default EditActions;

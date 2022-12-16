@@ -20,14 +20,14 @@ const postsService = {
     },
     getPosts: async (payload) => {
         const { data } = await http.get(
-            postsEndpoint + `/GetNews/${payload.type}/${payload.page}`
+            postsEndpoint + `/GetNews?Type=${payload.type}`
         );
         return data;
     },
     getPostsByEditorId: async (payload) => {
         const { data } = await http.get(
-            postsEndpoint + "/GetNewsByNewsEditorId",
-            payload
+            postsEndpoint +
+                `/GetNewsByNewsEditorId?Type=${payload.type}&NewsEditorId=${payload.newsEditorId}`
         );
         return data;
     },
