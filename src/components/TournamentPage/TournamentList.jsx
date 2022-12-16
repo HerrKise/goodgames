@@ -43,7 +43,7 @@ export const TournamentList = () => {
                     </Link>
                 </div>
                 <div className="bg-grey w-full rounded-xl p-4">
-                    <Link className="flex items-center justify-center">
+                    <Link className="flex items-center justify-center" to="/matchespage">
                         <h3 className="h3">Мои матчи</h3>
                     </Link>
                 </div>
