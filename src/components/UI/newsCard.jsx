@@ -22,7 +22,7 @@ export default function NewsItem(params) {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          class="w-auto h-[12px]"
+          className="w-auto h-[12px]"
         >
           <path
             fill-rule="evenodd"

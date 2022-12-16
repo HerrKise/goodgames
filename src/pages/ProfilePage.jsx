@@ -91,7 +91,7 @@ export const ProfilePage = () => {
                     <li className="bg-[#26262633] w-full rounded-xl p-4">
                         <Link
                             className="flex items-center space-x-3"
-                            to="/profile/teams"
+                            to="/profilepage/teams"
                         >
                             <svg
                                 width="20"
