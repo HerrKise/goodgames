@@ -2,27 +2,27 @@ import { NavLink } from "react-router-dom";
 
 const UsersListShortData = ({ users }) => {
     return (
-        <section className="w-[100%] bg-yellow-400">
-            <div className="w-[1024px] mx-auto flex flex-col items-center">
-                <p>Текущее количество пользователей: {users.totalCount}</p>
-                <ul className="bg-gray-200 mt-[30px]">
+            <div className="pt-3">
+                <h3 className="h3">Текущее количество пользователей: {users.totalCount}</h3>
+                <ul className="space-y-3 pt-3">
                     {users.items.map((user) => {
                         return (
                             <li
-                                className="border-[1px] border-black"
+                                className="bg-[#19191973] rounded-lg p-3"
                                 key={user.id}
                             >
-                                <p>nickname: {user.profile.nickname}</p>
-                                <p>id: {user.id} </p>
-                                <NavLink to={`/staff/user-profile/${user.id}`}>
-                                    Больше информации
+                                <p><span className="p">Никнейм:</span> {user.profile.nickname}</p>
+                                <p><span className="p">ID:</span> {user.id} </p>
+                                <NavLink to={`/staff/user-profile/${user.id}`} className="flex justify-end">
+                                    <button className='rounded-lg bg-grey p-2 text-xs font-semibold'>
+                                        Больше информации
+                                    </button>
                                 </NavLink>
                             </li>
                         );
                     })}
                 </ul>
             </div>
-        </section>
     );
 };
 
