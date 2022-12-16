@@ -3,6 +3,9 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { signIn } from "../store/reducers/staffSlice.js";
 
+import logopic from "../assets/Main/logo.png"
+import { Link } from "react-router-dom";
+
 const StaffLogin = () => {
     const [password, setPassword] = useState("");
     const [nickname, setNickname] = useState("");
@@ -24,34 +27,33 @@ const StaffLogin = () => {
     };
 
     return (
-        <section className="w-[100%] h-[100vh] bg-purple-300">
-            <div className="w-[1024px] mx-auto flex flex-col items-center">
+        <section className="bg-darkgrey min-h-[100vh] flex flex-col items-center justify-center relative">
+            <Link className="w-full flex items-center justify-center fixed top-12" to="/">
+                <img src={logopic} alt="logopic" className="w-[132px]"/>
+            </Link>
+            <div className="wrap py-20 h-full w-full  text-white">
+                <h1 className="h1 pb-8 text-center">Вход для администратора</h1>
                 <form
-                    className="flex flex-col items-center justify-between mt-[150px] w-[700px] h-[400px]"
+                    className="space-y-[10px]"
                     onSubmit={handleSubmit}
                 >
-                    <h2>Авторизация сотрудника</h2>
-                    <div className=" flex flex-col items-center">
-                        <label>Никнейм</label>
-                        <input
-                            type="text"
-                            className="w-[400px]"
-                            value={nickname || ""}
-                            onChange={handleEmailChange}
-                        />
-                    </div>
-                    <div className=" flex flex-col items-center">
-                        <label>Пароль </label>
-                        <input
-                            type="password"
-                            className="w-[400px]"
-                            value={password || ""}
-                            onChange={handlePasswordChange}
-                        />
-                    </div>
+                    <input
+                        type="text"
+                        value={nickname || ""}
+                        onChange={handleEmailChange}
+                        placeholder="Никнейм"
+                        className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
+                    />
+                    <input
+                        type="password"
+                        placeholder="Пароль"
+                        value={password || ""}
+                        onChange={handlePasswordChange}
+                        className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
+                    />
                     <button
                         type="submit"
-                        className="w-[300px] h-[30px] rounded-[20px] bg-orange-500"
+                        className='w-full rounded-lg bg-yellow py-4 text-darkgrey text-sm font-bold'
                     >
                         {" "}
                         Войти
