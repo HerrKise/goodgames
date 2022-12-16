@@ -100,4 +100,5 @@ export const getSelectedEvent =
 
 export const getEventsListData = () => (state) => state.events.entities;
 export const getSelectedEventData = () => (state) => state.events.selectedEvent;
+export const getStagesData = () => (state) => state.events.selectedEvent.stages;
 export const getEventsLoadingStatus = () => (state) => state.events.isLoading;
