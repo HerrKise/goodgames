@@ -9,18 +9,18 @@ import { eventsReducer } from "./reducers/eventsSlice";
 import { shopReducer } from "./reducers/shopSlice";
 
 const rootReducer = combineReducers({
-    user: userReducer,
-    staff: staffReducer,
-    news: newsReducer,
-    actions: actionsReducer,
-    offers: offersReducer,
-    teams: teamsReducer,
-    events: eventsReducer,
-    shop: shopReducer
+  user: userReducer,
+  staff: staffReducer,
+  news: newsReducer,
+  actions: actionsReducer,
+  offers: offersReducer,
+  teams: teamsReducer,
+  events: eventsReducer,
+  shop: shopReducer,
 });
 
 export const setupStore = () => {
-    return configureStore({
-        reducer: rootReducer
-    });
+  return configureStore({
+    reducer: rootReducer,
+  });
 };

@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/Main/logo.png";
 
 export const Header = () => {
-
   window.onscroll = function () {
     scrollFunction();
   };

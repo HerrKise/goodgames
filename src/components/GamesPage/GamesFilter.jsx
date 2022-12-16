@@ -1,5 +1,5 @@
 // import { Button } from "../UI/Button";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export const GamesFilter = ({
   popupVisible,
