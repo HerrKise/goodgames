@@ -55,6 +55,16 @@ const eventUpdateRequested = createAction("events/eventUpdateRequested");
 const eventUpdateSuccess = createAction("events/eventUpdateSuccess");
 const eventUpdateFailed = createAction("events/eventUpdateFailed");
 
+const joinTeamApplicationRequested = createAction(
+    "events/joinTeamApplicationRequested"
+);
+const joinTeamApplicationSuccess = createAction(
+    "events/joinTeamApplicationSuccess"
+);
+const joinTeamApplicationUpdateFailed = createAction(
+    "events/joinTeamApplicationUpdateFailed"
+);
+
 export const create = (payload) => async (dispatch) => {
     dispatch(eventCreateRequested());
     try {
@@ -72,6 +82,16 @@ export const update = (payload) => async (dispatch) => {
         dispatch(eventUpdateSuccess());
     } catch (e) {
         dispatch(eventUpdateFailed());
+    }
+};
+
+export const joinTeamApplication = (payload) => async (dispatch) => {
+    dispatch(joinTeamApplicationRequested());
+    try {
+        const data = await eventService.joinEventCommand(payload);
+        dispatch(joinTeamApplicationSuccess());
+    } catch (e) {
+        dispatch(joinTeamApplicationUpdateFailed());
     }
 };
 

@@ -38,6 +38,7 @@ import ShopItemsCreation from "./pages/ShopItemsCreations";
 import EditEventForm from "./pages/EditEventForm";
 import EditShopItem from "./pages/EditShopItem";
 import ExtendedShop from "./pages/ExtendedShop";
+import ChooseTeamToParticipate from "./pages/ChooseTeamToParticipate";
 
 function App() {
     return (
@@ -128,6 +129,10 @@ function App() {
                 <Route
                     path="/tournamentpage/:id"
                     element={<TournamentPage />}
+                />
+                <Route
+                    path="/tournamentpage/:id/chooseTeamToParticipate"
+                    element={<ChooseTeamToParticipate />}
                 />
                 <Route path="/tournamentlist" element={<TournamentList />} />
                 <Route path="/matchespage" element={<MatchesPage />} />
