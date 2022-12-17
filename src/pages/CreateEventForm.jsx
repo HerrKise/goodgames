@@ -632,7 +632,7 @@ const CreateEventForm = () => {
                             </div>
                                 {eventSettings.isPaid === "true" && (
                                     <div  className="flex items-center justify-between py-2 space-x-4">
-                                        <label htmlFor="registrationStart" className="p w-28">Стоимость входа</label>
+                                        <label htmlFor="registrationStart" className="p w-32">Стоимость входа</label>
                                         <input
                                             name="entryPrice"
                                             type="number"
@@ -716,13 +716,6 @@ const CreateEventForm = () => {
                                     source={description}
                                     style={{ whiteSpace: "pre-wrap" }}
                                 />
-                        <input
-                            name="requirements"
-                            placeholder="Дополнительные условия участия"
-                            value={eventSettings.requirements}
-                            onChange={handleEventSettingsChange}
-                            className="bg-darkgrey w-full p-3 rounded-lg p"
-                        />
                         <div>
                             <label htmlFor="isQuantityLimited" className="p">Есть ли ограничение по кол-ву участников</label>
                             <select
