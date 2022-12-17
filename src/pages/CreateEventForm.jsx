@@ -30,27 +30,27 @@ const CreateEventForm = () => {
         prize: {
             pool: 0,
             prizePerKill: 0,
-            placementPrize: [
-                { number: 1, prize: "" },
-                { number: 2, prize: "" },
-                { number: 3, prize: "" },
-                { number: 4, prize: "" },
-                { number: 5, prize: "" },
-                { number: 6, prize: "" },
-                { number: 7, prize: "" },
-                { number: 8, prize: "" },
-                { number: 9, prize: "" },
-                { number: 10, prize: "" },
-                { number: 11, prize: "" },
-                { number: 12, prize: "" },
-                { number: 13, prize: "" },
-                { number: 14, prize: "" },
-                { number: 15, prize: "" },
-                { number: 16, prize: "" },
-                { number: 17, prize: "" },
-                { number: 18, prize: "" },
-                { number: 19, prize: "" },
-                { number: 20, prize: "" }
+            placementPrizes: [
+                { number: 1, prize: 0 },
+                { number: 2, prize: 0 },
+                { number: 3, prize: 0 },
+                { number: 4, prize: 0 },
+                { number: 5, prize: 0 },
+                { number: 6, prize: 0 },
+                { number: 7, prize: 0 },
+                { number: 8, prize: 0 },
+                { number: 9, prize: 0 },
+                { number: 10, prize: 0 },
+                { number: 11, prize: 0 },
+                { number: 12, prize: 0 },
+                { number: 13, prize: 0 },
+                { number: 14, prize: 0 },
+                { number: 15, prize: 0 },
+                { number: 16, prize: 0 },
+                { number: 17, prize: 0 },
+                { number: 18, prize: 0 },
+                { number: 19, prize: 0 },
+                { number: 20, prize: 0 }
             ]
         }
     });
@@ -489,10 +489,10 @@ const CreateEventForm = () => {
             ...prevState,
             prize: {
                 ...prevState.prize,
-                placementPrize: [
-                    ...prevState.prize.placementPrize.map((place) => {
+                placementPrizes: [
+                    ...prevState.prize.placementPrizes.map((place) => {
                         if (e.target.name == place.number) {
-                            return { ...place, prize: e.target.value };
+                            return { ...place, prize: Number(e.target.value) };
                         }
                         return place;
                     })
@@ -732,13 +732,17 @@ const CreateEventForm = () => {
                                         />
                                     </div>
                                 ))} */}
-                                {eventSettings.prize.placementPrize.map(
+                                {eventSettings.prize.placementPrizes.map(
                                     (place) => (
                                         <div key={place.number}>
                                             <input
                                                 name={place.number}
                                                 placeholder={`Приз за ${place.number} место`}
-                                                value={place.prize}
+                                                value={
+                                                    place.prize === 0
+                                                        ? ""
+                                                        : place.prize
+                                                }
                                                 onChange={
                                                     handlePlacementPrizeChange
                                                 }
