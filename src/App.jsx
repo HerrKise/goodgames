@@ -22,7 +22,6 @@ import EditPosts from "./pages/EditPosts";
 import CreateEventForm from "./pages/CreateEventForm";
 import StaffProfile from "./pages/StaffProfile";
 import Teams from "./pages/Teams";
-import TeamProfile from "./pages/TeamProfile";
 
 import { MainPage } from "./pages/MainPage";
 import { NewsPage } from "./pages/NewsPage";
@@ -78,10 +77,6 @@ function App() {
                     <Route
                         path="/profilepage/teams"
                         element={<Teams />}
-                    ></Route>
-                    <Route
-                        path="/profilepage/teams/:code/:teamId"
-                        element={<TeamProfile />}
                     ></Route>
                 </Route>
                 <Route element={<StaffProtectedRoute />}>
