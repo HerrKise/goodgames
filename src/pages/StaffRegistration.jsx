@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { register } from "../store/reducers/staffSlice.js";
+
+import logopic from "../assets/Main/logo.png";
 
 const StaffRegistration = () => {
     const [nickname, setNickname] = useState("");
@@ -34,64 +37,58 @@ const StaffRegistration = () => {
     };
 
     return (
-        <section className="w-[100%] h-[100vh] bg-purple-300">
-            <div className="w-[1024px] mx-auto flex flex-col items-center">
+        <section className="bg-darkgrey min-h-[100vh] flex flex-col items-center justify-center relative">
+            <NavLink className="w-full flex items-center justify-center fixed top-0 bg-darkgrey pt-12 pb-3 z-50" to="/">
+                <img src={logopic} alt="logopic" className="w-[132px]"/>
+            </NavLink>
+            <main  className="wrap pt-28 text-white pb-20">
                 <form
-                    className="flex flex-col items-center justify-between mt-[150px] w-[700px] h-[400px]"
+                    className="space-y-3 p-4 bg-grey rounded-lg my-5"
                     onSubmit={handleSubmit}
                 >
-                    <h2>Создание профиля для сотрудника</h2>
-                    <div className=" flex flex-col items-center">
-                        <label>Никнейм сотрудника</label>
-                        <input
-                            type="text"
-                            className="w-[400px]"
-                            value={nickname || ""}
-                            onChange={handleNicknameChange}
-                        />
-                    </div>
-                    <div className=" flex flex-col items-center">
-                        <label>Пароль сотрудника</label>
-                        <input
-                            type="password"
-                            className="w-[400px]"
-                            value={password || ""}
-                            onChange={handlePasswordChange}
-                        />
-                    </div>
-                    <div className=" flex flex-col items-center">
-                        <label>Повторите пароль</label>
-                        <input
-                            type="password"
-                            className="w-[400px]"
-                            value={confirmPassword || ""}
-                            onChange={handleConfirmPasswordChange}
-                        />
-                    </div>
-                    <div className=" flex flex-col items-center">
-                        <label>Роль сотрудника</label>
-                        <select
-                            className="w-[400px]"
-                            onChange={(e) => {
-                                setRole(e.target.value);
-                            }}
-                        >
-                            <option>Должность</option>
-                            <option>Admin</option>
-                            <option>Moderator</option>
-                            <option>EventModerator</option>
-                            <option>Organizer</option>
-                            <option>NewsEditor</option>
-                        </select>
-                    </div>
+                    <h1 className="h1">Создание профиля для сотрудника</h1>
+                    <input
+                        type="text"
+                        value={nickname || ""}
+                        onChange={handleNicknameChange}
+                        placeholder="Никнейм сотрудника"
+                        className="bg-darkgrey w-full p-3 rounded-lg p"
+                    />
+                    <input
+                        type="password"
+                        value={password || ""}
+                        onChange={handlePasswordChange}
+                        placeholder="Пароль сотрудника"
+                        className="bg-darkgrey w-full p-3 rounded-lg p"
+                    />
+                    <input
+                        type="password"
+                        value={confirmPassword || ""}
+                        onChange={handleConfirmPasswordChange}
+                        placeholder="Повторите пароль"
+                        className="bg-darkgrey w-full p-3 rounded-lg p"
+                    />
+                    <select
+                        onChange={(e) => {
+                            setRole(e.target.value);
+                        }}
+                        className="bg-darkgrey w-full p-3 rounded-lg p"
+                    >
+                        <option>Роль сотрудника</option>
+                        <option>Admin</option>
+                        <option>Moderator</option>
+                        <option>EventModerator</option>
+                        <option>Organizer</option>
+                        <option>NewsEditor</option>
+                    </select>
                     <button
                         type="submit"
-                        className="w-[300px] h-[30px] rounded-[20px] bg-orange-500"
+                        className='w-full rounded-lg bg-yellow py-4 my-5 text-darkgrey text-sm font-bold'
                     >
                         Создать профиль
                     </button>
                 </form>
-            </div>
+            </main>
         </section>
     );
 };

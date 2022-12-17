@@ -13,7 +13,7 @@ const Actions = () => {
     const actionsData = useSelector(getActionsData());
 
     useEffect(() => {
-        dispatch(loadActions("Action"));
+        dispatch(loadActions({ type: "Action", page: "1" }));
     }, []);
 
     useEffect(() => {
@@ -25,7 +25,7 @@ const Actions = () => {
     return (
         <section className="bg-gray-300 w-full min-h-[400px]">
             <div className="w-[1240px] mx-auto">
-                <p>News</p>
+                <p>Actions</p>
                 <ul className="flex w-900px gap-5 flex-wrap overflow-scroll h-[200px]">
                     {actionsData
                         ? actionsData.items.map((post) => {

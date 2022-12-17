@@ -13,7 +13,7 @@ const Offers = () => {
     const offersData = useSelector(getOffersData());
 
     useEffect(() => {
-        dispatch(loadOffers("Offer"));
+        dispatch(loadOffers({ type: "Offer", page: "1" }));
         console.log("offersData");
     }, []);
 

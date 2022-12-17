@@ -4,20 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import localStorageService from "../services/localStorage.service";
 import MDEditor from "@uiw/react-md-editor";
 import {
-    deleteNews,
-    editNews,
-    getNewsData,
-    getNewsLoadingStatus,
-    loadUserNews,
-} from "../store/reducers/newsSlice";
+    editOffers,
+    getOffersData,
+    getOffersLoadingStatus,
+    loadUserOffers,
+} from "../store/reducers/offersSlice";
 
-const EditNews = () => {
+const EditOffers = () => {
     const dispatch = useDispatch();
     const currentUser = localStorageService.getUserId();
     const [value, setValue] = useState("**Hello world!!!**");
     const [postId, setPostId] = useState("");
-    const newsData = useSelector(getNewsData());
-    const isLoading = useSelector(getNewsLoadingStatus());
+    const offersData = useSelector(getOffersData());
+    const isLoading = useSelector(getOffersLoadingStatus());
     const [title, setTitle] = useState("");
     const [type, setType] = useState("");
 
@@ -30,12 +29,12 @@ const EditNews = () => {
     };
 
     useEffect(() => {
-        dispatch(loadUserNews({ newsEditorId: currentUser, type: "News" }));
+        dispatch(loadUserOffers({ newsEditorId: currentUser, type: "Offer" }));
     }, []);
 
-    const editNewsPost = () => {
+    const editOffersPost = () => {
         dispatch(
-            editNews({
+            editOffers({
                 newsId: postId,
                 title: title,
                 content: value,
@@ -44,8 +43,7 @@ const EditNews = () => {
         );
     };
 
-    const deleteNewsPost = (postId) => {
-        console.log(postId);
+    const deleteOffersPost = (postId) => {
         dispatch(
             deleteNews({
                 newsId: postId,
@@ -56,8 +54,8 @@ const EditNews = () => {
     return (
         <section className="bg-grey p-3 rounded-b-lg">
             <ul className="">
-                {newsData
-                    ? newsData.items.map((post) => {
+                {offersData
+                    ? offersData.items.map((post) => {
                           return (
                               <li
                                   key={post.id}
@@ -69,7 +67,7 @@ const EditNews = () => {
                                   <p>{post.content}</p>
                                   <button
                                       onClick={() => {
-                                          deleteNewsPost(post.id);
+                                          deleteOffersPost(post.id);
                                       }}
                                   >
                                       Удалить
@@ -79,7 +77,6 @@ const EditNews = () => {
                       })
                     : ""}
             </ul>
-
             <div className="space-y-3">
                 <div>
                     <input type="text" value={postId} onChange={changeId} placeholder="ID поста" className="bg-darkgrey w-full p-3 rounded-lg p"/>
@@ -111,13 +108,13 @@ const EditNews = () => {
                 />
                 <button
                     className='w-full rounded-lg bg-yellow py-4 my-5 text-darkgrey text-sm font-bold'
-                    onClick={editNewsPost}
+                    onClick={editOffersPost}
                 >
-                    Редактировать новость
+                    Редактировать предложение
                 </button>
             </div>
         </section>
     );
 };
 
-export default EditNews;
+export default EditOffers;
