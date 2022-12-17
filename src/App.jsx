@@ -74,9 +74,9 @@ function App() {
           />
           {/* переименовать руты потом */}
           <Route path="/matchespage" element={<MatchesPage />} />
-          <Route path="/profile/teams" element={<Teams />}></Route>
+          <Route path="/profilepage/teams" element={<Teams />}></Route>
           <Route
-            path="/profile/teams/:code/:teamId"
+            path="/profilepage/teams/:code/:teamId"
             element={<TeamProfile />}
           ></Route>
         </Route>

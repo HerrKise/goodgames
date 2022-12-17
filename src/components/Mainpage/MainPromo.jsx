@@ -3,7 +3,7 @@ import { Button } from "../UI/Button"
 export const MainPromo = () => {
     return(
         <section className="w-full h-[600px] relative">
-            <img src={'https://app2top.ru/wp-content/uploads/2020/10/pubg-mobile2.jpg'} alt="promopic" className="absolute top-0 h-full w-full object-left object-cover"/>
+            <img src={'https://c4.wallpaperflare.com/wallpaper/891/529/106/pubg-poster-hearthstone-battlegrounds-steam-software-comic-art-hd-wallpaper-preview.jpg'} alt="promopic" className="absolute top-0 h-full w-full object-left object-cover"/>
             <div className="wrap relative z-20 h-full flex flex-col items-center justify-end pb-8">
                 <p className="bg-[#FFFFFF33] text-white text-[10px] leading-3 px-4 py-2 font-bold rounded-full mb-1">ГЛАВНОЕ СОБЫТИЕ</p>
                 <h1 className="text-4xl font-bold text-center mb-6">Сезонный турнир Призовой фонд 50.000 ₽</h1>

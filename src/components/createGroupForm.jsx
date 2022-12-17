@@ -162,86 +162,100 @@ const CreateGroupForm = ({
     console.log(moderatorsList);
 
     return (
-        <section className="bg-yellow-500 w-[100%] min-h-[300px]">
+        <section className="bg-darkgrey p-2 rounded-b-lg">
             <form
-                className="flex mx-auto items-center justify-around"
+                 className="space-y-3"
                 onSubmit={handleSubmit}
             >
-                <div className="flex flex-col">
-                    <p>Время начала группы</p>
-                    <input
-                        type="datetime-local"
-                        name="groupStart"
-                        onChange={handleTimeGroupChange}
-                        value={moment(state.groupStart).format(
-                            "YYYY-MM-DDTHH:mm"
-                        )}
-                    ></input>
-                    <p>Название группы</p>
                     <input
                         name="name"
                         type="text"
+                        placeholder="Название группы"
                         value={state.name}
                         onChange={handleGroupChange}
+                        className="bg-grey w-full p-3 p rounded-lg"
                     />
-                    <p>Данные лобби</p>
+                    <div className="flex items-center justify-between border-b-[1px] border-white/20 pb-2 space-x-4">
+                        <label className="p w-28">Время начала группы</label>
+                        <input
+                            type="datetime-local"
+                            name="groupStart"
+                            onChange={handleTimeGroupChange}
+                            value={moment(state.groupStart).format(
+                                "YYYY-MM-DDTHH:mm"
+                            )}
+                            className="bg-grey w-[160px] p-2 p rounded-lg"
+                        ></input>
+                    </div>
+                    
+                    <p className="p">Данные лобби</p>
                     <input
                         name="lobbyId"
-                        placeholder="Lobby ID"
+                        placeholder="ID лобби"
                         value={state.lobbyId}
                         onChange={handleGroupChange}
+                        className="bg-grey w-full p-3 p rounded-lg"
                     />
                     <input
                         name="lobbyPassword"
-                        placeholder="Lobby password"
+                        placeholder="Пароль лобби"
                         value={state.lobbyPassword}
                         onChange={handleGroupChange}
+                        className="bg-grey w-full p-3 p rounded-lg"
                     />
                     {eventType !== "" && (
-                        <>
-                            <p>Количество слотов в группе</p>
+                        <div className="flex items-center justify-between border-b-[1px] border-white/20 pb-2 space-x-4">
+                            <label className="p w-28">Слоты в группе</label>
                             <input
                                 name="slotsQuantity"
                                 type="number"
                                 value={state.slotsQuantity}
                                 onChange={handleGroupChange}
+                                className="bg-grey w-[160px] p-2 p rounded-lg"
                             />
-                        </>
+                        </div>
                     )}
                     {eventType !== "miniTournament" && eventType !== "" && (
-                        <>
-                            <p>Количество резервных слотов в группе</p>
+                        <div className="flex items-center justify-between border-b-[1px] border-white/20 pb-2 space-x-4">
+                            <label className="p w-28">Резервные слоты</label>
                             <input
                                 name="reserveSlotsQuantity"
                                 type="number"
                                 value={state.reserveSlotsQuantity}
                                 onChange={handleGroupChange}
+                                className="bg-grey w-[160px] p-2 p rounded-lg"
                             />
-                        </>
+                        </div>
                     )}
                     {eventType === "practice" && eventType !== "" && (
                         <>
-                            <p>Количество платных слотов</p>
-                            <input
-                                name="paidSlots"
-                                type="number"
-                                value={state.paidSlots}
-                                onChange={handleGroupChange}
-                            />
-                            <p>Стоимость платного слота</p>
-                            <input
-                                name="slotPrice"
-                                type="number"
-                                value={state.slotPrice}
-                                onChange={handleGroupChange}
-                            />
+                            <div className="flex items-center justify-between border-b-[1px] border-white/20 pb-2 space-x-4">
+                                <label className="p w-28">Количество платных слотов</label>
+                                <input
+                                    name="paidSlots"
+                                    type="number"
+                                    value={state.paidSlots}
+                                    onChange={handleGroupChange}
+                                    className="bg-grey w-[160px] p-2 p rounded-lg"
+                                />
+                            </div>
+                            <div className="flex items-center justify-between border-b-[1px] border-white/20 pb-2 space-x-4">
+                                <label className="p w-28">Стоимость платного слота</label>
+                                <input
+                                    name="slotPrice"
+                                    type="number"
+                                    value={state.slotPrice}
+                                    onChange={handleGroupChange}
+                                    className="bg-grey w-[160px] p-2 p rounded-lg"
+                                />
+                            </div>
                         </>
                     )}
-                    <p>Карта группы</p>
                     <select
                         name="map"
                         value={state.map}
                         onChange={handleGroupChange}
+                        className="bg-grey w-full p-2 rounded-lg p"
                     >
                         <option value="" disabled>
                             Выберите карту
@@ -283,58 +297,65 @@ const CreateGroupForm = ({
                             />
                         </>
                     )}
-                </div>
                 <div>
-                    <div>
-                        <p>Список назначенных модераторов на матч</p>
-                        <ul className="bg-green-500">
-                            {moderatorsList.map((moder) => (
-                                <li key={moder.id}>
-                                    {moder.nickname}, {moder.role}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    
                     {!isLoading && (
                         <>
-                            <p>Назначить модераторов</p>
-                            <ul>
+                            <p className="text-[16px]">Назначить модераторов</p>
+                            <ul className="py-2 border-b-[1px] border-white/20 space-y-1">
                                 {availableStaff.map((moder) => (
                                     <li
                                         key={moder.id}
-                                        className="flex items-center"
+                                        className="py-2 border-b-[1px] border-white/20"
                                     >
-                                        <p>
-                                            Никнейм: {moder.nickname} Роль:{" "}
-                                            {moder.role}
-                                        </p>
-                                        <button
-                                            className="border-2 border-black rounded m-3 p-2"
-                                            onClick={(e) =>
-                                                handleModeratorsPick(e, {
-                                                    employeeId: moder.id
-                                                })
-                                            }
-                                        >
-                                            Назначить в группу
-                                        </button>
-                                        <button
-                                            className="border-2 border-black rounded m-3 p-2"
-                                            onClick={(e) =>
-                                                handleModeratorsRemove(e, {
-                                                    employeeId: moder.id
-                                                })
-                                            }
-                                        >
-                                            Убрать из группы
-                                        </button>
+                                        <div className="grid grid-cols-2">
+                                            <p className="p">Никнейм:</p>
+                                            <p className="p">Роль:{" "}</p>
+                                            <p className="text-[16px]">{moder.nickname}</p>
+                                            <p className="text-[16px]">{moder.role}</p>
+                                        </div>
+                                        <div className="flex items-center justify-between space-x-4 mt-2">
+                                            <button
+                                                className='w-full rounded-lg bg-yellow text-darkgrey text-xs py-2 font-bold'
+                                                onClick={(e) =>
+                                                    handleModeratorsPick(e, {
+                                                        employeeId: moder.id
+                                                    })
+                                                }
+                                            >
+                                                Назначить
+                                            </button>
+                                            <button
+                                                className='w-full rounded-lg bg-grey text-white text-xs py-2 font-bold'
+                                                onClick={(e) =>
+                                                    handleModeratorsRemove(e, {
+                                                        employeeId: moder.id
+                                                    })
+                                                }
+                                            >
+                                                Убрать
+                                            </button>
+                                        </div>
                                     </li>
                                 ))}
                             </ul>
                         </>
                     )}
+                    <div>
+                        <p className="text-[16px] pt-2">Список назначенных модераторов:</p>
+                        <ul className="grid grid-cols-2 py-2 border-b-[1px] border-white/20 space-y-1">
+                            <p className="p">Никнейм</p>
+                            <p className="p text-end">Роль</p>
+                            {moderatorsList.map((moder) => (
+                                <>
+                                    <p className="text-sm">{moder.nickname}</p>
+                                    <p className="text-sm text-end">{moder.role}</p>
+                                </>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
-                <button type="button" onClick={handleDelete}>
+                <button type="button" onClick={handleDelete} className='w-full rounded-lg bg-grey text-sm py-2 font-bold'>
                     Удалить группу
                 </button>
             </form>
