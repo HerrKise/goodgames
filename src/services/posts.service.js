@@ -11,11 +11,15 @@ const postsService = {
         return data;
     },
     edit: async (payload) => {
-        const { data } = await http.put(postsEndpoint + "/Edit", payload);
+        const { data } = await http.put(postsEndpoint + "/EditNews", payload);
         return data;
     },
     delete: async (payload) => {
-        const { data } = await http.delete(postsEndpoint + "/Delete", payload);
+        console.log("in postService", payload);
+        const { data } = await http.delete(
+            postsEndpoint + "/DeleteNews",
+            payload
+        );
         return data;
     },
     getPosts: async (payload) => {
