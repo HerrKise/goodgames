@@ -701,7 +701,6 @@ const CreateEventForm = () => {
                                 <MDEditor
                                     value={requirements}
                                     onChange={setRequirements}
-                                    className="bg-darkgrey w-full p-3 rounded-lg p"
                                 />
                                 <MDEditor.Markdown
                                     source={requirements}
@@ -712,7 +711,6 @@ const CreateEventForm = () => {
                                 <MDEditor
                                     value={description}
                                     onChange={setDescription}
-                                    className="bg-darkgrey w-full p-3 rounded-lg p"
                                 />
                                 <MDEditor.Markdown
                                     source={description}
