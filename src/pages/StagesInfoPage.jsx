@@ -17,11 +17,11 @@ const StageInfoPage = () => {
     const handleNavigateToGroupPage = () => {
         navigate("/адрес-на-страницу-групп");
     };
-    const participantId = "какой-то айди участника юзер/команда";
+    /* const participantId = event.regime === "Solo" ? localStorageService.getUserId() : 
     const isParticipantApproved =
         event.participants.find(
-            (participant) => participant.id === participantId
-        ).isApproved === "true";
+            (participant) => participant.id === participantId && participant.isApproved === "true"
+        ); */
 
     return (
         <section>
