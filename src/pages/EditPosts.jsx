@@ -1,5 +1,7 @@
 import { useState } from "react";
 import EditNews from "../components/EditNews";
+import EditOffers from "../components/EditOffers";
+import EditActions from "../components/EditActions";
 
 const EditPosts = () => {
     const [current, setCurrent] = useState("News");
@@ -43,9 +45,9 @@ const EditPosts = () => {
                     {current === "News" ? (
                         <EditNews />
                     ) : current === "Offers" ? (
-                        "Тут будут предложения"
+                        <EditOffers />
                     ) : current === "Actions" ? (
-                        "Тут будут акции"
+                        <EditActions />
                     ) : (
                         ""
                     )}
