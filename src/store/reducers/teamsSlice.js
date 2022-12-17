@@ -258,12 +258,11 @@ export const loadTeamByID = (payload) => async (dispatch) => {
     }
 };
 
-export const loadTeamByCode = (payload, navigate) => async (dispatch) => {
+export const loadTeamByCode = (payload) => async (dispatch) => {
     dispatch(teamsRequestedByCode());
     try {
         const data = await teamService.getTeamByInvitationCode(payload);
         dispatch(teamsReceivedByCode(data));
-        navigate(`/profile/teams/${payload}/${data.id}`);
     } catch (e) {
         dispatch(teamsRequestByCodeFailed(e));
     }
