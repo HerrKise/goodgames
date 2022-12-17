@@ -618,53 +618,35 @@ const CreateEventForm = () => {
                         </div>
                     </div>
                     <div className="space-y-3">
-                        <div>
-                            <label htmlFor="isPaid" className="p">Есть ли плата за вход</label>
-                            <select
-                                value={eventSettings.isPaid}
-                                name="isPaid"
-                                onChange={handleEventSettingsChange}
-                                className="bg-darkgrey w-full p-3 rounded-lg p"
-                            >
-                                <option value="true">Да</option>
-                                <option value="false">Нет</option>
-                            </select>
-                        </div>
-                        {eventSettings.isPaid === "true" && (
                             <div>
-                                <label htmlFor="entryPrice" className="p">Стоимость входа</label>
-                                <input
-                                    name="entryPrice"
-                                    type="number"
-                                    placeholder="Стоимость входа"
-                                    value={eventSettings.entryPrice}
-                                    onChange={handleEventSettingsChange}
-                                    className="bg-darkgrey w-full p-3 rounded-lg p"/>
-                                <p>Есть плата за вход</p>
+                                <label htmlFor="isPaid" className="p">Есть ли плата за вход</label>
                                 <select
                                     value={eventSettings.isPaid}
                                     name="isPaid"
                                     onChange={handleEventSettingsChange}
+                                    className="bg-darkgrey w-full p-3 rounded-lg p"
                                 >
                                     <option value="true">Да</option>
                                     <option value="false">Нет</option>
                                 </select>
+                            </div>
                                 {eventSettings.isPaid === "true" && (
-                                    <>
-                                        <p>Стоимость входа</p>
+                                    <div  className="flex items-center justify-between py-2 space-x-4">
+                                        <label htmlFor="registrationStart" className="p w-28">Стоимость входа</label>
                                         <input
                                             name="entryPrice"
                                             type="number"
                                             value={eventSettings.entryPrice}
                                             onChange={handleEventSettingsChange}
+                                            className="bg-darkgrey p-2 p rounded-lg w-[160px]"
                                         />
-                                    </>
+                                    </div>
                                 )}
-                                <p>Режим</p>
                                 <select
                                     value={eventSettings.regime}
                                     name="regime"
                                     onChange={handleEventSettingsChange}
+                                    className="bg-darkgrey w-full p-3 rounded-lg p"
                                 >
                                     <option value="" disabled>
                                         Выберите режим события
@@ -699,11 +681,11 @@ const CreateEventForm = () => {
                                         Squad
                                     </option>
                                 </select>
-                                <p>Вид</p>
                                 <select
                                     value={eventSettings.view}
                                     name="view"
                                     onChange={handleEventSettingsChange}
+                                    className="bg-darkgrey w-full p-3 rounded-lg p"
                                 >
                                     <option value="" disabled>
                                         Выберите режим камеры
@@ -715,82 +697,27 @@ const CreateEventForm = () => {
                                         От 3-го лица
                                     </option>
                                 </select>
-                                <p>Дополнительные условия участия:</p>
+                                <p className="p">Дополнительные условия участия:</p>
                                 <MDEditor
                                     value={requirements}
                                     onChange={setRequirements}
+                                    className="bg-darkgrey w-full p-3 rounded-lg p"
                                 />
                                 <MDEditor.Markdown
                                     source={requirements}
                                     style={{ whiteSpace: "pre-wrap" }}
                                 />
 
-                                <p>Описание:</p>
+                                <p  className="p">Описание:</p>
                                 <MDEditor
                                     value={description}
                                     onChange={setDescription}
+                                    className="bg-darkgrey w-full p-3 rounded-lg p"
                                 />
                                 <MDEditor.Markdown
                                     source={description}
                                     style={{ whiteSpace: "pre-wrap" }}
                                 />
-                            </div>
-                        )}
-                        <select
-                            value={eventSettings.regime}
-                            name="regime"
-                            onChange={handleEventSettingsChange}
-                            className="bg-darkgrey w-full p-3 rounded-lg p"
-                        >
-                            <option value="" disabled>
-                                Выберите режим события
-                            </option>
-                            <option
-                                disabled={
-                                    eventSettings.eventType ===
-                                        "tournament" ||
-                                    eventSettings.eventType ===
-                                        "practice"
-                                }
-                                value="solo"
-                            >
-                                Solo
-                            </option>
-                            <option
-                                disabled={
-                                    eventSettings.eventType ===
-                                    "practice"
-                                }
-                                value="duo"
-                            >
-                                Duo
-                            </option>
-                            <option
-                                disabled={
-                                    eventSettings.eventType ===
-                                    "miniTournament"
-                                }
-                                value="squad"
-                            >
-                                Squad
-                            </option>
-                        </select>
-                        <select
-                            value={eventSettings.view}
-                            name="view"
-                            onChange={handleEventSettingsChange}
-                            className="bg-darkgrey w-full p-3 rounded-lg p"
-                        >
-                            <option value="" disabled>
-                                Выберите режим камеры
-                            </option>
-                            <option value="FirstPerson">
-                                От 1-го лица
-                            </option>
-                            <option value="ThirdPerson">
-                                От 3-го лица
-                            </option>
-                        </select>
                         <input
                             name="requirements"
                             placeholder="Дополнительные условия участия"
