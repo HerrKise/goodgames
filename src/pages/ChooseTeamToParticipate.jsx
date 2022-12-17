@@ -4,14 +4,28 @@ import {
     getTeamsLoadingStatus,
     loadMyTeams
 } from "../store/reducers/teamsSlice";
+import {
+    getSelectedEventData,
+    getEventsLoadingStatus,
+    joinTeamApplication
+} from "../store/reducers/eventsSlice";
 
 const ChooseTeamToParticipate = () => {
     const dispatch = useDispatch();
-    const isLoading = useSelector(getTeamsLoadingStatus());
+    const isLoading =
+        useSelector(getTeamsLoadingStatus()) &&
+        useSelector(getEventsLoadingStatus());
+    const event = useSelector(getSelectedEventData());
     const myTeamsList = useDispatch(loadMyTeams());
 
     const handlePickTeam = (teamId) => {
-        dispatch(sendTeamApplication({ id: teamId, isApproved: "Pending" }));
+        dispatch(
+            joinTeamApplication({
+                id: teamId,
+                eventId: event.id,
+                isApproved: "Pending"
+            })
+        );
     };
     return (
         <>
@@ -24,7 +38,12 @@ const ChooseTeamToParticipate = () => {
                                 {team.tag}: {team.title}
                             </h1>
                             <img src={team.logo.path} />
-                            <button onClick={() => handlePickTeam(team.id)}>
+                            <button
+                                onClick={() => handlePickTeam(team.id)}
+                                disabled={event.paticipants.includes(
+                                    (participant) => participant.id === team.id
+                                )}
+                            >
                                 Отправить заявку
                             </button>
                         </div>

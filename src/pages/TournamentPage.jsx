@@ -1,13 +1,11 @@
-import { Header } from "../components/UI/Header"
-import { NavBar } from "../components/UI/NavBar"
-import { TournamentPromo } from "../components/TournamentPage/TournamentPromo"
-import { TournamentInfo } from "../components/TournamentPage/TournamentInfo"
-import { useSelector } from "react-redux"
-import { getSelectedEventData } from "../store/reducers/eventsSlice"
-
+import { Header } from "../components/UI/Header";
+import { NavBar } from "../components/UI/NavBar";
+import { TournamentPromo } from "../components/TournamentPage/TournamentPromo";
+import { TournamentInfo } from "../components/TournamentPage/TournamentInfo";
+import { useSelector } from "react-redux";
+import { getSelectedEventData } from "../store/reducers/eventsSlice";
 
 export const TournamentPage = () => {
-
     // const tournament1 = {
     //     type: "Мини-турнир",
     //     title: "PUBG Mobile Club Open Fall Splint 2022 CIS",
@@ -44,12 +42,12 @@ export const TournamentPage = () => {
 
     return (
         <div className="bg-darkgrey min-h-[100vh]">
-            <Header/>
+            <Header />
             <main className="text-white pb-20">
-                <TournamentPromo tournament={tournament}/>
-                <TournamentInfo/>
+                <TournamentPromo tournament={tournament} />
+                <TournamentInfo tournament={tournament} />
             </main>
-            <NavBar/>
+            <NavBar />
         </div>
-    )
-}
+    );
+};

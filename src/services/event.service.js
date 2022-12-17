@@ -10,6 +10,13 @@ const eventService = {
         );
         return data;
     },
+    joinEventCommand: async (payload) => {
+        const { data } = await http.post(
+            eventEndpoint + "/joinEventCommand",
+            payload
+        );
+        return data;
+    },
     update: async (payload) => {
         const { data } = await http.put(
             eventEndpoint + "/UpdateEvent",
