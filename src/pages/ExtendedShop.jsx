@@ -30,10 +30,10 @@ const ExtendedShop = () => {
     const navigate = useNavigate();
 
     return (
-        <section className="bg-gray-400 w-[100%] min-h-[100vh]">
-            <div className="w-[1240px] flex flex-col items-center justify-center mx-auto">
-                <h2>Extended shop for staff</h2>
-                <ul className="flex w-900px gap-5 flex-wrap overflow-scroll h-[400px]">
+        <section className="bg-darkgrey min-h-[100vh]">
+            <main className="wrap pt-28 text-white pb-20">
+                <h1 className="h1">Extended shop for staff</h1>
+                <ul className="space-y-3 p-4 bg-grey rounded-lg my-5">
                     {shopList
                         ? shopList.items.map((shopListItem) => {
                               return (
@@ -69,7 +69,7 @@ const ExtendedShop = () => {
                           })
                         : ""}
                 </ul>
-            </div>
+            </main>
         </section>
     );
 };
