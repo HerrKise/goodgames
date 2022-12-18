@@ -126,6 +126,7 @@ export const editNews = (payload) => async (dispatch) => {
 };
 
 export const deleteNews = (payload) => async (dispatch) => {
+    console.log("in deletenews", payload);
     dispatch(deleteNewsRequested());
     try {
         const data = await postService.delete(payload);

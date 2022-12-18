@@ -4,11 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import localStorageService from "../services/localStorage.service";
 import MDEditor from "@uiw/react-md-editor";
 import {
-    getNewsData,
-    getNewsLoadingStatus,
-    loadUserNews,
-} from "../store/reducers/newsSlice";
-import {
     getActionsData,
     getActionsLoadingStatus,
     loadUserActions,
@@ -62,10 +57,7 @@ const EditActions = () => {
                 {actionsData
                     ? actionsData.items.map((post) => {
                           return (
-                              <li
-                                  key={post.id}
-                                  className=""
-                              >
+                              <li key={post.id} className="">
                                   <p>{post.id}</p>
 
                                   <h3>{post.title}</h3>
@@ -84,7 +76,13 @@ const EditActions = () => {
             </ul>
             <div className="space-y-3">
                 <div>
-                    <input type="text" value={postId} onChange={changeId} placeholder="ID поста" className="bg-darkgrey w-full p-3 rounded-lg p"/>
+                    <input
+                        type="text"
+                        value={postId}
+                        onChange={changeId}
+                        placeholder="ID поста"
+                        className="bg-darkgrey w-full p-3 rounded-lg p"
+                    />
                 </div>
                 <div>
                     <input
@@ -95,24 +93,13 @@ const EditActions = () => {
                         className="bg-darkgrey w-full p-3 rounded-lg p"
                     />
                 </div>
-                <select
-                    onChange={(e) => {
-                        setType(e.target.value);
-                    }}
-                    className="bg-darkgrey w-full p-3 rounded-lg p"
-                >
-                    <option value="" disabled>Тип поста</option>
-                    <option>News</option>
-                    <option>Action</option>
-                    <option>Offer</option>
-                </select>
                 <MDEditor value={value} onChange={setValue} />
                 <MDEditor.Markdown
                     source={value}
                     style={{ whiteSpace: "pre-wrap" }}
                 />
                 <button
-                    className='w-full rounded-lg bg-yellow py-4 my-5 text-darkgrey text-sm font-bold'
+                    className="w-full rounded-lg bg-yellow py-4 my-5 text-darkgrey text-sm font-bold"
                     onClick={editActions}
                 >
                     Редактировать конкурс
