@@ -46,9 +46,9 @@ const CreateStageForm = ({
         deleteStage(index);
     };
     return (
-        <section  className="bg-darkgrey/50">
+        <section className="bg-darkgrey/50">
             <div className="wrap">
-                <form  className="pt-5 space-y-[10px] rounded-lg p-2">
+                <form className="pt-5 space-y-[10px] rounded-lg p-2">
                     <div className="flex">
                         <input
                             value={state.name}
@@ -58,7 +58,9 @@ const CreateStageForm = ({
                         />
                     </div>
                     <div className="flex items-center justify-between space-x-4">
-                        <label htmlFor="stageStart" className="p w-28">Начало этапа</label>
+                        <label htmlFor="stageStart" className="p w-28">
+                            Начало этапа
+                        </label>
                         <input
                             type="datetime-local"
                             name="stageStart"
@@ -69,12 +71,22 @@ const CreateStageForm = ({
                             className="bg-darkgrey w-[160px] p-2 p rounded-lg"
                         />
                     </div>
-                    
-                    <button type="button" onClick={handleDelete} className='w-full rounded-lg bg-darkgrey py-3 p font-bold'>
+
+                    <button
+                        type="button"
+                        onClick={handleDelete}
+                        className="w-full rounded-lg bg-darkgrey py-3 p font-bold"
+                    >
                         Удалить этап
                     </button>
                     <div className=" bg-white rounded-lg">
-                        <button type="button" onClick={handleAddGroup} className='w-full text-black py-3 p font-bold'>Добавить группу</button>
+                        <button
+                            type="button"
+                            onClick={handleAddGroup}
+                            className="w-full text-black py-3 p font-bold"
+                        >
+                            Добавить группу
+                        </button>
                         {state.groups.map((group) => (
                             <CreateGroupForm
                                 regime={regime}
@@ -88,22 +100,18 @@ const CreateStageForm = ({
                                 pickModerator={pickModerator}
                                 removeModerator={removeModerator}
                                 onChangeParticipants={onChangeParticipants}
-                                onChangeReserveParticipants={onChangeReserveParticipants}
-                                onChangePaidParticipants={onChangePaidParticipants}
+                                onChangeReserveParticipants={
+                                    onChangeReserveParticipants
+                                }
+                                onChangePaidParticipants={
+                                    onChangePaidParticipants
+                                }
                                 deleteGroup={deleteGroup}
-                                /* deleteGroup={() =>
-                                    handleDeleteGroup(
-                                        group,
-                                        stage.id + "-" + group + "-group"
-                                    )
-                                } */
                             />
                         ))}
                     </div>
                 </form>
             </div>
-            
-            
         </section>
     );
 };
