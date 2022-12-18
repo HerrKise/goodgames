@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 import {
     getTeamsLoadingStatus,
-    loadMyTeams
+    loadMyTeams,
+    getTeamsData
 } from "../store/reducers/teamsSlice";
 import {
     getSelectedEventData,
@@ -12,11 +14,14 @@ import {
 
 const ChooseTeamToParticipate = () => {
     const dispatch = useDispatch();
-    const isLoading =
-        useSelector(getTeamsLoadingStatus()) &&
-        useSelector(getEventsLoadingStatus());
+    const isLoadingTeams = useSelector(getTeamsLoadingStatus());
     const event = useSelector(getSelectedEventData());
-    const myTeamsList = useDispatch(loadMyTeams());
+    const myTeamsList = useSelector(getTeamsData());
+    useEffect(() => {
+        dispatch(loadMyTeams());
+    }, []);
+
+    console.log(myTeamsList);
 
     const handlePickTeam = (teamId) => {
         dispatch(
@@ -29,7 +34,7 @@ const ChooseTeamToParticipate = () => {
     };
     return (
         <>
-            {!isLoading && myTeamsList && (
+            {!isLoadingTeams && myTeamsList && (
                 <section>
                     <h1>Выберете команду для участия: </h1>
                     {myTeamsList.map((team) => (
@@ -37,12 +42,12 @@ const ChooseTeamToParticipate = () => {
                             <h1>
                                 {team.tag}: {team.title}
                             </h1>
-                            <img src={team.logo.path} />
+                            {/* <img src={team.logo.path} /> */}
                             <button
                                 onClick={() => handlePickTeam(team.id)}
-                                disabled={event.paticipants.includes(
+                                /* disabled={event.paticipants.includes(
                                     (participant) => participant.id === team.id
-                                )}
+                                )} */
                             >
                                 Отправить заявку
                             </button>
