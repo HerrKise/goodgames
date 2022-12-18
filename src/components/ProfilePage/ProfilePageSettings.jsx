@@ -133,6 +133,9 @@ export const ProfilePageSettings = () => {
                 confirmNewPassword: confirmNewPassword
             })
         );
+        setPassword("")
+        setNewPassword("")
+        setConfirmNewPassword("")
     };
 
     return isLoading ? (
@@ -167,12 +170,14 @@ export const ProfilePageSettings = () => {
                         <label htmlFor="avatar" >Изменить аватар профиля</label>
                     </div>
                     <input type="text" placeholder="Имя пользователя" 
+                        required
                         value={"" || name}
                         onChange={handleNameChange}
                         className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
                     />
                     <input type="email" placeholder="Ваш email" 
                         value={"" || email}
+                        required
                         onChange={handleEmailChange}
                         className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
                     />
@@ -193,11 +198,13 @@ export const ProfilePageSettings = () => {
                     />
                     <h3 className="text-base">PUBG</h3>
                     <input type="text" placeholder="Ник в PUBG"
+                        required
                         value={"" || nickname}
                         onChange={handleNicknameChange}
                         className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
                     />
                     <input type="text" placeholder="ID в PUBG"
+                        required
                         value={"" || pubgId}
                         onChange={handlePubgIdChange}
                         className="bg-[#26262633] w-full py-4 px-7 rounded-lg"

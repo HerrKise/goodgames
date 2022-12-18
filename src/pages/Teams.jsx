@@ -29,6 +29,7 @@ import localStorageService from "../services/localStorage.service";
 
 const Teams = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const user = useSelector(getUserProfileData());
 
     const userId = localStorageService.getUserId();
@@ -46,9 +47,9 @@ const Teams = () => {
     const [img, setImg] = useState("");
     const [invCode, setInvCode] = useState("");
 
-    const changeCode = (e) => {
-        setInvCode(e.target.value);
-    };
+    // const changeCode = (e) => {
+    //     setInvCode(e.target.value);
+    // };
 
     const changeName = (e) => {
         setName(e.target.value);
@@ -58,13 +59,21 @@ const Teams = () => {
         setTag(e.target.value);
     };
 
-    const navigateToTeamPage = () => {
-        dispatch(loadTeamByCode(invCode));
-    };
+    // const navigateToTeamPage = () => {
+    //     dispatch(loadTeamByCode(invCode));
+    // };
 
     const handlePicUpload = (e) => {
         e.preventDefault();
         setImg(e.target.files[0]);
+    };
+
+    const changeCode = (e) => {
+        setInvCode(e.target.value);
+    };
+
+    const navigateToTeamPage = () => {
+        dispatch(loadTeamByCode(invCode, navigate));
     };
 
     const handleSubmit = (e) => {
@@ -114,6 +123,10 @@ const Teams = () => {
             });
         }
     }, [teammates]);
+
+    const refreshTeamsData = () => {
+        dispatch(loadMyTeams())
+    }
 
     return (
         <div className="bg-darkgrey min-h-[100vh]">
@@ -178,13 +191,13 @@ const Teams = () => {
                                                               .nickname
                                                       }
                                                   </p>
-                                                  <p>
+                                                  {/* <p>
                                                       Киллы:{" "}
                                                       {
                                                           teammate.user
                                                               .statistic.kills
                                                       }
-                                                  </p>
+                                                  </p> */}
                                               </li>
                                           );
                                       })
@@ -262,6 +275,21 @@ const Teams = () => {
                                     user={user}
                                 />
                             );
+
+                // <div className="w-full bg-[#26262633] rounded-lg relative">
+                //     <input type="text" placeholder="Вставьте код приглашения" value={invCode} onChange={changeCode} className="bg-[#26262633] w-full py-4 px-7 rounded-lg"/>
+                //     <button onClick={navigateToTeamPage} className="bg-grey absolute p-4 rounded-r-lg right-0">
+                //         <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                //             <path d="M4.37671 18.476H16.6267C17.5918 18.476 18.3767 17.6911 18.3767 16.726V4.47595C18.3767 3.51083 17.5918 2.72595 16.6267 2.72595H4.37671C3.41158 2.72595 2.62671 3.51083 2.62671 4.47595V9.72683H8.74996V6.22595L14 10.601L8.74996 14.976V11.4768H2.62671V16.726C2.62671 17.6911 3.41158 18.476 4.37671 18.476Z" fill="white"/>
+                //         </svg>
+                //     </button>
+                // </div>
+                // {myTeams
+                //     ? <ul className="flex flex-wrap gap-5">
+                //         {myTeams.map((team, i) => {
+                //             return(
+                //                 <ProFileTeamsItem team={team} i={i} user={user} refreshTeamsData={refreshTeamsData}/>
+                //             )
                         })}
                     </ul>
                 ) : (

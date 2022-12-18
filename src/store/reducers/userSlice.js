@@ -169,6 +169,7 @@ export const updatePassword = (payload) => async (dispatch) => {
     try {
         const data = await userService.updatePassword(payload);
         dispatch(updatePasswordSuccess());
+        toast.success("Profile was successfully updated");
     } catch (e) {
         console.log(e);
         dispatch(updatePasswordFailed());
