@@ -266,35 +266,44 @@ const CreateGroupForm = ({
                     </select>
                     {state.groupStart !== "" && (
                         <>
-                            <p>Время открытия подтверждения участия</p>
-                            <input
-                                name="confirmationTimeStart"
-                                type="datetime-local"
-                                value={moment(
-                                    state.confirmationTimeStart
-                                ).format("YYYY-MM-DDTHH:mm")}
-                                onChange={handleTimeGroupChange}
-                            />
-                            <p>Время дедлайна для подтверждения участия</p>
-                            <input
-                                name="confirmationTimeEnd"
-                                type="datetime-local"
-                                value={moment(state.confirmationTimeEnd).format(
-                                    "YYYY-MM-DDTHH:mm"
-                                )}
-                                onChange={handleTimeGroupChange}
-                            />
-                            <p>
-                                Время дедлайна для подтверждения участия резерва
-                            </p>
-                            <input
-                                name="reserveConfirmationTimeEnd"
-                                type="datetime-local"
-                                value={moment(
-                                    state.reserveConfirmationTimeEnd
-                                ).format("YYYY-MM-DDTHH:mm")}
-                                onChange={handleTimeGroupChange}
-                            />
+                            <div className="flex items-center justify-between border-b-[1px] border-white/20 py-2 space-x-4">
+                                <p  className="p w-28">Начало подтверждения участия</p>
+                                <input
+                                    name="confirmationTimeStart"
+                                    type="datetime-local"
+                                    value={moment(
+                                        state.confirmationTimeStart
+                                    ).format("YYYY-MM-DDTHH:mm")}
+                                    onChange={handleTimeGroupChange}
+                                    className="bg-darkgrey w-[160px] p-2 p rounded-lg"
+                                />
+                            </div>
+                            <div className="flex items-center justify-between border-b-[1px] border-white/20 py-2 space-x-4">
+                                <p className="p w-28">Конец подтверждения участия</p>
+                                <input
+                                    name="confirmationTimeEnd"
+                                    type="datetime-local"
+                                    value={moment(state.confirmationTimeEnd).format(
+                                        "YYYY-MM-DDTHH:mm"
+                                    )}
+                                    onChange={handleTimeGroupChange}
+                                    className="bg-darkgrey w-[160px] p-2 p rounded-lg"
+                                />
+                            </div>
+                            <div className="flex items-center justify-between py-2 space-x-4">
+                                <p className="p w-28">
+                                    Начало подтверждения резерва
+                                </p>
+                                <input
+                                    name="reserveConfirmationTimeEnd"
+                                    type="datetime-local"
+                                    value={moment(
+                                        state.reserveConfirmationTimeEnd
+                                    ).format("YYYY-MM-DDTHH:mm")}
+                                    onChange={handleTimeGroupChange}
+                                    className="bg-darkgrey p-2 p rounded-lg w-[160px]"
+                                />
+                            </div>
                         </>
                     )}
                 <div>

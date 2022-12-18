@@ -8,28 +8,7 @@ import { useState } from "react";
 
 export const GamesTabs = ({ setPopupVisible, events }) => {
   const [activeTab, setActiveTab] = useState("tournaments");
-  // const tournaments = [
-  //     {
-  //         title: "PUBG Mobile Club Open Fall Splint 2022 CIS",
-  //         partner: "Tencent & Krafton",
-  //         time: "18:00",
-  //         date: "10 августа 2022",
-  //         prizeFund: "1 830 000 ₽",
-  //         currentPlayers: "678",
-  //         totalPlayers: "2048",
-  //         free: false
-  //     },
-  //     {
-  //         title: "PUBG Mobile Club Open Fall Splint 2022 CIS",
-  //         partner: "Tencent & Krafton",
-  //         time: "18:00",
-  //         date: "10 августа 2022",
-  //         prizeFund: "1 830 000 ₽",
-  //         currentPlayers: "678",
-  //         totalPlayers: "2048",
-  //         free: true
-  //     }
-  // ]
+  
   return (
     <div>
       <ul className="flex w-full flex-row items-center justify-between py-[13px] text-center text-xs font-bold rounded-xl overflow-clip bg-grey relative cursor-pointer">
@@ -113,7 +92,7 @@ export const GamesTabs = ({ setPopupVisible, events }) => {
         </button>
       </ul>
 
-      <div className=" w-full aspect-square grid place-items-center">
+      {/* <div className=" w-full aspect-square grid place-items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -127,7 +106,7 @@ export const GamesTabs = ({ setPopupVisible, events }) => {
             clipRule="evenodd"
           />
         </svg>
-      </div>
+      </div> */}
       <div className="">
         {activeTab === "mini-tournaments" && (
           <Tournaments

@@ -804,7 +804,7 @@ const CreateEventForm = () => {
                                     </button>
                                 </div>
                                 <Collapse isOpened={isPrizesOpen}>
-                                    {eventSettings.prize.placementPrize.map(
+                                    {/* {eventSettings.prize.placementPrize.map(
                                         (place) => (
                                             <div key={place.number} className="flex items-center border-b-[1px] border-white/20 py-2 justify-between space-x-4">
                                                 <label htmlFor={place.number} className="p w-28">Приз за {place.number} место</label>
@@ -821,7 +821,7 @@ const CreateEventForm = () => {
                                                 />
                                             </div>
                                         )
-                                    )}
+                                    )} */}
                                 </Collapse>
                             </div>
                 </form>
