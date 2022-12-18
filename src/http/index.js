@@ -5,8 +5,8 @@ import localStorageService from "../services/localStorage.service";
 import staffService from "../services/staff.service";
 import { getIsStaff } from "../store/reducers/staffSlice";
 
-export const API_URL = "http://176.99.11.245/api/";
-export const IMG_URL = "http://176.99.11.245/";
+export const API_URL = "https://dev.gg.org.ru/api/";
+export const IMG_URL = "https://dev.gg.org.ru/";
 
 console.log("http init");
 
