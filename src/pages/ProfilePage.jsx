@@ -16,30 +16,32 @@ import { useEffect } from "react";
 import { API_URL } from "../http/index";
 
 export const ProfilePage = () => {
+    /* const user = null; */
     const userId = localStorageService.getUserId();
     console.log(userId);
     const dispatch = useDispatch();
     const user = useSelector(getUserProfileData());
-
     const isLoading = useSelector(getUserLoadingStatus());
     console.log(isLoading);
 
-    useEffect(() => {
-        if (userId) {
-            console.log("setset");
-            dispatch(loadUserProfile({ userId: userId }));
-        }
-    }, []);
+    /* useEffect(() => {
+        console.log("rerender");
+    }, [isLoading]); */
 
     const handleLogOut = () => {
         dispatch(userLogout());
     };
+    if (!isLoading && user) {
+        console.log(!isLoading, user);
+    }
 
     return (
         <div className="bg-darkgrey min-h-[100vh]">
             <Header />
             <main className="text-white pb-20">
-                <ProfilePromo user={user} isLoading={isLoading} />
+                {!isLoading && user && (
+                    <ProfilePromo user={user.profile} isLoading={isLoading} />
+                )}
                 <ul className="wrap space-y-3">
                     {/* <li className={user.premium ? "bg-yellow text-darkgrey w-full rounded-xl p-4" : "bg-[#262626] w-full rounded-xl p-4"}>
                         <Link className="flex items-center justify-between">

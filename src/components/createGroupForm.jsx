@@ -163,142 +163,140 @@ const CreateGroupForm = ({
 
     return (
         <section className="bg-darkgrey p-2 rounded-b-lg">
-            <form
-                 className="space-y-3"
-                onSubmit={handleSubmit}
-            >
+            <form className="space-y-3" onSubmit={handleSubmit}>
+                <input
+                    name="name"
+                    type="text"
+                    placeholder="Название группы"
+                    value={state.name}
+                    onChange={handleGroupChange}
+                    className="bg-grey w-full p-3 p rounded-lg"
+                />
+                <div className="flex items-center justify-between border-b-[1px] border-white/20 pb-2 space-x-4">
+                    <label className="p w-28">Время начала группы</label>
                     <input
-                        name="name"
-                        type="text"
-                        placeholder="Название группы"
-                        value={state.name}
-                        onChange={handleGroupChange}
-                        className="bg-grey w-full p-3 p rounded-lg"
-                    />
+                        type="datetime-local"
+                        name="groupStart"
+                        onChange={handleTimeGroupChange}
+                        value={moment(state.groupStart).format(
+                            "YYYY-MM-DDTHH:mm"
+                        )}
+                        className="bg-grey w-[160px] p-2 p rounded-lg"
+                    ></input>
+                </div>
+
+                <p className="p">Данные лобби</p>
+                <input
+                    name="lobbyId"
+                    placeholder="ID лобби"
+                    value={state.lobbyId}
+                    onChange={handleGroupChange}
+                    className="bg-grey w-full p-3 p rounded-lg"
+                />
+                <input
+                    name="lobbyPassword"
+                    placeholder="Пароль лобби"
+                    value={state.lobbyPassword}
+                    onChange={handleGroupChange}
+                    className="bg-grey w-full p-3 p rounded-lg"
+                />
+                {eventType !== "" && (
                     <div className="flex items-center justify-between border-b-[1px] border-white/20 pb-2 space-x-4">
-                        <label className="p w-28">Время начала группы</label>
+                        <label className="p w-28">Слоты в группе</label>
                         <input
+                            name="slotsQuantity"
+                            type="number"
+                            value={state.slotsQuantity}
+                            onChange={handleGroupChange}
+                            className="bg-grey w-[160px] p-2 p rounded-lg"
+                        />
+                    </div>
+                )}
+                {eventType !== "miniTournament" && eventType !== "" && (
+                    <div className="flex items-center justify-between border-b-[1px] border-white/20 pb-2 space-x-4">
+                        <label className="p w-28">Резервные слоты</label>
+                        <input
+                            name="reserveSlotsQuantity"
+                            type="number"
+                            value={state.reserveSlotsQuantity}
+                            onChange={handleGroupChange}
+                            className="bg-grey w-[160px] p-2 p rounded-lg"
+                        />
+                    </div>
+                )}
+                {eventType === "practice" && eventType !== "" && (
+                    <>
+                        <div className="flex items-center justify-between border-b-[1px] border-white/20 pb-2 space-x-4">
+                            <label className="p w-28">
+                                Количество платных слотов
+                            </label>
+                            <input
+                                name="paidSlots"
+                                type="number"
+                                value={state.paidSlots}
+                                onChange={handleGroupChange}
+                                className="bg-grey w-[160px] p-2 p rounded-lg"
+                            />
+                        </div>
+                        <div className="flex items-center justify-between border-b-[1px] border-white/20 pb-2 space-x-4">
+                            <label className="p w-28">
+                                Стоимость платного слота
+                            </label>
+                            <input
+                                name="slotPrice"
+                                type="number"
+                                value={state.slotPrice}
+                                onChange={handleGroupChange}
+                                className="bg-grey w-[160px] p-2 p rounded-lg"
+                            />
+                        </div>
+                    </>
+                )}
+                <select
+                    name="map"
+                    value={state.map}
+                    onChange={handleGroupChange}
+                    className="bg-grey w-full p-2 rounded-lg p"
+                >
+                    <option value="" disabled>
+                        Выберите карту
+                    </option>
+                    <option value="Erangel">Эрангель</option>
+                    <option value="Sanhok">Санук</option>
+                    <option value="Miramar">Мирамар</option>
+                </select>
+                {state.groupStart !== "" && (
+                    <>
+                        <p>Время открытия подтверждения участия</p>
+                        <input
+                            name="confirmationTimeStart"
                             type="datetime-local"
-                            name="groupStart"
-                            onChange={handleTimeGroupChange}
-                            value={moment(state.groupStart).format(
+                            value={moment(state.confirmationTimeStart).format(
                                 "YYYY-MM-DDTHH:mm"
                             )}
-                            className="bg-grey w-[160px] p-2 p rounded-lg"
-                        ></input>
-                    </div>
-                    
-                    <p className="p">Данные лобби</p>
-                    <input
-                        name="lobbyId"
-                        placeholder="ID лобби"
-                        value={state.lobbyId}
-                        onChange={handleGroupChange}
-                        className="bg-grey w-full p-3 p rounded-lg"
-                    />
-                    <input
-                        name="lobbyPassword"
-                        placeholder="Пароль лобби"
-                        value={state.lobbyPassword}
-                        onChange={handleGroupChange}
-                        className="bg-grey w-full p-3 p rounded-lg"
-                    />
-                    {eventType !== "" && (
-                        <div className="flex items-center justify-between border-b-[1px] border-white/20 pb-2 space-x-4">
-                            <label className="p w-28">Слоты в группе</label>
-                            <input
-                                name="slotsQuantity"
-                                type="number"
-                                value={state.slotsQuantity}
-                                onChange={handleGroupChange}
-                                className="bg-grey w-[160px] p-2 p rounded-lg"
-                            />
-                        </div>
-                    )}
-                    {eventType !== "miniTournament" && eventType !== "" && (
-                        <div className="flex items-center justify-between border-b-[1px] border-white/20 pb-2 space-x-4">
-                            <label className="p w-28">Резервные слоты</label>
-                            <input
-                                name="reserveSlotsQuantity"
-                                type="number"
-                                value={state.reserveSlotsQuantity}
-                                onChange={handleGroupChange}
-                                className="bg-grey w-[160px] p-2 p rounded-lg"
-                            />
-                        </div>
-                    )}
-                    {eventType === "practice" && eventType !== "" && (
-                        <>
-                            <div className="flex items-center justify-between border-b-[1px] border-white/20 pb-2 space-x-4">
-                                <label className="p w-28">Количество платных слотов</label>
-                                <input
-                                    name="paidSlots"
-                                    type="number"
-                                    value={state.paidSlots}
-                                    onChange={handleGroupChange}
-                                    className="bg-grey w-[160px] p-2 p rounded-lg"
-                                />
-                            </div>
-                            <div className="flex items-center justify-between border-b-[1px] border-white/20 pb-2 space-x-4">
-                                <label className="p w-28">Стоимость платного слота</label>
-                                <input
-                                    name="slotPrice"
-                                    type="number"
-                                    value={state.slotPrice}
-                                    onChange={handleGroupChange}
-                                    className="bg-grey w-[160px] p-2 p rounded-lg"
-                                />
-                            </div>
-                        </>
-                    )}
-                    <select
-                        name="map"
-                        value={state.map}
-                        onChange={handleGroupChange}
-                        className="bg-grey w-full p-2 rounded-lg p"
-                    >
-                        <option value="" disabled>
-                            Выберите карту
-                        </option>
-                        <option value="Erangel">Эрангель</option>
-                        <option value="Sanhok">Санук</option>
-                        <option value="Miramar">Мирамар</option>
-                    </select>
-                    {state.groupStart !== "" && (
-                        <>
-                            <p>Время открытия подтверждения участия</p>
-                            <input
-                                name="confirmationTimeStart"
-                                type="datetime-local"
-                                value={moment(
-                                    state.confirmationTimeStart
-                                ).format("YYYY-MM-DDTHH:mm")}
-                                onChange={handleTimeGroupChange}
-                            />
-                            <p>Время дедлайна для подтверждения участия</p>
-                            <input
-                                name="confirmationTimeEnd"
-                                type="datetime-local"
-                                value={moment(state.confirmationTimeEnd).format(
-                                    "YYYY-MM-DDTHH:mm"
-                                )}
-                                onChange={handleTimeGroupChange}
-                            />
-                            <p>
-                                Время дедлайна для подтверждения участия резерва
-                            </p>
-                            <input
-                                name="reserveConfirmationTimeEnd"
-                                type="datetime-local"
-                                value={moment(
-                                    state.reserveConfirmationTimeEnd
-                                ).format("YYYY-MM-DDTHH:mm")}
-                                onChange={handleTimeGroupChange}
-                            />
-                        </>
-                    )}
+                            onChange={handleTimeGroupChange}
+                        />
+                        <p>Время дедлайна для подтверждения участия</p>
+                        <input
+                            name="confirmationTimeEnd"
+                            type="datetime-local"
+                            value={moment(state.confirmationTimeEnd).format(
+                                "YYYY-MM-DDTHH:mm"
+                            )}
+                            onChange={handleTimeGroupChange}
+                        />
+                        <p>Время дедлайна для подтверждения участия резерва</p>
+                        <input
+                            name="reserveConfirmationTimeEnd"
+                            type="datetime-local"
+                            value={moment(
+                                state.reserveConfirmationTimeEnd
+                            ).format("YYYY-MM-DDTHH:mm")}
+                            onChange={handleTimeGroupChange}
+                        />
+                    </>
+                )}
                 <div>
-                    
                     {!isLoading && (
                         <>
                             <p className="text-[16px]">Назначить модераторов</p>
@@ -310,13 +308,17 @@ const CreateGroupForm = ({
                                     >
                                         <div className="grid grid-cols-2">
                                             <p className="p">Никнейм:</p>
-                                            <p className="p">Роль:{" "}</p>
-                                            <p className="text-[16px]">{moder.nickname}</p>
-                                            <p className="text-[16px]">{moder.role}</p>
+                                            <p className="p">Роль: </p>
+                                            <p className="text-[16px]">
+                                                {moder.nickname}
+                                            </p>
+                                            <p className="text-[16px]">
+                                                {moder.role}
+                                            </p>
                                         </div>
                                         <div className="flex items-center justify-between space-x-4 mt-2">
                                             <button
-                                                className='w-full rounded-lg bg-yellow text-darkgrey text-xs py-2 font-bold'
+                                                className="w-full rounded-lg bg-yellow text-darkgrey text-xs py-2 font-bold"
                                                 onClick={(e) =>
                                                     handleModeratorsPick(e, {
                                                         employeeId: moder.id
@@ -326,7 +328,7 @@ const CreateGroupForm = ({
                                                 Назначить
                                             </button>
                                             <button
-                                                className='w-full rounded-lg bg-grey text-white text-xs py-2 font-bold'
+                                                className="w-full rounded-lg bg-grey text-white text-xs py-2 font-bold"
                                                 onClick={(e) =>
                                                     handleModeratorsRemove(e, {
                                                         employeeId: moder.id
@@ -342,20 +344,28 @@ const CreateGroupForm = ({
                         </>
                     )}
                     <div>
-                        <p className="text-[16px] pt-2">Список назначенных модераторов:</p>
+                        <p className="text-[16px] pt-2">
+                            Список назначенных модераторов:
+                        </p>
                         <ul className="grid grid-cols-2 py-2 border-b-[1px] border-white/20 space-y-1">
                             <p className="p">Никнейм</p>
                             <p className="p text-end">Роль</p>
                             {moderatorsList.map((moder) => (
                                 <>
                                     <p className="text-sm">{moder.nickname}</p>
-                                    <p className="text-sm text-end">{moder.role}</p>
+                                    <p className="text-sm text-end">
+                                        {moder.role}
+                                    </p>
                                 </>
                             ))}
                         </ul>
                     </div>
                 </div>
-                <button type="button" onClick={handleDelete} className='w-full rounded-lg bg-grey text-sm py-2 font-bold'>
+                <button
+                    type="button"
+                    onClick={handleDelete}
+                    className="w-full rounded-lg bg-grey text-sm py-2 font-bold"
+                >
                     Удалить группу
                 </button>
             </form>
