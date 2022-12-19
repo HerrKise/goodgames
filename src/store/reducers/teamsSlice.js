@@ -148,7 +148,6 @@ const leaveTeamsRequested = createAction("teams/leaveTeamsRequested");
 const leaveTeamsFailed = createAction("teams/leaveTeamsFailed");
 const leaveTeamsSuccess = createAction("teams/leaveTeamsSuccess");
 
-
 export const loadMyTeams = (payload) => async (dispatch) => {
     dispatch(teamsRequested());
     try {
@@ -251,16 +250,6 @@ export const loadManagerCode = (payload) => async (dispatch) => {
         dispatch(getManagerCodeFailed(e));
     }
 };
-
-// export const loadMyTeams = () => async (dispatch) => {
-//     dispatch(teamsRequested());
-//     try {
-//         const data = await teamService.getMyTeamsList();
-//         dispatch(teamsReceived(data));
-//     } catch (e) {
-//         dispatch(teamsRequestFailed(e));
-//     }
-// };
 
 export const loadTeamByID = (payload) => async (dispatch) => {
     dispatch(teamsRequestedById());
