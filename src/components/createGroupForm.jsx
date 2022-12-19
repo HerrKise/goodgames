@@ -61,17 +61,23 @@ const CreateGroupForm = ({
 
     useEffect(() => {
         refreshPaidSlotsQuantity();
+        refreshSlotsQuantity();
     }, [state.paidSlots]);
 
     useEffect(() => {
         refreshReserveSlotsQuantity();
-    }, [state.slotsQuantity, state.reserveSlotsQuantity]);
+        refreshPaidSlotsQuantity();
+        refreshSlotsQuantity();
+    }, [state.reserveSlotsQuantity]);
 
     function refreshSlotsQuantity() {
         let participantsArray = [];
         for (let i = 1; i <= Number(state.slotsQuantity); i++) {
             participantsArray.push({
-                slotId: i,
+                slotId:
+                    Number(state.paidSlots) +
+                    Number(state.reserveSlotsQuantity) +
+                    i,
                 participantId: "",
                 participantName: "",
                 participantPicture: "",
@@ -86,7 +92,7 @@ const CreateGroupForm = ({
             let participantsArray = [];
             for (let i = 1; i <= Number(state.paidSlots); i++) {
                 participantsArray.push({
-                    slotId: i,
+                    slotId: Number(state.reserveSlotsQuantity) + i,
                     participantId: "",
                     participantName: "",
                     participantPicture: "",
@@ -101,7 +107,7 @@ const CreateGroupForm = ({
         let participantsArray = [];
         for (let i = 1; i <= Number(state.reserveSlotsQuantity); i++) {
             participantsArray.push({
-                slotId: Number(state.slotsQuantity) + i,
+                slotId: i,
                 participantId: "",
                 participantName: "",
                 participantPicture: "",
@@ -200,18 +206,6 @@ const CreateGroupForm = ({
                     onChange={handleGroupChange}
                     className="bg-grey w-full p-3 p rounded-lg"
                 />
-                {eventType !== "" && (
-                    <div className="flex items-center justify-between border-b-[1px] border-white/20 pb-2 space-x-4">
-                        <label className="p w-28">Слоты в группе</label>
-                        <input
-                            name="slotsQuantity"
-                            type="number"
-                            value={state.slotsQuantity}
-                            onChange={handleGroupChange}
-                            className="bg-grey w-[160px] p-2 p rounded-lg"
-                        />
-                    </div>
-                )}
                 {eventType !== "miniTournament" && eventType !== "" && (
                     <div className="flex items-center justify-between border-b-[1px] border-white/20 pb-2 space-x-4">
                         <label className="p w-28">Резервные слоты</label>
@@ -252,6 +246,19 @@ const CreateGroupForm = ({
                         </div>
                     </>
                 )}
+                {eventType !== "" && (
+                    <div className="flex items-center justify-between border-b-[1px] border-white/20 pb-2 space-x-4">
+                        <label className="p w-28">Слоты в группе</label>
+                        <input
+                            name="slotsQuantity"
+                            type="number"
+                            value={state.slotsQuantity}
+                            onChange={handleGroupChange}
+                            className="bg-grey w-[160px] p-2 p rounded-lg"
+                        />
+                    </div>
+                )}
+
                 <select
                     name="map"
                     value={state.map}

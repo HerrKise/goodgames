@@ -78,7 +78,7 @@ export const create = (payload) => async (dispatch) => {
 export const update = (payload) => async (dispatch) => {
     dispatch(eventUpdateRequested());
     try {
-        const data = await eventService.create(payload);
+        const data = await eventService.update(payload);
         dispatch(eventUpdateSuccess());
     } catch (e) {
         dispatch(eventUpdateFailed());
