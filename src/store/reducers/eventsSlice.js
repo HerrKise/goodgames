@@ -112,7 +112,9 @@ export const getSelectedEvent =
         try {
             const data = await eventService.getById(id);
             dispatch(eventReceivedById(data));
-            navigate();
+            if (navigate) {
+                navigate();
+            }
         } catch (e) {
             dispatch(eventRequestByIdFailed(e));
         }

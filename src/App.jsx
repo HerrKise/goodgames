@@ -138,7 +138,7 @@ function App() {
                 <Route path="/tournamentlist" element={<TournamentList />} />
                 <Route path="/matchespage" element={<MatchesPage />} />
                 <Route
-                    path="/choose-stage-group/:eventId/:stageId"
+                    path="/choose-stage-group/:eventId/:stageId/:participantId"
                     element={<ChooseStageGroupParticipation />}
                 />
             </Routes>

@@ -1,17 +1,8 @@
 import { Collapse } from "react-collapse";
 import { useCallback } from "react";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router";
-import { useDispatch } from "react-redux";
-import { getSelectedEvent } from "../store/reducers/eventsSlice";
+import { useState } from "react";
 
 export const ChooseGroupSlotsParticipation = ({ group, i }) => {
-    const { eventId, stageId } = useParams();
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getSelectedEvent(eventId));
-    }, []);
-
     const [isSlotsOpen, setIsSlotsOpen] = useState(false);
 
     const openSlots = useCallback(
