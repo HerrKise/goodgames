@@ -35,6 +35,7 @@ const Editor = () => {
     };
 
     const handleUrlGet = (e) => {
+        console.log("postpicccccc", postPic);
         e.preventDefault();
         if (postPic.length !== 0) {
             let formData = new FormData();
