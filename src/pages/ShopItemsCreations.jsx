@@ -3,6 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { createProduct } from "../store/reducers/shopSlice";
 
+import { NavLink } from "react-router-dom";
+
+import logopic from "../assets/Main/logo.png";
+
 const ShopItemsCreation = () => {
     const [value, setValue] = React.useState("**Hello world!!!**");
     const [title, setTitle] = useState("");
@@ -43,50 +47,70 @@ const ShopItemsCreation = () => {
     };
 
     return (
-        <section className="bg-gray-400 w-[100%] min-h-[100vh]">
-            <div className="w-[1240px] flex flex-col items-center justify-center mx-auto">
-                <div className="container">
-                    <p>Создание товара</p>
+        <section className="bg-darkgrey min-h-[100vh]">
+            <NavLink className="w-full flex items-center justify-center fixed top-0 bg-darkgrey pt-12 pb-3 z-50" to="/">
+                <img src={logopic} alt="logopic" className="w-[132px]"/>
+            </NavLink>
+            <main className="wrap pt-28 text-white pb-20">
+                <h1 className="h1">Создание товара</h1>
+                <div className="space-y-3 p-4 bg-grey rounded-lg my-5">
+                    
                     <MDEditor value={value} onChange={setValue} />
                     <MDEditor.Markdown
                         source={value}
                         style={{ whiteSpace: "pre-wrap" }}
                     />
                     <select
-                        className="w-[400px] text-black"
                         onChange={(e) => {
                             setTag(e.target.value);
                         }}
+                        className="bg-darkgrey w-full p-3 rounded-lg p"
                     >
                         <option>Выберите тип поста</option>
                         <option value="Product">Product</option>
                         <option value="Merch">Merch</option>
                     </select>
-                    <p>Title</p>
-                    <input type="text" onChange={changeTitle} value={title} />
-                    <p>Specifications</p>
+                    <input 
+                        type="text" 
+                        onChange={changeTitle} 
+                        value={title} 
+                        placeholder="Название товара" 
+                        className="bg-darkgrey w-full p-3 rounded-lg p"
+                    />
                     <input
                         type="text"
                         onChange={changeSpecifications}
                         value={specifications}
+                        placeholder="Описание товара" 
+                        className="bg-darkgrey w-full p-3 rounded-lg p"
                     />
-                    <p>Amount</p>
-                    <input
-                        type="number"
-                        onChange={changeAmount}
-                        value={amount}
-                    />
-                    <p>Price</p>
-                    <input type="number" onChange={changePrice} value={price} />
+                    <div className="flex items-center justify-between border-b-[1px] border-white/20 py-3 space-x-4">
+                        <p className="p w-28">Количество</p>
+                        <input
+                            type="number"
+                            onChange={changeAmount}
+                            value={amount}
+                            className="bg-darkgrey w-[160px] p-2 p rounded-lg"
+                        />
+                    </div>
+                    <div className="flex items-center justify-between space-x-4">
+                        <p className="p w-28">Цена</p>
+                        <input 
+                            type="number"
+                            onChange={changePrice} 
+                            value={price}
+                            className="bg-darkgrey w-[160px] p-2 p rounded-lg"
+                        />
+                    </div>
 
                     <button
-                        className="bg-yellow-700 rounded-[5px]"
+                        className='w-full rounded-lg bg-yellow py-4 my-5 text-darkgrey text-sm font-bold'
                         onClick={uploadShopItem}
                     >
                         Создать товар
                     </button>
                 </div>
-            </div>
+            </main>
         </section>
     );
 };

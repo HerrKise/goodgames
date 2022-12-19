@@ -148,11 +148,23 @@ const leaveTeamsRequested = createAction("teams/leaveTeamsRequested");
 const leaveTeamsFailed = createAction("teams/leaveTeamsFailed");
 const leaveTeamsSuccess = createAction("teams/leaveTeamsSuccess");
 
+
+export const loadMyTeams = (payload) => async (dispatch) => {
+    dispatch(teamsRequested());
+    try {
+        const data = await teamService.getMyTeamsList(payload);
+        dispatch(teamsReceived(data));
+    } catch (e) {
+        dispatch(teamsRequestFailed(e));
+    }
+};
+
 export const createTeams = (payload) => async (dispatch) => {
     dispatch(createTeamsRequested());
     try {
         const data = await teamService.create(payload);
         dispatch(createTeamsSuccess());
+        dispatch(loadMyTeams());
     } catch (e) {
         dispatch(createTeamsFailed(e.responce.data.error));
     }
@@ -163,6 +175,7 @@ export const editTeams = (payload) => async (dispatch) => {
     try {
         const data = await teamService.update(payload);
         dispatch(editTeamsSuccess());
+        dispatch(loadMyTeams());
     } catch (e) {
         dispatch(editTeamsFailed(e));
     }
@@ -213,6 +226,7 @@ export const leaveTeams = (payload) => async (dispatch) => {
     try {
         const data = await teamService.leave(payload);
         dispatch(leaveTeamsSuccess());
+        dispatch(loadMyTeams());
     } catch (e) {
         dispatch(leaveTeamsFailed(e));
     }

@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 export const NavBar = () => {
   return (
-    <nav className="fixed bottom-0 z-[100] bg-grey w-screen">
-      <div className="wrap flex flex-row items-center justify-between py-4 px-5">
+    <nav className="fixed bottom-0 z-[100] bg-darkgrey w-screen">
+      <div className="wrap flex flex-row items-center justify-between py-4 px-10">
         <Link
           className="flex flex-col items-center w-10 opacity-60 group hover:opacity-100 duration-300"
           to="/"
@@ -51,7 +51,8 @@ export const NavBar = () => {
         </Link>
         <Link
           className="flex flex-col items-center w-10 opacity-30 duration-300 cursor-default"
-          to="/shop"
+          //   to="/shop"
+          to="/"
         >
           <svg
             width="22"

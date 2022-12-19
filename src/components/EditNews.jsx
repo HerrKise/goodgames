@@ -19,7 +19,7 @@ const EditNews = () => {
     const newsData = useSelector(getNewsData());
     const isLoading = useSelector(getNewsLoadingStatus());
     const [title, setTitle] = useState("");
-    const [type, setType] = useState("");
+    const [type, setType] = useState("News");
 
     const changeTitle = (e) => {
         setTitle(e.target.value);
@@ -96,6 +96,17 @@ const EditNews = () => {
                         className="bg-darkgrey w-full p-3 rounded-lg p"
                     />
                 </div>
+                {/* <select
+                    onChange={(e) => {
+                        setType(e.target.value);
+                    }}
+                    className="bg-darkgrey w-full p-3 rounded-lg p"
+                >
+                    <option value="" disabled>Тип поста</option>
+                    <option>News</option>
+                    <option>Action</option>
+                    <option>Offer</option>
+                </select> */}
                 <MDEditor value={value} onChange={setValue} />
                 <MDEditor.Markdown
                     source={value}
