@@ -137,7 +137,10 @@ function App() {
                 />
                 <Route path="/tournamentlist" element={<TournamentList />} />
                 <Route path="/matchespage" element={<MatchesPage />} />
-                <Route path="/choose-stage-group" element={<ChooseStageGroupParticipation/>}/>
+                <Route
+                    path="/choose-stage-group/:eventId/:stageId"
+                    element={<ChooseStageGroupParticipation />}
+                />
             </Routes>
             <ToastContainer />
         </>

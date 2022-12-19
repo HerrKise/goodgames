@@ -239,6 +239,7 @@ export const resendEmailConfirmation = () => async (dispatch) => {
 };
 
 export const getUserProfileData = () => (state) => state.user.entities;
+export const getUserMatches = () => (state) => state.user.entities.matches;
 export const getUserLoadingStatus = () => (state) => state.user.isLoading;
 export const getIsUserLoggedIn = () => (state) => state.user.isLoggedIn;
 export const getErrors = () => (state) => state.user.error;
