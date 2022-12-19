@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom"
-import { Header } from "../UI/Header"
-import { NavBar } from "../UI/NavBar"
+import { Link } from "react-router-dom";
+import { Header } from "../UI/Header";
+import { NavBar } from "../UI/NavBar";
 
 import localStorageService from "../../services/localStorage.service.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,13 +15,12 @@ import {
 import { NavLink } from "react-router-dom";
 import { API_URL } from "../../http/index.js";
 
-import {updatePassword} from "../../store/reducers/userSlice.js";
+import { updatePassword } from "../../store/reducers/userSlice.js";
 
 export const ProfilePageSettings = () => {
-
     const userId = localStorageService.getUserId();
     const dispatch = useDispatch();
-    const selector = useSelector(getUserProfileData());
+    const selector = useSelector(getUserProfileData())?.profile;
     const isLoading = useSelector(getUserLoadingStatus());
     const [name, changeName] = useState("");
     const [pubgId, changePubgId] = useState("");
@@ -109,7 +108,7 @@ export const ProfilePageSettings = () => {
         }
     };
 
-    //change password 
+    //change password
     const [password, setPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmNewPassword, setConfirmNewPassword] = useState("");
@@ -125,7 +124,7 @@ export const ProfilePageSettings = () => {
     };
 
     const handleChangePassword = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         dispatch(
             updatePassword({
                 currentPassword: password,
@@ -142,32 +141,42 @@ export const ProfilePageSettings = () => {
         ""
     ) : (
         <div className="bg-darkgrey min-h-[100vh]">
-            <Header/>
+            <Header />
             <main className="wrap pt-28 text-white pb-20">
                 <h1 className="h1">Настройки</h1>
-                <form className="pt-5 space-y-[10px]"
-                    onSubmit={handleSubmit}
-                >
+                <form className="pt-5 space-y-[10px]" onSubmit={handleSubmit}>
                     <h3 className="text-base">Основное</h3>
                     <div className="bg-grey w-full py-4 px-7 rounded-lg text-center text-sm font-bold flex flex-col items-center">
                         <div className="w-40 h-40 rounded-full relative overflow-clip mb-3">
-                            {picture ? <img src={picture} alt="userpic" className="absolute top-0 h-full w-full object-center object-cover"/>
-                                :   <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                className="w-full h-auto fill-white animate-pulse"
-                            >
-                                <path
-                                fillRule="evenodd"
-                                d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
-                                clipRule="evenodd"
+                            {picture ? (
+                                <img
+                                    src={picture}
+                                    alt="userpic"
+                                    className="absolute top-0 h-full w-full object-center object-cover"
                                 />
-                            </svg>
-                            }
+                            ) : (
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    className="w-full h-auto fill-white animate-pulse"
+                                >
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                                        clipRule="evenodd"
+                                    />
+                                </svg>
+                            )}
                         </div>
-                        <input type="file" name="avatar" id="avatar" onChange={handlePicUpload} className="hidden" />
-                        <label htmlFor="avatar" >Изменить аватар профиля</label>
+                        <input
+                            type="file"
+                            name="avatar"
+                            id="avatar"
+                            onChange={handlePicUpload}
+                            className="hidden"
+                        />
+                        <label htmlFor="avatar">Изменить аватар профиля</label>
                     </div>
                     <input type="text" placeholder="Имя пользователя" 
                         required
@@ -175,23 +184,31 @@ export const ProfilePageSettings = () => {
                         onChange={handleNameChange}
                         className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
                     />
-                    <input type="email" placeholder="Ваш email" 
+                    <input
+                        type="email"
+                        placeholder="Ваш email"
                         value={"" || email}
                         required
                         onChange={handleEmailChange}
                         className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
                     />
-                    <input type="text" placeholder="Ваш telegram" 
+                    <input
+                        type="text"
+                        placeholder="Ваш telegram"
                         value={"" || tg}
                         onChange={handleTgChange}
                         className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
                     />
-                    <input type="text" placeholder="Ваш YouTube" 
+                    <input
+                        type="text"
+                        placeholder="Ваш YouTube"
                         value={"" || youTube}
                         onChange={handleYouTubeChange}
                         className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
                     />
-                    <input type="text" placeholder="Ваш Discord" 
+                    <input
+                        type="text"
+                        placeholder="Ваш Discord"
                         value={"" || tg}
                         onChange={handleDiscordChange}
                         className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
@@ -209,45 +226,62 @@ export const ProfilePageSettings = () => {
                         onChange={handlePubgIdChange}
                         className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
                     />
-                    <button className='w-full rounded-lg bg-yellow py-4 text-darkgrey text-sm font-bold'>
+                    <button className="w-full rounded-lg bg-yellow py-4 text-darkgrey text-sm font-bold">
                         <span>Изменить настройки профиля</span>
                     </button>
                 </form>
-                <form className="pt-5 space-y-[10px]" onSubmit={handleChangePassword}>
+                <form
+                    className="pt-5 space-y-[10px]"
+                    onSubmit={handleChangePassword}
+                >
                     <h3 className="text-base">Сменить пароль</h3>
-                    <input type="password" placeholder="Старый пароль"
+                    <input
+                        type="password"
+                        placeholder="Старый пароль"
                         value={password}
                         required
                         onChange={changePassword}
                         className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
                     />
-                    <input type="password" placeholder="Новый пароль"
+                    <input
+                        type="password"
+                        placeholder="Новый пароль"
                         required
                         value={newPassword}
                         onChange={changeNewPassword}
                         className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
                     />
-                    <input type="password" placeholder="Подтвердите новый пароль"
+                    <input
+                        type="password"
+                        placeholder="Подтвердите новый пароль"
                         required
                         value={confirmNewPassword}
                         onChange={changeConfirmNewPassword}
                         className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
                     />
-                    <button className='w-full rounded-lg bg-grey py-4 text-sm font-bold'>
+                    <button className="w-full rounded-lg bg-grey py-4 text-sm font-bold">
                         <span>Изменить пароль</span>
                     </button>
                 </form>
                 <h3 className="pt-5 text-base">Верификация аккаунта</h3>
                 <p className="p py-3">
-                    Верификация аккаунта на нашем сервисе нужна для того, чтобы наши пользователи могли пользоваться всеми услугами, которые мы предоставляем. Мы не требуем никаких дополнительных документов от пользователей, но рекомендуем пройти верификацию. Это делается для того, чтобы у нас была возможность работать с вашим аккаунтом, и для вас было безопаснее. Итак, вы прошли верификацию (в случае если вы ее не проходили). Теперь вам нужно будет ввести: 1. Логин, который вы использовали при регистрации на сайте.
+                    Верификация аккаунта на нашем сервисе нужна для того, чтобы
+                    наши пользователи могли пользоваться всеми услугами, которые
+                    мы предоставляем. Мы не требуем никаких дополнительных
+                    документов от пользователей, но рекомендуем пройти
+                    верификацию. Это делается для того, чтобы у нас была
+                    возможность работать с вашим аккаунтом, и для вас было
+                    безопаснее. Итак, вы прошли верификацию (в случае если вы ее
+                    не проходили). Теперь вам нужно будет ввести: 1. Логин,
+                    который вы использовали при регистрации на сайте.
                 </p>
                 <Link>
-                    <button className='w-full rounded-lg bg-grey py-4 text-sm font-bold'>
+                    <button className="w-full rounded-lg bg-grey py-4 text-sm font-bold">
                         <span>Подтвердить аккаунт</span>
                     </button>
                 </Link>
             </main>
-            <NavBar/>
+            <NavBar />
         </div>
-    )
-}
+    );
+};

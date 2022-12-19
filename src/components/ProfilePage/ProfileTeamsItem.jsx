@@ -8,6 +8,7 @@ import EditTeam from "../../components/EditTeam";
 
 import {
     createTeams,
+    deleteTeams,
     getInvitationCode,
     getManagerCodeData,
     getTeamByCode,
@@ -68,6 +69,7 @@ export const ProFileTeamsItem = ({team, user, refreshTeamsData}) => {
 
     const deleteTeam = (teamId) => {
         console.log("удаление команды с id", teamId);
+        dispatch(deleteTeams({ teamId: teamId }));
     };
 
     const leaveTeam = (id) => {

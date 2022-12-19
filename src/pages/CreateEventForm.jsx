@@ -72,7 +72,7 @@ const CreateEventForm = () => {
         if (eventSettings.isPaid === "false") {
             setEventSettings((prevState) => ({
                 ...prevState,
-                entryPrice: 0,
+                entryPrice: 0
             }));
         }
     }, [eventSettings.isPaid]);
@@ -81,7 +81,7 @@ const CreateEventForm = () => {
         if (eventSettings.isQuantityLimited === "false") {
             setEventSettings((prevState) => ({
                 ...prevState,
-                maxQuantity: 10000000,
+                maxQuantity: 10000000
             }));
         }
     }, [eventSettings.isQuantityLimited]);
@@ -97,9 +97,9 @@ const CreateEventForm = () => {
                     stageStart: "",
                     winners: [],
                     participants: [],
-                    groups: [],
-                },
-            ],
+                    groups: []
+                }
+            ]
         }));
     };
 
@@ -109,8 +109,8 @@ const CreateEventForm = () => {
             stages: [
                 ...prevState.stages.filter(
                     (stage) => prevState.stages.indexOf(stage) !== stageIndex
-                ),
-            ],
+                )
+            ]
         }));
     };
 
@@ -141,14 +141,14 @@ const CreateEventForm = () => {
                                     reserveSlotsQuantity: 0,
                                     slotPrice: 0,
                                     lobbyId: "",
-                                    lobbyPassword: "",
-                                },
-                            ],
+                                    lobbyPassword: ""
+                                }
+                            ]
                         };
                     }
                     return stage;
-                }),
-            ],
+                })
+            ]
         }));
     };
 
@@ -165,13 +165,13 @@ const CreateEventForm = () => {
                                     (group) =>
                                         stage.groups.indexOf(group) !==
                                         groupIndex
-                                ),
-                            ],
+                                )
+                            ]
                         };
                     }
                     return stage;
-                }),
-            ],
+                })
+            ]
         }));
     };
 
@@ -184,22 +184,22 @@ const CreateEventForm = () => {
                         return { ...stage, [e.target.name]: e.target.value };
                     }
                     return stage;
-                }),
-            ],
+                })
+            ]
         }));
     };
 
     const handleEventSettingsChange = (e) => {
         setEventSettings((prevState) => ({
             ...prevState,
-            [e.target.name]: e.target.value,
+            [e.target.name]: e.target.value
         }));
     };
 
     const handleDateChange = (e) => {
         setEventSettings((prevState) => ({
             ...prevState,
-            [e.target.name]: moment(e.target.value).toISOString(),
+            [e.target.name]: moment(e.target.value).toISOString()
         }));
     };
 
@@ -213,12 +213,12 @@ const CreateEventForm = () => {
                             ...stage,
                             [e.target.name]: moment(
                                 e.target.value
-                            ).toISOString(),
+                            ).toISOString()
                         };
                     }
                     return stage;
-                }),
-            ],
+                })
+            ]
         }));
     };
 
@@ -243,17 +243,17 @@ const CreateEventForm = () => {
                                             ...group,
                                             [e.target.name]: moment(
                                                 e.target.value
-                                            ).toISOString(),
+                                            ).toISOString()
                                         };
                                     }
                                     return group;
-                                }),
-                            ],
+                                })
+                            ]
                         };
                     }
                     return stage;
-                }),
-            ],
+                })
+            ]
         }));
     };
 
@@ -277,18 +277,18 @@ const CreateEventForm = () => {
                                             ...group,
                                             groupModerators: [
                                                 ...group.groupModerators,
-                                                moderator,
-                                            ],
+                                                moderator
+                                            ]
                                         };
                                     }
                                     return group;
-                                }),
-                            ],
+                                })
+                            ]
                         };
                     }
                     return stage;
-                }),
-            ],
+                })
+            ]
         }));
     };
 
@@ -315,18 +315,18 @@ const CreateEventForm = () => {
                                                     (moder) =>
                                                         moder.employeeId !==
                                                         moderator.employeeId
-                                                ),
-                                            ],
+                                                )
+                                            ]
                                         };
                                     }
                                     return group;
-                                }),
-                            ],
+                                })
+                            ]
                         };
                     }
                     return stage;
-                }),
-            ],
+                })
+            ]
         }));
     };
 
@@ -352,17 +352,17 @@ const CreateEventForm = () => {
                                     ) {
                                         return {
                                             ...group,
-                                            participants: participantsArray,
+                                            participants: participantsArray
                                         };
                                     }
                                     return group;
-                                }),
-                            ],
+                                })
+                            ]
                         };
                     }
                     return stage;
-                }),
-            ],
+                })
+            ]
         }));
     };
 
@@ -389,17 +389,17 @@ const CreateEventForm = () => {
                                         return {
                                             ...group,
                                             reserveParticipants:
-                                                reserveParticipantsArray,
+                                                reserveParticipantsArray
                                         };
                                     }
                                     return group;
-                                }),
-                            ],
+                                })
+                            ]
                         };
                     }
                     return stage;
-                }),
-            ],
+                })
+            ]
         }));
     };
 
@@ -426,17 +426,17 @@ const CreateEventForm = () => {
                                         return {
                                             ...group,
                                             paidParticipants:
-                                                paidParticipantsArray,
+                                                paidParticipantsArray
                                         };
                                     }
                                     return group;
-                                }),
-                            ],
+                                })
+                            ]
                         };
                     }
                     return stage;
-                }),
-            ],
+                })
+            ]
         }));
     };
 
@@ -458,24 +458,24 @@ const CreateEventForm = () => {
                                     ) {
                                         return {
                                             ...group,
-                                            [e.target.name]: e.target.value,
+                                            [e.target.name]: e.target.value
                                         };
                                     }
                                     return group;
-                                }),
-                            ],
+                                })
+                            ]
                         };
                     }
                     return stage;
-                }),
-            ],
+                })
+            ]
         }));
     };
 
     const handlePrizeSettingsChange = (e) => {
         setEventSettings((prevState) => ({
             ...prevState,
-            prize: { ...prevState.prize, [e.target.name]: e.target.value },
+            prize: { ...prevState.prize, [e.target.name]: e.target.value }
         }));
     };
 
@@ -504,9 +504,9 @@ const CreateEventForm = () => {
                             return { ...place, prize: Number(e.target.value) };
                         }
                         return place;
-                    }),
-                ],
-            },
+                    })
+                ]
+            }
         }));
     };
 
@@ -525,21 +525,24 @@ const CreateEventForm = () => {
         dispatch(create(eventSettings));
     };
 
-    const [isPrizesOpen, setIsPrizesOpen] = useState(false)
-    
+    const [isPrizesOpen, setIsPrizesOpen] = useState(false);
+
     const openPrizes = useCallback(
         () => setIsPrizesOpen(!isPrizesOpen),
         [isPrizesOpen]
-    )
+    );
 
     return (
         <section className="bg-darkgrey min-h-[100vh]">
-            <NavLink className="w-full flex items-center justify-center fixed top-0 bg-darkgrey pt-12 pb-3 z-50" to="/">
-                <img src={logopic} alt="logopic" className="w-[132px]"/>
+            <NavLink
+                className="w-full flex items-center justify-center fixed top-0 bg-darkgrey pt-12 pb-3 z-50"
+                to="/"
+            >
+                <img src={logopic} alt="logopic" className="w-[132px]" />
             </NavLink>
-            <main  className="wrap pt-28 text-white pb-20">
+            <main className="wrap pt-28 text-white pb-20">
                 <h1 className="h1">Создание ивента</h1>
-                
+
                 <form className="space-y-3 p-4 bg-grey rounded-lg my-5">
                     <div>
                         <select
@@ -569,31 +572,40 @@ const CreateEventForm = () => {
                     </div>
                     <div className="bg-[#26262633]">
                         <div className="flex items-center justify-between border-b-[1px] border-white/20 py-2 space-x-4">
-                            <label htmlFor="eventStart" className="p w-28">Начало турнира</label>
+                            <label htmlFor="eventStart" className="p w-28">
+                                Начало турнира
+                            </label>
                             <input
                                 type="datetime-local"
                                 name="eventStart"
                                 onChange={handleDateChange}
-                                value={moment(
-                                    eventSettings.eventStart
-                                ).format("YYYY-MM-DDTHH:mm")}
+                                value={moment(eventSettings.eventStart).format(
+                                    "YYYY-MM-DDTHH:mm"
+                                )}
                                 className="bg-darkgrey w-[160px] p-2 p rounded-lg"
                             ></input>
                         </div>
                         <div className="flex items-center justify-between border-b-[1px] border-white/20 py-2 space-x-4">
-                            <label htmlFor="eventEnd" className="p w-28">Окончание турнира</label>
+                            <label htmlFor="eventEnd" className="p w-28">
+                                Окончание турнира
+                            </label>
                             <input
                                 type="datetime-local"
                                 name="eventEnd"
                                 onChange={handleDateChange}
-                                value={moment(
-                                    eventSettings.eventEnd
-                                ).format("YYYY-MM-DDTHH:mm")}
+                                value={moment(eventSettings.eventEnd).format(
+                                    "YYYY-MM-DDTHH:mm"
+                                )}
                                 className="bg-darkgrey w-[160px] p-2 p rounded-lg"
                             ></input>
                         </div>
                         <div className="flex items-center justify-between border-b-[1px] border-white/20 py-2 space-x-4">
-                            <label htmlFor="registrationStart" className="p w-28">Начало регистрации</label>
+                            <label
+                                htmlFor="registrationStart"
+                                className="p w-28"
+                            >
+                                Начало регистрации
+                            </label>
                             <input
                                 type="datetime-local"
                                 name="registrationStart"
@@ -605,7 +617,12 @@ const CreateEventForm = () => {
                             />
                         </div>
                         <div className="flex items-center justify-between py-2 space-x-4">
-                            <label htmlFor="registrationStart" className="p w-28">Окончание регистрации</label>
+                            <label
+                                htmlFor="registrationStart"
+                                className="p w-28"
+                            >
+                                Окончание регистрации
+                            </label>
                             <input
                                 type="datetime-local"
                                 name="registrationEnd"
@@ -618,106 +635,107 @@ const CreateEventForm = () => {
                         </div>
                     </div>
                     <div className="space-y-3">
-                            <div>
-                                <label htmlFor="isPaid" className="p">Есть ли плата за вход</label>
-                                <select
-                                    value={eventSettings.isPaid}
-                                    name="isPaid"
-                                    onChange={handleEventSettingsChange}
-                                    className="bg-darkgrey w-full p-3 rounded-lg p"
-                                >
-                                    <option value="true">Да</option>
-                                    <option value="false">Нет</option>
-                                </select>
-                            </div>
-                                {eventSettings.isPaid === "true" && (
-                                    <div  className="flex items-center justify-between py-2 space-x-4">
-                                        <label htmlFor="registrationStart" className="p w-32">Стоимость входа</label>
-                                        <input
-                                            name="entryPrice"
-                                            type="number"
-                                            value={eventSettings.entryPrice}
-                                            onChange={handleEventSettingsChange}
-                                            className="bg-darkgrey p-2 p rounded-lg w-[160px]"
-                                        />
-                                    </div>
-                                )}
-                                <select
-                                    value={eventSettings.regime}
-                                    name="regime"
-                                    onChange={handleEventSettingsChange}
-                                    className="bg-darkgrey w-full p-3 rounded-lg p"
-                                >
-                                    <option value="" disabled>
-                                        Выберите режим события
-                                    </option>
-                                    <option
-                                        disabled={
-                                            eventSettings.eventType ===
-                                                "tournament" ||
-                                            eventSettings.eventType ===
-                                                "practice"
-                                        }
-                                        value="solo"
-                                    >
-                                        Solo
-                                    </option>
-                                    <option
-                                        disabled={
-                                            eventSettings.eventType ===
-                                            "practice"
-                                        }
-                                        value="duo"
-                                    >
-                                        Duo
-                                    </option>
-                                    <option
-                                        disabled={
-                                            eventSettings.eventType ===
-                                            "miniTournament"
-                                        }
-                                        value="squad"
-                                    >
-                                        Squad
-                                    </option>
-                                </select>
-                                <select
-                                    value={eventSettings.view}
-                                    name="view"
-                                    onChange={handleEventSettingsChange}
-                                    className="bg-darkgrey w-full p-3 rounded-lg p"
-                                >
-                                    <option value="" disabled>
-                                        Выберите режим камеры
-                                    </option>
-                                    <option value="FirstPerson">
-                                        От 1-го лица
-                                    </option>
-                                    <option value="ThirdPerson">
-                                        От 3-го лица
-                                    </option>
-                                </select>
-                                <p className="p">Дополнительные условия участия:</p>
-                                <MDEditor
-                                    value={requirements}
-                                    onChange={setRequirements}
-                                />
-                                <MDEditor.Markdown
-                                    source={requirements}
-                                    style={{ whiteSpace: "pre-wrap" }}
-                                />
-
-                                <p  className="p">Описание:</p>
-                                <MDEditor
-                                    value={description}
-                                    onChange={setDescription}
-                                />
-                                <MDEditor.Markdown
-                                    source={description}
-                                    style={{ whiteSpace: "pre-wrap" }}
-                                />
                         <div>
-                            <label htmlFor="isQuantityLimited" className="p">Есть ли ограничение по кол-ву участников</label>
+                            <label htmlFor="isPaid" className="p">
+                                Есть ли плата за вход
+                            </label>
+                            <select
+                                value={eventSettings.isPaid}
+                                name="isPaid"
+                                onChange={handleEventSettingsChange}
+                                className="bg-darkgrey w-full p-3 rounded-lg p"
+                            >
+                                <option value="true">Да</option>
+                                <option value="false">Нет</option>
+                            </select>
+                        </div>
+                        {eventSettings.isPaid === "true" && (
+                            <div className="flex items-center justify-between py-2 space-x-4">
+                                <label
+                                    htmlFor="registrationStart"
+                                    className="p w-32"
+                                >
+                                    Стоимость входа
+                                </label>
+                                <input
+                                    name="entryPrice"
+                                    type="number"
+                                    value={eventSettings.entryPrice}
+                                    onChange={handleEventSettingsChange}
+                                    className="bg-darkgrey p-2 p rounded-lg w-[160px]"
+                                />
+                            </div>
+                        )}
+                        <select
+                            value={eventSettings.regime}
+                            name="regime"
+                            onChange={handleEventSettingsChange}
+                            className="bg-darkgrey w-full p-3 rounded-lg p"
+                        >
+                            <option value="" disabled>
+                                Выберите режим события
+                            </option>
+                            <option
+                                disabled={
+                                    eventSettings.eventType === "tournament" ||
+                                    eventSettings.eventType === "practice"
+                                }
+                                value="solo"
+                            >
+                                Solo
+                            </option>
+                            <option
+                                disabled={
+                                    eventSettings.eventType === "practice"
+                                }
+                                value="duo"
+                            >
+                                Duo
+                            </option>
+                            <option
+                                disabled={
+                                    eventSettings.eventType === "miniTournament"
+                                }
+                                value="squad"
+                            >
+                                Squad
+                            </option>
+                        </select>
+                        <select
+                            value={eventSettings.view}
+                            name="view"
+                            onChange={handleEventSettingsChange}
+                            className="bg-darkgrey w-full p-3 rounded-lg p"
+                        >
+                            <option value="" disabled>
+                                Выберите режим камеры
+                            </option>
+                            <option value="FirstPerson">От 1-го лица</option>
+                            <option value="ThirdPerson">От 3-го лица</option>
+                        </select>
+                        <p className="p">Дополнительные условия участия:</p>
+                        <MDEditor
+                            value={requirements}
+                            onChange={setRequirements}
+                        />
+                        <MDEditor.Markdown
+                            source={requirements}
+                            style={{ whiteSpace: "pre-wrap" }}
+                        />
+
+                        <p className="p">Описание:</p>
+                        <MDEditor
+                            value={description}
+                            onChange={setDescription}
+                        />
+                        <MDEditor.Markdown
+                            source={description}
+                            style={{ whiteSpace: "pre-wrap" }}
+                        />
+                        <div>
+                            <label htmlFor="isQuantityLimited" className="p">
+                                Есть ли ограничение по кол-ву участников
+                            </label>
                             <select
                                 value={eventSettings.isQuantityLimited}
                                 name="isQuantityLimited"
@@ -730,7 +748,10 @@ const CreateEventForm = () => {
                         </div>
                         {eventSettings.isQuantityLimited === "true" && (
                             <div className="flex items-center justify-between space-x-4">
-                                <label htmlFor="maxQuantity" className="p w-28 ">
+                                <label
+                                    htmlFor="maxQuantity"
+                                    className="p w-28 "
+                                >
                                     Макс. кол-во участников
                                 </label>
                                 <input
@@ -742,29 +763,33 @@ const CreateEventForm = () => {
                                 />
                             </div>
                         )}
-                            </div>
-                            <div>
-                                <div className="flex items-center border-b-[1px] border-white/20 py-2 justify-between space-x-4">
-                                    <label htmlFor="pool" className="p w-28">Призовой фонд</label>
-                                    <input
-                                        type="number"
-                                        value={eventSettings.prize.pool}
-                                        onChange={handlePrizeSettingsChange}
-                                        name="pool"
-                                        className="bg-darkgrey w-[160px] p-3 rounded-lg p"
-                                    />
-                                </div>
-                                <div className="flex items-center border-b-[1px] border-white/20 py-2 justify-between space-x-4">
-                                    <label htmlFor="prizePerKill" className="p w-28">Приз за килл</label>
-                                    <input
-                                        type="number"
-                                        value={eventSettings.prize.prizePerKill}
-                                        onChange={handlePrizeSettingsChange}
-                                        name="prizePerKill"
-                                        className="bg-darkgrey w-[160px] p-3 rounded-lg p"
-                                    />
-                                </div>
-                                {/* {Object.keys(
+                    </div>
+                    <div>
+                        <div className="flex items-center border-b-[1px] border-white/20 py-2 justify-between space-x-4">
+                            <label htmlFor="pool" className="p w-28">
+                                Призовой фонд
+                            </label>
+                            <input
+                                type="number"
+                                value={eventSettings.prize.pool}
+                                onChange={handlePrizeSettingsChange}
+                                name="pool"
+                                className="bg-darkgrey w-[160px] p-3 rounded-lg p"
+                            />
+                        </div>
+                        <div className="flex items-center border-b-[1px] border-white/20 py-2 justify-between space-x-4">
+                            <label htmlFor="prizePerKill" className="p w-28">
+                                Приз за килл
+                            </label>
+                            <input
+                                type="number"
+                                value={eventSettings.prize.prizePerKill}
+                                onChange={handlePrizeSettingsChange}
+                                name="prizePerKill"
+                                className="bg-darkgrey w-[160px] p-3 rounded-lg p"
+                            />
+                        </div>
+                        {/* {Object.keys(
                                     eventSettings.prize.placementPrize
                                 ).map((place) => (
                                     <div key={place}>
@@ -781,54 +806,79 @@ const CreateEventForm = () => {
                                         />
                                     </div>
                                 ))} */}
-                                <div className="bg-[#26262633]">
-                                    <button
-                                        id="dropdownUsersButton"
-                                        data-dropdown-toggle="dropdownUsers"
-                                        data-dropdown-placement="bottom"
-                                        className='w-full rounded-lg bg-[#26262633] py-3 flex justify-between'
-                                        type="button"
-                                        name="created"
-                                        //onClick={toggleCreated}
-                                        onClick={openPrizes}
+                        <div className="bg-[#26262633]">
+                            <button
+                                id="dropdownUsersButton"
+                                data-dropdown-toggle="dropdownUsers"
+                                data-dropdown-placement="bottom"
+                                className="w-full rounded-lg bg-[#26262633] py-3 flex justify-between"
+                                type="button"
+                                name="created"
+                                onClick={openPrizes}
+                            >
+                                <p className="p">Призы за места</p>
+                                <div
+                                    className={
+                                        isPrizesOpen
+                                            ? "duration-300 rotate-90"
+                                            : "rotate-0 duration-300"
+                                    }
+                                    aria-expanded={isPrizesOpen}
+                                    type="button"
+                                >
+                                    <svg
+                                        width="21"
+                                        height="21"
+                                        viewBox="0 0 21 21"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
                                     >
-                                        <p className="p">Призы за места</p>
-                                        <div
-                                            className={isPrizesOpen ? "duration-300 rotate-90" : "rotate-0 duration-300"}
-                                            aria-expanded={isPrizesOpen}
-                                            type="button">
-                                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fillRule="evenodd" clipRule="evenodd" d="M10.964 14.245C10.8409 14.3679 10.6741 14.4369 10.5002 14.4369C10.3263 14.4369 10.1595 14.3679 10.0365 14.245L3.47398 7.68251C3.35806 7.55811 3.29495 7.39357 3.29795 7.22356C3.30095 7.05354 3.36983 6.89133 3.49006 6.77109C3.6103 6.65086 3.77251 6.58198 3.94252 6.57898C4.11254 6.57598 4.27708 6.63909 4.40148 6.75501L10.5002 12.8538L16.599 6.75501C16.6591 6.69054 16.7315 6.63882 16.812 6.60295C16.8925 6.56709 16.9794 6.5478 17.0675 6.54624C17.1556 6.54469 17.2432 6.5609 17.3249 6.5939C17.4066 6.62691 17.4808 6.67604 17.5431 6.73835C17.6055 6.80067 17.6546 6.8749 17.6876 6.95661C17.7206 7.03833 17.7368 7.12585 17.7352 7.21397C17.7337 7.30208 17.7144 7.38898 17.6785 7.46948C17.6427 7.54998 17.591 7.62243 17.5265 7.68251L10.964 14.245Z" fill="white"/>
-                                            </svg>
-                                        </div>
-                                    </button>
+                                        <path
+                                            fillRule="evenodd"
+                                            clipRule="evenodd"
+                                            d="M10.964 14.245C10.8409 14.3679 10.6741 14.4369 10.5002 14.4369C10.3263 14.4369 10.1595 14.3679 10.0365 14.245L3.47398 7.68251C3.35806 7.55811 3.29495 7.39357 3.29795 7.22356C3.30095 7.05354 3.36983 6.89133 3.49006 6.77109C3.6103 6.65086 3.77251 6.58198 3.94252 6.57898C4.11254 6.57598 4.27708 6.63909 4.40148 6.75501L10.5002 12.8538L16.599 6.75501C16.6591 6.69054 16.7315 6.63882 16.812 6.60295C16.8925 6.56709 16.9794 6.5478 17.0675 6.54624C17.1556 6.54469 17.2432 6.5609 17.3249 6.5939C17.4066 6.62691 17.4808 6.67604 17.5431 6.73835C17.6055 6.80067 17.6546 6.8749 17.6876 6.95661C17.7206 7.03833 17.7368 7.12585 17.7352 7.21397C17.7337 7.30208 17.7144 7.38898 17.6785 7.46948C17.6427 7.54998 17.591 7.62243 17.5265 7.68251L10.964 14.245Z"
+                                            fill="white"
+                                        />
+                                    </svg>
                                 </div>
-                                <Collapse isOpened={isPrizesOpen}>
-                                    {/* {eventSettings.prize.placementPrize.map(
-                                        (place) => (
-                                            <div key={place.number} className="flex items-center border-b-[1px] border-white/20 py-2 justify-between space-x-4">
-                                                <label htmlFor={place.number} className="p w-28">Приз за {place.number} место</label>
-                                                <input
-                                                    name={place.number}
-                                                    placeholder="Укажите приз"
-                                                    value={place.prize === 0
-                                                        ? ""
-                                                        : place.prize}
-                                                    onChange={
-                                                        handlePlacementPrizeChange
-                                                    }
-                                                    className="bg-darkgrey w-[160px] p-3 rounded-lg p"
-                                                />
-                                            </div>
-                                        )
-                                    )} */}
-                                </Collapse>
-                            </div>
+                            </button>
+                        </div>
+                        <Collapse isOpened={isPrizesOpen}>
+                            {eventSettings.prize.placementPrizes.map(
+                                (place) => (
+                                    <div
+                                        key={place.number}
+                                        className="flex items-center border-b-[1px] border-white/20 py-2 justify-between space-x-4"
+                                    >
+                                        <label
+                                            htmlFor={place.number}
+                                            className="p w-28"
+                                        >
+                                            Приз за {place.number} место
+                                        </label>
+                                        <input
+                                            name={place.number}
+                                            placeholder="Укажите приз"
+                                            value={
+                                                place.prize === 0
+                                                    ? ""
+                                                    : place.prize
+                                            }
+                                            onChange={
+                                                handlePlacementPrizeChange
+                                            }
+                                            className="bg-darkgrey w-[160px] p-3 rounded-lg p"
+                                        />
+                                    </div>
+                                )
+                            )}
+                        </Collapse>
+                    </div>
                 </form>
                 <div className="bg-grey rounded-lg">
                     <button
                         onClick={handleAddStage}
-                        className='w-full rounded-lg bg-grey py-4 text-sm font-bold'
+                        className="w-full rounded-lg bg-grey py-4 text-sm font-bold"
                         disabled={eventSettings.eventType === ""}
                     >
                         Добавить этап
@@ -851,7 +901,9 @@ const CreateEventForm = () => {
                             onChangeReserveParticipants={
                                 handleReserveParticipantsGroupChange
                             }
-                            onChangePaidParticipants={handlePaidParticipantsGroupChange}
+                            onChangePaidParticipants={
+                                handlePaidParticipantsGroupChange
+                            }
                             deleteGroup={handleDeleteGroup}
                             deleteStage={handleDeleteStage}
                         />
@@ -859,14 +911,11 @@ const CreateEventForm = () => {
                 </div>
                 <button
                     onClick={handleCreateEvent}
-                    className='w-full rounded-lg bg-yellow py-4 my-5 text-darkgrey text-sm font-bold'
+                    className="w-full rounded-lg bg-yellow py-4 my-5 text-darkgrey text-sm font-bold"
                 >
                     Создать ивент
                 </button>
             </main>
-            
-            
-            
         </section>
     );
 };

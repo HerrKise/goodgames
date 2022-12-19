@@ -97,7 +97,7 @@ export const loadUserProfile = () => async (dispatch) => {
     console.log("загрузчик начал работу");
     dispatch(userRequested());
     try {
-        const data = await userService.getProfile();
+        const data = await authService.getMe();
         dispatch(userReceived(data));
         console.log(data);
     } catch (e) {
