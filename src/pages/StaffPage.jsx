@@ -230,72 +230,77 @@ const StaffPage = () => {
                         </form>
                     </div>
                 </div>
-                {!isLoading && (
+                {!isLoading && staffData.profile.createdEvents && (
                     <div className="space-y-3 py-5">
-                        <div className="bg-[#26262633]">
-                            <button
-                                id="dropdownCreatedEventsButton"
-                                data-dropdown-toggle="dropdownCreatedEvents"
-                                data-dropdown-placement="bottom"
-                                className="w-full rounded-lg bg-[#26262633] p-4 text-sm font-bold flex justify-between"
-                                type="button"
-                                name="createdEvents"
-                                //onClick={toggleCreated}
-                                onClick={openCreatedEvents}
-                            >
-                                <p>Созданные события</p>
-                                <div
-                                    className={
-                                        isCreatedEventsOpen
-                                            ? "duration-300 rotate-90"
-                                            : "rotate-0 duration-300"
-                                    }
-                                    aria-expanded={isCreatedEventsOpen}
+                        {
+                            <div className="bg-[#26262633]">
+                                <button
+                                    id="dropdownCreatedEventsButton"
+                                    data-dropdown-toggle="dropdownCreatedEvents"
+                                    data-dropdown-placement="bottom"
+                                    className="w-full rounded-lg bg-[#26262633] p-4 text-sm font-bold flex justify-between"
                                     type="button"
+                                    name="createdEvents"
+                                    //onClick={toggleCreated}
+                                    onClick={openCreatedEvents}
                                 >
-                                    <svg
-                                        width="21"
-                                        height="21"
-                                        viewBox="0 0 21 21"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
+                                    <p>Созданные события</p>
+                                    <div
+                                        className={
+                                            isCreatedEventsOpen
+                                                ? "duration-300 rotate-90"
+                                                : "rotate-0 duration-300"
+                                        }
+                                        aria-expanded={isCreatedEventsOpen}
+                                        type="button"
                                     >
-                                        <path
-                                            fillRule="evenodd"
-                                            clipRule="evenodd"
-                                            d="M10.964 14.245C10.8409 14.3679 10.6741 14.4369 10.5002 14.4369C10.3263 14.4369 10.1595 14.3679 10.0365 14.245L3.47398 7.68251C3.35806 7.55811 3.29495 7.39357 3.29795 7.22356C3.30095 7.05354 3.36983 6.89133 3.49006 6.77109C3.6103 6.65086 3.77251 6.58198 3.94252 6.57898C4.11254 6.57598 4.27708 6.63909 4.40148 6.75501L10.5002 12.8538L16.599 6.75501C16.6591 6.69054 16.7315 6.63882 16.812 6.60295C16.8925 6.56709 16.9794 6.5478 17.0675 6.54624C17.1556 6.54469 17.2432 6.5609 17.3249 6.5939C17.4066 6.62691 17.4808 6.67604 17.5431 6.73835C17.6055 6.80067 17.6546 6.8749 17.6876 6.95661C17.7206 7.03833 17.7368 7.12585 17.7352 7.21397C17.7337 7.30208 17.7144 7.38898 17.6785 7.46948C17.6427 7.54998 17.591 7.62243 17.5265 7.68251L10.964 14.245Z"
-                                            fill="white"
-                                        />
-                                    </svg>
-                                </div>
-                            </button>
+                                        <svg
+                                            width="21"
+                                            height="21"
+                                            viewBox="0 0 21 21"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                fillRule="evenodd"
+                                                clipRule="evenodd"
+                                                d="M10.964 14.245C10.8409 14.3679 10.6741 14.4369 10.5002 14.4369C10.3263 14.4369 10.1595 14.3679 10.0365 14.245L3.47398 7.68251C3.35806 7.55811 3.29495 7.39357 3.29795 7.22356C3.30095 7.05354 3.36983 6.89133 3.49006 6.77109C3.6103 6.65086 3.77251 6.58198 3.94252 6.57898C4.11254 6.57598 4.27708 6.63909 4.40148 6.75501L10.5002 12.8538L16.599 6.75501C16.6591 6.69054 16.7315 6.63882 16.812 6.60295C16.8925 6.56709 16.9794 6.5478 17.0675 6.54624C17.1556 6.54469 17.2432 6.5609 17.3249 6.5939C17.4066 6.62691 17.4808 6.67604 17.5431 6.73835C17.6055 6.80067 17.6546 6.8749 17.6876 6.95661C17.7206 7.03833 17.7368 7.12585 17.7352 7.21397C17.7337 7.30208 17.7144 7.38898 17.6785 7.46948C17.6427 7.54998 17.591 7.62243 17.5265 7.68251L10.964 14.245Z"
+                                                fill="white"
+                                            />
+                                        </svg>
+                                    </div>
+                                </button>
 
-                            <Collapse
-                                id="dropdownUsers"
-                                className={`${"hidden"} z-10 w-60 bg-white rounded shadow dark:bg-gray-700`}
-                                isOpened={isCreatedEventsOpen}
-                            >
-                                <ul
-                                    className="p-4 space-y-2"
-                                    aria-labelledby="dropdownUsersButton"
+                                <Collapse
+                                    id="dropdownUsers"
+                                    className={`${"hidden"} z-10 w-60 bg-white rounded shadow dark:bg-gray-700`}
+                                    isOpened={isCreatedEventsOpen}
                                 >
-                                    {staffData.profile.createdEvents.map(
-                                        (event) => (
-                                            <li key={event} className="text-sm">
-                                                {event}
-                                                <button
-                                                    onClick={() =>
-                                                        showEvent(event)
-                                                    }
+                                    <ul
+                                        className="p-4 space-y-2"
+                                        aria-labelledby="dropdownUsersButton"
+                                    >
+                                        {staffData.profile.createdEvents.map(
+                                            (event) => (
+                                                <li
+                                                    key={event}
+                                                    className="text-sm"
                                                 >
-                                                    Посмотреть
-                                                </button>
-                                            </li>
-                                        )
-                                    )}
-                                </ul>
-                            </Collapse>
-                        </div>
+                                                    {event}
+                                                    <button
+                                                        onClick={() =>
+                                                            showEvent(event)
+                                                        }
+                                                    >
+                                                        Посмотреть
+                                                    </button>
+                                                </li>
+                                            )
+                                        )}
+                                    </ul>
+                                </Collapse>
+                            </div>
+                        }
                         <div className="bg-[#26262633]">
                             <button
                                 id="dropdownUsersButton"
