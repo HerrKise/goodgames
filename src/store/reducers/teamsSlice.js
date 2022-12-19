@@ -252,15 +252,15 @@ export const loadManagerCode = (payload) => async (dispatch) => {
     }
 };
 
-export const loadMyTeams = () => async (dispatch) => {
-    dispatch(teamsRequested());
-    try {
-        const data = await teamService.getMyTeamsList();
-        dispatch(teamsReceived(data));
-    } catch (e) {
-        dispatch(teamsRequestFailed(e));
-    }
-};
+// export const loadMyTeams = () => async (dispatch) => {
+//     dispatch(teamsRequested());
+//     try {
+//         const data = await teamService.getMyTeamsList();
+//         dispatch(teamsReceived(data));
+//     } catch (e) {
+//         dispatch(teamsRequestFailed(e));
+//     }
+// };
 
 export const loadTeamByID = (payload) => async (dispatch) => {
     dispatch(teamsRequestedById());
