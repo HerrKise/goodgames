@@ -26,9 +26,8 @@ const Editor = () => {
         setPostPic(e.target.files[0]);
     };
 
-    const handleMainPicChange = (e) => {
-        e.preventDefault();
-        setMainPic(e.target.files[0]);
+    const changeBgPicture = (e) => {
+        setBgPic(e.target.value);
     };
 
     const changeTitle = (e) => {
@@ -96,6 +95,8 @@ const Editor = () => {
                 />
                 <button onClick={handleUrlGet}>Вставить картинку</button>
                 <p>Ссылка на картинку появится здесь {photoUrl}</p>
+                <p>Ссылка на Background</p>
+                <input type="text" value={bgPic} onChange={changeBgPicture} />
             </form>
             <MDEditor value={value} onChange={setValue} />
             <MDEditor.Markdown
