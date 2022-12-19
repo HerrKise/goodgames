@@ -715,21 +715,31 @@ const CreateEventForm = () => {
                         </select>
                         <p className="p">Дополнительные условия участия:</p>
                         <MDEditor
-                            value={requirements}
-                            onChange={setRequirements}
+                            value={eventSettings.requirements}
+                            onChange={(value) =>
+                                setEventSettings((prevState) => ({
+                                    ...prevState,
+                                    requirements: value
+                                }))
+                            }
                         />
                         <MDEditor.Markdown
-                            source={requirements}
+                            source={eventSettings.requirements}
                             style={{ whiteSpace: "pre-wrap" }}
                         />
 
                         <p className="p">Описание:</p>
                         <MDEditor
-                            value={description}
-                            onChange={setDescription}
+                            value={eventSettings.description}
+                            onChange={(value) =>
+                                setEventSettings((prevState) => ({
+                                    ...prevState,
+                                    description: value
+                                }))
+                            }
                         />
                         <MDEditor.Markdown
-                            source={description}
+                            source={eventSettings.description}
                             style={{ whiteSpace: "pre-wrap" }}
                         />
                         <div>
