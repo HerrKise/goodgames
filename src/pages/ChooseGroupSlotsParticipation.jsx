@@ -1,8 +1,16 @@
 import { Collapse } from "react-collapse";
 import { useCallback } from "react";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router";
+import { useDispatch } from "react-redux";
+import { getSelectedEvent } from "../store/reducers/eventsSlice";
 
-export const ChooseGroupSlotsParticipation = ({group, i}) => {
+export const ChooseGroupSlotsParticipation = ({ group, i }) => {
+    const { eventId, stageId } = useParams();
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getSelectedEvent(eventId));
+    }, []);
 
     const [isSlotsOpen, setIsSlotsOpen] = useState(false);
 
@@ -13,7 +21,10 @@ export const ChooseGroupSlotsParticipation = ({group, i}) => {
 
     return (
         <li key={i} className="bg-grey p-3 rounded-lg">
-            <div className="flex justify-between items-center" onClick={openSlots}>
+            <div
+                className="flex justify-between items-center"
+                onClick={openSlots}
+            >
                 <h3 className="h3">{group.name}</h3>
                 <p className="p">Доступно 1/{group.slots.length}</p>
             </div>
@@ -21,20 +32,31 @@ export const ChooseGroupSlotsParticipation = ({group, i}) => {
                 <ul className="flex flex-wrap gap-5 py-3 text-sm font-bold">
                     {group.slots.map((slot, i) => {
                         return (
-                            <li key={i} className={
-                                (slot.type === "Paid" ? "bg-[#00F087] text-darkgrey font-bold rounded-lg" : "") +
-                                (slot.type === "Free" ? "bg-yellow text-darkgrey font-bold rounded-lg" : "") +
-                                (slot.type === "Reserved" ? "border-2 font-bold opacity-50 rounded-lg" : "") +
-                                (slot.type === "Occupied" ? "bg-darkgrey font-bold rounded-lg" : "") +
-                                " p-2 flex flex-col items-center w-[64px]"
-                            }>
+                            <li
+                                key={i}
+                                className={
+                                    (slot.type === "Paid"
+                                        ? "bg-[#00F087] text-darkgrey font-bold rounded-lg"
+                                        : "") +
+                                    (slot.type === "Free"
+                                        ? "bg-yellow text-darkgrey font-bold rounded-lg"
+                                        : "") +
+                                    (slot.type === "Reserved"
+                                        ? "border-2 font-bold opacity-50 rounded-lg"
+                                        : "") +
+                                    (slot.type === "Occupied"
+                                        ? "bg-darkgrey font-bold rounded-lg"
+                                        : "") +
+                                    " p-2 flex flex-col items-center w-[64px]"
+                                }
+                            >
                                 <p>{slot.num}</p>
                                 <p>Слот</p>
                             </li>
-                        )
+                        );
                     })}
                 </ul>
             </Collapse>
         </li>
-    )
-}
+    );
+};

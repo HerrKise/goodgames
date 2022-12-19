@@ -63,7 +63,7 @@ const teamService = {
             teamEndpoint + `/GetTeammates/${teamId}`
         );
         return data;
-    },
+    }
 };
 
 export default teamService;
