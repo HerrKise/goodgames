@@ -11,6 +11,14 @@ const teamService = {
         const { data } = await http.put(teamEndpoint + "/Update", payload);
         return data;
     },
+    delete: async (payload) => {
+        const { data } = await http.delete(
+            teamEndpoint + "/DeleteTeam",
+            payload,
+            { headers: { "Content-Type": "application/json" } }
+        );
+        return data;
+    },
     updateLogo: async (payload) => {
         const { data } = await http.post(teamEndpoint + "/UpdateLogo", payload);
         return data;

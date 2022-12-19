@@ -10,7 +10,7 @@ const initialState = {
     selectedTeamByCode: null,
     code: null,
     teammates: null,
-    managerCode: null
+    managerCode: null,
 };
 
 export const teamsSlice = createSlice({
@@ -84,8 +84,8 @@ export const teamsSlice = createSlice({
         teammatesRequestFailed: (state, action) => {
             state.error = action.payload;
             state.isLoading = false;
-        }
-    }
+        },
+    },
 });
 
 export const { reducer: teamsReducer, actions } = teamsSlice;
@@ -108,7 +108,7 @@ export const {
     teammatesRequestFailed,
     getManagerCodeRequested,
     getManagerCodeReceived,
-    getManagerCodeFailed
+    getManagerCodeFailed,
 } = actions;
 
 const createTeamsRequested = createAction("teams/createTeamsRequested");
@@ -186,7 +186,7 @@ export const deleteTeams = (payload) => async (dispatch) => {
         const data = await teamService.delete(payload);
         dispatch(deleteTeamsSuccess());
     } catch (e) {
-        dispatch(deleteTeamsFailed(e.responce.data.error));
+        dispatch(deleteTeamsFailed(e));
     }
 };
 
