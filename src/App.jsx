@@ -39,6 +39,7 @@ import EditEventForm from "./pages/EditEventForm";
 import EditShopItem from "./pages/EditShopItem";
 import ExtendedShop from "./pages/ExtendedShop";
 import ChooseTeamToParticipate from "./pages/ChooseTeamToParticipate";
+import { ChooseStageGroupParticipation } from "./pages/ChooseStageGroupParticipation";
 
 function App() {
     return (
@@ -136,6 +137,7 @@ function App() {
                 />
                 <Route path="/tournamentlist" element={<TournamentList />} />
                 <Route path="/matchespage" element={<MatchesPage />} />
+                <Route path="/choose-stage-group" element={<ChooseStageGroupParticipation/>}/>
             </Routes>
             <ToastContainer />
         </>
