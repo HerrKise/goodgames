@@ -14,8 +14,8 @@ const teamService = {
     delete: async (payload) => {
         const { data } = await http.delete(
             teamEndpoint + "/DeleteTeam",
-            payload,
-            { headers: { "Content-Type": "application/json" } }
+
+            { headers: { "Content-Type": "application/json" }, data: payload }
         );
         return data;
     },

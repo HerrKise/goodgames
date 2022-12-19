@@ -17,8 +17,8 @@ export const CommandItem = ({ match, i }) => {
         [isTermsOpen]
     );
 
-    const handlePickStage = (eventId, stageId) => {
-        navigate(`/choose-stage-group/${eventId}/${stageId}`);
+    const handlePickStage = (eventId, stageId, participantId) => {
+        navigate(`/choose-stage-group/${eventId}/${stageId}/${participantId}`);
     };
 
     return (
@@ -191,7 +191,8 @@ export const CommandItem = ({ match, i }) => {
                                     onClick={() =>
                                         handlePickStage(
                                             match.event.id,
-                                            stage.id
+                                            stage.id,
+                                            match.id
                                         )
                                     }
                                 >
