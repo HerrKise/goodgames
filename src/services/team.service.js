@@ -12,11 +12,10 @@ const teamService = {
         return data;
     },
     delete: async (payload) => {
-        const { data } = await http.delete(
-            teamEndpoint + "/DeleteTeam",
-
-            { headers: { "Content-Type": "application/json" }, data: payload }
-        );
+        const { data } = await http.delete(teamEndpoint + "/DeleteTeam", {
+            headers: { "Content-Type": "application/json" },
+            data: payload,
+        });
         return data;
     },
     updateLogo: async (payload) => {
@@ -71,7 +70,7 @@ const teamService = {
             teamEndpoint + `/GetTeammates/${teamId}`
         );
         return data;
-    }
+    },
 };
 
 export default teamService;

@@ -16,10 +16,10 @@ const postsService = {
     },
     delete: async (payload) => {
         console.log("in postService", payload);
-        const { data } = await http.delete(
-            postsEndpoint + "/DeleteNews",
-            payload
-        );
+        const { data } = await http.delete(postsEndpoint + "/DeleteNews", {
+            headers: { "Content-Type": "application/json" },
+            data: payload,
+        });
         return data;
     },
     getPosts: async (payload) => {
