@@ -13,8 +13,8 @@ import { useCallback } from "react";
 
 const CreateEventForm = () => {
     const dispatch = useDispatch();
-    const [requirements, setRequirements] = useState("");
-    const [description, setDescription] = useState("");
+    /* const [requirements, setRequirements] = useState("");
+    const [description, setDescription] = useState(""); */
 
     const [eventSettings, setEventSettings] = useState({
         organizerId: localStorageService.getUserId(),
@@ -127,12 +127,12 @@ const CreateEventForm = () => {
                                 {
                                     name: "название группы",
                                     groupStart: "",
-                                    participants: null,
+                                    participants: [],
                                     confirmationTimeStart: "",
                                     confirmationTimeEnd: "",
                                     reserveConfirmationTimeEnd: "",
-                                    reserveParticipants: null,
-                                    paidParticipants: null,
+                                    reserveParticipants: [],
+                                    paidParticipants: [],
                                     map: "",
                                     groupModerators: [],
                                     results: null,
