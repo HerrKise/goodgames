@@ -87,14 +87,6 @@ const CreateGroupForm = ({
         onChangeParticipants(participantsArray, stageIndex, index);
     }
 
-    const object = {
-        slotId: i,
-        participantId: "",
-        participantName: "",
-        participantPicture: "",
-        participationConfirmed: false
-    };
-
     function refreshPaidSlotsQuantity() {
         if (state.paidSlots) {
             let participantsArray = [];
