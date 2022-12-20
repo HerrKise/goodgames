@@ -141,6 +141,15 @@ const StaffPage = () => {
         );
     };
 
+    const showApplicationsList = (eventId) => {
+        dispatch(
+            getSelectedEvent({
+                id: eventId,
+                navigate: () => navigate("/staff/applications-event")
+            })
+        );
+    };
+
     return (
         <section className="bg-darkgrey min-h-[100vh]">
             <NavLink
@@ -284,16 +293,26 @@ const StaffPage = () => {
                                         {staffData.profile.createdEvents.map(
                                             (event) => (
                                                 <li
-                                                    key={event}
+                                                    key={event.id}
                                                     className="text-sm"
                                                 >
-                                                    {event}
+                                                    {event.title}
                                                     <button
                                                         onClick={() =>
-                                                            showEvent(event)
+                                                            showEvent(event.id)
                                                         }
                                                     >
-                                                        Посмотреть
+                                                        Редактировать событие
+                                                    </button>
+                                                    <button
+                                                        onClick={() =>
+                                                            showApplicationsList(
+                                                                event.id
+                                                            )
+                                                        }
+                                                    >
+                                                        Посмотреть список заявок
+                                                        на участие
                                                     </button>
                                                 </li>
                                             )

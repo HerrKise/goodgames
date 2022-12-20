@@ -34,7 +34,7 @@ export const ChooseStageGroupParticipation = () => {
             dispatch(loadTeamByID(participantId));
         }
     }, [event]);
-    console.log(participantInfo);
+    console.log(currentStage);
     /* const event = {
         title: "titleevent",
         date: "10.10.10",
@@ -171,17 +171,19 @@ export const ChooseStageGroupParticipation = () => {
                                 <h3 className="h3">Доступные группы</h3>
                                 <p className="p">???</p>
                             </div>
-                            {/* <ul className="space-y-3">
-                                {currentStage.groups.map((group, i) => {
-                                    return (
-                                        <ChooseGroupSlotsParticipation
-                                            group={group}
-                                            i={i}
-                                            key={i}
-                                        />
-                                    );
-                                })}
-                            </ul> */}
+                            <ul className="space-y-3">
+                                {currentStage &&
+                                    currentStage.groups.map((group) => {
+                                        return (
+                                            <ChooseGroupSlotsParticipation
+                                                group={group}
+                                                eventId={event.id}
+                                                participantId={participantId}
+                                                key={group.id}
+                                            />
+                                        );
+                                    })}
+                            </ul>
                             <button className="rounded-lg w-full bg-yellow p-3 text-darkgrey text-sm font-bold ">
                                 Подтвердить
                             </button>
