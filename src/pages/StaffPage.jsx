@@ -17,7 +17,7 @@ import UsersListShortData from "../components/UsersListShortData";
 import logopic from "../assets/Main/logo.png";
 import { Collapse } from "react-collapse";
 import { useCallback } from "react";
-import { getSelectedEvent } from "../store/reducers/eventsSlice";
+import { getSelectedEvent, getStagesList } from "../store/reducers/eventsSlice";
 
 const StaffPage = () => {
     const dispatch = useDispatch();
@@ -146,6 +146,15 @@ const StaffPage = () => {
             getSelectedEvent({
                 id: eventId,
                 navigate: () => navigate("/staff/applications-event")
+            })
+        );
+    };
+
+    const showResultsForm = (eventId) => {
+        dispatch(
+            getStagesList({
+                payload: eventId,
+                navigate: () => navigate(`/staff/results-event/${eventId}`)
             })
         );
     };
@@ -303,6 +312,15 @@ const StaffPage = () => {
                                                         }
                                                     >
                                                         Редактировать событие
+                                                    </button>
+                                                    <button
+                                                        onClick={() =>
+                                                            showResultsForm(
+                                                                event.id
+                                                            )
+                                                        }
+                                                    >
+                                                        Внести результаты группы
                                                     </button>
                                                     <button
                                                         onClick={() =>
