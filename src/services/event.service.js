@@ -12,7 +12,14 @@ const eventService = {
     },
     joinEventCommand: async (payload) => {
         const { data } = await http.post(
-            eventEndpoint + "/joinEventCommand",
+            eventEndpoint + "/JoinEventCommand",
+            payload
+        );
+        return data;
+    },
+    setApplicationStatus: async (payload) => {
+        const { data } = await http.post(
+            eventEndpoint + "/SetApprovedParticipant",
             payload
         );
         return data;

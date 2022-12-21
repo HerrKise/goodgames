@@ -141,7 +141,8 @@ const CreateEventForm = () => {
                                     reserveSlotsQuantity: 0,
                                     slotPrice: 0,
                                     lobbyId: "",
-                                    lobbyPassword: ""
+                                    lobbyPassword: "",
+                                    topwinners: 0
                                 }
                             ]
                         };

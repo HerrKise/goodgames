@@ -40,6 +40,8 @@ import EditShopItem from "./pages/EditShopItem";
 import ExtendedShop from "./pages/ExtendedShop";
 import ChooseTeamToParticipate from "./pages/ChooseTeamToParticipate";
 import { ChooseStageGroupParticipation } from "./pages/ChooseStageGroupParticipation";
+import EventApplicationsList from "./pages/EventApplicationsList";
+import AddResultsForm from "./components/addResultsForm";
 
 function App() {
     return (
@@ -103,6 +105,14 @@ function App() {
                         path="/staff/edit-event"
                         element={<EditEventForm />}
                     ></Route>
+                    <Route
+                        path="/staff/applications-event"
+                        element={<EventApplicationsList />}
+                    />
+                    <Route
+                        path="/staff/results-event/:eventId"
+                        element={<AddResultsForm />}
+                    />
                     <Route
                         path="/staff/edit-posts"
                         element={<EditPosts />}

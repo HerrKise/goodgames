@@ -385,6 +385,18 @@ const CreateGroupForm = ({
                         </div>
                     </>
                 )}
+                <div className="flex items-center justify-between border-b-[1px] border-white/20 pb-2 space-x-4">
+                    <label className="p w-28">
+                        Топ победителей группы, которые пройдут дальше
+                    </label>
+                    <input
+                        name="topwinners"
+                        type="number"
+                        value={state.topwinners}
+                        onChange={handleGroupChange}
+                        className="bg-grey w-[160px] p-2 p rounded-lg"
+                    />
+                </div>
                 <select
                     name="map"
                     value={state.map}
