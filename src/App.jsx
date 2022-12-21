@@ -42,6 +42,7 @@ import ChooseTeamToParticipate from "./pages/ChooseTeamToParticipate";
 import { ChooseStageGroupParticipation } from "./pages/ChooseStageGroupParticipation";
 import EventApplicationsList from "./pages/EventApplicationsList";
 import AddResultsForm from "./components/addResultsForm";
+import StaffGiveCoins from "./pages/StaffGiveCoins";
 
 function App() {
     return (
@@ -124,6 +125,10 @@ function App() {
                     <Route
                         path="/staff/edit-shop-item/:id"
                         element={<EditShopItem />}
+                    ></Route>
+                    <Route
+                        path="/staff/give-money"
+                        element={<StaffGiveCoins />}
                     ></Route>
                 </Route>
                 <Route path="/staff/login" element={<StaffLogin />} />
