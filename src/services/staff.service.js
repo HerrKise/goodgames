@@ -11,7 +11,7 @@ const staffService = {
     createEmployee: async (payload) => {
         const { data } = await http.post(
             staffEndpoint + "/CreateEmployee",
-            payload
+            payload,
         );
         console.log(data);
         return data;
@@ -19,7 +19,7 @@ const staffService = {
     refresh: async () => {
         const { data } = await http.post(staffEndpoint + "/RefreshToken", {
             token: localStorageService.getAccessToken(),
-            refreshToken: localStorageService.getRefreshToken()
+            refreshToken: localStorageService.getRefreshToken(),
         });
         return data;
     },
@@ -46,52 +46,56 @@ const staffService = {
     giveShadowBan: async (payload) => {
         const { data } = await http.post(
             staffEndpoint + "/GiveShadowBan",
-            payload
+            payload,
         );
         return data;
     },
     deleteUser: async (payload) => {
         const { data } = await http.delete(
             staffEndpoint + "/DeleteUser",
-            payload
+            payload,
         );
         return data;
     },
     deleteEmployee: async (payload) => {
         const { data } = await http.delete(
             staffEndpoint + "/DeleteEmployee",
-            payload
+            payload,
         );
         return data;
     },
     restoreUser: async (payload) => {
         const { data } = await http.post(
             staffEndpoint + "/RestoreUser",
-            payload
+            payload,
         );
         return data;
     },
     restoreEmployee: async (payload) => {
         const { data } = await http.post(
             staffEndpoint + "/RestoreEmployee",
-            payload
+            payload,
         );
         return data;
     },
     getEmployeeLogs: async (payload) => {
         const { data } = await http.get(
             staffEndpoint + "/GetEmployeeLogs",
-            payload
+            payload,
         );
         return data;
     },
     getLogsByEmployeeId: async (payload) => {
         const { data } = await http.get(
             staffEndpoint + "/GetLogsByEmployeeId",
-            payload
+            payload,
         );
         return data;
-    }
+    },
+    giveCoins: async (payload) => {
+        const { data } = await http.post(staffEndpoint + "/GiveCoins", payload);
+        return data;
+    },
 };
 
 export default staffService;

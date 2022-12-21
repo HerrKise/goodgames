@@ -18,7 +18,7 @@ const initialState =
               auth: { userId: localStorageService.getUserId() },
               usersList: null,
               selectedUser: null,
-              employeeLogs: null
+              employeeLogs: null,
           }
         : {
               entities: null,
@@ -29,7 +29,7 @@ const initialState =
               auth: null,
               usersList: null,
               selectedUser: null,
-              employeeLogs: null
+              employeeLogs: null,
           };
 
 export const staffSlice = createSlice({
@@ -102,8 +102,8 @@ export const staffSlice = createSlice({
             state.isLoggedIn = false;
             console.log("сброс стафа");
             localStorageService.removeAuthData();
-        }
-    }
+        },
+    },
 });
 
 export const { reducer: staffReducer, actions } = staffSlice;
@@ -123,11 +123,11 @@ export const {
     getSelectedUserFailed,
     getEmployeeLogsSuccess,
     getEmployeeLogsRequested,
-    getEmployeeLogsFailed
+    getEmployeeLogsFailed,
 } = actions;
 
 const editStaffProfileRequested = createAction(
-    "staff/editUserProfileRequested"
+    "staff/editUserProfileRequested",
 );
 const editStaffProfileFailed = createAction("staff/editUserProfileFailed");
 const editStaffProfileSuccess = createAction("staff/editUserProfileSuccess");
@@ -148,6 +148,10 @@ const getUserRequested = createAction("staff/getUserRequested");
 const getUserFailed = createAction("staff/getUserFailed");
 const getUserSuccess = createAction("staff/getUserSuccess");
 
+const giveMoneyToUserRequested = createAction("staff/giveMoneyToUserRequested");
+const giveMoneyToUserFailed = createAction("staff/giveMoneyToUserFailed");
+const giveMoneyToUserSuccess = createAction("staff/giveMoneyToUserSuccess");
+
 export const loadStaffProfile = () => async (dispatch) => {
     dispatch(staffRequested());
     try {
@@ -166,7 +170,7 @@ export const signIn =
         dispatch(authRequested());
         try {
             const { refreshToken, accessToken } = await staffService.login(
-                payload
+                payload,
             );
             localStorageService.setTokens(refreshToken, accessToken);
             const { id } = await staffService.getProfile();
@@ -280,6 +284,17 @@ export const getEmployeeLogs = (payload) => async (dispatch) => {
     } catch (e) {
         console.log(e);
         dispatch(getEmployeeLogsFailed(e.response.data.errors));
+    }
+};
+
+export const giveMoneyToUser = (payload) => async (dispatch) => {
+    dispatch(giveMoneyToUserRequested());
+    try {
+        const data = await staffService.giveCoins(payload);
+        dispatch(giveMoneyToUserSuccess());
+    } catch (e) {
+        console.log(e);
+        dispatch(giveMoneyToUserFailed(e.response.data.errors));
     }
 };
 

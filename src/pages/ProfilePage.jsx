@@ -9,7 +9,7 @@ import {
     getUserProfileData,
     loadUserProfile,
     userLogout,
-    resendEmailConfirmation
+    resendEmailConfirmation,
 } from "../store/reducers/userSlice.js";
 import localStorageService from "../services/localStorage.service.js";
 import { useEffect } from "react";
@@ -40,7 +40,11 @@ export const ProfilePage = () => {
             <Header />
             <main className="text-white pb-20">
                 {!isLoading && user && (
-                    <ProfilePromo user={user.profile} isLoading={isLoading} />
+                    <ProfilePromo
+                        user={user.profile}
+                        isLoading={isLoading}
+                        coins={user.coins}
+                    />
                 )}
                 <ul className="wrap space-y-3">
                     {/* <li className={user.premium ? "bg-yellow text-darkgrey w-full rounded-xl p-4" : "bg-[#262626] w-full rounded-xl p-4"}>
