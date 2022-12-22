@@ -142,7 +142,7 @@ const CreateEventForm = () => {
                                     slotPrice: 0,
                                     lobbyId: "",
                                     lobbyPassword: "",
-                                    topwinners: 0
+                                    topWinners: 0
                                 }
                             ]
                         };
@@ -460,6 +460,40 @@ const CreateEventForm = () => {
                                         return {
                                             ...group,
                                             [e.target.name]: e.target.value
+                                        };
+                                    }
+                                    return group;
+                                })
+                            ]
+                        };
+                    }
+                    return stage;
+                })
+            ]
+        }));
+    };
+
+    const handleGroupChangeToNumber = (e, stageIndex, groupIndex) => {
+        setEventSettings((prevState) => ({
+            ...prevState,
+            stages: [
+                ...prevState.stages.map((stage) => {
+                    if (prevState.stages.indexOf(stage) === stageIndex) {
+                        return {
+                            ...stage,
+                            groups: [
+                                ...stage.groups.map((group) => {
+                                    if (
+                                        prevState.stages
+                                            .at(stageIndex)
+                                            .groups.indexOf(group) ===
+                                        groupIndex
+                                    ) {
+                                        return {
+                                            ...group,
+                                            [e.target.name]: Number(
+                                                e.target.value
+                                            )
                                         };
                                     }
                                     return group;
@@ -906,6 +940,7 @@ const CreateEventForm = () => {
                             addGroup={handleAddGroup}
                             onChangeGroupTime={handleDateGroupChange}
                             onChangeGroup={handleGroupChange}
+                            onGroupChangeToNumber={handleGroupChangeToNumber}
                             removeModerator={handleModeratorGroupRemove}
                             pickModerator={handleModeratorGroupPick}
                             onChangeParticipants={handleParticipantsGroupChange}

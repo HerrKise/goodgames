@@ -94,7 +94,7 @@ const AddResultsForm = () => {
                 if (result.place !== 0 && result.place <= 4) {
                     setCurrentStage((prevState) => ({
                         ...prevState,
-                        winners: [...prevState.winners, result.userId]
+                        winners: [...prevState.winners, { id: result.userId }]
                     }));
                 }
             });
@@ -111,8 +111,24 @@ const AddResultsForm = () => {
             eventId
         ) {
             console.log("СЧИТАЕМ РЕНДЕРЫ");
-            dispatch(updateGroup(currentGroup));
-            dispatch(updateStage(currentStage));
+            const cuttedGroup = JSON.parse(JSON.stringify(currentGroup));
+            delete cuttedGroup.id;
+            delete cuttedGroup.participants;
+            delete cuttedGroup.paidParticipants;
+            delete cuttedGroup.reserveParticipants;
+            console.log({ groupId: currentGroup.id, group: cuttedGroup });
+            const cuttedStage = {
+                id: currentStage.id,
+                name: currentStage.name,
+                stageStart: currentStage.stageStart,
+                winners: currentStage.winners,
+                view: currentStage.view
+            };
+            console.log(cuttedStage);
+            dispatch(
+                updateGroup({ groupId: currentGroup.id, group: cuttedGroup })
+            );
+            dispatch(updateStage(cuttedStage));
             dispatch(getStagesList({ payload: eventId }));
             setIsEditingResultAvailable(false);
         }

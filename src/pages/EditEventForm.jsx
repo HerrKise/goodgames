@@ -550,41 +550,7 @@ const EditEventForm = () => {
                             className="bg-darkgrey w-full p-3 rounded-lg p"
                         />
                     </div>
-                    <div>
-                        <h3>Список поданных заявок на участие</h3>
-                        <ul>
-                            {eventSettings.participants.map((participant) => (
-                                <li key={participant.id}>
-                                    <p>
-                                        {participant.id}, status:{" "}
-                                        {participant.isApproved}
-                                    </p>
-                                    <button
-                                        onClick={(e) =>
-                                            handleParticipantStatusChange(
-                                                e,
-                                                participant.id,
-                                                "True"
-                                            )
-                                        }
-                                    >
-                                        Одобрить заявку
-                                    </button>
-                                    <button
-                                        onClick={(e) =>
-                                            handleParticipantStatusChange(
-                                                e,
-                                                participant.id,
-                                                "False"
-                                            )
-                                        }
-                                    >
-                                        Отклонить заявку
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+
                     <div className="bg-[#26262633]">
                         <div className="flex items-center justify-between border-b-[1px] border-white/20 py-2 space-x-4">
                             <label htmlFor="eventStart" className="p w-28">

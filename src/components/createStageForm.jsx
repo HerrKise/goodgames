@@ -13,6 +13,7 @@ const CreateStageForm = ({
     deleteGroup,
     onChangeGroupTime,
     onChangeGroup,
+    onGroupChangeToNumber,
     removeModerator,
     pickModerator,
     onChangeParticipants,
@@ -97,6 +98,7 @@ const CreateStageForm = ({
                                 state={group}
                                 onChangeTime={onChangeGroupTime}
                                 onChangeGroup={onChangeGroup}
+                                onGroupChangeToNumber={onGroupChangeToNumber}
                                 pickModerator={pickModerator}
                                 removeModerator={removeModerator}
                                 onChangeParticipants={onChangeParticipants}

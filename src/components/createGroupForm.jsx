@@ -20,7 +20,8 @@ const CreateGroupForm = ({
     removeModerator,
     onChangeParticipants,
     onChangeReserveParticipants,
-    onChangePaidParticipants
+    onChangePaidParticipants,
+    onGroupChangeToNumber
 }) => {
     const currentStaffData = useSelector(getStaffProfileData());
     const isLoading = useSelector(getStaffLoadingStatus());
@@ -154,6 +155,10 @@ const CreateGroupForm = ({
 
     const handleGroupChange = (e) => {
         onChangeGroup(e, stageIndex, index);
+    };
+
+    const handleGroupChangeToNumber = (e) => {
+        onGroupChangeToNumber(e, stageIndex, index);
     };
 
     let moderatorsList = [];
@@ -390,10 +395,10 @@ const CreateGroupForm = ({
                         Топ победителей группы, которые пройдут дальше
                     </label>
                     <input
-                        name="topwinners"
+                        name="topWinners"
                         type="number"
-                        value={state.topwinners}
-                        onChange={handleGroupChange}
+                        value={state.topWinners}
+                        onChange={handleGroupChangeToNumber}
                         className="bg-grey w-[160px] p-2 p rounded-lg"
                     />
                 </div>

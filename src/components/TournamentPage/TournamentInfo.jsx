@@ -1,6 +1,9 @@
 import { useState, useCallback } from "react";
 import { Collapse } from "react-collapse";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import localStorageService from "../../services/localStorage.service";
+import { joinTeamApplication } from "../../store/reducers/eventsSlice";
 
 export const TournamentInfo = ({ tournament }) => {
     const accessibilityIds = {
@@ -9,6 +12,7 @@ export const TournamentInfo = ({ tournament }) => {
         rules: "rules",
         terms: "terms"
     };
+    const dispatch = useDispatch();
 
     const [isScheduleOpen, setIsScheduleOpen] = useState(false);
     const [isLearnMoreOpen, setIsLearnMoreOpen] = useState(false);
@@ -34,6 +38,16 @@ export const TournamentInfo = ({ tournament }) => {
         () => setIsTermsOpen(!isTermsOpen),
         [isTermsOpen]
     );
+
+    const handleTakeAPart = (eventId) => {
+        dispatch(
+            joinTeamApplication({
+                id: localStorageService.getUserId(),
+                eventId: eventId,
+                isApproved: "Pending"
+            })
+        );
+    };
 
     return (
         <ul className="wrap pt-10 space-y-4">
@@ -372,12 +386,21 @@ export const TournamentInfo = ({ tournament }) => {
                 </Link>
             </li>
             <li className="bg-grey w-full rounded-xl p-4">
-                <Link
-                    className="flex items-center justify-center"
-                    to={`/tournamentpage/${tournament.id}/chooseTeamToParticipate`}
-                >
-                    <h3 className="h3">Выбор команды</h3>
-                </Link>
+                {tournament.regime !== "Solo" ? (
+                    <Link
+                        className="flex items-center justify-center"
+                        to={`/tournamentpage/${tournament.id}/chooseTeamToParticipate`}
+                    >
+                        <h3 className="h3">Выбор команды</h3>
+                    </Link>
+                ) : (
+                    <button
+                        className="flex items-center justify-center"
+                        onClick={() => handleTakeAPart(tournament.id)}
+                    >
+                        <h3 className="h3">Подать заявку на участие</h3>
+                    </button>
+                )}
             </li>
         </ul>
     );
