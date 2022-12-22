@@ -43,6 +43,9 @@ import { ChooseStageGroupParticipation } from "./pages/ChooseStageGroupParticipa
 import EventApplicationsList from "./pages/EventApplicationsList";
 import AddResultsForm from "./components/addResultsForm";
 import StaffGiveCoins from "./pages/StaffGiveCoins";
+import { Policy } from "./pages/Policy";
+import { PersonalData } from "./pages/PersonalData";
+import { TermsOfUse } from "./pages/TermsOfUse";
 
 function App() {
     return (
@@ -156,6 +159,9 @@ function App() {
                     path="/choose-stage-group/:eventId/:stageId/:participantId"
                     element={<ChooseStageGroupParticipation />}
                 />
+                <Route path="/policy" element={<Policy/>}/>
+                <Route path="/personal-data" element={<PersonalData/>}/>
+                <Route path="/terms-of-use" element={<TermsOfUse/>}/>
             </Routes>
             <ToastContainer />
         </>
