@@ -47,7 +47,7 @@ const EditShopItem = () => {
     };
 
     return (
-        <section className="bg-gray-400 w-[100%] min-h-[100vh]">
+        <section className="bg-darkgrey min-h-[100vh]">
             <div className="w-[1240px] flex flex-col items-center justify-center mx-auto">
                 <div className="container">
                     <p>Редактирование товара</p>

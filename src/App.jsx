@@ -42,6 +42,11 @@ import ChooseTeamToParticipate from "./pages/ChooseTeamToParticipate";
 import { ChooseStageGroupParticipation } from "./pages/ChooseStageGroupParticipation";
 import EventApplicationsList from "./pages/EventApplicationsList";
 import AddResultsForm from "./components/addResultsForm";
+import StaffGiveCoins from "./pages/StaffGiveCoins";
+import { Policy } from "./pages/Policy";
+import { PersonalData } from "./pages/PersonalData";
+import { TermsOfUse } from "./pages/TermsOfUse";
+import UserBoughtItems from "./pages/UserBoughtItems";
 
 function App() {
     return (
@@ -80,6 +85,10 @@ function App() {
                     <Route
                         path="/profilepage/teams"
                         element={<Teams />}
+                    ></Route>
+                    <Route
+                        path="/profilepage/bought-items"
+                        element={<UserBoughtItems />}
                     ></Route>
                 </Route>
                 <Route element={<StaffProtectedRoute />}>
@@ -125,6 +134,10 @@ function App() {
                         path="/staff/edit-shop-item/:id"
                         element={<EditShopItem />}
                     ></Route>
+                    <Route
+                        path="/staff/give-money"
+                        element={<StaffGiveCoins />}
+                    ></Route>
                 </Route>
                 <Route path="/staff/login" element={<StaffLogin />} />
                 <Route path="/confirm-email/:code" element={<ConfirmEmail />} />
@@ -151,6 +164,9 @@ function App() {
                     path="/choose-stage-group/:eventId/:stageId/:participantId"
                     element={<ChooseStageGroupParticipation />}
                 />
+                <Route path="/policy" element={<Policy />} />
+                <Route path="/personal-data" element={<PersonalData />} />
+                <Route path="/terms-of-use" element={<TermsOfUse />} />
             </Routes>
             <ToastContainer />
         </>
