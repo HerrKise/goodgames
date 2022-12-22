@@ -2,7 +2,7 @@ import promobg from "../../assets/Main/gg-bg.png";
 import userpic from "../../assets/Profile/userpic.jfif";
 import { API_URL } from "../../http/index";
 
-export const ProfilePromo = ({ user, isLoading, coins }) => {
+export const ProfilePromo = ({ user, isLoading }) => {
     const picture = `${API_URL + user?.profilePicture?.path}` || "";
 
     return isLoading ? (
@@ -48,9 +48,6 @@ export const ProfilePromo = ({ user, isLoading, coins }) => {
                         : <></>
                     } */}
                     <h1 className="h1">{user.name}</h1>
-                    <p className="p text-red-700 text-[30px]">
-                        ДЕНЬГИ: {coins}
-                    </p>
                     <div className="flex items-center p space-x-1">
                         <svg
                             width="26"
