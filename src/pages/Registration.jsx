@@ -127,8 +127,7 @@ export default function Registration() {
                         className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
                     />
                     <p className="p text-center opacity-30 pb-3">
-                        Я подтверждаю, что согласен с пользовательским
-                        соглашением и политикой конфиденциальности
+                        Я подтверждаю, что согласен с <Link to="/terms-of-use" target="_blank" className="underline">пользовательским соглашением</Link>, <Link to="/policy" target="_blank" className="underline">политикой конфиденциальности</Link> и на <Link to="/personal-data"  target="_blank" className="underline">обработку персональных данных</Link>
                     </p>
                     <button
                         className='w-full rounded-lg bg-yellow py-4 text-darkgrey text-sm font-bold'
