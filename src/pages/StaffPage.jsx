@@ -48,14 +48,6 @@ const StaffPage = () => {
         }
     }, []);
 
-    if (!isLoading && logs) {
-        console.log(logs); //это логи самого стафа, за которого мы зареганы
-    }
-
-    if (staffData) {
-        console.log(staffData);
-    }
-
     const toggleLogging = () => {
         setLogging((prevState) => !prevState);
     };

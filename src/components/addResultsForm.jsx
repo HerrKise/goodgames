@@ -29,7 +29,7 @@ const AddResultsForm = () => {
                 ...group,
                 results: [
                     ...group.reserveParticipants
-                        .filter((slot) => slot.participantId !== "")
+                        .filter((slot) => slot.participantId !== null)
                         .map((slot) => {
                             return {
                                 userId: slot.participantId,
@@ -39,7 +39,7 @@ const AddResultsForm = () => {
                             };
                         }),
                     ...group.paidParticipants
-                        .filter((slot) => slot.participantId !== "")
+                        .filter((slot) => slot.participantId !== null)
                         .map((slot) => {
                             return {
                                 userId: slot.participantId,
@@ -49,7 +49,7 @@ const AddResultsForm = () => {
                             };
                         }),
                     ...group.participants
-                        .filter((slot) => slot.participantId !== "")
+                        .filter((slot) => slot.participantId !== null)
                         .map((slot) => {
                             return {
                                 userId: slot.participantId,
@@ -67,12 +67,12 @@ const AddResultsForm = () => {
         }
         setParticipantsList([
             ...group.paidParticipants.filter(
-                (slot) => slot.participantId !== ""
+                (slot) => slot.participantId !== null
             ),
             ...group.reserveParticipants.filter(
-                (slot) => slot.participantId !== ""
+                (slot) => slot.participantId !== null
             ),
-            ...group.participants.filter((slot) => slot.participantId !== "")
+            ...group.participants.filter((slot) => slot.participantId !== null)
         ]);
     };
 
