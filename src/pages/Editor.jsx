@@ -8,6 +8,11 @@ import {
     getPhotoUrlData,
 } from "../store/reducers/newsSlice";
 
+import { NavLink } from "react-router-dom";
+import logopic from "../assets/Main/logo.png";
+
+// Создание поста
+
 const Editor = () => {
     const [value, setValue] = React.useState("**Hello world!!!**");
     const [type, setType] = useState("");
@@ -61,56 +66,71 @@ const Editor = () => {
     }, [type]);
 
     return (
-        <div className="container">
-            <p>Название поста</p>
-            <input
-                className="text-black"
-                type="text"
-                placeholder="Название"
-                value={title}
-                onChange={changeTitle}
-            />
-            <p>Тип поста</p>
-            <select
-                className="w-[400px] text-black"
-                onChange={(e) => {
-                    setType(e.target.value);
-                }}
+        <section  className="bg-darkgrey min-h-[100vh]">
+            <NavLink
+                className="w-full flex items-center justify-center fixed top-0 bg-darkgrey pt-12 pb-3 z-10"
+                to="/"
             >
-                <option>Выберите тип поста</option>
-                <option value="News">News</option>
-                <option value="Action">Action</option>
-                <option value="Offer">Offer</option>
-            </select>
-            <form>
-                <p>
-                    Если вы хотите загрузить картинку локально, можете сделать
-                    это здесь, после чего сервер сгенерирует вам ссылку для
-                    вставки в статью:
-                </p>
-                <input
-                    type="file"
-                    placeholder="изменить"
-                    onChange={handlePicChange}
-                    className="px-[5px] py-[3px]"
-                />
-                <button onClick={handleUrlGet}>Вставить картинку</button>
-                <p>Ссылка на картинку появится здесь {photoUrl}</p>
-                <p>Ссылка на Background</p>
-                <input type="text" value={bgPic} onChange={changeBgPicture} />
-            </form>
-            <MDEditor value={value} onChange={setValue} />
-            <MDEditor.Markdown
-                source={value}
-                style={{ whiteSpace: "pre-wrap" }}
-            />
-            <button
-                className="bg-yellow-700 rounded-[5px]"
-                onClick={uploadPost}
-            >
-                Создать новость
-            </button>
-        </div>
+                <img src={logopic} alt="logopic" className="w-[132px]" />
+            </NavLink>
+            <main className="wrap pt-28 text-white pb-20">
+                <h1 className="h1">Название поста</h1>
+                <div className="space-y-3 p-2 mt-4 bg-grey rounded-lg">
+                    <input
+                        className="bg-darkgrey w-full py-3 px-7 rounded-lg"
+                        type="text"
+                        placeholder="Название"
+                        value={title}
+                        onChange={changeTitle}
+                    />
+                    <select
+                        className="bg-darkgrey w-full py-3 px-7 rounded-lg"
+                        onChange={(e) => {
+                            setType(e.target.value);
+                        }}
+                    >
+                        <option>Выберите тип поста</option>
+                        <option value="News">Новость</option>
+                        <option value="Action">Конкурс</option>
+                        <option value="Offer">Предложение</option>
+                    </select>
+                    <form className="space-y-3">
+                        <p className="p">
+                            Если вы хотите загрузить картинку локально, можете сделать
+                            это здесь, после чего сервер сгенерирует вам ссылку для
+                            вставки в статью:
+                        </p>
+                        <input
+                            type="file"
+                            placeholder="изменить"
+                            onChange={handlePicChange}
+                            className="bg-darkgrey w-full py-3 px-7 rounded-lg"
+                        />
+                        <button 
+                            onClick={handleUrlGet} 
+                            className="w-full rounded-lg bg-white text-darkgrey p-3 text-sm font-bold"
+                        >
+                            Вставить картинку
+                        </button>
+                        <p className="p">Ссылка на картинку появится здесь {photoUrl}</p>
+                        <p className="p">Вставьте ссылку на бэкграунд, чтобы его установить</p>
+                        <input type="text" value={bgPic} onChange={changeBgPicture}
+                        placeholder="Ссылка на бэкграунд" className="bg-darkgrey w-full py-3 px-7 rounded-lg"/>
+                    </form>
+                    <MDEditor value={value} onChange={setValue} />
+                    <MDEditor.Markdown
+                        source={value}
+                        style={{ whiteSpace: "pre-wrap" }}
+                    />
+                    <button
+                        className="w-full rounded-lg bg-yellow py-3 text-darkgrey text-sm font-bold"
+                        onClick={uploadPost}
+                    >
+                        Создать новость
+                    </button>
+                </div>
+            </main>
+        </section>
     );
 };
 

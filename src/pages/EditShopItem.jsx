@@ -4,6 +4,9 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { createProduct, updateProduct } from "../store/reducers/shopSlice";
 
+import logopic from "../assets/Main/logo.png";
+import { NavLink } from "react-router-dom";
+
 const EditShopItem = () => {
     const [value, setValue] = React.useState("**Hello world!!!**");
     const [title, setTitle] = useState("");
@@ -48,43 +51,50 @@ const EditShopItem = () => {
 
     return (
         <section className="bg-darkgrey min-h-[100vh]">
-            <div className="w-[1240px] flex flex-col items-center justify-center mx-auto">
-                <div className="container">
-                    <p>Редактирование товара</p>
+            <NavLink
+                className="w-full flex items-center justify-center fixed top-0 bg-darkgrey pt-12 pb-3 z-10"
+                to="/"
+            >
+                <img src={logopic} alt="logopic" className="w-[132px]" />
+            </NavLink>
+            <div className="wrap pt-28 text-white pb-20">
+                <h1 className="h1">Редактирование товара</h1>
+                <div className="space-y-3 mt-3 p-4 bg-grey rounded-lg">
+                    <p className="p">Описание товара</p>
                     <MDEditor value={value} onChange={setValue} />
                     <MDEditor.Markdown
                         source={value}
                         style={{ whiteSpace: "pre-wrap" }}
                     />
                     <select
-                        className="w-[400px] text-black"
+                        className="bg-darkgrey w-full py-4 px-7 rounded-lg "
                         onChange={(e) => {
                             setTag(e.target.value);
                         }}
                     >
-                        <option>Выберите тип поста</option>
+                        <option>Выберите тип товара</option>
                         <option value="Product">Product</option>
                         <option value="Merch">Merch</option>
                     </select>
-                    <p>Title</p>
-                    <input type="text" onChange={changeTitle} value={title} />
-                    <p>Specifications</p>
+                    <input type="text" onChange={changeTitle} value={title} 
+                    placeholder="Название товара" className="bg-darkgrey w-full py-4 px-7 rounded-lg"/>
                     <input
                         type="text"
                         onChange={changeSpecifications}
                         value={specifications}
+                        placeholder="Особенности товара" className="bg-darkgrey w-full py-4 px-7 rounded-lg"
                     />
-                    <p>Amount</p>
                     <input
                         type="number"
                         onChange={changeAmount}
                         value={amount}
+                        placeholder="Количество товара" className="bg-darkgrey w-full py-4 px-7 rounded-lg"
                     />
-                    <p>Price</p>
-                    <input type="number" onChange={changePrice} value={price} />
+                    <input type="number" onChange={changePrice} value={price} 
+                        placeholder="Цена товара" className="bg-darkgrey w-full py-4 px-7 rounded-lg"/>
 
                     <button
-                        className="bg-yellow-700 rounded-[5px]"
+                        className="w-full rounded-lg bg-yellow py-4 text-darkgrey text-sm font-bold"
                         onClick={editShopItem}
                     >
                         Редактировать товар
