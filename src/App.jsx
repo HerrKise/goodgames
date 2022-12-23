@@ -47,6 +47,7 @@ import { Policy } from "./pages/Policy";
 import { PersonalData } from "./pages/PersonalData";
 import { TermsOfUse } from "./pages/TermsOfUse";
 import UserBoughtItems from "./pages/UserBoughtItems";
+import PrizePaymentForm from "./pages/PrizePaymentForm";
 
 function App() {
     return (
@@ -123,6 +124,10 @@ function App() {
                         element={<AddResultsForm />}
                     />
                     <Route
+                        path="/staff/prize-payment-event/:eventId"
+                        element={<PrizePaymentForm />}
+                    />
+                    <Route
                         path="/staff/edit-posts"
                         element={<EditPosts />}
                     ></Route>
@@ -161,7 +166,7 @@ function App() {
                 <Route path="/tournamentlist" element={<TournamentList />} />
                 <Route path="/matchespage" element={<MatchesPage />} />
                 <Route
-                    path="/choose-stage-group/:eventId/:stageId/:participantId"
+                    path="/choose-stage-group/:eventId/:participantId"
                     element={<ChooseStageGroupParticipation />}
                 />
                 <Route path="/policy" element={<Policy />} />

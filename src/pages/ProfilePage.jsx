@@ -9,7 +9,7 @@ import {
     getUserProfileData,
     loadUserProfile,
     userLogout,
-    resendEmailConfirmation,
+    resendEmailConfirmation
 } from "../store/reducers/userSlice.js";
 import localStorageService from "../services/localStorage.service.js";
 import { useEffect, useState } from "react";
@@ -25,9 +25,9 @@ export const ProfilePage = () => {
 
     console.log(isLoading);
 
-    /* useEffect(() => {
-        console.log("rerender");
-    }, [isLoading]); */
+    useEffect(() => {
+        dispatch(loadUserProfile());
+    }, []);
 
     const handleLogOut = () => {
         dispatch(userLogout());

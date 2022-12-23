@@ -14,7 +14,7 @@ import { getSelectedTeam, loadTeamByID } from "../store/reducers/teamsSlice";
 import { getUserProfileData } from "../store/reducers/userSlice";
 
 export const ChooseStageGroupParticipation = () => {
-    const { eventId, stageId, participantId } = useParams();
+    const { eventId, participantId } = useParams();
     /* console.log(eventId, stageId); */
     const dispatch = useDispatch();
     const isLoading = useSelector(getEventsLoadingStatus());

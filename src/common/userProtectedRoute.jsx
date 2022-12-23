@@ -18,9 +18,9 @@ const UserProtectedRoute = () => {
     console.log("проверяется");
     const isLoggedIn = useSelector(getIsUserLoggedIn());
     console.log(isStaff, isLoggedIn);
-    if (isLoggedIn && !isStaff) {
+    /* if (isLoggedIn && !isStaff) {
         dispatch(loadUserProfile());
-    }
+    } */
 
     return (
         <>{isLoggedIn && !isStaff ? <Outlet /> : <Navigate to="/login" />}</>
