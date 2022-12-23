@@ -107,29 +107,29 @@ export const GamesTabs = ({ setPopupVisible, events }) => {
           />
         </svg>
       </div> */}
-      <div className="">
-        {activeTab === "tournaments" && (
-          <Tournaments
-            tournaments={events.filter(
-              (event) => event.eventType === "Tournament"
-            )}
-          />
-        )}
-        {activeTab === "mini-tournaments" && (
-          <Tournaments
-            tournaments={events.filter(
-              (event) => event.eventType === "MiniTournament"
-            )}
-          />
-        )}
-        {activeTab === "practice-games" && (
-          <Tournaments
-            tournaments={events.filter(
-              (event) => event.eventType === "Practice"
-            )}
-          />
-        )}
-      </div>
-    </div>
-  );
+            <div className="">
+                {activeTab === "Tournament" && (
+                    <Tournaments
+                        tournaments={events.filter(
+                            (event) => event.eventType === "Tournament"
+                        )}
+                    />
+                )}
+                {activeTab === "MiniTournament" && (
+                    <Tournaments
+                        tournaments={events.filter(
+                            (event) => event.eventType === "MiniTournament"
+                        )}
+                    />
+                )}
+                {activeTab === "Practice" && (
+                    <Tournaments
+                        tournaments={events.filter(
+                            (event) => event.eventType === "Practice"
+                        )}
+                    />
+                )}
+            </div>
+        </div>
+    );
 };
