@@ -160,15 +160,15 @@ const StaffPage = () => {
     };
 
     return (
+        isLoading ? "" :
         <section className="bg-darkgrey min-h-[100vh]">
             <NavLink
-                className="w-full flex items-center justify-center fixed top-0 bg-darkgrey pt-12 pb-3"
+                className="w-full flex items-center justify-center fixed top-0 bg-darkgrey pt-12 pb-3 z-10"
                 to="/"
             >
                 <img src={logopic} alt="logopic" className="w-[132px]" />
             </NavLink>
             <main className="wrap pt-28 text-white pb-20">
-                <h1 className="h1">Admin</h1>
                 <nav className="py-5 space-y-3">
                     <NavLink
                         to="/staff/reg"
@@ -190,6 +190,41 @@ const StaffPage = () => {
                         className="bg-[#26262633] w-full rounded-xl p-4 text-center text-sm font-bold"
                     >
                         Создать событие
+                    </NavLink>
+                    <NavLink
+                        to="/staff/create-post"
+                        type="button"
+                        className="bg-[#26262633] w-full rounded-xl p-4 text-center text-sm font-bold"
+                    >
+                        Создать пост
+                    </NavLink>
+                    <NavLink
+                        to="/staff/create-shop-item"
+                        type="button"
+                        className="bg-[#26262633] w-full rounded-xl p-4 text-center text-sm font-bold"
+                    >
+                        Создать товар в магазине
+                    </NavLink>
+                    <NavLink
+                        to="/staff/extended-shop"
+                        type="button"
+                        className="bg-[#26262633] w-full rounded-xl p-4 text-center text-sm font-bold"
+                    >
+                        Редактирование товаров в магазине
+                    </NavLink>
+                    <NavLink
+                        to="/staff/give-money"
+                        type="button"
+                        className="bg-[#26262633] w-full rounded-xl p-4 text-center text-sm font-bold"
+                    >
+                        Пополнить баланс
+                    </NavLink>
+                    <NavLink
+                        to="/staff/edit-posts"
+                        type="button"
+                        className="bg-[#26262633] w-full rounded-xl p-4 text-center text-sm font-bold"
+                    >
+                        Изменить посты
                     </NavLink>
                 </nav>
 
@@ -303,35 +338,41 @@ const StaffPage = () => {
                                             (event) => (
                                                 <li
                                                     key={event.id}
-                                                    className="text-sm"
+                                                    className="p-2 text-sm space-y-1 border-[1px] border-white/30 rounded-lg"
                                                 >
-                                                    {event.title}
-                                                    <button
-                                                        onClick={() =>
-                                                            showEvent(event.id)
-                                                        }
-                                                    >
-                                                        Редактировать событие
-                                                    </button>
-                                                    <button
-                                                        onClick={() =>
-                                                            showResultsForm(
-                                                                event.id
-                                                            )
-                                                        }
-                                                    >
-                                                        Внести результаты группы
-                                                    </button>
-                                                    <button
-                                                        onClick={() =>
-                                                            showApplicationsList(
-                                                                event.id
-                                                            )
-                                                        }
-                                                    >
-                                                        Посмотреть список заявок
-                                                        на участие
-                                                    </button>
+                                                    <h3 className="h3">{event.title}</h3>
+                                                    
+                                                    <div className="flex gap-2 pt-3 flex-wrap">
+                                                        <button
+                                                                onClick={() =>
+                                                                    showApplicationsList(
+                                                                        event.id
+                                                                    )
+                                                                }
+                                                                className="bg-white/10 w-full py-2 text-sm font-bold rounded-lg"
+                                                            >
+                                                                Посмотреть список заявок
+                                                                на участие
+                                                        </button>
+                                                        <button
+                                                            onClick={() =>
+                                                                showResultsForm(
+                                                                    event.id
+                                                                )
+                                                            }
+                                                            className="bg-yellow text-darkgrey w-[48%] p-2 text-sm font-bold rounded-lg"
+                                                        >
+                                                            Внести результаты
+                                                        </button>
+                                                        <button
+                                                            onClick={() =>
+                                                                showEvent(event.id)
+                                                            }
+                                                            className="bg-white text-darkgrey w-[48%] py-2 text-sm font-bold rounded-lg"
+                                                        >
+                                                            Редактировать событие
+                                                        </button>
+                                                    </div>
                                                 </li>
                                             )
                                         )}

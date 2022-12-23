@@ -33,7 +33,7 @@ export const Header = () => {
                         <img src={logo} alt="logo" />
                     </Link>
                     <div className="flex space-x-6">
-                        <p>COINS: {user.coins}</p>
+                        {/* <p>COINS: {user.coins}</p> */}
                         <button className="hidden">
                             <svg
                                 width="19"
