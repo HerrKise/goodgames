@@ -8,14 +8,14 @@ export const ProfilePromo = ({ user, isLoading }) => {
     return isLoading ? (
         ""
     ) : (
-        <section className="w-full h-[420px] relative">
+        <section className="w-full h-[420px] relative lg:h-full">
             <img
                 src={promobg}
                 alt="promopic"
                 className="absolute top-0 h-full w-full object-top object-cover"
             />
-            <div className="wrap relative z-20 h-full flex flex-col items-center justify-end pb-8">
-                <div className="w-40 h-40 rounded-full relative overflow-clip">
+            <div className="wrap relative z-20 h-full flex flex-col items-center justify-end pb-8 lg:justify-center">
+                <div className="w-40 h-40 rounded-full relative overflow-clip lg:w-60 lg:h-60">
                     {picture !== "" ? (
                         <img
                             src={picture}

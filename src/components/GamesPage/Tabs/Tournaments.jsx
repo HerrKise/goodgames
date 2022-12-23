@@ -12,7 +12,7 @@ export const Tournaments = ({tournaments}) => {
         dispatch(getSelectedEvent({id: tournament.id, navigate: () => navigate(`/tournamentpage/:${tournament.id}`)}))
     }
     return (
-        <ul className="space-y-5">
+        <ul className="space-y-5 lg:flex flex-wrap lg:gap-5 lg:space-y-0">
             {tournaments.map((tournament, i) => {
                 return (
                     <li className="bg-gray-700 p-[14px] rounded-2xl h-[200px] relative overflow-clip" key={i} onClick={() => handleEventSelect(tournament)} >

@@ -39,11 +39,11 @@ export const ProfilePage = () => {
     return (
         <div className="bg-darkgrey min-h-[100vh]">
             <Header />
-            <main className="text-white pb-20">
+            <main className="text-white pb-20 lg:flex lg:justify-center lg:items-center lg:h-[100vh]">
                 {!isLoading && user && (
                     <ProfilePromo user={user.profile} isLoading={isLoading} />
                 )}
-                <ul className="wrap space-y-3">
+                <ul className="wrap space-y-3 lg:flex flex-wrap justify-center lg:gap-5 lg:space-y-0 lg:mt-8">
                     {/* <li className={user.premium ? "bg-yellow text-darkgrey w-full rounded-xl p-4" : "bg-[#262626] w-full rounded-xl p-4"}>
                         <Link className="flex items-center justify-between">
                             <div className="flex items-center space-x-3">
@@ -65,7 +65,7 @@ export const ProfilePage = () => {
                             }
                         </Link>
                     </li> */}
-                    <li className="bg-[#26262633] w-full rounded-xl p-4">
+                    <li className="bg-[#26262633] w-full rounded-xl p-4 lg:w-[300px]">
                         <Link
                             className="flex items-center space-x-3"
                             to="/profilepage-settings"
@@ -91,7 +91,7 @@ export const ProfilePage = () => {
                             <h3 className="h3">Настройки</h3>
                         </Link>
                     </li>
-                    <li className="bg-[#26262633] w-full rounded-xl p-4">
+                    <li className="bg-[#26262633] w-full rounded-xl p-4 lg:w-[300px]">
                         <Link
                             className="flex items-center space-x-3"
                             to="/profilepage/teams"
@@ -117,7 +117,7 @@ export const ProfilePage = () => {
                             <h3 className="h3">Мои команды</h3>
                         </Link>
                     </li>
-                    <li className="bg-[#26262633] w-full rounded-xl p-4">
+                    <li className="bg-[#26262633] w-full rounded-xl p-4 lg:w-[300px]">
                         <Link
                             className="flex items-center space-x-3"
                             to="/matchespage"
@@ -139,7 +139,7 @@ export const ProfilePage = () => {
                             <h3 className="h3">Мои матчи</h3>
                         </Link>
                     </li>
-                    <li className="bg-[#26262633] w-full rounded-xl p-4 opacity-40">
+                    <li className="bg-[#26262633] w-full rounded-xl p-4 opacity-40 lg:w-[300px]">
                         <Link className="flex items-center space-x-3">
                             <svg
                                 width="20"
@@ -166,7 +166,7 @@ export const ProfilePage = () => {
                             <h3 className="h3">Транзакции</h3>
                         </Link>
                     </li>
-                    <li className="bg-[#26262633] w-full rounded-xl p-4">
+                    <li className="bg-[#26262633] w-full rounded-xl p-4 lg:w-[300px]">
                         <Link className="flex items-center space-x-3">
                             <svg
                                 width="20"
@@ -185,7 +185,7 @@ export const ProfilePage = () => {
                             <h3 className="h3">Помощь</h3>
                         </Link>
                     </li>
-                    <li className="bg-[#26262633] w-full rounded-xl p-4">
+                    <li className="bg-[#26262633] w-full rounded-xl p-4 lg:w-[300px]">
                         <Link
                             className="flex items-center space-x-3"
                             to="/profilepage/bought-items"
@@ -208,7 +208,7 @@ export const ProfilePage = () => {
                         </Link>
                     </li>
                     <li
-                        className="bg-grey w-full rounded-xl p-4"
+                        className="bg-grey w-full rounded-xl p-4  lg:w-[300px]"
                         onClick={handleLogOut}
                     >
                         <button className="w-full text-center">

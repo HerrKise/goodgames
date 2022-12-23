@@ -12,27 +12,27 @@ body {
 
 @layer components {
     .wrap {
-        @apply w-full mx-auto px-4;
+        @apply w-full mx-auto px-4 lg:max-w-[1200px];
     }
 
     .h1 {
-        @apply text-[25px] leading-8 font-semibold;
+        @apply text-[25px] leading-8 font-semibold lg:text-4xl lg:font-normal;
     }
 
     .h3 {
-        @apply text-[17px] leading-[21px] font-bold;
+        @apply text-[17px] leading-[21px] font-bold lg:text-2xl lg:font-medium;
     }
 
     .p {
-        @apply text-[14px] leading-[17px] opacity-70;
+        @apply text-[14px] leading-[17px] opacity-70 lg:text-lg;
     }
 
     .yellowbtn {
-        @apply text-sm font-bold py-3 text-darkgrey bg-yellow rounded-3xl text-center px-5;
+        @apply text-sm font-bold py-3 text-darkgrey bg-yellow rounded-3xl text-center px-5 lg:text-lg;
     }
 
     .whitebtn {
-        @apply text-sm font-bold py-3 text-darkgrey bg-white rounded-3xl text-center px-5;
+        @apply text-sm font-bold py-3 text-darkgrey bg-white rounded-3xl text-center px-5 lg:text-lg;
     }
 }
 
