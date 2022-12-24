@@ -12,10 +12,9 @@ const StaffProtectedRoute = () => {
     const dispatch = useDispatch();
     const isLoggedIn = useSelector(getIsStaffLoggedIn());
     const isStaff = useSelector(getIsStaff());
-    console.log();
-    if (isLoggedIn && isStaff) {
+    /* if (isLoggedIn && isStaff) {
         dispatch(loadStaffProfile());
-    }
+    } */
     console.log(isStaff, isLoggedIn);
     return isLoggedIn & isStaff ? <Outlet /> : <Navigate to="/staff/login" />;
 };
