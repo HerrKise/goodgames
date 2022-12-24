@@ -149,12 +149,7 @@ const StaffPage = () => {
     };
 
     const showResultsForm = (eventId) => {
-        dispatch(
-            getStagesList({
-                payload: eventId,
-                navigate: () => navigate(`/staff/results-event/${eventId}`)
-            })
-        );
+        navigate(`/staff/results-event/${eventId}`);
     };
 
     const showPrizePaymentForm = (eventId) => {

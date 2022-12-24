@@ -4,7 +4,9 @@ import {
     getEventStages,
     getStagesList,
     updateGroup,
-    updateStage
+    updateStage,
+    getSelectedEvent,
+    getSelectedEventData
 } from "../store/reducers/eventsSlice";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
@@ -18,7 +20,12 @@ const AddResultsForm = () => {
         useState(true);
     const dispatch = useDispatch();
     const isLoading = useSelector(getEventsLoadingStatus());
-    const stages = useSelector(getEventStages());
+    const event = useSelector(getSelectedEventData());
+    const stages = event && event.stages;
+
+    useEffect(() => {
+        dispatch(getSelectedEvent({ id: eventId }));
+    }, []);
 
     const handlePickStage = (stage) => {
         setCurrentStage(stage);
@@ -32,7 +39,7 @@ const AddResultsForm = () => {
                         .filter((slot) => slot.participantId !== null)
                         .map((slot) => {
                             return {
-                                userId: slot.participantId,
+                                id: slot.participantId,
                                 place: 0,
                                 kills: 0,
                                 points: 0
@@ -42,7 +49,7 @@ const AddResultsForm = () => {
                         .filter((slot) => slot.participantId !== null)
                         .map((slot) => {
                             return {
-                                userId: slot.participantId,
+                                id: slot.participantId,
                                 place: 0,
                                 kills: 0,
                                 points: 0
@@ -52,7 +59,7 @@ const AddResultsForm = () => {
                         .filter((slot) => slot.participantId !== null)
                         .map((slot) => {
                             return {
-                                userId: slot.participantId,
+                                id: slot.participantId,
                                 place: 0,
                                 kills: 0,
                                 points: 0
@@ -66,13 +73,9 @@ const AddResultsForm = () => {
             setIsEditingResultAvailable(false);
         }
         setParticipantsList([
-            ...group.paidParticipants.filter(
+            ...group.allParticipants.filter(
                 (slot) => slot.participantId !== null
-            ),
-            ...group.reserveParticipants.filter(
-                (slot) => slot.participantId !== null
-            ),
-            ...group.participants.filter((slot) => slot.participantId !== null)
+            )
         ]);
     };
 
@@ -94,7 +97,7 @@ const AddResultsForm = () => {
                 if (result.place !== 0 && result.place <= 4) {
                     setCurrentStage((prevState) => ({
                         ...prevState,
-                        winners: [...prevState.winners, { id: result.userId }]
+                        winners: [...prevState.winners, { id: result.id }]
                     }));
                 }
             });
@@ -125,6 +128,7 @@ const AddResultsForm = () => {
                 view: currentStage.view
             };
             console.log(cuttedStage);
+            console.log({ groupId: currentGroup.id, group: cuttedGroup });
             dispatch(
                 updateGroup({ groupId: currentGroup.id, group: cuttedGroup })
             );
@@ -139,12 +143,13 @@ const AddResultsForm = () => {
             ...prevState,
             results: [
                 ...prevState.results.map((result) => {
-                    if (result.userId === id) {
+                    if (result.id === id) {
                         return {
                             ...result,
                             [e.target.name]: Number(e.target.value)
                         };
                     }
+                    return result;
                 })
             ]
         }));
@@ -186,14 +191,16 @@ const AddResultsForm = () => {
                     )}
                     {currentGroup !== null && participantsList !== null && (
                         <ul>
+                            {console.log(currentGroup, participantsList)}
                             {currentGroup.results.map((participant) => (
-                                <li key={participant.userId}>
+                                <li key={participant.id}>
+                                    {console.log(participant)}
                                     <p>
                                         {
                                             participantsList.find(
                                                 (p) =>
                                                     p.participantId ===
-                                                    participant.userId
+                                                    participant.id
                                             ).participantName
                                         }
                                     </p>
@@ -212,7 +219,7 @@ const AddResultsForm = () => {
                                                 onChange={(e) =>
                                                     handleResultsChange(
                                                         e,
-                                                        participant.userId
+                                                        participant.id
                                                     )
                                                 }
                                             />
@@ -229,7 +236,7 @@ const AddResultsForm = () => {
                                                 onChange={(e) =>
                                                     handleResultsChange(
                                                         e,
-                                                        participant.userId
+                                                        participant.id
                                                     )
                                                 }
                                             />
@@ -246,7 +253,7 @@ const AddResultsForm = () => {
                                                 onChange={(e) =>
                                                     handleResultsChange(
                                                         e,
-                                                        participant.userId
+                                                        participant.id
                                                     )
                                                 }
                                             />
