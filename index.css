@@ -12,15 +12,15 @@ body {
 
 @layer components {
     .wrap {
-        @apply w-full mx-auto px-4 lg:max-w-[1200px];
+        @apply w-full mx-auto px-4 max-w-[600px];
     }
 
     .h1 {
-        @apply text-[25px] leading-8 font-semibold lg:text-4xl lg:font-normal;
+        @apply text-[25px] leading-8 font-semibold lg:text-3xl lg:font-medium;
     }
 
     .h3 {
-        @apply text-[17px] leading-[21px] font-bold lg:text-2xl lg:font-medium;
+        @apply text-[17px] leading-[21px] font-bold lg:text-xl lg:font-medium;
     }
 
     .p {

@@ -11,11 +11,16 @@ export const Tournaments = ({tournaments}) => {
     const handleEventSelect = (tournament) => {
         dispatch(getSelectedEvent({id: tournament.id, navigate: () => navigate(`/tournamentpage/:${tournament.id}`)}))
     }
+
+    tournaments.map((tournament, i) => {
+        console.log(tournament);
+    })
+
     return (
         <ul className="space-y-5 lg:flex flex-wrap lg:gap-5 lg:space-y-0">
             {tournaments.map((tournament, i) => {
                 return (
-                    <li className="bg-gray-700 p-[14px] rounded-2xl h-[200px] relative overflow-clip" key={i} onClick={() => handleEventSelect(tournament)} >
+                    <li className="bg-yellow p-[14px] rounded-2xl h-[200px] relative overflow-clip" key={i} onClick={() => handleEventSelect(tournament)} >
                         <img src={placeholdergame} alt="placeholdergame" className="absolute top-0 left-0 h-full w-full object-top object-cover"/>
                         <div className='absolute bottom-0 left-0 h-full w-full bg-[#2626268C]'></div>
                         <div className="flex flex-col justify-between w-full h-full relative z-10">

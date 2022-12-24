@@ -1,7 +1,4 @@
-import { TabNavComponent } from "./TabNavComponent";
-import { MiniTournaments } from "./Tabs/MiniTournaments";
-import { PracticeGames } from "./Tabs/PracticeGames";
-import { TabContent } from "./Tabs/TabContent";
+
 import { Tournaments } from "./Tabs/Tournaments";
 
 import { useState } from "react";
@@ -107,29 +104,29 @@ export const GamesTabs = ({ setPopupVisible, events }) => {
           />
         </svg>
       </div> */}
-            <div className="">
-                {activeTab === "Tournament" && (
-                    <Tournaments
-                        tournaments={events.filter(
-                            (event) => event.eventType === "Tournament"
-                        )}
-                    />
-                )}
-                {activeTab === "MiniTournament" && (
-                    <Tournaments
-                        tournaments={events.filter(
-                            (event) => event.eventType === "MiniTournament"
-                        )}
-                    />
-                )}
-                {activeTab === "Practice" && (
-                    <Tournaments
-                        tournaments={events.filter(
-                            (event) => event.eventType === "Practice"
-                        )}
-                    />
-                )}
-            </div>
-        </div>
-    );
+      <div>
+        {activeTab === "Tournament" && (
+          <Tournaments
+            tournaments={events.filter(
+              (event) => event.eventType === "Tournament"
+            )}
+          />
+        )}
+        {activeTab === "MiniTournament" && (
+          <Tournaments
+            tournaments={events.filter(
+              (event) => event.eventType === "MiniTournament"
+            )}
+          />
+        )}
+        {activeTab === "Practice" && (
+          <Tournaments
+            tournaments={events.filter(
+              (event) => event.eventType === "Practice"
+            )}
+          />
+        )}
+      </div>
+    </div>
+  );
 };

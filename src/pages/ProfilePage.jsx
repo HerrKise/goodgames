@@ -39,7 +39,7 @@ export const ProfilePage = () => {
     return (
         <div className="bg-darkgrey min-h-[100vh]">
             <Header />
-            <main className="text-white pb-20 lg:flex lg:justify-center lg:items-center lg:h-[100vh]">
+            <main className="text-white pb-20">
                 {!isLoading && user && (
                     <ProfilePromo user={user.profile} isLoading={isLoading} />
                 )}
@@ -65,7 +65,7 @@ export const ProfilePage = () => {
                             }
                         </Link>
                     </li> */}
-                    <li className="bg-[#26262633] w-full rounded-xl p-4 lg:w-[300px]">
+                    <li className="bg-[#26262633] w-full rounded-xl p-4 lg:w-[250px]">
                         <Link
                             className="flex items-center space-x-3"
                             to="/profilepage-settings"
@@ -91,7 +91,7 @@ export const ProfilePage = () => {
                             <h3 className="h3">Настройки</h3>
                         </Link>
                     </li>
-                    <li className="bg-[#26262633] w-full rounded-xl p-4 lg:w-[300px]">
+                    <li className="bg-[#26262633] w-full rounded-xl p-4 lg:w-[250px]">
                         <Link
                             className="flex items-center space-x-3"
                             to="/profilepage/teams"
@@ -208,7 +208,7 @@ export const ProfilePage = () => {
                         </Link>
                     </li>
                     <li
-                        className="bg-grey w-full rounded-xl p-4  lg:w-[300px]"
+                        className="bg-grey w-full rounded-xl p-4"
                         onClick={handleLogOut}
                     >
                         <button className="w-full text-center">
