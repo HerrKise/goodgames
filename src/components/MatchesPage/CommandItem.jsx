@@ -220,27 +220,6 @@ export const CommandItem = ({ match, i }) => {
                                 </button>
                             </li>
                         ))}
-                        <li className="w-[106px] text-center bg-yellow rounded text-darkgrey py-1">
-                            1
-                        </li>
-                        <li className="w-[106px] text-center bg-yellow rounded text-darkgrey py-1">
-                            2
-                        </li>
-                        <li className="w-[106px] text-center bg-yellow rounded text-darkgrey py-1">
-                            3
-                        </li>
-                        <li className="w-[78px] text-center bg-darkgrey rounded py-1">
-                            4
-                        </li>
-                        <li className="w-[78px] text-center bg-darkgrey rounded py-1">
-                            5
-                        </li>
-                        <li className="w-[78px] text-center bg-darkgrey rounded py-1">
-                            6
-                        </li>
-                        <li className="w-[78px] text-center bg-darkgrey rounded py-1">
-                            7
-                        </li>
                     </ul>
                 </div> */}
             </Collapse>

@@ -129,6 +129,7 @@ const AddResultsForm = () => {
             };
             console.log(cuttedStage);
             console.log({ groupId: currentGroup.id, group: cuttedGroup });
+            console.log();
             dispatch(
                 updateGroup({ groupId: currentGroup.id, group: cuttedGroup })
             );

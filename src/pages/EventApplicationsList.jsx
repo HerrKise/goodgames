@@ -26,7 +26,11 @@ const EventApplicationsList = () => {
 
     const handleParticipantStatusChange = (e, id, status) => {
         e.preventDefault();
-        eventService.setApplicationStatus({ id: id, isApproved: status });
+        eventService.setApplicationStatus({
+            id: id,
+            isApproved: status,
+            eventId: eventSettings.id
+        });
     };
     return (
         <div>

@@ -8,10 +8,18 @@ import "../index.css";
 
 const store = setupStore();
 
+/* ReactDOM.hydrateRoot(document.getElementById("root")).render(
+    <BrowserRouter>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </BrowserRouter>
+); */
+
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </BrowserRouter>
+    <HashRouter>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </HashRouter>
 );
