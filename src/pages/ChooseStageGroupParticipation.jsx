@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import logopic from "../assets/Main/logo.png";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -11,87 +11,37 @@ import {
 
 import { ChooseGroupSlotsParticipation } from "./ChooseGroupSlotsParticipation";
 import { getSelectedTeam, loadTeamByID } from "../store/reducers/teamsSlice";
-import { getUserProfileData } from "../store/reducers/userSlice";
+import {
+    getUserProfileData,
+    loadUserProfile
+} from "../store/reducers/userSlice";
 
 export const ChooseStageGroupParticipation = () => {
-    const { eventId, stageId, participantId } = useParams();
-    /* console.log(eventId, stageId); */
+    const [currentStage, setCurrentStage] = useState();
+    const { eventId, participantId } = useParams();
     const dispatch = useDispatch();
     const isLoading = useSelector(getEventsLoadingStatus());
     const event = useSelector(getSelectedEventData());
-    const currentStage = event?.stages.find((stage) => stage.id === stageId);
+    /* const currentStage = event?.stages.find((stage) => stage.id === stageId); */
     const participantInfo =
         event?.regime === "Solo"
             ? useSelector(getUserProfileData())
             : useSelector(getSelectedTeam());
     useEffect(() => {
-        if (eventId) {
-            dispatch(getSelectedEvent({ id: eventId }));
-        }
+        dispatch(getSelectedEvent({ id: eventId }));
     }, []);
     useEffect(() => {
         if (event && event.regime !== "Solo") {
             dispatch(loadTeamByID(participantId));
+        } else if (event) {
+            dispatch(loadUserProfile());
         }
     }, [event]);
-    console.log(currentStage);
-    /* const event = {
-        title: "titleevent",
-        date: "10.10.10",
-        type: "Мини-турнир",
-        stage: {
-            title: "2 этап",
-            groups: [
-                {
-                    name: "A1",
-                    slots: [
-                        {
-                            num: "1",
-                            type: "Reserved"
-                        },
-                        {
-                            num: "2",
-                            type: "Paid"
-                        },
-                        {
-                            num: "3",
-                            type: "Free"
-                        },
-                        {
-                            num: "4",
-                            type: "Occupied"
-                        }
-                    ]
-                },
-                {
-                    name: "B1",
-                    slots: [
-                        {
-                            num: "1",
-                            type: "Reserved"
-                        },
-                        {
-                            num: "2",
-                            type: "Paid"
-                        },
-                        {
-                            num: "3",
-                            type: "Free"
-                        },
-                        {
-                            num: "4",
-                            type: "Occupied"
-                        }
-                    ]
-                }
-            ]
-        }
-    }; */
+    console.log(event);
+    console.log(participantInfo);
 
-    const team = {
-        id: "1",
-        title: "Team1",
-        tag: "123"
+    const handlePickStage = (stageId) => {
+        setCurrentStage(event.stages.find((stage) => stage.id === stageId));
     };
 
     return (
@@ -110,19 +60,47 @@ export const ChooseStageGroupParticipation = () => {
                     </NavLink>
                     <main className="wrap pt-28 text-white pb-20">
                         <h1 className="h1">Запись на событие</h1>
+                        <div>
+                            <h3 className="h3">Выберите этап</h3>
+                            <ul className="flex flex-wrap gap-1 text-sm font-bold pt-3">
+                                {event.stages.map((stage) => (
+                                    <li
+                                        className={
+                                            currentStage &&
+                                            currentStage.id === stage.id
+                                                ? `w-[106px] text-center bg-yellow rounded text-darkgrey py-1`
+                                                : `w-[106px] text-center bg-grey rounded py-1`
+                                        }
+                                        key={stage.id}
+                                    >
+                                        <button
+                                            onClick={() =>
+                                                handlePickStage(stage.id)
+                                            }
+                                        >
+                                            {stage.name}
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                         <div className="space-y-3 my-4">
-                            <div className="flex justify-between bg-grey p-3 rounded-lg items-center">
-                                <div>
-                                    <h3 className="h3">{event.title}</h3>
-                                    <p className="p">{event.type}</p>
+                            {currentStage && (
+                                <div className="flex justify-between bg-grey p-3 rounded-lg items-center">
+                                    <div>
+                                        <h3 className="h3">{event.title}</h3>
+                                        <p className="p">{event.type}</p>
+                                    </div>
+                                    <div>
+                                        <h3 className="h3">
+                                            {currentStage.name}
+                                        </h3>
+                                        <p className="p">
+                                            {currentStage.stageStart}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 className="h3">{currentStage.name}</h3>
-                                    <p className="p">
-                                        {currentStage.stageStart}
-                                    </p>
-                                </div>
-                            </div>
+                            )}
                             <div
                                 key={participantInfo.id}
                                 className="bg-grey rounded-lg p-3 relative w-full"
@@ -158,12 +136,20 @@ export const ChooseStageGroupParticipation = () => {
                                                 </svg>
                                             )}
                                         </div>
-                                        <h3 className="h3">
-                                            {participantInfo.title}
-                                        </h3>
-                                        <p className="p">
-                                            #{participantInfo.tag}
-                                        </p>
+                                        {event.regime !== "Solo" ? (
+                                            <>
+                                                <h3 className="h3">
+                                                    {participantInfo.title}
+                                                </h3>
+                                                <p className="p">
+                                                    #{participantInfo.tag}
+                                                </p>
+                                            </>
+                                        ) : (
+                                            <h3 className="h3">
+                                                {participantInfo.profile.login}
+                                            </h3>
+                                        )}
                                     </div>
                                 </div>
                             </div>

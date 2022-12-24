@@ -2,13 +2,18 @@ import { Collapse } from "react-collapse";
 import { useCallback } from "react";
 import { useState } from "react";
 import groupService from "../services/group.service";
+import { useDispatch } from "react-redux";
+import { getSelectedEvent } from "../store/reducers/eventsSlice";
 
 export const ChooseGroupSlotsParticipation = ({
     group,
     eventId,
     participantId
 }) => {
+    const dispatch = useDispatch();
+
     const [isSlotsOpen, setIsSlotsOpen] = useState(false);
+    const [slotBusy, setSlotBusy] = useState(null);
     console.log(group);
 
     const openSlots = useCallback(
@@ -17,12 +22,16 @@ export const ChooseGroupSlotsParticipation = ({
     );
 
     const handlePickSlot = (slotId) => {
-        groupService.join({
-            groupId: group.id,
-            eventId: eventId,
-            participantId: participantId,
-            slotId: Number(slotId)
-        });
+        groupService
+            .join({
+                groupId: group.id,
+                eventId: eventId,
+                participantId: participantId,
+                slotId: Number(slotId)
+            })
+            .then(() =>
+                setSlotBusy({ slotId: slotId, message: "Вы заняли слот" })
+            );
     };
     /* slot.type === "Paid"
                                         ? "bg-[#00F087] text-darkgrey font-bold rounded-lg"
@@ -58,17 +67,28 @@ export const ChooseGroupSlotsParticipation = ({
                                 >
                                     <p>{slot.slotId}</p>
                                     <p>
-                                        {slot.participantId === ""
+                                        {slot.participantId === null
                                             ? "Свободный слот"
                                             : slot.participantName}
+                                        {/* 
+                                        {slot.participantId === "" &&
+                                            slotBusy === null &&
+                                            "Свободный слот"}
+                                        {slot.participantId === "" &&
+                                            slotBusy !== null && slot.slotId === slotBusy.slotId &&
+                                            slotBusy.message}
+                                        {slot.participantId !== "" &&
+                                            slot.participantId} */}
                                     </p>
-                                    <button
-                                        onClick={() =>
-                                            handlePickSlot(slot.slotId)
-                                        }
-                                    >
-                                        Занять слот
-                                    </button>
+                                    {slot.participantId === null && (
+                                        <button
+                                            onClick={() =>
+                                                handlePickSlot(slot.slotId)
+                                            }
+                                        >
+                                            Занять слот
+                                        </button>
+                                    )}
                                 </li>
                             );
                         })}
@@ -81,17 +101,19 @@ export const ChooseGroupSlotsParticipation = ({
                                 >
                                     <p>{slot.slotId}</p>
                                     <p>
-                                        {slot.participantId === ""
+                                        {slot.participantId === null
                                             ? "Свободный слот"
                                             : slot.participantName}
                                     </p>
-                                    <button
-                                        onClick={() =>
-                                            handlePickSlot(slot.slotId)
-                                        }
-                                    >
-                                        Занять слот
-                                    </button>
+                                    {slot.participantId === null && (
+                                        <button
+                                            onClick={() =>
+                                                handlePickSlot(slot.slotId)
+                                            }
+                                        >
+                                            Занять слот
+                                        </button>
+                                    )}
                                 </li>
                             );
                         })}
@@ -104,17 +126,18 @@ export const ChooseGroupSlotsParticipation = ({
                                 >
                                     <p>{slot.slotId}</p>
                                     <p>
-                                        {slot.participantId === ""
-                                            ? "Свободный слот"
-                                            : slot.participantName}
+                                        {slot.participantId !== null &&
+                                            slot.participantName}
                                     </p>
-                                    <button
-                                        onClick={() =>
-                                            handlePickSlot(slot.slotId)
-                                        }
-                                    >
-                                        Занять слот
-                                    </button>
+                                    {slot.participantId === null && (
+                                        <button
+                                            onClick={() =>
+                                                handlePickSlot(slot.slotId)
+                                            }
+                                        >
+                                            Занять слот
+                                        </button>
+                                    )}
                                 </li>
                             );
                         })}
