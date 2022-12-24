@@ -12,7 +12,7 @@ export const PersonalData = () => {
             </Link>
             <main className="wrap pt-28 text-white pb-20 space-y-3">
                 <h1 className="h1 text-center">СОГЛАСИЕ НА ОБРАБОТКУ ПЕРСОНАЛЬНЫХ ДАННЫХ</h1>
-                <div className="text-sm text-end bg-grey p-2 rounded-lg">
+                <div className="text-sm text-end bg-grey/20 p-2 rounded-lg">
                     <p>Утверждаю: &laquo;18&raquo; декабря 2022 года</p>
                     <p>Индивидуальный&nbsp;предприниматель Букланс&nbsp;Владислав&nbsp;Дмитриевич</p>
                     <p>ИНН 434583955600</p>

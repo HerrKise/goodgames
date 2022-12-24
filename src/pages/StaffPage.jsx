@@ -157,9 +157,21 @@ const StaffPage = () => {
     };
 
     return (
+        isLoading ? "" :
         <section className="bg-darkgrey min-h-[100vh]">
+
             {staffData && (
                 <>
+
+            <NavLink
+                className="w-full flex items-center justify-center fixed top-0 bg-darkgrey pt-12 pb-3 z-10"
+                to="/"
+            >
+                <img src={logopic} alt="logopic" className="w-[132px]" />
+            </NavLink>
+            <main className="wrap pt-28 text-white pb-20">
+                <nav className="py-5 space-y-3">
+
                     <NavLink
                         className="w-full flex items-center justify-center fixed top-0 bg-darkgrey pt-12 pb-3"
                         to="/"
@@ -170,6 +182,7 @@ const StaffPage = () => {
                             className="w-[132px]"
                         />
                     </NavLink>
+
                     <main className="wrap pt-28 text-white pb-20">
                         <h1 className="h1">Admin</h1>
                         <nav className="py-5 space-y-3">
@@ -177,6 +190,91 @@ const StaffPage = () => {
                                 to="/staff/reg"
                                 type="button"
                                 className="bg-[#26262633] w-full rounded-xl p-4 text-center text-sm font-bold"
+
+                    <NavLink
+                        to="/staff/create-post"
+                        type="button"
+                        className="bg-[#26262633] w-full rounded-xl p-4 text-center text-sm font-bold"
+                    >
+                        Создать пост
+                    </NavLink>
+                    <NavLink
+                        to="/staff/create-shop-item"
+                        type="button"
+                        className="bg-[#26262633] w-full rounded-xl p-4 text-center text-sm font-bold"
+                    >
+                        Создать товар в магазине
+                    </NavLink>
+                    <NavLink
+                        to="/staff/extended-shop"
+                        type="button"
+                        className="bg-[#26262633] w-full rounded-xl p-4 text-center text-sm font-bold"
+                    >
+                        Редактирование товаров в магазине
+                    </NavLink>
+                    <NavLink
+                        to="/staff/give-money"
+                        type="button"
+                        className="bg-[#26262633] w-full rounded-xl p-4 text-center text-sm font-bold"
+                    >
+                        Пополнить баланс
+                    </NavLink>
+                    <NavLink
+                        to="/staff/edit-posts"
+                        type="button"
+                        className="bg-[#26262633] w-full rounded-xl p-4 text-center text-sm font-bold"
+                    >
+                        Изменить посты
+                    </NavLink>
+                </nav>
+
+                <div>
+                    <div>
+                        <form
+                            onSubmit={handleGetUsersList}
+                            className="space-y-3 p-4 bg-grey rounded-lg"
+                        >
+                            <div>
+                                <label htmlFor="pagesize" className="p">
+                                    Количество пользователей на странице
+                                </label>
+                                <input
+                                    id="pagesize"
+                                    value={pageSize}
+                                    placeholder="Кол-во пользователей на странице"
+                                    onChange={handlePageSizeChange}
+                                    className="bg-darkgrey w-full py-4 px-7 rounded-lg"
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="pageNumber" className="p">
+                                    Номер страницы
+                                </label>
+                                <input
+                                    id="pageNumber"
+                                    value={pageNumber}
+                                    onChange={handlePageNumberChange}
+                                    placeholder="Номер страницы"
+                                    className="bg-darkgrey w-full py-4 px-7 rounded-lg"
+                                />
+                            </div>
+                            <div className="flex items-center justify-start">
+                                <input
+                                    id="active"
+                                    checked={active}
+                                    onChange={handleChangeActive}
+                                    placeholder="Только активные пользователи"
+                                    className="mr-3"
+                                    type="checkbox"
+                                />
+                                <label htmlFor="active" className="p">
+                                    Только активные пользователи
+                                </label>
+                            </div>
+                            <button
+                                type="submit"
+                                className="w-full rounded-lg bg-yellow py-4 text-darkgrey text-sm font-bold"
+
                             >
                                 Регистраця нового сотрудника
                             </NavLink>
@@ -268,6 +366,7 @@ const StaffPage = () => {
                                         //onClick={toggleCreated}
                                         onClick={openCreatedEvents}
                                     >
+
                                         <p>Созданные события</p>
                                         <div
                                             className={
@@ -334,11 +433,13 @@ const StaffPage = () => {
                                                                 группы
                                                             </button>
                                                             <button
+
                                                                 onClick={() =>
                                                                     showApplicationsList(
                                                                         event.id
                                                                     )
                                                                 }
+
                                                             >
                                                                 Посмотреть
                                                                 список заявок на
@@ -357,6 +458,7 @@ const StaffPage = () => {
                                                     )
                                                 )}
                                             </ul>
+
                                         )}
                                     </Collapse>
                                 </div>
