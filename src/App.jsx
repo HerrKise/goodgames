@@ -47,7 +47,11 @@ import { Policy } from "./pages/Policy";
 import { PersonalData } from "./pages/PersonalData";
 import { TermsOfUse } from "./pages/TermsOfUse";
 import UserBoughtItems from "./pages/UserBoughtItems";
+
 import PrizePaymentForm from "./pages/PrizePaymentForm";
+
+import Editor from "./pages/Editor";
+
 
 function App() {
     return (
@@ -123,6 +127,7 @@ function App() {
                         path="/staff/results-event/:eventId"
                         element={<AddResultsForm />}
                     />
+                    <Route path="/staff/create-post" element={<Editor/>}></Route>
                     <Route
                         path="/staff/prize-payment-event/:eventId"
                         element={<PrizePaymentForm />}
