@@ -51,6 +51,36 @@ export const TournamentInfo = ({ tournament }) => {
 
     return (
         <ul className="wrap pt-10 space-y-4">
+            <div className="">
+                {tournament.regime !== "Solo" ? (
+                    <div className="flex space-x-2 items-center ">
+                        {/* <Link
+                            className="flex items-center justify-center"
+                            to={`/tournamentpage/${tournament.id}/chooseTeamToParticipate`}
+                        >
+                            <h3 className="h3">Выбор команды</h3>
+                        </Link> */}
+                        <Link to={`/tournamentpage/${tournament.id}/chooseTeamToParticipate`} className="bg-yellow rounded-xl w-full py-3 text-darkgrey text-sm text-center font-bold md:text-lg">Принять участие</Link>
+                        <button className="bg-white rounded-xl p-3 px-10 flex items-center space-x-2 text-darkgrey text-sm font-bold">
+                            <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.8294 14.9254L7.82356 14.9229L7.80523 14.9129C7.69797 14.8539 7.59157 14.7934 7.48605 14.7313C6.21753 13.9775 5.03204 13.092 3.94928 12.0895C2.03173 10.3003 0 7.64525 0 4.37517C0 1.93511 2.05339 5.91275e-05 4.5318 5.91275e-05C5.22078 -0.00331548 5.90166 0.14868 6.52379 0.444742C7.14593 0.740803 7.69332 1.17331 8.12524 1.7101C8.55725 1.1732 9.10477 0.740626 9.72706 0.44456C10.3494 0.148494 11.0304 -0.00344097 11.7195 5.91275e-05C14.1971 5.91275e-05 16.2505 1.93511 16.2505 4.37517C16.2505 7.64609 14.2188 10.3012 12.3012 12.0887C11.2185 13.0912 10.033 13.9767 8.76443 14.7304C8.65892 14.7928 8.55252 14.8536 8.44525 14.9129L8.42692 14.9229L8.42108 14.9263L8.41858 14.9271C8.32821 14.975 8.2275 15 8.12524 15C8.02298 15 7.92227 14.975 7.8319 14.9271L7.8294 14.9263V14.9254Z" fill="#191919"/>
+                            </svg>
+                            <span className="md:text-lg">1037</span>
+                        </button>
+                    </div>
+                ) : (
+                    
+                    <div className="flex space-x-2 items-center">
+                        <button className="bg-white rounded-xl p-3 px-10 flex items-center space-x-2 text-darkgrey text-sm font-bold">
+                            <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.8294 14.9254L7.82356 14.9229L7.80523 14.9129C7.69797 14.8539 7.59157 14.7934 7.48605 14.7313C6.21753 13.9775 5.03204 13.092 3.94928 12.0895C2.03173 10.3003 0 7.64525 0 4.37517C0 1.93511 2.05339 5.91275e-05 4.5318 5.91275e-05C5.22078 -0.00331548 5.90166 0.14868 6.52379 0.444742C7.14593 0.740803 7.69332 1.17331 8.12524 1.7101C8.55725 1.1732 9.10477 0.740626 9.72706 0.44456C10.3494 0.148494 11.0304 -0.00344097 11.7195 5.91275e-05C14.1971 5.91275e-05 16.2505 1.93511 16.2505 4.37517C16.2505 7.64609 14.2188 10.3012 12.3012 12.0887C11.2185 13.0912 10.033 13.9767 8.76443 14.7304C8.65892 14.7928 8.55252 14.8536 8.44525 14.9129L8.42692 14.9229L8.42108 14.9263L8.41858 14.9271C8.32821 14.975 8.2275 15 8.12524 15C8.02298 15 7.92227 14.975 7.8319 14.9271L7.8294 14.9263V14.9254Z" fill="#191919"/>
+                            </svg>
+                            <span className="md:text-lg">1037</span>
+                        </button>
+                        <button onClick={() => handleTakeAPart(tournament.id)}className="bg-yellow rounded-xl w-full py-3 text-darkgrey text-sm text-center font-bold md:text-lg">Принять участие</button>
+                    </div>
+                )}
+            </div>
             <li className="bg-[#26262633] w-full rounded-xl p-4">
                 <div className="flex justify-between" onClick={onClick}>
                     <h3 className="flex space-x-2 h3 items-center">
@@ -342,7 +372,7 @@ export const TournamentInfo = ({ tournament }) => {
                 </Link>
             </li>
             <li className="bg-[#26262633] w-full rounded-xl p-4">
-                <Link className="flex justify-between">
+                <a className="flex justify-between" href="https://t.me/durov" target="_blank">
                     <h3 className="flex space-x-2 h3 items-center">
                         <svg
                             width="20"
@@ -378,44 +408,13 @@ export const TournamentInfo = ({ tournament }) => {
                             />
                         </svg>
                     </button>
-                </Link>
+                </a>
             </li>
             <li className="bg-grey w-full rounded-xl p-4">
                 <Link className="flex items-center justify-center">
                     <h3 className="h3">Мои матчи</h3>
                 </Link>
             </li>
-            
-            <div className="md:px-20">
-                {tournament.regime !== "Solo" ? (
-                    <div className="flex space-x-2 items-center fixed bottom-20 left-[calc(50%-170px)] md:bottom-40 md:left-[calc(50%-214px)]">
-                        {/* <Link
-                            className="flex items-center justify-center"
-                            to={`/tournamentpage/${tournament.id}/chooseTeamToParticipate`}
-                        >
-                            <h3 className="h3">Выбор команды</h3>
-                        </Link> */}
-                        <button className="bg-white rounded-full p-3 flex items-center space-x-2 text-darkgrey text-sm font-bold">
-                            <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7.8294 14.9254L7.82356 14.9229L7.80523 14.9129C7.69797 14.8539 7.59157 14.7934 7.48605 14.7313C6.21753 13.9775 5.03204 13.092 3.94928 12.0895C2.03173 10.3003 0 7.64525 0 4.37517C0 1.93511 2.05339 5.91275e-05 4.5318 5.91275e-05C5.22078 -0.00331548 5.90166 0.14868 6.52379 0.444742C7.14593 0.740803 7.69332 1.17331 8.12524 1.7101C8.55725 1.1732 9.10477 0.740626 9.72706 0.44456C10.3494 0.148494 11.0304 -0.00344097 11.7195 5.91275e-05C14.1971 5.91275e-05 16.2505 1.93511 16.2505 4.37517C16.2505 7.64609 14.2188 10.3012 12.3012 12.0887C11.2185 13.0912 10.033 13.9767 8.76443 14.7304C8.65892 14.7928 8.55252 14.8536 8.44525 14.9129L8.42692 14.9229L8.42108 14.9263L8.41858 14.9271C8.32821 14.975 8.2275 15 8.12524 15C8.02298 15 7.92227 14.975 7.8319 14.9271L7.8294 14.9263V14.9254Z" fill="#191919"/>
-                            </svg>
-                            <span className="md:text-lg">1037</span>
-                        </button>
-                        <Link to={`/tournamentpage/${tournament.id}/chooseTeamToParticipate`} className="bg-yellow rounded-full px-16 md:px-20 py-3 text-darkgrey text-sm text-center font-bold md:text-lg">Принять участие</Link>
-                    </div>
-                ) : (
-                    
-                    <div className="flex space-x-2 items-center fixed bottom-20 left-[calc(50%-170px)] md:bottom-40 md:left-[calc(50%-214px)]">
-                        <button className="bg-white rounded-full p-3 flex items-center space-x-2 text-darkgrey text-sm font-bold">
-                            <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7.8294 14.9254L7.82356 14.9229L7.80523 14.9129C7.69797 14.8539 7.59157 14.7934 7.48605 14.7313C6.21753 13.9775 5.03204 13.092 3.94928 12.0895C2.03173 10.3003 0 7.64525 0 4.37517C0 1.93511 2.05339 5.91275e-05 4.5318 5.91275e-05C5.22078 -0.00331548 5.90166 0.14868 6.52379 0.444742C7.14593 0.740803 7.69332 1.17331 8.12524 1.7101C8.55725 1.1732 9.10477 0.740626 9.72706 0.44456C10.3494 0.148494 11.0304 -0.00344097 11.7195 5.91275e-05C14.1971 5.91275e-05 16.2505 1.93511 16.2505 4.37517C16.2505 7.64609 14.2188 10.3012 12.3012 12.0887C11.2185 13.0912 10.033 13.9767 8.76443 14.7304C8.65892 14.7928 8.55252 14.8536 8.44525 14.9129L8.42692 14.9229L8.42108 14.9263L8.41858 14.9271C8.32821 14.975 8.2275 15 8.12524 15C8.02298 15 7.92227 14.975 7.8319 14.9271L7.8294 14.9263V14.9254Z" fill="#191919"/>
-                            </svg>
-                            <span className="md:text-lg">1037</span>
-                        </button>
-                        <button onClick={() => handleTakeAPart(tournament.id)} className="bg-yellow rounded-full px-10 md:px-20 py-3 text-darkgrey text-sm font-bold md:text-lg">Принять участие</button>
-                    </div>
-                )}
-            </div>
         </ul>
     );
 };

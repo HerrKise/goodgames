@@ -56,7 +56,7 @@ export const ProfilePage = () => {
         :
         <div className="bg-darkgrey min-h-[100vh]">
             <Header />
-            <main className="text-white pb-20 md:pb-40">
+            <main className="text-white pb-20 md:pb-48">
                 {!isLoading && user && (
                     <ProfilePromo user={user.profile} isLoading={isLoading} />
                 )}
@@ -184,7 +184,7 @@ export const ProfilePage = () => {
                         </Link>
                     </li>
                     <li className="bg-[#26262633] w-full rounded-xl p-4">
-                        <Link className="flex items-center space-x-3">
+                        <a className="flex items-center space-x-3" href="https://t.me/durov">
                             <svg
                                 width="20"
                                 height="21"
@@ -200,7 +200,7 @@ export const ProfilePage = () => {
                                 />
                             </svg>
                             <h3 className="h3">Помощь</h3>
-                        </Link>
+                        </a>
                     </li>
                     <li className="bg-[#26262633] w-full rounded-xl p-4">
                         <Link

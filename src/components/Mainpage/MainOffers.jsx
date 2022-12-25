@@ -16,7 +16,7 @@ export const MainOffers = ({ offers }) => {
         spaceBetween={12}
         // loop={true}
         slidesPerView={"auto"}
-        className="h-[230px] my-5 px-3 md:h-[320px] md:pl-[calc(50%-290px)] md:my-8"
+        className="h-[230px] my-5 px-3 md:h-[320px] md:pl-[calc(50%-390px)] md:my-8"
       >
         {offers.map((offer, i) => {
           return (
