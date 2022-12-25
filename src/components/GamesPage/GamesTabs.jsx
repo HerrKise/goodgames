@@ -8,7 +8,7 @@ export const GamesTabs = ({ setPopupVisible, events }) => {
 
     return (
         <div>
-            <ul className="flex w-full flex-row items-center justify-between py-[13px] text-center text-xs font-bold rounded-xl overflow-clip bg-grey relative cursor-pointer lg:text-lg">
+            <ul className="flex w-full flex-row items-center justify-between text-center text-xs font-bold rounded-xl overflow-clip bg-grey relative cursor-pointer md:text-base md:rounded-2xl">
                 {/*  */}
                 <div
                     className={`absolute top-0 left-0 w-[33%] h-full bg-yellow z-0 transition-all duration-300 ${
@@ -22,7 +22,7 @@ export const GamesTabs = ({ setPopupVisible, events }) => {
                     onClick={() => {
                         setActiveTab("Tournament");
                     }}
-                    className={`z-10 transition-all duration-300 flex-1 ${
+                    className={`z-10 transition-all duration-300 flex-1  py-[13px] ${
                         activeTab === "Tournament" && "text-darkgrey"
                     }`}
                 >
@@ -32,7 +32,7 @@ export const GamesTabs = ({ setPopupVisible, events }) => {
                     onClick={() => {
                         setActiveTab("MiniTournament");
                     }}
-                    className={`z-10 transition-all duration-300 flex-1 ${
+                    className={`z-10 transition-all duration-300 flex-1  py-[13px] ${
                         activeTab === "MiniTournament" && "text-darkgrey"
                     }`}
                 >
@@ -42,7 +42,7 @@ export const GamesTabs = ({ setPopupVisible, events }) => {
                     onClick={() => {
                         setActiveTab("Practice");
                     }}
-                    className={`z-10 transition-all duration-300 flex-1 grid place-items-center  ${
+                    className={`z-10 transition-all duration-300 flex-1  py-[13px] grid place-items-center  ${
                         activeTab === "Practice" && "text-darkgrey"
                     }`}
                 >

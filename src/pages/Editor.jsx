@@ -123,7 +123,7 @@ const Editor = () => {
                         style={{ whiteSpace: "pre-wrap" }}
                     />
                     <button
-                        className="w-full rounded-lg bg-yellow py-3 text-darkgrey text-sm font-bold"
+                        className="w-full rounded-lg bg-yellow py-3 text-darkgrey text-sm font-bold md:text-base"
                         onClick={uploadPost}
                     >
                         Создать новость

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export const NavBar = () => {
   return (
-    <nav className="fixed bottom-0 z-[100] bg-darkgrey w-screen">
+    <nav className="fixed bottom-0 z-[100] bg-darkgrey md:bg-darkgrey/80 w-screen md:w-[500px] md:bottom-14 md:left-[calc(50%-250px)] md:rounded-2xl md:hover:bg-darkgrey duration-300">
       <div className="wrap flex flex-row items-center justify-between py-4 px-10">
         <Link
           className="flex flex-col items-center w-10 opacity-60 group hover:opacity-100 duration-300"
@@ -26,7 +26,7 @@ export const NavBar = () => {
               fill="#FFFFFF"
             />
           </svg>
-          <p className="text-xs text-white mt-1">Главная</p>
+          <p className="text-xs text-white mt-1 md:text-lg">Главная</p>
         </Link>
         <Link
           className="flex flex-col items-center w-10 opacity-60 group hover:opacity-100 duration-300"
@@ -47,7 +47,7 @@ export const NavBar = () => {
               fill="white"
             />
           </svg>
-          <p className="text-xs text-white mt-1">Игры</p>
+          <p className="text-xs text-white mt-1 md:text-lg">Игры</p>
         </Link>
         <Link
           className="flex flex-col items-center w-10 opacity-30 duration-300 cursor-default"
@@ -56,7 +56,7 @@ export const NavBar = () => {
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-6 h-6">
             <path fillRule="evenodd" d="M3 6a3 3 0 013-3h12a3 3 0 013 3v12a3 3 0 01-3 3H6a3 3 0 01-3-3V6zm4.5 7.5a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zm3.75-1.5a.75.75 0 00-1.5 0v4.5a.75.75 0 001.5 0V12zm2.25-3a.75.75 0 01.75.75v6.75a.75.75 0 01-1.5 0V9.75A.75.75 0 0113.5 9zm3.75-1.5a.75.75 0 00-1.5 0v9a.75.75 0 001.5 0v-9z" clipRule="evenodd" />
           </svg>
-          <p className="text-xs text-white mt-1">Рейтинг</p>
+          <p className="text-xs text-white mt-1 md:text-lg">Рейтинг</p>
         </Link>
         <Link
           className="flex flex-col items-center w-10 opacity-30 duration-300 cursor-default"
@@ -76,7 +76,7 @@ export const NavBar = () => {
               fill="white"
             />
           </svg>
-          <p className="text-xs text-white mt-1">Магазин</p>
+          <p className="text-xs text-white mt-1 md:text-lg">Магазин</p>
         </Link>
         
 

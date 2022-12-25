@@ -144,7 +144,7 @@ export const ProFileTeamsItem = ({team, user, refreshTeamsData}) => {
             <Collapse isOpened={isInfoOpen}>
                 <div className="space-y-[14px] pt-4">
                     <button
-                        className="w-full rounded-lg bg-darkgrey py-3 text-white text-xs font-bold flex items-center justify-center space-x-2"
+                        className="w-full rounded-lg bg-darkgrey py-3 text-white text-xs font-bold flex items-center justify-center space-x-2 md:text-base"
                         onClick={() => {
                             getCode(team.id);
                         }}
@@ -164,7 +164,7 @@ export const ProFileTeamsItem = ({team, user, refreshTeamsData}) => {
                         <span>Получить код приглашения</span>
                     </button>
                     <button
-                        className="w-full rounded-lg bg-darkgrey py-3 text-white text-xs font-bold flex items-center justify-center space-x-2 opacity-60"
+                        className="w-full rounded-lg bg-darkgrey py-3 text-white text-xs font-bold flex items-center justify-center space-x-2 opacity-60 md:text-base"
                         onClick={() => {
                             getManagerCode(team.id);
                         }}
@@ -251,7 +251,7 @@ export const ProFileTeamsItem = ({team, user, refreshTeamsData}) => {
                         }}
                     >
                         <div
-                            className="w-full rounded-lg bg-white py-3 text-darkgrey text-xs font-bold flex items-center justify-center"
+                            className="w-full rounded-lg bg-white py-3 text-darkgrey text-xs font-bold flex items-center justify-center md:text-base"
                             onClick={openChange}
                         >
                             Изменить команду
@@ -261,7 +261,7 @@ export const ProFileTeamsItem = ({team, user, refreshTeamsData}) => {
                         </Collapse>
                     </div>
                     <button
-                        className="w-full rounded-lg bg-darkgrey py-3 text-white text-xs font-bold"
+                        className="w-full rounded-lg bg-darkgrey py-3 text-white text-xs font-bold md:text-base"
                         onClick={() => {
                             leaveTeam(team.id);
                         }}
@@ -269,7 +269,7 @@ export const ProFileTeamsItem = ({team, user, refreshTeamsData}) => {
                         Покинуть команду
                     </button>
                     <button
-                        className="w-full rounded-lg bg-darkgrey py-3 text-white text-xs font-bold flex items-center justify-center space-x-2 opacity-60"
+                        className="w-full rounded-lg bg-darkgrey py-3 text-white text-xs font-bold flex items-center justify-center space-x-2 opacity-60 md:text-base"
                         onClick={() => {
                             deleteTeam(team.id);
                         }}

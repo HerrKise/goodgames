@@ -41,12 +41,12 @@ const StaffRegistration = () => {
             <NavLink className="w-full flex items-center justify-center fixed top-0 bg-darkgrey pt-12 pb-3 z-50" to="/">
                 <img src={logopic} alt="logopic" className="w-[132px]"/>
             </NavLink>
-            <main  className="wrap pt-28 text-white pb-20">
+            <main  className="wrap pt-28 text-white pb-20 max-w-[400px]">
                 <form
                     className="space-y-3 p-4 bg-grey rounded-lg my-5"
                     onSubmit={handleSubmit}
                 >
-                    <h1 className="h1">Создание профиля для сотрудника</h1>
+                    <h1 className="h1 text-center">Создание профиля для сотрудника</h1>
                     <input
                         type="text"
                         value={nickname || ""}
@@ -83,7 +83,7 @@ const StaffRegistration = () => {
                     </select>
                     <button
                         type="submit"
-                        className='w-full rounded-lg bg-yellow py-4 my-5 text-darkgrey text-sm font-bold'
+                        className='w-full rounded-lg bg-yellow py-4 my-5 text-darkgrey text-sm font-bold md:text-base'
                     >
                         Создать профиль
                     </button>

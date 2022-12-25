@@ -31,7 +31,7 @@ const StaffLogin = () => {
             <Link className="w-full flex items-center justify-center fixed top-12" to="/">
                 <img src={logopic} alt="logopic" className="w-[132px]"/>
             </Link>
-            <div className="wrap py-20 h-full w-full  text-white">
+            <div className="wrap py-20 h-full w-full  text-white  max-w-[400px]">
                 <h1 className="h1 pb-8 text-center">Вход для администратора</h1>
                 <form
                     className="space-y-[10px]"
@@ -53,7 +53,7 @@ const StaffLogin = () => {
                     />
                     <button
                         type="submit"
-                        className='w-full rounded-lg bg-yellow py-4 text-darkgrey text-sm font-bold'
+                        className='w-full rounded-lg bg-yellow py-4 text-darkgrey text-sm font-bold md:text-base'
                     >
                         {" "}
                         Войти

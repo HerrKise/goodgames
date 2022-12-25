@@ -59,7 +59,7 @@ export default function Registration() {
             <Link className="w-full flex items-center justify-center fixed top-12" to="/">
                 <img src={logopic} alt="logopic" className="w-[132px]"/>
             </Link>
-            <div className="wrap py-20 h-full w-full  text-white">
+            <div className="wrap py-20 h-full w-full  text-white max-w-[400px]">
                 <h1 className="h1 pb-8 text-center">Регистрация</h1>
                 <form
                     className="space-y-[10px]"
@@ -134,7 +134,7 @@ export default function Registration() {
                         Я подтверждаю, что согласен с <Link to="/terms-of-use" target="_blank" className="underline">пользовательским соглашением</Link>, <Link to="/policy" target="_blank" className="underline">политикой конфиденциальности</Link> и на <Link to="/personal-data"  target="_blank" className="underline">обработку персональных данных</Link>
                     </p>
                     <button
-                        className='w-full rounded-lg bg-yellow py-4 text-darkgrey text-sm font-bold'
+                        className='w-full rounded-lg bg-yellow py-4 text-darkgrey text-sm font-bold md:text-base'
                         type="submit"
                     >
                         Зарегистрироваться

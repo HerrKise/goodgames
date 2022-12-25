@@ -38,7 +38,7 @@ export default function Login() {
       >
         <img src={logopic} alt="logopic" className="w-[132px]" />
       </Link>
-      <div className="wrap py-20 h-full w-full  text-white">
+      <div className="wrap py-20 h-full w-full  text-white max-w-[400px]">
         <h1 className="h1 pb-8 text-center">Вход</h1>
         <form className="space-y-[10px]" onSubmit={handleSubmit}>
           <input

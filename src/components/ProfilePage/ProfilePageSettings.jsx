@@ -142,10 +142,10 @@ export const ProfilePageSettings = () => {
     ) : (
         <div className="bg-darkgrey min-h-[100vh]">
             <Header />
-            <main className="wrap pt-28 text-white pb-20">
+            <main className="wrap pt-28 text-white pb-20 max-w-[400px] md:pb-40">
                 <h1 className="h1">Настройки</h1>
                 <form className="pt-5 space-y-[10px]" onSubmit={handleSubmit}>
-                    <h3 className="text-base">Основное</h3>
+                    <h3 className="text-base md:text-xl">Основное</h3>
                     <div className="bg-grey w-full py-4 px-7 rounded-lg text-center text-sm font-bold flex flex-col items-center">
                         <div className="w-40 h-40 rounded-full relative overflow-clip mb-3">
                             {picture ? (
@@ -180,7 +180,7 @@ export const ProfilePageSettings = () => {
                     </div>
                     <input
                         type="text"
-                        placeholder="Имя пользователя"
+                        placeholder="Ваше имя"
                         required
                         value={name}
                         onChange={handleNameChange}
@@ -215,10 +215,10 @@ export const ProfilePageSettings = () => {
                         onChange={handleDiscordChange}
                         className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
                     />
-                    <h3 className="text-base">PUBG</h3>
+                    <h3 className="text-base">PUBGM</h3>
                     <input
                         type="text"
-                        placeholder="Ник в PUBG"
+                        placeholder="Ник в PUBGM"
                         required
                         value={"" || nickname}
                         onChange={handleNicknameChange}
@@ -226,13 +226,13 @@ export const ProfilePageSettings = () => {
                     />
                     <input
                         type="text"
-                        placeholder="ID в PUBG"
+                        placeholder="ID в PUBGM"
                         required
                         value={"" || pubgId}
                         onChange={handlePubgIdChange}
                         className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
                     />
-                    <button className="w-full rounded-lg bg-yellow py-4 text-darkgrey text-sm font-bold">
+                    <button className="w-full rounded-lg bg-yellow py-4 text-darkgrey text-sm font-bold md:text-base">
                         <span>Изменить настройки профиля</span>
                     </button>
                 </form>
@@ -240,7 +240,7 @@ export const ProfilePageSettings = () => {
                     className="pt-5 space-y-[10px]"
                     onSubmit={handleChangePassword}
                 >
-                    <h3 className="text-base">Сменить пароль</h3>
+                    <h3 className="text-base md:text-xl">Сменить пароль</h3>
                     <input
                         type="password"
                         placeholder="Старый пароль"
@@ -265,11 +265,11 @@ export const ProfilePageSettings = () => {
                         onChange={changeConfirmNewPassword}
                         className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
                     />
-                    <button className="w-full rounded-lg bg-grey py-4 text-sm font-bold">
+                    <button className="w-full rounded-lg bg-grey py-4 text-sm font-bold md:text-base">
                         <span>Изменить пароль</span>
                     </button>
                 </form>
-                <h3 className="pt-5 text-base">Верификация аккаунта</h3>
+                <h3 className="pt-5 text-base md:text-xl">Верификация аккаунта</h3>
                 <p className="p py-3">
                     Верификация аккаунта на нашем сервисе нужна для того, чтобы
                     наши пользователи могли пользоваться всеми услугами, которые
@@ -282,7 +282,7 @@ export const ProfilePageSettings = () => {
                     который вы использовали при регистрации на сайте.
                 </p>
                 <Link>
-                    <button className="w-full rounded-lg bg-grey py-4 text-sm font-bold">
+                    <button className="w-full rounded-lg bg-grey py-4 text-sm font-bold md:text-base">
                         <span>Подтвердить аккаунт</span>
                     </button>
                 </Link>

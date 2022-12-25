@@ -36,8 +36,8 @@ const StaffGiveCoins = () => {
             >
                 <img src={logopic} alt="logopic" className="w-[132px]" />
             </Link>
-            <main className="wrap pt-28 text-white pb-20">
-                <h1 className="h1">Пополнение баланса</h1>
+            <main className="wrap h-[100vh] pt-28 text-white pb-20  max-w-[400px] flex flex-col items-center justify-center">
+                <h1 className="h1 text-center">Пополнение баланса</h1>
                 <div className="py-5 space-y-3">
                     <p className="p">ID юзера</p>
                     <input
