@@ -28,7 +28,7 @@ export const Header = () => {
     return (
         <>
             <header className="absolute -0 w-full h-[84px] z-[100]">
-                <div className="wrap flex justify-between items-center py-7 md:py-9">
+                <div className="wrap flex justify-between items-center py-7 md:py-9 md:max-w-[unset]">
                     <Link className="w-[132px] h-auto md:w-[160px]" to="/">
                         <img src={logo} alt="logo" />
                     </Link>
@@ -95,7 +95,7 @@ export const Header = () => {
                 id="navbar"
                 style={{ top: "-200px" }}
             >
-                <div className="wrap flex justify-between items-center">
+                <div className="px-10 flex justify-between items-center">
                     <Link className="w-[132px] h-auto md:w-[160px]" to="/">
                         <img src={logo} alt="logo" />
                     </Link>

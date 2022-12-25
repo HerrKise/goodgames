@@ -54,50 +54,56 @@ export const ChooseGroupSlotsParticipation = ({
                 onClick={openSlots}
             >
                 <h3 className="h3">{group.name}</h3>
-                <p className="p">Доступно ???</p>
+                {/* <p className="p">Доступно ???</p> */}
+
             </div>
             <Collapse isOpened={isSlotsOpen}>
-                <ul className="flex flex-wrap gap-5 py-3 text-sm font-bold">
+                <ul className="grid grid-cols-4 gap-5 py-3 text-sm font-bold">
+                    <p className="col-start-1 col-end-5 p border-b-[1px] pb-2 font-normal">Резервные слоты</p>
                     {group.reserveParticipants.length !== 0 &&
                         group.reserveParticipants.map((slot) => {
                             return (
-                                <li
-                                    key={slot.slotId}
-                                    className="border-2 font-bold opacity-50 rounded-lg"
-                                >
-                                    <p>{slot.slotId}</p>
-                                    <p>
-                                        {slot.participantId === null
-                                            ? "Свободный слот"
-                                            : slot.participantName}
-                                        {/* 
-                                        {slot.participantId === "" &&
-                                            slotBusy === null &&
-                                            "Свободный слот"}
-                                        {slot.participantId === "" &&
-                                            slotBusy !== null && slot.slotId === slotBusy.slotId &&
-                                            slotBusy.message}
-                                        {slot.participantId !== "" &&
-                                            slot.participantId} */}
-                                    </p>
-                                    {slot.participantId === null && (
-                                        <button
-                                            onClick={() =>
-                                                handlePickSlot(slot.slotId)
-                                            }
-                                        >
-                                            Занять слот
-                                        </button>
-                                    )}
-                                </li>
+                                <>
+                                    
+                                    <li
+                                        key={slot.slotId}
+                                        className="border-2 font-bold opacity-50 rounded-lg flex flex-col text-center p-3"
+                                    >
+                                        <p>{slot.slotId}</p>
+                                        <p>
+                                            {slot.participantId === null
+                                                ? ""
+                                                : slot.participantName}
+                                            {/* 
+                                            {slot.participantId === "" &&
+                                                slotBusy === null &&
+                                                "Свободный слот"}
+                                            {slot.participantId === "" &&
+                                                slotBusy !== null && slot.slotId === slotBusy.slotId &&
+                                                slotBusy.message}
+                                            {slot.participantId !== "" &&
+                                                slot.participantId} */}
+                                        </p>
+                                        {slot.participantId === null && (
+                                            <button
+                                                onClick={() =>
+                                                    handlePickSlot(slot.slotId)
+                                                }
+                                            >
+                                                Занять слот
+                                            </button>
+                                        )}
+                                    </li>
+                                </>
                             );
                         })}
+                    <p className="col-start-1 col-end-5 p border-b-[1px] pb-2 font-normal">Платные слоты</p>
                     {group.paidParticipants.length !== 0 &&
                         group.paidParticipants.map((slot) => {
                             return (
                                 <li
                                     key={slot.slotId}
-                                    className="bg-[#00F087] text-darkgrey font-bold rounded-lg"
+                                    className="bg-[#00F087] text-darkgrey font-bold rounded-lg flex flex-col text-center p-3"
                                 >
                                     <p>{slot.slotId}</p>
                                     <p>
@@ -117,12 +123,13 @@ export const ChooseGroupSlotsParticipation = ({
                                 </li>
                             );
                         })}
+                    <p className="col-start-1 col-end-5 p border-b-[1px] pb-2 font-normal">Обычные слоты</p>
                     {group.participants.length !== 0 &&
                         group.participants.map((slot) => {
                             return (
                                 <li
                                     key={slot.slotId}
-                                    className="bg-yellow text-darkgrey font-bold rounded-lg"
+                                    className="bg-yellow text-darkgrey font-bold rounded-lg flex flex-col text-center p-3"
                                 >
                                     <p>{slot.slotId}</p>
                                     <p>

@@ -16,6 +16,8 @@ import {
     loadUserProfile
 } from "../store/reducers/userSlice";
 
+import moment from "moment";
+
 export const ChooseStageGroupParticipation = () => {
     const [currentStage, setCurrentStage] = useState();
     const { eventId, participantId } = useParams();
@@ -60,7 +62,7 @@ export const ChooseStageGroupParticipation = () => {
                     </NavLink>
                     <main className="wrap pt-28 text-white pb-20">
                         <h1 className="h1">Запись на событие</h1>
-                        <div>
+                        <div className="space-y-3 my-4">
                             <h3 className="h3">Выберите этап</h3>
                             <ul className="flex flex-wrap gap-1 text-sm font-bold pt-3">
                                 {event.stages.map((stage) => (
@@ -68,8 +70,8 @@ export const ChooseStageGroupParticipation = () => {
                                         className={
                                             currentStage &&
                                             currentStage.id === stage.id
-                                                ? `w-[106px] text-center bg-yellow rounded text-darkgrey py-1`
-                                                : `w-[106px] text-center bg-grey rounded py-1`
+                                                ? `w-[106px] text-center bg-yellow rounded text-darkgrey py-2`
+                                                : `w-[106px] text-center bg-grey rounded py-2`
                                         }
                                         key={stage.id}
                                     >
@@ -91,12 +93,12 @@ export const ChooseStageGroupParticipation = () => {
                                         <h3 className="h3">{event.title}</h3>
                                         <p className="p">{event.type}</p>
                                     </div>
-                                    <div>
+                                    <div className="text-end">
                                         <h3 className="h3">
                                             {currentStage.name}
                                         </h3>
                                         <p className="p">
-                                            {currentStage.stageStart}
+                                            { moment(currentStage.stageStart).format("YYYY-MM-DD")}
                                         </p>
                                     </div>
                                 </div>
@@ -155,7 +157,7 @@ export const ChooseStageGroupParticipation = () => {
                             </div>
                             <div className="flex justify-between items-center py-3 border-b-[1px] border-white/30">
                                 <h3 className="h3">Доступные группы</h3>
-                                <p className="p">???</p>
+                                {/* <p className="p">???</p> */}
                             </div>
                             <ul className="space-y-3">
                                 {currentStage &&

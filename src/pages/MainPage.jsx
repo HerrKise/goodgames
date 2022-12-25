@@ -60,18 +60,18 @@ export const MainPage = () => {
                 <MainContests offers={offers} />
                 <MainNews />
             </main>
-            <footer className="p-4 bg-grey/30 rounded-lg shadow  md:p-6 dark:bg-gray-800 pb-24">
-                <div className="wrap md:flex md:items-center md:justify-between">
+            <footer className="p-4 bg-darkgrey rounded-lg shadow  md:p-6 dark:bg-gray-800 pb-24">
+                <div className=" md:flex md:items-center md:justify-between">
                     <span className="text-sm text-white/50 sm:text-center dark:text-gray-400">© 2022 GoodGames™ </span>
                     <ul className="flex flex-wrap items-center mt-3 text-sm text-white/50 dark:text-white/40 sm:mt-0">
                         <li>
-                            <a href="/policy" className="mr-4 hover:underline md:mr-6 ">Policy</a>
+                            <a href="/policy" className="mr-4 hover:underline md:mr-6 ">Политика конфиденциальности</a>
                         </li>
                         <li>
-                            <a href="/personal-data" className="mr-4 hover:underline md:mr-6">Personal Data</a>
+                            <a href="/personal-data" className="mr-4 hover:underline md:mr-6">Политика обработки персональных данных</a>
                         </li>
                         <li>
-                            <a href="/terms-of-use" className="mr-4 hover:underline md:mr-6">Terms of use</a>
+                            <a href="/terms-of-use" className="mr-4 hover:underline md:mr-6">Пользовательское соглашение</a>
                         </li>
                     </ul>
                 </div>

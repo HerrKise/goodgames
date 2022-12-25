@@ -75,7 +75,7 @@ export const Tournaments = ({tournaments}) => {
                                         <p className=" md:text-sm">100/2040</p>
                                     </div>
                                     <div className="bg-yellow px-4 py-1 rounded-full text-darkgrey font-bold  md:text-base">
-                                        {tournament.prize.pool}
+                                        {tournament.prize.pool} ₽
                                     </div>
                                 </div>
                             </div>

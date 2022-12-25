@@ -7,8 +7,8 @@ export const NewsList = ({news}) => {
         <ul className="space-y-4 ">
             {news.map((newsitem, i) => {
                 return (
-                    <li key={i} className="bg-grey p-4 space-y-[10px] relative rounded-xl">
-                        <div className="bg-gradient-to-b from-darkgrey to-0 w-full h-full absolute top-0 left-0"></div>
+                    <li key={i} className="bg-grey p-4 space-y-[10px] relative rounded-xl group">
+                        <div className="hidden group-first:block bg-gradient-to-b from-darkgrey to-0 w-full h-full absolute top-0 left-0"></div>
                         <div className="relative z-10">
                             <div className="flex w-full justify-between items-center mb-1">
                                 <h3 className="h3">{newsitem.title}</h3>

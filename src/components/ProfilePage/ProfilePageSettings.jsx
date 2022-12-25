@@ -148,7 +148,7 @@ export const ProfilePageSettings = () => {
                 <form className="pt-5 space-y-[10px]" onSubmit={handleSubmit}>
                     <h3 className="text-base md:text-xl">Основное</h3>
                     <div className="bg-grey w-full py-4 px-7 rounded-lg text-center text-sm font-bold flex flex-col items-center">
-                        <div className="w-40 h-40 rounded-full relative overflow-clip mb-3">
+                        <label htmlFor="avatar" className="w-40 h-40 rounded-full relative overflow-clip mb-3">
                             {console.log(picture)}
                             {picture ? (
                                 <img
@@ -170,7 +170,7 @@ export const ProfilePageSettings = () => {
                                     />
                                 </svg>
                             )}
-                        </div>
+                        </label>
                         <input
                             type="file"
                             name="avatar"
