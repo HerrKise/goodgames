@@ -1,36 +1,15 @@
 
 
-export const TournamentStatistics = () => {
-
-    const results = [
-        {
-            name: "firstgroup",
-            wins: "3",
-            kills: "234",
-            total: "1231"
-        },
-        {
-            name: "secondgroupGGGGGGG",
-            wins: "24",
-            kills: "2343",
-            total: "12314"
-        },
-        {
-            name: "third",
-            wins: "13",
-            kills: "233",
-            total: "12312"
-        }
-    ]
+export const TournamentStatistics = ({results}) => {
 
     return (
-        <div className="text-p grid grid-cols-5 gap-3 py-6">
+        <div className="text-base grid grid-cols-6 gap-3 py-6 md:text-lg">
             <div className="flex items-center justify-center">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M13.3483 3.17914L12.6933 6.66664H8.555L9.15167 3.48747L7.515 3.17914L6.86 6.66664H3.33333V8.3333H6.5475L5.92167 11.6666H2.5V13.3333H5.60917L5.01417 16.5041L6.65167 16.8116L7.305 13.3333H11.4433L10.8483 16.5041L12.4858 16.8116L13.1383 13.3333H16.6667V11.6666H13.4508L14.0767 8.3333H17.5V6.66664H14.3892L14.9858 3.48747L13.3483 3.17914ZM11.755 11.6666H7.6175L8.24333 8.3333H12.3817L11.755 11.6666Z" fill="white"/>
                 </svg>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center col-span-2">
                 <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path opacity="0.5" fillRule="evenodd" clipRule="evenodd" d="M2.72692 3C2.72692 2.20435 3.07176 1.44129 3.68559 0.878679C4.29941 0.31607 5.13193 0 6 0C6.86807 0 7.70059 0.31607 8.31441 0.878679C8.92824 1.44129 9.27308 2.20435 9.27308 3C9.27308 3.79565 8.92824 4.55871 8.31441 5.12132C7.70059 5.68392 6.86807 6 6 6C5.13193 6 4.29941 5.68392 3.68559 5.12132C3.07176 4.55871 2.72692 3.79565 2.72692 3ZM8.68481e-05 12.4033C0.0246133 10.9596 0.667534 9.5827 1.79007 8.56971C2.9126 7.55673 4.42471 6.98896 6 6.98896C7.57529 6.98896 9.0874 7.55673 10.2099 8.56971C11.3325 9.5827 11.9754 10.9596 11.9999 12.4033C12.0018 12.5005 11.9727 12.5961 11.9163 12.6784C11.8598 12.7607 11.7784 12.8261 11.6821 12.8667C9.89945 13.6158 7.96105 14.0024 6 14C3.9736 14 2.04831 13.5947 0.317939 12.8667C0.221555 12.8261 0.140157 12.7607 0.0837046 12.6784C0.0272526 12.5961 -0.00180516 12.5005 8.68481e-05 12.4033Z" fill="white"/>
                 </svg>
@@ -54,7 +33,7 @@ export const TournamentStatistics = () => {
                 return (
                     <>
                         <div className="flex items-center justify-center">{[i+1]}</div>
-                        <div className="truncate flex items-center">{group.name}</div>
+                        <div className="truncate flex items-center col-span-2">{group.name}</div>
                         <div className="flex items-center justify-center">{group.wins}</div>
                         <div className="flex items-center justify-center">{group.kills}</div>
                         <div className="flex items-center justify-center">{group.total}</div>

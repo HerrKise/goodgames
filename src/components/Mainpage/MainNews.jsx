@@ -29,7 +29,7 @@ export const MainNews = () => {
           return (
             <li
               key={i}
-              className="h-[220px] bg-gray-800 rounded-2xl px-2 py-3 relative overflow-clip group first:col-span-2 first:h-[360px]"
+              className="h-[220px] bg-gray-800 rounded-2xl px-2 py-3 relative overflow-clip group first:col-span-2 first:h-[360px] md:h-[320px] md:p-5"
             >
               <img
                 src={placeholder}
@@ -39,7 +39,7 @@ export const MainNews = () => {
               <div className="absolute bottom-0 left-0 h-full w-full bg-gradient-to-t from-[#191919] to-0 group-first:bg-gradient-to-br"></div>
               <div className="w-full h-full flex flex-col justify-between items-start relative z-10 group-first:justify-start group-first:space-y-2">
                 <div className="space-y-2">
-                  <p className="text-[10px] leading-2">{newsitem.date}</p>
+                  <p className="text-[10px] leading-2 md:text-lg">{newsitem.date}</p>
                   <h3 className="h3">{newsitem.title}</h3>
                 </div>
                 <p className="p">{newsitem.description}</p>

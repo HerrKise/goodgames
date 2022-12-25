@@ -1,6 +1,5 @@
 import { Header } from "../UI/Header"
 import { NavBar } from "../UI/NavBar"
-import { TournamentFilter } from "./TournamentFilter"
 import { TournamentStatistics } from "./TournamentStatistics"
 import { TournamentTop } from "./TournamentTop"
 import { Link } from 'react-router-dom'
@@ -11,10 +10,43 @@ export const TournamentList = () => {
         title: "PUBG Mobile Club Open Fall Splint 2022 CIS",
     }
 
+    const results = [
+        {
+            name: "firstgroup",
+            wins: "33",
+            kills: "642",
+            total: "35314"
+        },
+        {
+            name: "secondgroupGGGGGGG",
+            wins: "12",
+            kills: "157",
+            total: "13054"
+        },
+        {
+            name: "third",
+            wins: "5",
+            kills: "89",
+            total: "5732"
+        },
+        {
+            name: "444Fourth",
+            wins: "2",
+            kills: "23",
+            total: "3237"
+        },
+        {
+            name: "5group5555",
+            wins: "0",
+            kills: "3",
+            total: "120"
+        }
+    ]
+
     return (
         <div className="bg-darkgrey min-h-[100vh]">
             <Header/>
-            <main className="text-white pb-20 pt-24 wrap space-y-5">
+            <main className="text-white pb-20 pt-24 wrap space-y-5 md:pb-40">
                 <h1 className="h1">Турнирная сетка</h1>
                 <div className="flex items-center space-x-2 mt-3">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,9 +61,8 @@ export const TournamentList = () => {
                     </svg>
                     <p className="p opacity-50">{tournament1.title}</p>
                 </div>
-                <TournamentFilter/>
-                <TournamentTop/>
-                <TournamentStatistics/>
+                <TournamentTop results={results}/>
+                <TournamentStatistics results={results}/>
                 <div className="bg-[#26262633] w-full rounded-xl p-4">
                     <Link className="flex items-center justify-center">
                         <h3 className="h3 flex space-x-2 items-center">

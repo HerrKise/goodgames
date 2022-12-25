@@ -14,15 +14,15 @@ export const MainOffers = ({ offers }) => {
       <h1 className=" wrap h1">Предложения</h1>
       <Swiper
         spaceBetween={12}
-        loop={true}
+        // loop={true}
         slidesPerView={"auto"}
-        className="h-[230px] my-5 px-3"
+        className="h-[230px] my-5 px-3 md:h-[320px] md:pl-[calc(50%-290px)] md:my-8"
       >
         {offers.map((offer, i) => {
           return (
             <SwiperSlide
               key={i}
-              className="w-[170px] h-full bg-gray-800 rounded-2xl px-2 py-3 relative overflow-clip"
+              className="w-[170px] h-full bg-gray-800 rounded-2xl px-2 py-3 relative overflow-clip md:w-[280px] md:p-5"
             >
               <img
                 src={placeholder}
@@ -34,7 +34,7 @@ export const MainOffers = ({ offers }) => {
                 <h3 className="h3">{offer.title}</h3>
                 <div className="space-y-2">
                   <p className="p">{offer.description}</p>
-                  <p className="text-[10px] leading-2">{offer.date}</p>
+                  <p className="text-[10px] leading-2 md:text-base">{offer.date}</p>
                 </div>
               </div>
             </SwiperSlide>

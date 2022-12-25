@@ -131,7 +131,7 @@ const Teams = () => {
     return (
         <div className="bg-darkgrey min-h-[100vh]">
             <Header />
-            <main className="wrap pt-28 text-white pb-20 space-y-5">
+            <main className="wrap pt-28 text-white pb-20 space-y-5 max-w-[500px] md:pb-40">
                 <div className="w-full bg-[#26262633] rounded-lg relative">
                     <input
                         type="text"
@@ -252,7 +252,7 @@ const Teams = () => {
                 </div>
                 <h1 className="h1">Создать команду</h1>
                 <form className="space-y-3" onSubmit={handleSubmit}>
-                    <div className="bg-grey w-full py-4 px-7 rounded-lg text-center text-sm font-bold flex flex-col items-center">
+                    <div className="bg-grey w-full py-4 px-7 rounded-lg text-center text-sm font-bold flex flex-col items-center md:text-base">
                         <input
                             type="file"
                             name="avatar"
@@ -279,7 +279,7 @@ const Teams = () => {
 
                     <button
                         type="submit"
-                        className="w-full rounded-lg bg-yellow py-4 text-darkgrey text-sm font-bold"
+                        className="w-full rounded-lg bg-yellow py-4 text-darkgrey text-sm font-bold md:text-base"
                     >
                         Создать команду
                     </button>
