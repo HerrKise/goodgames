@@ -10,7 +10,7 @@ import {
     getUserLoadingStatus,
     getUserProfileData,
     loadUserProfile,
-    updatePicture,
+    updatePicture
 } from "../../store/reducers/userSlice.js";
 import { NavLink } from "react-router-dom";
 import { API_URL } from "../../http/index.js";
@@ -32,7 +32,7 @@ export const ProfilePageSettings = () => {
     const [profPic, setProfPic] = useState([]);
 
     useEffect(() => {
-        if (isLoading === false) {
+        if (selector) {
             changeName(selector.name);
             changePubgId(selector.pubgId);
             changeEmail(selector.email);
@@ -46,12 +46,13 @@ export const ProfilePageSettings = () => {
     }, [isLoading]);
 
     useEffect(() => {
-        if (userId) {
-            dispatch(loadUserProfile({ userId: userId }));
-        }
+        dispatch(loadUserProfile());
     }, []);
 
-    const picture = `${API_URL + selector?.profilePicture?.path}` || "";
+    const picture =
+        selector && selector.profilePicture !== null
+            ? `${API_URL + selector?.profilePicture?.path}`
+            : "";
 
     const handleNameChange = (e) => {
         changeName(e.target.value);
@@ -96,8 +97,8 @@ export const ProfilePageSettings = () => {
                 discord: discord,
                 youtube: youTube,
                 nickname: nickname,
-                pubgId: pubgId,
-            }),
+                pubgId: pubgId
+            })
         );
         if (profPic.length !== 0) {
             let formData = new FormData();
@@ -129,8 +130,8 @@ export const ProfilePageSettings = () => {
             updatePassword({
                 currentPassword: password,
                 newPassword: newPassword,
-                confirmNewPassword: confirmNewPassword,
-            }),
+                confirmNewPassword: confirmNewPassword
+            })
         );
         setPassword("");
         setNewPassword("");
@@ -148,6 +149,7 @@ export const ProfilePageSettings = () => {
                     <h3 className="text-base md:text-xl">Основное</h3>
                     <div className="bg-grey w-full py-4 px-7 rounded-lg text-center text-sm font-bold flex flex-col items-center">
                         <label htmlFor="avatar" className="w-40 h-40 rounded-full relative overflow-clip mb-3">
+                            {console.log(picture)}
                             {picture ? (
                                 <img
                                     src={picture}
@@ -269,7 +271,9 @@ export const ProfilePageSettings = () => {
                         <span>Изменить пароль</span>
                     </button>
                 </form>
-                <h3 className="pt-5 text-base md:text-xl">Верификация аккаунта</h3>
+                <h3 className="pt-5 text-base md:text-xl">
+                    Верификация аккаунта
+                </h3>
                 <p className="p py-3">
                     Верификация аккаунта на нашем сервисе нужна для того, чтобы
                     наши пользователи могли пользоваться всеми услугами, которые
