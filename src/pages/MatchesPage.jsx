@@ -1,35 +1,23 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MatchesList } from "../components/MatchesPage/MatchesList";
 import { Header } from "../components/UI/Header";
 import { NavBar } from "../components/UI/NavBar";
 import {
     getUserLoadingStatus,
-    getUserProfileData
+    getUserProfileData,
+    loadUserProfile
 } from "../store/reducers/userSlice";
+import { useEffect } from "react";
 
 export const MatchesPage = () => {
-    const matches = useSelector(getUserProfileData())?.matches;
+    const dispatch = useDispatch();
+    const user = useSelector(getUserProfileData());
+    const matches = user && user.matches;
     const isLoading = useSelector(getUserLoadingStatus());
-    const tournament1 = {
-        title: "PUBG Mobile Club Open Fall Splint 2022 CIS"
-    };
 
-    const commands = [
-        {
-            title: "GoodGames",
-            confirmed: true,
-            stages: 2,
-            availablestages: 5,
-            matchResult: false
-        },
-        {
-            title: "GoodGames2",
-            confirmed: false,
-            stages: 1,
-            availablestages: 1,
-            matchResult: "Турнир проигран"
-        }
-    ];
+    useEffect(() => {
+        dispatch(loadUserProfile());
+    }, []);
 
     return (
         <div className="bg-darkgrey min-h-[100vh]">
@@ -59,7 +47,7 @@ export const MatchesPage = () => {
                                 </clipPath>
                             </defs>
                         </svg>
-                        <p className="p opacity-50">{tournament1.title}</p>
+                        {/* <p className="p opacity-50">{tournament1.title}</p> */}
                     </div>
                     {/* <p className="p opacity-50">Выберите команду</p> */}
                 </div>
