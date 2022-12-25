@@ -27,6 +27,24 @@ export const MainPage = () => {
             description:
                 "Комп не тянет игры? Играй через облачный игровой сервис с крутой графикой даже на калькуляторе!",
             date: "30.07.2022"
+        },
+        {
+            title: "Бесплатные мини-турниры",
+            description:
+                "Комп не тянет игры? Играй через облачный игровой сервис с крутой графикой даже на калькуляторе!",
+            date: "30.07.2022"
+        },
+        {
+            title: "Реферальная программа",
+            description:
+                "А ниже вы можете посмотреть примеры баннеров для сайта игр. Баннеры для Warface",
+            date: "30.07.2022"
+        },
+        {
+            title: "Бесплатные мини-турниры",
+            description:
+                "Комп не тянет игры? Играй через облачный игровой сервис с крутой графикой даже на калькуляторе!",
+            date: "30.07.2022"
         }
     ];
 
@@ -42,6 +60,22 @@ export const MainPage = () => {
                 <MainContests offers={offers} />
                 <MainNews />
             </main>
+            <footer className="p-4 bg-grey/30 rounded-lg shadow  md:p-6 dark:bg-gray-800 pb-24">
+                <div className="wrap md:flex md:items-center md:justify-between">
+                    <span className="text-sm text-white/50 sm:text-center dark:text-gray-400">© 2022 GoodGames™ </span>
+                    <ul className="flex flex-wrap items-center mt-3 text-sm text-white/50 dark:text-white/40 sm:mt-0">
+                        <li>
+                            <a href="/policy" className="mr-4 hover:underline md:mr-6 ">Policy</a>
+                        </li>
+                        <li>
+                            <a href="/personal-data" className="mr-4 hover:underline md:mr-6">Personal Data</a>
+                        </li>
+                        <li>
+                            <a href="/terms-of-use" className="mr-4 hover:underline md:mr-6">Terms of use</a>
+                        </li>
+                    </ul>
+                </div>
+            </footer>
             <NavBar />
         </div>
     );

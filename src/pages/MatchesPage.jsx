@@ -61,7 +61,7 @@ export const MatchesPage = () => {
                         </svg>
                         <p className="p opacity-50">{tournament1.title}</p>
                     </div>
-                    <p className="p opacity-50">Выберите команду</p>
+                    {/* <p className="p opacity-50">Выберите команду</p> */}
                 </div>
                 {!isLoading && matches && <MatchesList matches={matches} />}
             </main>

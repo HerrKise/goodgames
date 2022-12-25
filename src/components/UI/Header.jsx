@@ -28,13 +28,19 @@ export const Header = () => {
     return (
         <>
             <header className="absolute -0 w-full h-[84px] z-[100]">
-                <div className="wrap flex justify-between items-center py-7">
-                    <Link className="w-[132px] h-auto" to="/">
+                <div className="wrap flex justify-between items-center py-7 md:py-9">
+                    <Link className="w-[132px] h-auto md:w-[160px]" to="/">
                         <img src={logo} alt="logo" />
                     </Link>
                     <div className="flex space-x-6">
-
-                        {user && user.coins && <p>COINS: {user.coins}</p>}
+                        {user && user.coins && 
+                            <div className="flex items-center text-white">
+                                <svg width="26" height="18" viewBox="0 0 26 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.6567 0C6.3676 0 0 1.95673 0 5.69553C0 9.43432 6.3676 11.3911 12.6567 11.3911C18.9471 11.3911 25.3134 9.43432 25.3134 5.69553C25.3134 1.95673 18.9471 0 12.6567 0ZM6.32836 12.5783V16.3753C7.894 16.7537 9.62544 16.9853 11.3911 17.06V13.263C9.68553 13.1965 7.99026 12.9673 6.32836 12.5783ZM13.9224 13.2617V17.0587C15.628 16.9936 17.3234 16.7643 18.9851 16.374V12.577C17.3234 12.9673 15.628 13.1966 13.9224 13.2617ZM21.5164 11.767V15.564C23.7959 14.6084 25.3134 13.2136 25.3134 11.3911V7.59403C25.3134 9.4166 23.7959 10.8114 21.5164 11.767ZM3.79702 15.564V11.767C1.51881 10.8114 0 9.41534 0 7.59403V11.3911C0 13.2124 1.51881 14.6084 3.79702 15.564Z" fill="#FFE800"/>
+                                </svg>
+                                <span className="ml-2">{user.coins}</span>
+                            </div>
+                        }
                         <button className="hidden">
                             <svg
                                 width="19"
@@ -85,15 +91,23 @@ export const Header = () => {
                 </div>
             </header>
             <header
-                className="fixed -0 w-full z-[100] transition-all duration-1000 transform-gpu pt-3 pb-5 bg-gradient-to-b from-darkgrey via-darkgrey"
+                className="fixed -0 w-full z-[100] transition-all duration-1000 transform-gpu pt-5 pb-7 bg-gradient-to-b from-darkgrey via-darkgrey md:py-9"
                 id="navbar"
                 style={{ top: "-200px" }}
             >
                 <div className="wrap flex justify-between items-center">
-                    <Link className="w-[132px] h-auto" to="/">
+                    <Link className="w-[132px] h-auto md:w-[160px]" to="/">
                         <img src={logo} alt="logo" />
                     </Link>
                     <div className="flex items-center justify-end gap-[25px]">
+                        {user && user.coins && 
+                            <div className="flex items-center text-white">
+                                <svg width="26" height="18" viewBox="0 0 26 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.6567 0C6.3676 0 0 1.95673 0 5.69553C0 9.43432 6.3676 11.3911 12.6567 11.3911C18.9471 11.3911 25.3134 9.43432 25.3134 5.69553C25.3134 1.95673 18.9471 0 12.6567 0ZM6.32836 12.5783V16.3753C7.894 16.7537 9.62544 16.9853 11.3911 17.06V13.263C9.68553 13.1965 7.99026 12.9673 6.32836 12.5783ZM13.9224 13.2617V17.0587C15.628 16.9936 17.3234 16.7643 18.9851 16.374V12.577C17.3234 12.9673 15.628 13.1966 13.9224 13.2617ZM21.5164 11.767V15.564C23.7959 14.6084 25.3134 13.2136 25.3134 11.3911V7.59403C25.3134 9.4166 23.7959 10.8114 21.5164 11.767ZM3.79702 15.564V11.767C1.51881 10.8114 0 9.41534 0 7.59403V11.3911C0 13.2124 1.51881 14.6084 3.79702 15.564Z" fill="#FFE800"/>
+                                </svg>
+                                <span className="ml-2">{user.coins}</span>
+                            </div>
+                        }
                         <button className="hidden">
                             <svg
                                 width="19"
