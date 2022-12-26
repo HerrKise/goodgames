@@ -50,7 +50,7 @@ export const CommandItem = ({ match, i }) => {
                             <img
                                 src={picture}
                                 alt="userpic"
-                                className="h-full w-full object-center object-cover"
+                                className="h-full w-full object-center object-cover rounded-full"
                             />
                         ) : (
                             <svg
@@ -70,7 +70,7 @@ export const CommandItem = ({ match, i }) => {
                     {match.event.regime === "Solo" ? (
                         <h3 className="h3">Участник: {user.profile.login}</h3>
                     ) : (
-                        <h3 className="h3">Участник: команда {match.id}</h3>
+                        <h3 className="h3">Команда: {match.id}</h3>
                     )}
                 </div>
                 {match.isApproved === "True" && (

@@ -25,7 +25,7 @@ export const MatchesPage = () => {
             <main className="wrap pt-28 text-white pb-20">
                 <div className="space-y-4">
                     <h1 className="h1">Мои матчи</h1>
-                    <div className="flex items-center space-x-2 mt-3">
+                    {/* <div className="flex items-center space-x-2 mt-3">
                         <svg
                             width="14"
                             height="14"
@@ -47,8 +47,8 @@ export const MatchesPage = () => {
                                 </clipPath>
                             </defs>
                         </svg>
-                        {/* <p className="p opacity-50">{tournament1.title}</p> */}
-                    </div>
+                        <p className="p opacity-50">{tournament1.title}</p>
+                    </div> */}
                     {/* <p className="p opacity-50">Выберите команду</p> */}
                 </div>
                 {!isLoading && matches && <MatchesList matches={matches} />}

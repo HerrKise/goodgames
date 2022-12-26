@@ -23,9 +23,9 @@ const UserBoughtItems = () => {
                 <img src={logopic} alt="logopic" className="w-[132px]" />
             </NavLink>
             <div className="wrap pt-28 text-white pb-20">
-                <h1 className="h1">Приобретенные товары</h1>
+                <h1 className="h1 text-center">Приобретенные товары</h1>
                 <ul className="space-y-3 mt-3">
-                    {user.purchasedShopItems === []
+                    {user.purchasedShopItems !== []
                         ? user.purchasedShopItems.map((item) => {
                               return (
                                   <li
@@ -37,7 +37,8 @@ const UserBoughtItems = () => {
                                   </li>
                               );
                           })
-                        : <li className="p">Товаров пока нет</li>}
+                        : <li className="p">Товаров пока нет</li>    
+                    }
                 </ul>
             </div>
         </section>
