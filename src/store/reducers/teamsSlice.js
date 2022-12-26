@@ -1,5 +1,6 @@
 import { createSlice, createAction } from "@reduxjs/toolkit";
 import teamService from "../../services/team.service";
+import { toast } from "react-toastify";
 
 const initialState = {
     entities: null,
@@ -10,7 +11,7 @@ const initialState = {
     selectedTeamByCode: null,
     code: null,
     teammates: null,
-    managerCode: null,
+    managerCode: null
 };
 
 export const teamsSlice = createSlice({
@@ -84,8 +85,8 @@ export const teamsSlice = createSlice({
         teammatesRequestFailed: (state, action) => {
             state.error = action.payload;
             state.isLoading = false;
-        },
-    },
+        }
+    }
 });
 
 export const { reducer: teamsReducer, actions } = teamsSlice;
@@ -108,7 +109,7 @@ export const {
     teammatesRequestFailed,
     getManagerCodeRequested,
     getManagerCodeReceived,
-    getManagerCodeFailed,
+    getManagerCodeFailed
 } = actions;
 
 const createTeamsRequested = createAction("teams/createTeamsRequested");
@@ -165,7 +166,8 @@ export const createTeams = (payload) => async (dispatch) => {
         dispatch(createTeamsSuccess());
         dispatch(loadMyTeams());
     } catch (e) {
-        dispatch(createTeamsFailed(e.responce.data.error));
+        dispatch(createTeamsFailed(e.response.data.error));
+        toast.error(e.response.data.detail);
     }
 };
 

@@ -1,4 +1,3 @@
-
 import { Tournaments } from "./Tabs/Tournaments";
 
 import { useState } from "react";
@@ -8,7 +7,7 @@ export const GamesTabs = ({ setPopupVisible, events }) => {
 
     return (
         <div>
-            <ul className="flex w-full flex-row items-center justify-between text-center text-xs font-bold rounded-xl overflow-clip bg-grey relative cursor-pointer md:text-base md:rounded-2xl">
+            <ul className="flex w-full flex-row items-center justify-between py-[13px] text-center text-xs font-bold rounded-xl overflow-clip bg-grey relative cursor-pointer">
                 {/*  */}
                 <div
                     className={`absolute top-0 left-0 w-[33%] h-full bg-yellow z-0 transition-all duration-300 ${
@@ -22,7 +21,7 @@ export const GamesTabs = ({ setPopupVisible, events }) => {
                     onClick={() => {
                         setActiveTab("Tournament");
                     }}
-                    className={`z-10 transition-all duration-300 flex-1  py-[13px] ${
+                    className={`z-10 transition-all duration-300 flex-1 ${
                         activeTab === "Tournament" && "text-darkgrey"
                     }`}
                 >
@@ -32,7 +31,7 @@ export const GamesTabs = ({ setPopupVisible, events }) => {
                     onClick={() => {
                         setActiveTab("MiniTournament");
                     }}
-                    className={`z-10 transition-all duration-300 flex-1  py-[13px] ${
+                    className={`z-10 transition-all duration-300 flex-1 ${
                         activeTab === "MiniTournament" && "text-darkgrey"
                     }`}
                 >
@@ -42,7 +41,7 @@ export const GamesTabs = ({ setPopupVisible, events }) => {
                     onClick={() => {
                         setActiveTab("Practice");
                     }}
-                    className={`z-10 transition-all duration-300 flex-1  py-[13px] grid place-items-center  ${
+                    className={`z-10 transition-all duration-300 flex-1 grid place-items-center  ${
                         activeTab === "Practice" && "text-darkgrey"
                     }`}
                 >
@@ -88,7 +87,6 @@ export const GamesTabs = ({ setPopupVisible, events }) => {
                     <span>Сбросить</span>
                 </button>
             </ul>
-
             {/* <div className=" w-full aspect-square grid place-items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -104,29 +102,30 @@ export const GamesTabs = ({ setPopupVisible, events }) => {
           />
         </svg>
       </div> */}
-      <div>
-        {activeTab === "Tournament" && (
-          <Tournaments
-            tournaments={events.filter(
-              (event) => event.eventType === "Tournament"
-            )}
-          />
-        )}
-        {activeTab === "MiniTournament" && (
-          <Tournaments
-            tournaments={events.filter(
-              (event) => event.eventType === "MiniTournament"
-            )}
-          />
-        )}
-        {activeTab === "Practice" && (
-          <Tournaments
-            tournaments={events.filter(
-              (event) => event.eventType === "Practice"
-            )}
-          />
-        )}
-      </div>
-    </div>
-  );
+
+            <div className="">
+                {activeTab === "Tournament" && (
+                    <Tournaments
+                        tournaments={events.filter(
+                            (event) => event.eventType === "Tournament"
+                        )}
+                    />
+                )}
+                {activeTab === "MiniTournament" && (
+                    <Tournaments
+                        tournaments={events.filter(
+                            (event) => event.eventType === "MiniTournament"
+                        )}
+                    />
+                )}
+                {activeTab === "Practice" && (
+                    <Tournaments
+                        tournaments={events.filter(
+                            (event) => event.eventType === "Practice"
+                        )}
+                    />
+                )}
+            </div>
+        </div>
+    );
 };

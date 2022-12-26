@@ -8,18 +8,18 @@ import "../index.css";
 
 const store = setupStore();
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+/* ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
         <Provider store={store}>
             <App />
         </Provider>
     </BrowserRouter>
-);
+); */
 
-/* ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
     <HashRouter>
         <Provider store={store}>
             <App />
         </Provider>
     </HashRouter>
-); */
+);
