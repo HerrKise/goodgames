@@ -49,7 +49,7 @@ const EventApplicationsList = () => {
                     </NavLink>
             <main className="wrap pt-28 text-white pb-20 max-w-[400px]">
                 <h1 className="h1 text-center">Список заявок на участие</h1>
-                <ul className="mt-5">
+                <ul className="mt-5 space-y-3">
                     {eventSettings.participants.map((participant) => (
                         <li key={participant.id} className="bg-grey rounded-xl p-3">
                             <div>

@@ -7,7 +7,7 @@ import logopic from "../assets/Main/logo.png"
 import { Link } from "react-router-dom";
 
 export default function Registration() {
-    const [login, changeLogin] = useState("");
+    const [name, changeName] = useState("");
     const [pubgId, changePubgId] = useState("");
     const [password, changePassword] = useState("");
     const [passwordR, changePasswordR] = useState("");
@@ -17,8 +17,8 @@ export default function Registration() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleLoginChange = (e) => {
-        changeLogin(e.target.value);
+    const handleNameChange = (e) => {
+        changeName(e.target.value);
     };
 
     const handlePubgIdChange = (e) => {
@@ -45,7 +45,7 @@ export default function Registration() {
         e.preventDefault();
         const data = {
             email: email,
-            login: login,
+            name: name,
             password: password,
             confirmPassword: passwordR,
             nickname: nickname,
@@ -65,14 +65,24 @@ export default function Registration() {
                     className="space-y-[10px]"
                     onSubmit={handleSubmit}
                 >
+                    {/* <input
+                        type="text"
+                        id="login"
+                        name="login"
+                        placeholder="Ваше имя"
+                        required
+                        value={login}
+                        onChange={handleLoginChange}
+                        className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
+                    /> */}
                     <input
                         type="text"
                         id="login"
                         name="login"
-                        placeholder="Логин"
+                        placeholder="Ваше имя"
                         required
-                        value={login}
-                        onChange={handleLoginChange}
+                        value={name}
+                        onChange={handleNameChange}
                         className="bg-[#26262633] w-full py-4 px-7 rounded-lg"
                     />
                     <input
@@ -80,7 +90,7 @@ export default function Registration() {
                         id="email"
                         name="email"
                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                        placeholder="Email"
+                        placeholder="Ваш Email"
                         value={email}
                         onChange={handleEmailChange}
                         required
@@ -100,7 +110,7 @@ export default function Registration() {
                         type="text"
                         id="nickname"
                         name="nickname"
-                        placeholder="Ник"
+                        placeholder="Ник в PUBGM"
                         value={nickname}
                         onChange={handleNicknameChange}
                         required
